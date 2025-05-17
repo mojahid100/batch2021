@@ -1,10 +1,866 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Liver</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: liver.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title id="quizTitle">Quiz the liver</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn, .flip-btn, .flashcard-nav-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover, .flip-btn:hover, .flashcard-nav-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active, .flip-btn:active, .flashcard-nav-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen, .flash-card-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .flash-card-screen {
+        display: none;
+      }
+      .flash-card {
+        background: #ffffff;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        min-height: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .flashcard-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+ diplomatic-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1 id="quizHeader">Quiz</h1>
+        <p id="lessonText">Lesson:  the liver</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <div class="flash-card-screen" id="flashCardScreen">
+        <h2>Flash Card Review</h2>
+        <p id="scoreMessage"></p>
+        <div class="flash-card" id="flashCardText"></div>
+        <button class="flip-btn" onclick="flipCard()">Flip Card</button>
+        <div class="flashcard-nav">
+          <button class="flashcard-nav-btn" id="prevFlashCardBtn" onclick="prevFlashCard()">Previous</button>
+          <button class="flashcard-nav-btn" id="nextFlashCardBtn" onclick="nextFlashCard()">Next</button>
+        </div>
+        <button class="start-btn" onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      // Configuration object for quiz content
+      const quizConfig = {
+        title: "Quiz - the liver",
+        lesson: "the liver",
+        
+  questions: [
+    {
+      text: "A 45-year-old man with a history of alcohol use disorder, chronic hepatitis C, and HIV is brought to the emergency department due to altered mental status and abdominal distension. He is disoriented and unable to provide an adequate history. He is accompanied by a friend who reports that the patient has recently been drinking heavily. The patient's breath has a sweet, sulfurous odor. Physical examination shows gynecomastia, palmar erythema, and multiple spider angiomata. The abdomen is severely distended, and dilated periumbilical veins are noted. There is 3+ bilateral lower extremity edema. Genital examination shows testicular atrophy. Neurologic examination shows disorientation and asterixis. Abdominal imaging reveals splenomegaly. Development of this patient's gynecomastia most closely resembles the pathogenesis of which of the following additional findings in this patient?",
+      choices: [
+        "A. Altered mental status",
+        "B. Dilated periumbilical veins",
+        "C. Lower extremity edema",
+        "D. Spider angiomata",
+        "E. Splenomegaly",
+        "F. Sweet, sulfurous breath odor"
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Gynecomastia and spider angiomata both result from hyperestrogenism due to impaired liver metabolism of estrogens.",
+      details: "A. Incorrect: Encephalopathy from ammonia.\nB. Incorrect: Portal hypertension.\nC. Incorrect: Hypoalbuminemia.\nD. Correct: Estrogen excess.\nE. Incorrect: Portal hypertension.\nF. Incorrect: Encephalopathy."
+    },
+    {
+      text: "About the free border of the lesser omentum, all the following are true, except:",
+      choices: [
+        "A. It is called the hepatoduodenal ligament.",
+        "B. The common bile duct is anterior and to the right.",
+        "C. It contains the hepatic veins.",
+        "D. It contains the portal vein.",
+        "E. It contains the hepatic artery."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Hepatic veins drain into the IVC, not in the hepatoduodenal ligament.",
+      details: "A. Correct: Hepatoduodenal ligament.\nB. Correct: Bile duct position.\nC. Incorrect: No hepatic veins.\nD. Correct: Portal vein present.\nE. Correct: Hepatic artery present."
+    },
+    {
+      text: "The caudate lobe is:",
+      choices: [
+        "A. Segment I.",
+        "B. Segment II.",
+        "C. Segment III.",
+        "D. Segment IV.",
+        "E. Segment V."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. The caudate lobe is segment I, between porta hepatis and IVC.",
+      details: "A. Correct: Segment I.\nB. Incorrect: Left lobe.\nC. Incorrect: Left lobe.\nD. Incorrect: Left lobe.\nE. Incorrect: Right lobe."
+    },
+    {
+      text: "About surgical anatomy of the liver, all the following are true, except:",
+      choices: [
+        "A. The caudate lobe is supplied by the right and left hepatic arteries.",
+        "B. A portal triad contains a bile duct, a hepatic artery and a portal vein.",
+        "C. Segments II and III form the part of the liver to the left of the falciform ligament.",
+        "D. The falciform ligament divides the liver into the surgical right and left lobes.",
+        "E. The hepatic veins drain into the inferior vena cava."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Surgical lobes are divided by the middle hepatic vein, not the falciform ligament.",
+      details: "A. Correct: Dual arterial supply.\nB. Correct: Portal triad components.\nC. Correct: Segments II/III left.\nD. Incorrect: Middle hepatic vein.\nE. Correct: IVC drainage."
+    },
+    {
+      text: "About liver function tests, all the following are true, except:",
+      choices: [
+        "A. Prothrombin time is markedly prolonged in patients with haemolytic jaundice.",
+        "B. Alkaline phosphatase is markedly elevated in cases of obstructive jaundice.",
+        "C. Conjugated bilirubin shows more marked elevation than the unconjugated form in cases of obstructive jaundice.",
+        "D. ALT and AST are markedly elevated in cases of viral hepatitis.",
+        "E. Serum albumin is reduced in cases of liver cirrhosis."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Prothrombin time is normal in haemolytic jaundice as the liver is healthy.",
+      details: "A. Incorrect: Normal in haemolysis.\nB. Correct: Elevated in obstruction.\nC. Correct: Conjugated bilirubin rises.\nD. Correct: Elevated in hepatitis.\nE. Correct: Reduced in cirrhosis."
+    },
+    {
+      text: "About liver injuries, all the following are true, except:",
+      choices: [
+        "A. Prognosis of liver injury depends largely on the presence of associated injuries.",
+        "B. Chest stabs higher than the 6th intercostal space do not injure the liver.",
+        "C. A stab injury in the liver causes damage only in its track.",
+        "D. A bullet injury shatters the liver.",
+        "E. In a stable patient, minor liver injuries can be treated conservatively."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Chest stabs up to the 4th intercostal space can injure the liver.",
+      details: "A. Correct: Associated injuries key.\nB. Incorrect: Higher stabs can injure.\nC. Correct: Limited to track.\nD. Correct: Bullet causes shattering.\nE. Correct: Conservative for minor."
+    },
+    {
+      text: "Isolated injury of one of the following organs is usually treated conservatively:",
+      choices: [
+        "A. Spleen.",
+        "B. Kidney.",
+        "C. Liver.",
+        "D. Colon.",
+        "E. Small intestine."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Isolated kidney injuries are often managed conservatively due to retroperitoneal tamponade.",
+      details: "A. Incorrect: Often surgical.\nB. Correct: Conservative common.\nC. Incorrect: Depends on severity.\nD. Incorrect: Surgical repair.\nE. Incorrect: Surgical repair."
+    },
+    {
+      text: "About liver injuries, one the following is true:",
+      choices: [
+        "A. The main danger of liver injury is biliary peritonitis.",
+        "B. Pringle's manoeuvre entails control of the hepatic veins.",
+        "C. Packing of liver injuries should not be tried as it wastes valuable time.",
+        "D. Suturing a liver tear can cause haematobilia.",
+        "E. All liver injuries require emergency surgery."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Suturing liver tears can cause haematobilia.",
+      details: "A. Incorrect: Bleeding is main danger.\nB. Incorrect: Controls inflow.\nC. Incorrect: Packing effective.\nD. Correct: Haematobilia risk.\nE. Incorrect: Minor can be conservative."
+    },
+    {
+      text: "Cause of liver abscess include all the following, except:",
+      choices: [
+        "A. Spread by lymphatics from acute appendicitis.",
+        "B. Spread by the portal vein from colonic diverticulitis.",
+        "C. Spread through the biliary tree from cholangitis.",
+        "D. Spread by the arterial system from a remote pyogenic focus.",
+        "E. Infection by E histolytica that reaches the liver through the portal vein."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Appendicitis causes liver abscess via portal vein, not lymphatics.",
+      details: "A. Incorrect: Portal vein spread.\nB. Correct: Portal spread.\nC. Correct: Biliary spread.\nD. Correct: Arterial spread.\nE. Correct: Amoebic via portal."
+    },
+    {
+      text: "Regarding amoebic liver abscess, all the following statements are true, except:",
+      choices: [
+        "A. E. histolytica travels from the colon to the liver through the portal vein.",
+        "B. Amoebic liver abscess contains brown fluid.",
+        "C. Differential diagnosis includes hepatocellular carcinoma.",
+        "D. Complications include empyema.",
+        "E. Surgical incision and drainage is the main line of treatment."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Metronidazole is the primary treatment, not surgical drainage.",
+      details: "A. Correct: Portal vein spread.\nB. Correct: Brown 'anchovy' fluid.\nC. Correct: HCC differential.\nD. Correct: Empyema complication.\nE. Incorrect: Metronidazole first."
+    },
+    {
+      text: "Regarding hydatid disease, all the following statements are true, except:",
+      choices: [
+        "A. Is caused by Ecchinococcus granulosus.",
+        "B. Man is the definitive host.",
+        "C. The liver is the commonest site of infection.",
+        "D. Can be diagnosed by the haemagglutination test.",
+        "E. Is resistant to treatment by metronidazole."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Dogs are the definitive host; humans are intermediate hosts.",
+      details: "A. Correct: Ecchinococcus cause.\nB. Incorrect: Dogs definitive.\nC. Correct: Liver commonest.\nD. Correct: Diagnostic test.\nE. Correct: Metronidazole ineffective."
+    },
+    {
+      text: "About liver hydatid disease, all the following statements are true, except:",
+      choices: [
+        "A. Man is the usual intermediate host.",
+        "B. Multiple cysts may be present.",
+        "C. A cyst may communicate with a bile duct.",
+        "D. Surgery should include removal of the germinal layer.",
+        "E. Surgery carries the risk of inducing an allergic reaction."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Sheep are the usual intermediate host; humans are occasional.",
+      details: "A. Incorrect: Sheep usual host.\nB. Correct: Multiple cysts possible.\nC. Correct: Bile duct communication.\nD. Correct: Germinal layer removal.\nE. Correct: Allergic risk."
+    },
+    {
+      text: "About portal hypertension, all the following statements are true, except:",
+      choices: [
+        "A. The normal portal pressure is 8-12 cm water.",
+        "B. The commonest causes of portal hypertension are viral hepatitis and alcoholism.",
+        "C. Viral hepatitis A does not cause portal hypertension.",
+        "D. Schistosomiasis carries a worse prognosis than post-hepatitis cirrhosis.",
+        "E. The most serious site of porta-systemic anastomoses is at the lower oesophagus and upper stomach."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Cirrhosis has a worse prognosis than schistosomiasis.",
+      details: "A. Correct: Normal pressure.\nB. Correct: Common causes.\nC. Correct: Hep A no hypertension.\nD. Incorrect: Cirrhosis worse.\nE. Correct: Oesophageal varices."
+    },
+    {
+      text: "To stop bleeding from oesophageal varices, the first choice is:",
+      choices: [
+        "A. Emergency porta-caval shunt.",
+        "B. Emergency splenectomy.",
+        "C. Emergency oesophageal transaction with a circular stapler.",
+        "D. Conservative treatment with beta blockers.",
+        "E. Emergency endoscopic sclerotherapy."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Endoscopic sclerotherapy or banding is first-line for bleeding varices.",
+      details: "A. Incorrect: Surgical shunt later.\nB. Incorrect: Not for varices.\nC. Incorrect: Rarely used.\nD. Incorrect: Preventive, not acute.\nE. Correct: First-line treatment."
+    },
+    {
+      text: "To prevent and treat hepatic encephalopathy, all the following methods can be used, except:",
+      choices: [
+        "A. Porta-caval shunt surgery to prevent bleeding from varices.",
+        "B. Control of bleeding from oesophageal varices by endoscopic sclerotherapy.",
+        "C. Oral intestinal antiseptics.",
+        "D. Oral lactulose.",
+        "E. Enemas."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Porta-caval shunt can cause encephalopathy.",
+      details: "A. Incorrect: Causes encephalopathy.\nB. Correct: Controls bleeding.\nC. Correct: Reduces ammonia.\nD. Correct: Lowers ammonia.\nE. Correct: Clears toxins."
+    },
+    {
+      text: "About Child's classification, all the following statements are true, except:",
+      choices: [
+        "A. There are five grades in this classification.",
+        "B. Child class A carries the best prognosis.",
+        "C. In a class B patient serum albumin lies between 30-35 g/L.",
+        "D. In a class B patient serum bilirubin lies between 2-3 mg/dL.",
+        "E. Easily-controlled ascites may be present in a Child class B patient."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Child's classification has three grades (A, B, C).",
+      details: "A. Incorrect: Three grades.\nB. Correct: A best prognosis.\nC. Correct: Albumin 30-35 g/L.\nD. Correct: Bilirubin 2-3 mg/dL.\nE. Correct: Mild ascites."
+    },
+    {
+      text: "About ascites, all the following statements are true, except:",
+      choices: [
+        "A. Malignant ascites is commonly haemorrhagic.",
+        "B. Ascites of liver cirrhosis is a transudate.",
+        "C. Ascites of tuberculous peritonitis has a protein content less than 30 g/L.",
+        "D. One of the factors that cause ascites in patients with liver cirrhosis is hypoalbuminaemia.",
+        "E. One of the sources of ascites in patients with liver cirrhosis is lymph from the surface of the liver."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Tuberculous ascites is an exudate (>30 g/L protein).",
+      details: "A. Correct: Haemorrhagic in malignancy.\nB. Correct: Cirrhosis transudate.\nC. Incorrect: Exudate >30 g/L.\nD. Correct: Hypoalbuminemia factor.\nE. Correct: Lymph source."
+    },
+    {
+      text: "One only of the following is a selective shunt operation to prevent future bleeding from oesophageal surgery:",
+      choices: [
+        "A. End to side Porta-caval shunt.",
+        "B. Distal lieno-renal shunt.",
+        "C. Proximal lieno-renal shunt.",
+        "D. Mesenterico-caval shunt.",
+        "E. TIPSS."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Distal lieno-renal shunt selectively decompresses varices.",
+      details: "A. Incorrect: Non-selective.\nB. Correct: Selective shunt.\nC. Incorrect: Non-selective.\nD. Incorrect: Non-selective.\nE. Incorrect: Non-selective."
+    },
+    {
+      text: "About the portal venous system, all the following statements are true, except:",
+      choices: [
+        "A. The portal vein is formed by the confluence of the superior and inferior mesenteric veins.",
+        "B. The portal vein is formed behind the neck of the pancreas.",
+        "C. The portal vein lies in the anterior wall of the opening to the lesser sac (foramen of Winslow).",
+        "D. The left gastric vein ends in the portal vein.",
+        "E. The rectum drains into the portal venous system."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Portal vein forms from superior mesenteric and splenic veins.",
+      details: "A. Incorrect: Splenic, not inferior mesenteric.\nB. Correct: Behind pancreas.\nC. Correct: Foramen of Winslow.\nD. Correct: Left gastric drains.\nE. Correct: Rectum portal drainage."
+    },
+    {
+      text: "About liver tumours, all the following statements are true, except:",
+      choices: [
+        "A. Benign tumours are more frequent in females.",
+        "B. Hepatocellular carcinoma (HCC) is more frequent in males.",
+        "C. Focal nodular hyperplasia is related to the use of contraceptive pills.",
+        "D. Focal nodular hyperplasia is precancerous.",
+        "E. Alfa fetoprotein is not elevated in patients with liver cell adenoma."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Focal nodular hyperplasia is not precancerous.",
+      details: "A. Correct: Benign tumors in females.\nB. Correct: HCC male predominance.\nC. Correct: Pill association.\nD. Incorrect: Not precancerous.\nE. Correct: AFP normal in adenoma."
+    },
+    {
+      text: "About liver haemangioma, one statement only is true:",
+      choices: [
+        "A. This is a rare condition.",
+        "B. Most of liver haemangiomas cause pain.",
+        "C. The best way to diagnose it is by laparoscopy.",
+        "D. Biopsy is necessary for diagnosis.",
+        "E. Surgical resection is rarely needed."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Liver haemangiomas are common and rarely need resection.",
+      details: "A. Incorrect: Common condition.\nB. Incorrect: Mostly asymptomatic.\nC. Incorrect: Imaging diagnosis.\nD. Incorrect: Biopsy avoided.\nE. Correct: Rarely resected."
+    },
+    {
+      text: "All the following statements about cholangiocarcinoma are true, except:",
+      choices: [
+        "A. Cholangiocarcinoma may affect intra or extrahepatic bile ducts.",
+        "B. Infestation with Chlonorchis sinensis is a predisposing factor.",
+        "C. The highest incidence is in the Far East.",
+        "D. It is, in fact, an adenocarcinoma.",
+        "E. Fortunately intrahepatic cholangiocarcinoma is usually discovered at an early stage."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Intrahepatic cholangiocarcinoma is usually advanced at diagnosis.",
+      details: "A. Correct: Intra/extrahepatic.\nB. Correct: Parasite risk.\nC. Correct: Far East incidence.\nD. Correct: Adenocarcinoma.\nE. Incorrect: Late diagnosis."
+    },
+    {
+      text: "All the following predispose to hepatocellular carcinoma (HCC), except:",
+      choices: [
+        "A. Hepatitis B.",
+        "B. Hepatitis C.",
+        "C. Liver cirrhosis.",
+        "D. Aflatoxin ingestion.",
+        "E. Previous irradiation of the abdomen."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Abdominal irradiation is not a risk for HCC.",
+      details: "A. Correct: Hep B risk.\nB. Correct: Hep C risk.\nC. Correct: Cirrhosis risk.\nD. Correct: Aflatoxin risk.\nE. Incorrect: Not linked."
+    },
+    {
+      text: "Regarding liver malignancy, all the following statements are true, except:",
+      choices: [
+        "A. In patients with hepatocellular carcinoma (HCC), carcinoembryonic antigen is elevated.",
+        "B. Hepatocellular carcinoma (HCC) is the commonest primary malignancy of the liver.",
+        "C. Hepatocellular carcinoma (HCC) usually develops on top of liver cirrhosis.",
+        "D. Metastases may originate from gastric adenocarcinoma.",
+        "E. With a solitary metastatic nodule from colon cancer, surgery may still be curative."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. AFP, not CEA, is elevated in HCC.",
+      details: "A. Incorrect: AFP elevated.\nB. Correct: Commonest primary.\nC. Correct: Cirrhosis association.\nD. Correct: Gastric metastases.\nE. Correct: Surgery curative."
+    },
+    {
+      text: "All the following about hepatocellular carcinoma (HCC) are true, except:",
+      choices: [
+        "A. The majority of HCCs occur on top of a previously unhealthy liver.",
+        "B. It may be multicentric.",
+        "C. The blood supply of HCC is derived from the portal vein.",
+        "D. On a triphasic CT scan HCC shows hypervascularity.",
+        "E. In the presence of characteristic CT features of HCC and markedly elevated alpha fetoprotein, there is no need for liver biopsy."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. HCC blood supply is from the hepatic artery.",
+      details: "A. Correct: Unhealthy liver.\nB. Correct: Multicentric possible.\nC. Incorrect: Hepatic artery supply.\nD. Correct: Hypervascular on CT.\nE. Correct: Biopsy not needed."
+    },
+    {
+      text: "All the following are methods of treatment of HCC, except:",
+      choices: [
+        "A. Radiotherapy.",
+        "B. Liver resection.",
+        "C. Selective chemotherapy.",
+        "D. Embolisation.",
+        "E. Percutaneous radiofrequency ablation."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. HCC is radioresistant.",
+      details: "A. Incorrect: Not effective.\nB. Correct: Resection used.\nC. Correct: Chemo used.\nD. Correct: Embolisation used.\nE. Correct: Ablation used."
+    },
+    {
+      text: "Liver metastases are commonly caused by any of the following primary cancers, except:",
+      choices: [
+        "A. Colon.",
+        "B. Testis.",
+        "C. Pancreas.",
+        "D. Stomach.",
+        "E. Rectum."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Testicular cancer metastasizes to lungs, not liver.",
+      details: "A. Correct: Colon metastasizes.\nB. Incorrect: Lung metastases.\nC. Correct: Pancreas metastasizes.\nD. Correct: Stomach metastasizes.\nE. Correct: Rectum metastasizes."
+    },
+    {
+      text: "Which of the following statements are false?",
+      choices: [
+        "A. The liver is fixed in its place by peritoneal reflections called ligaments.",
+        "B. The major part of the blood supply of the liver is derived from the hepatic artery.",
+        "C. The portal vein lies posterior to the hepatic vein and common bile duct.",
+        "D. The bile duct, portal vein and hepatic artery are contained in the lesser omentum.",
+        "E. The portal vein is formed by the union of the superior mesenteric and left gastric veins."
+      ],
+      correct: [1, 4],
+      explanation: "Correct Answer: B, E. Hepatic artery supplies 20%, and portal vein forms from superior mesenteric and splenic veins.",
+      details: "A. Correct: Ligaments fix liver.\nB. Incorrect: Portal vein 80%.\nC. Correct: Posterior position.\nD. Correct: Lesser omentum contents.\nE. Incorrect: Splenic vein."
+    },
+    {
+      text: "Which of the following statements are true?",
+      choices: [
+        "A. The left hepatic duct has a longer extrahepatic course than the right.",
+        "B. The major venous drainage is by three veins - right, middle and left hepatic veins draining directly into the inferior vena cava (IVC).",
+        "C. All the three major veins join the IVC within the liver parenchyma.",
+        "D. The functional lobes of the liver are divided by the falciform ligament.",
+        "E. The liver is divided into eight functional segments - I to IV in the left hemi-liver and V-VIII in the right hemi-liver."
+      ],
+      correct: [0, 1, 4],
+      explanation: "Correct Answer: A, B, E. Left duct longer, three veins to IVC, and eight segments correct.",
+      details: "A. Correct: Longer left duct.\nB. Correct: Three veins to IVC.\nC. Incorrect: Right vein extrahepatic.\nD. Incorrect: Cantlie’s line.\nE. Correct: Eight segments."
+    },
+    {
+      text: "Which of the following liver function tests (LFTs) are abnormal?",
+      choices: [
+        "A. Bilirubin 5-17 µmol/L",
+        "B. Alkaline phosphatase (ALP) 35-130 IU/L",
+        "C. Aspartate transaminase (AST) 55-80 IU/L",
+        "D. Alanine transaminase (ALT) 135-240 IU/L",
+        "E. Gamma-glutamyl transpeptidase (GGT) 110-148 IU/L",
+        "F. Albumin 35-50 g/L",
+        "G. Prothrombin time (PT) 12-16 s"
+      ],
+      correct: [2, 3, 4],
+      explanation: "Correct Answer: C, D, E. AST, ALT, and GGT are elevated, indicating hepatocellular damage.",
+      details: "A. Correct: Normal bilirubin.\nB. Correct: Normal ALP.\nC. Incorrect: Elevated AST.\nD. Incorrect: Elevated ALT.\nE. Incorrect: Elevated GGT.\nF. Correct: Normal albumin.\nG. Correct: Normal PT."
+    },
+    {
+      text: "Which of these clinical features are not primarily a feature of chronic liver disease?",
+      choices: [
+        "A. Jaundice",
+        "B. Muscle wasting",
+        "C. Bruising",
+        "D. Oliguria",
+        "E. Ascites and splenomegaly",
+        "F. Thirst",
+        "G. Confusion"
+      ],
+      correct: [3, 5],
+      explanation: "Correct Answer: D, F. Oliguria and thirst are not primary features of chronic liver disease.",
+      details: "A. Correct: Jaundice common.\nB. Correct: Muscle wasting.\nC. Correct: Bruising.\nD. Incorrect: Not primary.\nE. Correct: Ascites/splenomegaly.\nF. Incorrect: Not primary.\nG. Correct: Encephalopathy."
+    },
+    {
+      text: "Which of the following statements are true for imaging of the liver?",
+      choices: [
+        "A. Ultrasound (US) is the first-line investigation.",
+        "B. Radioisotope liver scan gives an idea of the extent of anatomical derangement.",
+        "C. The ‘gold standard’ is contrast-enhanced computed tomographic scan (CECT).",
+        "D. Magnetic resonance imaging (MRI) has advantages over CECT.",
+        "E. Angiography is best reserved when embolisation is contemplated."
+      ],
+      correct: [0, 2, 3, 4],
+      explanation: "Correct Answer: A, C, D, E. Ultrasound first, CECT gold standard, MRI advantages, angiography for embolisation.",
+      details: "A. Correct: First-line US.\nB. Incorrect: Functional scan.\nC. Correct: Gold standard.\nD. Correct: MRI advantages.\nE. Correct: Angiography for embolisation."
+    },
+    {
+      text: "Which of the following statements are false?",
+      choices: [
+        "A. Liver injuries are common.",
+        "B. Blunt trauma is often associated with splenic, mesenteric and renal injuries.",
+        "C. Penetrating trauma is often associated with pericardial or chest injuries.",
+        "D. CECT scan must be carried out in every case of liver trauma.",
+        "E. Laparoscopy as an investigation has a role."
+      ],
+      correct: [0, 3],
+      explanation: "Correct Answer: A, D. Liver injuries are rare, and CECT is not mandatory.",
+      details: "A. Incorrect: Rare due to protection.\nB. Correct: Blunt trauma associations.\nC. Correct: Penetrating associations.\nD. Incorrect: Not always needed.\nE. Correct: Laparoscopy role."
+    },
+    {
+      text: "Which of these statements are true?",
+      choices: [
+        "A. Penetrating injuries should be explored.",
+        "B. Blunt injuries are usually treated conservatively.",
+        "C. Exploration for a liver injury is best done by a long midline incision.",
+        "D. Severe crush injury is ideally treated by packing.",
+        "E. Venovenous bypass should be considered in major liver vascular injury.",
+        "F. A subcapsular or intrahepatic haematoma requires urgent laparotomy."
+      ],
+      correct: [0, 1, 3, 4],
+      explanation: "Correct Answer: A, B, D, E. Penetrating explored, blunt conservative, crush packed, bypass for vascular.",
+      details: "A. Correct: Explore penetrating.\nB. Correct: Conservative blunt.\nC. Incorrect: Rooftop incision.\nD. Correct: Packing for crush.\nE. Correct: Bypass for vascular.\nF. Incorrect: Often resolves."
+    },
+    {
+      text: "Which of the following statements are false?",
+      choices: [
+        "A. Acute haematemesis from portal hypertension occurs most commonly from gastric varices.",
+        "B. Initial endoscopic treatment of oesophageal varices with banding as opposed to injection sclerotherapy has less chance of oesophageal ulceration.",
+        "C. Long-term beta-blocker therapy coupled with sclerotherapy regime or endoscopic banding is the mainstay of treatment of portal hypertension.",
+        "D. In failed drug or endoscopic treatment, the ideal choice is the surgical shunt of portocaval anastomosis.",
+        "E. Ascites in cirrhosis can be treated by a peritoneovenous shunt."
+      ],
+      correct: [0, 3],
+      explanation: "Correct Answer: A, D. Haematemesis from oesophageal varices, TIPSS preferred over portocaval.",
+      details: "A. Incorrect: Oesophageal varices.\nB. Correct: Banding less ulceration.\nC. Correct: Mainstay treatment.\nD. Incorrect: TIPSS preferred.\nE. Correct: Shunt for ascites."
+    }
+  ],
+  flashCards: [
+    {
+      front: "A 30-year-old patient with recurrent fever, rigors, right upper quadrant pain, jaundice, itching, and CT showing intrahepatic ductal dilatation with stones. What is the diagnosis?",
+      back: "Caroli’s disease"
+    },
+    {
+      front: "A 40-year-old female with recurrent right upper quadrant pain, jaundice, history of panproctocolectomy for ulcerative colitis, and ERCP showing irregular narrowed bile ducts. What is the diagnosis?",
+      back: "Primary sclerosing cholangitis"
+    },
+    {
+      front: "A 50-year-old female with malaise, lethargy, pruritus, jaundice, raised bilirubin, transaminases, prothrombin time, recurrent haematemesis, and ascites. What is the diagnosis?",
+      back: "Primary biliary cirrhosis"
+    },
+    {
+      front: "A 30-year-old female with abdominal discomfort, distension, three episodes of haematemesis, hepatomegaly, ascites, deranged LFTs, and CT showing a congested liver. What is the diagnosis?",
+      back: "Budd-Chiari syndrome"
+    },
+    {
+      front: "A 50-year-old male with dull, aching right upper quadrant pain, normal examination and LFTs, and ultrasound showing a 6 cm solitary cystic lesion. What is the diagnosis?",
+      back: "Simple cystic disease"
+    },
+    {
+      front: "A 25-year-old male with fever, weight loss, bloodstained motions after travel to the subcontinent, tender hepatomegaly, and US showing a hypoechoic cavity in the right lobe. What is the diagnosis?",
+      back: "Amoebic liver abscess"
+    },
+    {
+      front: "A 50-year-old female with recurrent colicky right upper quadrant pain, jaundice, rigors, itching, post-cholecystectomy, raised bilirubin, ALP 1100 IU/L, and US showing dilated CBD with stones. What is the diagnosis?",
+      back: "Ascending cholangitis"
+    },
+    {
+      front: "A 35-year-old male with general ill-health, weight loss, anorexia, malaise, jaundice, no pruritus, tender hepatomegaly, and raised bilirubin/transaminases. What is the diagnosis?",
+      back: "Viral hepatitis"
+    },
+    {
+      front: "A 75-year-old diabetic male with anorexia, fever, malaise, right upper quadrant discomfort, weight loss, tender hepatomegaly, and US/CT showing a multiloculated cystic mass. What is the diagnosis?",
+      back: "Pyogenic liver abscess"
+    },
+    {
+      front: "A 50-year-old male from Cyprus with a painful right upper quadrant mass, dull ache, raised eosinophils, and CT showing a smooth lesion with multiple septa. What is the diagnosis?",
+      back: "Hydatid liver disease"
+    },
+    {
+      front: "A 35-year-old woman on the contraceptive pill with right upper quadrant pain, normal LFTs, and US/CT showing a well-circumscribed vascular solid tumour. What is the diagnosis?",
+      back: "Hepatic adenoma"
+    },
+    {
+      front: "A 40-year-old male with upper abdominal pain, weakness, weight loss, fever, hepatomegaly, raised transaminases, and high alpha-fetoprotein. What is the diagnosis?",
+      back: "Hepatocellular carcinoma (HCC)"
+    },
+    {
+      front: "A 60-year-old male with right upper quadrant pain, weight loss, jaundice, hepatomegaly, history of caecal cancer, and US/CECT showing a solid non-enhancing mass. What is the diagnosis?",
+      back: "Secondary liver metastasis"
+    },
+    {
+      front: "A 30-year-old female with blue lesions on the liver under-surface noticed during laparoscopic cholecystectomy. What is the diagnosis?",
+      back: "Haemangioma"
+    },
+    {
+      front: "A 45-year-old female with US showing a solid liver lesion and CECT showing a vascular lesion with central scarring. What is the diagnosis?",
+      back: "Focal nodular hyperplasia"
+    }
+  ]
+};
+
+      // Initialize quiz content
+      document.title = quizConfig.title;
+      document.getElementById("quizHeader").innerText = quizConfig.title;
+      document.getElementById("lessonText").innerText = `Lesson: ${quizConfig.lesson}`;
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let currentFlashCardIndex = 0;
+      let isFront = true;
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+      }
+
+      function showQuestion() {
+        const q = quizConfig.questions[currentQuestionIndex];
+        document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+        const optionsBox = document.getElementById("optionsBox");
+        optionsBox.innerHTML = ""; // Clear previous options
+
+        q.choices.forEach((choice, idx) => {
+          const btn = document.createElement("button");
+          btn.innerText = decodeHtml(choice);
+          btn.onclick = () => checkAnswer(idx, btn);
+          optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("answerBox").style.display = "none";
+        document.getElementById("detailsBtn").style.display = "none";
+        document.getElementById("detailsBox").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+
+      function checkAnswer(selectedIndex) {
+        const q = quizConfig.questions[currentQuestionIndex];
+        const answerBox = document.getElementById("answerBox");
+        const detailsBtn = document.getElementById("detailsBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+        for (let i = 0; i < optionButtons.length; i++) {
+          optionButtons[i].disabled = true;
+          optionButtons[i].style.opacity = 0.7;
+          if (q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+          } else if (i === selectedIndex && !q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect selected
+          }
+        }
+
+        if (q.correct.includes(selectedIndex)) {
+          answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+          score++;
+        } else {
+          answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+        }
+        answerBox.style.display = "block";
+        detailsBtn.style.display = "inline-block";
+        nextBtn.style.display = "inline-block";
+        updateQuestionNav();
+      }
+
+      function showDetails() {
+        const detailsBox = document.getElementById("detailsBox");
+        const q = quizConfig.questions[currentQuestionIndex];
+        detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+        detailsBox.style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizConfig.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          document.getElementById("questionBox").style.display = "none";
+          const flashCardScreen = document.getElementById("flashCardScreen");
+          flashCardScreen.style.display = "block";
+          document.getElementById("scoreMessage").innerText = `You scored ${score} out of ${quizConfig.questions.length}. Now review with flash cards!`;
+          showFlashCard();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        const navBox = document.getElementById("questionNav");
+        navBox.innerHTML = "";
+        quizConfig.questions.forEach((_, index) => {
+          const btn = document.createElement("button");
+          btn.innerText = `${index + 1}`;
+          btn.onclick = () => goToQuestion(index);
+          navBox.appendChild(btn);
+        });
+        updateQuestionNav();
+      }
+
+      function updateQuestionNav() {
+        const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+        for (let i = 0; i < navButtons.length; i++) {
+          navButtons[i].disabled = (i === currentQuestionIndex);
+          navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+        }
+      }
+
+      function showFlashCard() {
+        const card = quizConfig.flashCards[currentFlashCardIndex];
+        document.getElementById("flashCardText").innerHTML = decodeHtml(isFront ? card.front : card.back);
+        document.getElementById("prevFlashCardBtn").disabled = currentFlashCardIndex === 0;
+        document.getElementById("nextFlashCardBtn").disabled = currentFlashCardIndex === quizConfig.flashCards.length - 1;
+      }
+
+      function flipCard() {
+        isFront = !isFront;
+        showFlashCard();
+      }
+
+      function prevFlashCard() {
+        if (currentFlashCardIndex > 0) {
+          currentFlashCardIndex--;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function nextFlashCard() {
+        if (currentFlashCardIndex < quizConfig.flashCards.length - 1) {
+          currentFlashCardIndex++;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        currentFlashCardIndex = 0;
+        isFront = true;
+        document.getElementById("flashCardScreen").style.display = "none";
+        startQuiz();
+      }
+    </script>
+  </body>
 </html>
