@@ -1,10 +1,1154 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Stomach Duodenum</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: stomach-duodenum.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title id="quizTitle">Quiz Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn, .flip-btn, .flashcard-nav-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover, .flip-btn:hover, .flashcard-nav-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active, .flip-btn:active, .flashcard-nav-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen, .flash-card-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .flash-card-screen {
+        display: none;
+      }
+      .flash-card {
+        background: #ffffff;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        min-height: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .flashcard-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+ diplomatic-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1 id="quizHeader">Quiz</h1>
+        <p id="lessonText">Lesson: Placeholder</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <div class="flash-card-screen" id="flashCardScreen">
+        <h2>Flash Card Review</h2>
+        <p id="scoreMessage"></p>
+        <div class="flash-card" id="flashCardText"></div>
+        <button class="flip-btn" onclick="flipCard()">Flip Card</button>
+        <div class="flashcard-nav">
+          <button class="flashcard-nav-btn" id="prevFlashCardBtn" onclick="prevFlashCard()">Previous</button>
+          <button class="flashcard-nav-btn" id="nextFlashCardBtn" onclick="nextFlashCard()">Next</button>
+        </div>
+        <button class="start-btn" onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      // Configuration object for quiz content
+      const quizConfig = {
+        title: "Quiz - Chapter 60: Stomach and duodenum",
+        lesson: "Chapter 60: Stomach and duodenum",
+        questions: [
+  {
+    text: "A 70-year-old man comes to the office due to persistent epigastric discomfort and nausea for the past several months. He has also noticed black-colored stools on several occasions. Medical history is notable for hypertension and osteoarthritis. The patient emigrated from rural China 5 years ago to live with his daughter. He does not use tobacco, alcohol, or illicit drugs. Physical examination shows a thin male with pale mucous membranes, an enlarged left supraclavicular lymph node, and epigastric tenderness on deep palpation. Stool testing for occult blood is positive. Upper gastrointestinal endoscopy reveals a 3-cm ulceration at the gastric antrum, with a heaped-up irregular border. Biopsy from the edge of the ulcer reveals glandular structures containing intestinal-like columnar cells. Which of the following most likely predisposed this patient to his current condition?",
+    choices: [
+      "A. Chronic use of nonsteroidal anti-inflammatory drugs",
+      "B. Excessive consumption of salt-preserved foods",
+      "C. Frequent intake of high-temperature beverages",
+      "D. Functional disruption of gastroesophageal junction",
+      "E. Increased gastrin production from a pancreatic mass"
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Excessive consumption of salt-preserved foods is a known risk factor for gastric adenocarcinoma, especially in regions like rural China.",
+    details: "A. Incorrect: NSAIDs cause ulcers, less linked to cancer.\nB. Correct: Salt-preserved foods increase gastric cancer risk.\nC. Incorrect: High-temperature beverages less associated.\nD. Incorrect: GERD linked to esophageal, not gastric cancer.\nE. Incorrect: Gastrinoma causes ulcers, not primary cancer."
+  },
+  {
+    text: "A 34-year-old man comes to the office due to epigastric pain. He has had the pain for several months and describes it as being worse at night and relieved by eating. The patient has no significant medical history and takes no medications. He does not use tobacco, alcohol, or recreational drugs. The patient immigrated to the United States from China 4 years ago. Vital signs are within normal limits. Physical examination shows mild epigastric tenderness to deep palpation. Laboratory testing demonstrates iron deficiency anemia and the presence of fecal occult blood. Upper gastrointestinal endoscopy reveals a 1-cm ulcer in the first portion of the duodenum. Additional test results are pending. In addition to proton pump inhibitor therapy, which of the following would be most appropriate to prevent ulcer recurrence based on this patient’s most likely diagnosis?",
+    choices: [
+      "A. Antibiotics",
+      "B. Gastric cytoprotectants",
+      "C. Glucocorticoids",
+      "D. H2-receptor blockers",
+      "E. Prokinetic agents",
+      "F. Prostaglandin analogues"
+    ],
+    correct: [0],
+    explanation: "Correct Answer: A. Antibiotics are essential for H. pylori eradication to prevent duodenal ulcer recurrence.",
+    details: "A. Correct: H. pylori eradication prevents recurrence.\nB. Incorrect: Cytoprotectants not primary.\nC. Incorrect: Glucocorticoids not indicated.\nD. Incorrect: H2 blockers less effective.\nE. Incorrect: Prokinetics for motility, not ulcers.\nF. Incorrect: Prostaglandins not first-line."
+  },
+  {
+    text: "A 47-year-old morbidly obese woman comes to the physician seeking advice regarding weight loss. She has tried diet and exercise a number of times without success. Her other medical problems include type 2 diabetes mellitus and obstructive sleep apnea. Her body mass index is 43 kg/m2. After a discussion about available surgical options, she expresses interest in the adjustable gastric band, an inflatable silicone device that is placed around the cardiac part of the stomach. In order to encircle the stomach, the band must pass through which of the following structures?",
+    choices: [
+      "A. Falciform ligament",
+      "B. Gastrocolic ligament",
+      "C. Greater omentum",
+      "D. Lesser omentum",
+      "E. Splenorenal ligament"
+    ],
+    correct: [4],
+    explanation: "Correct Answer: E. The adjustable gastric band passes through the splenorenal ligament to encircle the stomach.",
+    details: "A. Incorrect: Falciform ligament connects liver to abdominal wall.\nB. Incorrect: Gastrocolic ligament connects stomach to colon.\nC. Incorrect: Greater omentum drapes over intestines.\nD. Incorrect: Lesser omentum connects stomach to liver.\nE. Correct: Splenorenal ligament used in band placement."
+  },
+            {
+            text: "About hydrochloric acid secretion, all the following statements are true, except:",
+            choices: [
+              "A. Parietal cells are present in the body and fundus of the stomach.",
+              "B. G cells secrete gastrin in response to gastric wall distension.",
+              "C. The nerves of Latarjet stimulate hydrochloric acid secretion.",
+              "D. Calcium stimulates secretion of the hormone gastrin.",
+              "E. Blocking the proton pump inhibits acid secretion."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Nerves of Latarjet are motor nerves for gastric evacuation, not acid secretion.",
+            details: "A. Correct: Parietal cells in body/fundus.\nB. Correct: G cells respond to distension.\nC. Incorrect: Latarjet nerves for motility.\nD. Correct: Calcium stimulates gastrin.\nE. Correct: Proton pump inhibition reduces acid."
+          },
+          {
+            text: "All the following physiological factors are involved in protection of the gastric wall against ulceration, except:",
+            choices: [
+              "A. Mucus secretion.",
+              "B. Reflux of alkaline bile from the duodenum.",
+              "C. Bicarbonate secretion.",
+              "D. Gastric epithelial regeneration.",
+              "E. High blood flow of the stomach."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Duodenogastric reflux can cause alkaline gastritis, not protect mucosa.",
+            details: "A. Correct: Mucus protects.\nB. Incorrect: Reflux harmful.\nC. Correct: Bicarbonate neutralizes acid.\nD. Correct: Regeneration repairs mucosa.\nE. Correct: Blood flow supports barrier."
+          },
+          {
+            text: "All the following statements about congenital hypertrophic pyloric stenosis are true, except:",
+            choices: [
+              "A. Is more common in female infants.",
+              "B. Most commonly presents in the first two days of life.",
+              "C. Is characterized by bilious vomiting.",
+              "D. Results in metabolic acidosis.",
+              "E. Is diagnosed by ultrasound examination."
+            ],
+            correct: [0, 1, 2, 3],
+            explanation: "Correct Answer: A, B, C, D. Pyloric stenosis is more common in males, presents at 2-3 weeks, has non-bilious vomiting, and causes alkalosis.",
+            details: "A. Incorrect: More common in males.\nB. Incorrect: Presents at 2-3 weeks.\nC. Incorrect: Non-bilious vomiting.\nD. Incorrect: Causes alkalosis.\nE. Correct: Diagnosed by ultrasound."
+          },
+          {
+            text: "All the following inhibit the gastric mucosal barrier, except:",
+            choices: [
+              "A. Prostaglandin analogues.",
+              "B. H pylori.",
+              "C. Smoking.",
+              "D. Shock.",
+              "E. Duodenogastric reflux."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Prostaglandins protect the mucosal barrier.",
+            details: "A. Correct: Cytoprotective.\nB. Incorrect: H. pylori damages mucosa.\nC. Incorrect: Smoking inhibits barrier.\nD. Incorrect: Shock reduces blood flow.\nE. Incorrect: Reflux disrupts mucosa."
+          },
+          {
+            text: "All the following statements about H pylori are true, except:",
+            choices: [
+              "A. The prevalence of H pylori infection is inversely related to the hygienic standards of a country.",
+              "B. The bacteria secrete urease enzyme.",
+              "C. The organism inhibits ammonia production.",
+              "D. The organism secretes proteases which destroy mucus.",
+              "E. Eradication therapy for H pylori reduces ulcer recurrence after its treatment."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. H. pylori produces ammonia via urease.",
+            details: "A. Correct: Linked to hygiene.\nB. Correct: Secretes urease.\nC. Incorrect: Produces ammonia.\nD. Correct: Proteases damage mucus.\nE. Correct: Eradication reduces recurrence."
+          },
+          {
+            text: "About acute gastric dilatation, one statement only is true:",
+            choices: [
+              "A. Acute gastric dilatation is a common postoperative complication.",
+              "B. The stomach exhibits hyperperistalsis.",
+              "C. The condition usually causes hyperkalaemia.",
+              "D. Hypovolaemia is a prominent feature.",
+              "E. Treatment is by gastrectomy."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Hypovolaemia is a key feature of acute gastric dilatation.",
+            details: "A. Incorrect: Rare condition.\nB. Incorrect: Loss of tone, not hyperperistalsis.\nC. Incorrect: Causes hypokalaemia.\nD. Correct: Fluid loss causes hypovolaemia.\nE. Incorrect: Treated conservatively."
+          },
+          {
+            text: "All the following conditions predispose to stress ulceration of the stomach, except:",
+            choices: [
+              "A. Deep vein thrombosis.",
+              "B. Major burns.",
+              "C. Acute pancreatitis.",
+              "D. Septic shock.",
+              "E. Haemorrhagic shock."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. DVT does not cause mucosal ischaemia leading to stress ulcers.",
+            details: "A. Incorrect: DVT not related.\nB. Correct: Burns cause ischaemia.\nC. Correct: Pancreatitis causes stress.\nD. Correct: Septic shock induces ulcers.\nE. Correct: Haemorrhagic shock causes ischaemia."
+          },
+          {
+            text: "About chronic peptic ulcers, all the following statements are true, except:",
+            choices: [
+              "A. The usual sites for a chronic gastric ulcer are the lesser curvature and the pyloric antrum.",
+              "B. The usual site for a chronic duodenal ulcer is the first part of the duodenum.",
+              "C. Hyperacidity is the main underlying cause of a chronic duodenal ulcer.",
+              "D. Biopsy is mandatory to exclude malignancy in a gastric ulcer in the first part of the duodenum.",
+              "E. A chronic peptic ulcer may be present in the lower oesophagus."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Biopsy is not mandatory for duodenal ulcers.",
+            details: "A. Correct: Common gastric ulcer sites.\nB. Correct: Duodenal ulcer in first part.\nC. Correct: Hyperacidity in duodenal ulcers.\nD. Incorrect: Biopsy for gastric, not duodenal.\nE. Correct: Oesophageal ulcers possible."
+          },
+          {
+            text: "About complications of chronic gastro-duodenal peptic ulcers, all the following statements are true, except:",
+            choices: [
+              "A. Anterior duodenal ulcers tend to perforate.",
+              "B. Posterior duodenal ulcers tend to cause substantial bleeding.",
+              "C. Benign gastric ulcers have a 5% tendency to malignant transformation.",
+              "D. Fibrosis of a chronic duodenal ulcer can cause pyloric obstruction.",
+              "E. The primary treatment of bleeding ulcers is usually non-surgical."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Benign gastric ulcers rarely turn malignant (<1%).",
+            details: "A. Correct: Anterior ulcers perforate.\nB. Correct: Posterior ulcers bleed.\nC. Incorrect: Rare malignant transformation.\nD. Correct: Fibrosis causes obstruction.\nE. Correct: Non-surgical treatment primary."
+          },
+          {
+            text: "The source of severe bleeding from a posterior duodenal ulcer is:",
+            choices: [
+              "A. The portal vein.",
+              "B. The gastro-duodenal artery.",
+              "C. The right gastric artery.",
+              "D. The left gastric vein.",
+              "E. The common hepatic artery."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Gastroduodenal artery is eroded by posterior duodenal ulcers.",
+            details: "A. Incorrect: Vein not primary source.\nB. Correct: Artery of haemorrhage.\nC. Incorrect: Not posterior.\nD. Incorrect: Vein not typical.\nE. Incorrect: Parent artery, not direct."
+          },
+          {
+            text: "If surgery is indicated for a bleeding duodenal ulcer, all the following statements are true, except:",
+            choices: [
+              "A. Operation is done under general anaesthesia.",
+              "B. Laparoscopy is the standard approach.",
+              "C. Under-running of the bleeding vessel is the usual method of haemostasis.",
+              "D. A definitive ulcer procedure is usually done after obtaining haemostasis.",
+              "E. If an ulcer-healing procedure is to be done, the standard is truncal vagotomy and pyloroplasty."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Laparoscopy is not standard for bleeding ulcers due to poor haemostasis.",
+            details: "A. Correct: General anaesthesia used.\nB. Incorrect: Open surgery preferred.\nC. Correct: Under-running controls bleeding.\nD. Correct: Definitive procedure added.\nE. Correct: Vagotomy and pyloroplasty standard."
+          },
+          {
+            text: "About vagotomy for the treatment of a chronic duodenal ulcer, all the following statements are true, except:",
+            choices: [
+              "A. A truncal vagotomy requires a gastric drainage procedure as gastrojejunostomy.",
+              "B. A truncal vagotomy requires a gastric drainage procedure as pyloroplasty.",
+              "C. A highly selective vagotomy means preservation of the nerves of Latarjet.",
+              "D. Highly selective vagotomy does not require the addition of a gastric drainage procedure.",
+              "E. Truncal vagotomy should be done during emergency surgery for a perforated duodenal ulcer."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Truncal vagotomy is avoided in perforated ulcer surgery.",
+            details: "A. Correct: Drainage needed.\nB. Correct: Pyloroplasty used.\nC. Correct: Preserves Latarjet nerves.\nD. Correct: No drainage needed.\nE. Incorrect: Avoided in perforation."
+          },
+          {
+            text: "About post-gastrectomy dumping syndrome, all the following statements are true, except:",
+            choices: [
+              "A. The condition is caused by rapid transit of gastric content to the jejunum.",
+              "B. The patient develops headache, hypertension, and bradycardia after a meal.",
+              "C. The intake of small meals reduces the intensity of the syndrome.",
+              "D. The intake of dry meals reduces the intensity of the syndrome.",
+              "E. The reduction of sugar intake reduces the intensity of the syndrome."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Dumping syndrome causes hypotension and tachycardia, not hypertension/bradycardia.",
+            details: "A. Correct: Rapid transit causes symptoms.\nB. Incorrect: Causes hypovolaemia symptoms.\nC. Correct: Small meals help.\nD. Correct: Dry meals reduce symptoms.\nE. Correct: Less sugar reduces osmolarity."
+          },
+          {
+            text: "About perforated duodenal ulcer, all the following statements are true, except:",
+            choices: [
+              "A. Causes sudden severe abdominal pain.",
+              "B. Should be differentiated from acute pancreatitis.",
+              "C. Usually the abdomen is rigid.",
+              "D. Air under the diaphragm always shows on plain X-ray.",
+              "E. Treatment is essentially by urgent surgery."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Air under diaphragm is not always present on X-ray.",
+            details: "A. Correct: Sudden pain typical.\nB. Correct: Differential diagnosis needed.\nC. Correct: Rigid abdomen common.\nD. Incorrect: Air not always visible.\nE. Correct: Urgent surgery required."
+          },
+          {
+            text: "The following statements about pyloric obstruction in adults are all true, except:",
+            choices: [
+              "A. Vomiting is characteristically greenish.",
+              "B. Upper GI endoscopy is indicated.",
+              "C. May cause alkalosis.",
+              "D. May cause Hypokalaemia.",
+              "E. May cause tetany."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Vomiting is non-bilious, not greenish.",
+            details: "A. Incorrect: No bile in vomitus.\nB. Correct: Endoscopy diagnoses cause.\nC. Correct: Alkalosis from acid loss.\nD. Correct: Hypokalaemia from potassium loss.\nE. Correct: Tetany from alkalosis."
+          },
+          {
+            text: "About acute upper GI haemorrhage, all the following statements are true, except:",
+            choices: [
+              "A. Bleeding acute gastric erosions is a common cause.",
+              "B. The initial treatment of acute bleeding varices is shunt surgery.",
+              "C. A posterior duodenal ulcer can cause bleeding from the gastro-duodenal artery.",
+              "D. Haematemesis means vomiting of blood.",
+              "E. Melaena means passage of black tarry stools per rectum."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Initial treatment for varices is endoscopic sclerotherapy/banding, not shunt surgery.",
+            details: "A. Correct: Erosions common cause.\nB. Incorrect: Endoscopy first-line.\nC. Correct: Gastroduodenal artery bleeding.\nD. Correct: Defines haematemesis.\nE. Correct: Defines melaena."
+          },
+          {
+            text: "Regarding Zollinger Ellison syndrome, all the following statements are true, except:",
+            choices: [
+              "A. This is usually caused by a pancreatic tumour.",
+              "B. The syndrome is characterized by marked elevation of the hormone somatostatin.",
+              "C. The syndrome is suspected in patients with recurrent peptic ulceration after adequate treatment.",
+              "D. The syndrome is suspected with peptic ulceration in the extremes of life.",
+              "E. The syndrome is suspected with the discovery of multiple peptic ulcers."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Zollinger Ellison syndrome is caused by gastrin hypersecretion, not somatostatin.",
+            details: "A. Correct: Gastrinoma in pancreas.\nB. Incorrect: Gastrin elevated.\nC. Correct: Recurrent ulcers suspect.\nD. Correct: Affects extremes of age.\nE. Correct: Multiple ulcers typical."
+          },
+          {
+            text: "Regarding cancer of the stomach, one statement only is true:",
+            choices: [
+              "A. The commonest type is Non-Hodgkin's lymphoma.",
+              "B. Commonest presentation is massive haematemesis.",
+              "C. Lymphatic spread may reach the inferior mesenteric nodes.",
+              "D. The first station for blood spread is the lung.",
+              "E. Whenever possible, surgery is the best treatment."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Surgery is the best treatment for gastric cancer when feasible.",
+            details: "A. Incorrect: Adenocarcinoma commonest.\nB. Incorrect: Vague symptoms typical.\nC. Incorrect: Coeliac nodes primary.\nD. Incorrect: Liver first via portal vein.\nE. Correct: Surgery best option."
+          },
+          {
+            text: "Haematogenous spread of gastric adenocarcinoma goes primarily to the:",
+            choices: [
+              "A. Lungs.",
+              "B. Bones.",
+              "C. Liver.",
+              "D. Brain.",
+              "E. Coeliac nodes."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Gastric adenocarcinoma spreads primarily to the liver via portal vein.",
+            details: "A. Incorrect: Secondary spread.\nB. Incorrect: Less common.\nC. Correct: Liver primary site.\nD. Incorrect: Rare.\nE. Incorrect: Lymphatic, not haematogenous."
+          },
+          {
+            text: "All the following increase the risk of gastric cancer, except:",
+            choices: [
+              "A. Main diet of a community is made of smoked food.",
+              "B. Infection with Helicobacter pylori.",
+              "C. Pernicious anaemia.",
+              "D. Distal gastrectomy.",
+              "E. Prolonged intake of H2 receptor blockers."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. No evidence links H2 blockers to gastric cancer.",
+            details: "A. Correct: Smoked food increases risk.\nB. Correct: H. pylori major risk.\nC. Correct: Pernicious anaemia linked.\nD. Correct: Gastrectomy increases risk.\nE. Incorrect: No cancer association."
+          },
+          {
+            text: "All the following statements about linitis plastica are true, except:",
+            choices: [
+              "A. It is a lymphoma of the stomach.",
+              "B. The stomach is narrowed.",
+              "C. The stomach is stiff.",
+              "D. The tumour may not be visible on the mucosa.",
+              "E. Prognosis is bad."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Linitis plastica is a diffuse adenocarcinoma, not lymphoma.",
+            details: "A. Incorrect: Adenocarcinoma type.\nB. Correct: Narrowed stomach.\nC. Correct: Stiff wall.\nD. Correct: Mucosa may appear normal.\nE. Correct: Poor prognosis."
+          },
+          {
+            text: "The following statements about radical gastrectomy for stomach cancer are all true, except:",
+            choices: [
+              "A. The whole stomach should be removed.",
+              "B. The left gastric pedicle is ligated and divided at its root.",
+              "C. The lesser omentum is removed.",
+              "D. The greater omentum is removed.",
+              "E. Radical gastrectomy is the treatment of the choice for early gastric cancer."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Subtotal gastrectomy may suffice for distal tumours.",
+            details: "A. Incorrect: Subtotal possible.\nB. Correct: Pedicle ligated.\nC. Correct: Lesser omentum removed.\nD. Correct: Greater omentum removed.\nE. Correct: Preferred for early cancer."
+          },
+          {
+            text: "The commonest site of gastrointestinal stromal tumours (GIST) is:",
+            choices: [
+              "A. Oesophagus.",
+              "B. Stomach.",
+              "C. Duodenum.",
+              "D. Small intestine.",
+              "E. Colon."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Stomach is the commonest site for GIST (40%).",
+            details: "A. Incorrect: Rare in oesophagus.\nB. Correct: Most common site.\nC. Incorrect: Less common.\nD. Incorrect: Second most common.\nE. Incorrect: Rare in colon."
+          },
+          {
+            text: "The cells of origin of gastrointestinal stromal tumours (GIST) is:",
+            choices: [
+              "A. Parietal cells.",
+              "B. Peptic cells.",
+              "C. Mucus cells.",
+              "D. Cells of Cajal.",
+              "E. G cells."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. GIST originates from interstitial cells of Cajal.",
+            details: "A. Incorrect: Parietal cells for acid.\nB. Incorrect: No peptic cells.\nC. Incorrect: Mucus cells unrelated.\nD. Correct: Cajal cells origin.\nE. Incorrect: G cells for gastrin."
+          },
+          {
+            text: "The commonest presentation of gastrointestinal stromal tumours (GIST) of the stomach is:",
+            choices: [
+              "A. Epigastric pain.",
+              "B. Anorexia, asthenia and anaemia.",
+              "C. Haematemesis and melaena.",
+              "D. Persistent vomiting.",
+              "E. Epigastric mass."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Bleeding (haematemesis/melaena) is the commonest GIST presentation.",
+            details: "A. Incorrect: Less common.\nB. Incorrect: Non-specific symptoms.\nC. Correct: Bleeding most common.\nD. Incorrect: Vomiting rare.\nE. Incorrect: Mass less frequent."
+          },
+          {
+            text: "All the following statements about gastrointestinal stromal tumours (GIST) are true, except:",
+            choices: [
+              "A. GIST is less frequently occurring than adenocarcinoma.",
+              "B. A high mitotic figure suggests malignancy.",
+              "C. A size that is more than 5cm suggests malignancy.",
+              "D. It arises from the interstitial cells of Cajal.",
+              "E. Main treatment is chemotherapy."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Surgical excision is the main treatment for GIST.",
+            details: "A. Correct: Less common than adenocarcinoma.\nB. Correct: High mitotic rate indicates malignancy.\nC. Correct: Size >5cm suggests malignancy.\nD. Correct: Cajal cells origin.\nE. Incorrect: Surgery primary treatment."
+          },
+          {
+            text: "About gastric lymphoma, all the following statements are true, except:",
+            choices: [
+              "A. Less frequent than adenocarcinoma.",
+              "B. It is usually of the Hodgkin type.",
+              "C. Prognosis is better than adenocarcinoma.",
+              "D. Whenever possible, surgical excision provides the best results.",
+              "E. Chemotherapy improves the outcome."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Gastric lymphoma is Non-Hodgkin type.",
+            details: "A. Correct: Less common.\nB. Incorrect: Non-Hodgkin lymphoma.\nC. Correct: Better prognosis.\nD. Correct: Surgery effective.\nE. Correct: Chemotherapy improves outcome."
+          },
+          {
+            text: "All the following are pre-requisites for bariatric (weight-reduction) surgery, except:",
+            choices: [
+              "A. Body mass index (BMI)>40.",
+              "B. Body mass index (BMI)>35 if accompanied with a comorbidity of obesity.",
+              "C. Previous supervised attempts at weight reduction.",
+              "D. Exclusion of Cushing's syndrome as a cause of obesity.",
+              "E. Age not more than 40 years."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Age >55 may still qualify for bariatric surgery.",
+            details: "A. Correct: BMI >40 qualifies.\nB. Correct: BMI >35 with comorbidity.\nC. Correct: Prior attempts required.\nD. Correct: Rule out Cushing’s.\nE. Incorrect: No strict age limit."
+          },
+          {
+            text: "All the following statements about bariatric operations are true, except:",
+            choices: [
+              "A. Sleeve (vertical) gastrectomy causes weight loss by inducing early satiety.",
+              "B. Gastric band causes weight loss by causing early satiety.",
+              "C. Liposuction treats morbid obesity by getting rid of excess fat.",
+              "D. Roux en Y gastric bypass causes both restriction of food intake and malabsorption.",
+              "E. Bariatric surgery results in improvement of type II diabetes mellitus."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Liposuction is not a treatment for morbid obesity.",
+            details: "A. Correct: Sleeve causes satiety.\nB. Correct: Band induces satiety.\nC. Incorrect: Liposuction not for obesity.\nD. Correct: Bypass restricts and malabsorbs.\nE. Correct: Improves diabetes."
+          },
+          {
+            text: "Which of the following statements are true?",
+            choices: [
+              "A. The right gastric artery is a branch of the coeliac artery.",
+              "B. Vagal fibres to the stomach are afferent.",
+              "C. The parietal cells are in the body of the stomach and are the acid-secreting cells.",
+              "D. The venous drainage of the stomach ends in the inferior vena cava (IVC).",
+              "E. The chief cells secrete pepsinogen."
+            ],
+            correct: [2, 4],
+            explanation: "Correct Answer: C, E. Parietal cells secrete acid, and chief cells secrete pepsinogen.",
+            details: "A. Incorrect: Right gastric artery from hepatic artery.\nB. Incorrect: Vagal fibres are afferent and efferent.\nC. Correct: Parietal cells secrete acid.\nD. Incorrect: Drains to portal/splenic vein.\nE. Correct: Chief cells secrete pepsinogen."
+          },
+          {
+            text: "Which of the following statements are true?",
+            choices: [
+              "A. The ‘gastric phase’ of gastric acid secretion is mediated by the vagus nerve.",
+              "B. Hydrogen ions are exported from the parietal cells via the proton pump.",
+              "C. Cholecystokinin is secreted by the duodenal endocrine cells.",
+              "D. The gastric motor activity is propagated from the fundus and moves caudally at a rate of three per minute.",
+              "E. Secretin increases gastric acid secretion."
+            ],
+            correct: [1, 2, 3],
+            explanation: "Correct Answer: B, C, D. Proton pump exports hydrogen ions, cholecystokinin from duodenum, and gastric motility is three per minute.",
+            details: "A. Incorrect: Gastric phase via gastrin.\nB. Correct: Proton pump mechanism.\nC. Correct: Duodenal secretion.\nD. Correct: Fundus-initiated motility.\nE. Incorrect: Secretin inhibits acid."
+          },
+          {
+            text: "Which of the following can damage the gastric mucosal barrier?",
+            choices: [
+              "A. Non-steroidal anti-inflammatory drugs (NSAIDs)",
+              "B. Alcohol",
+              "C. Trauma",
+              "D. Bile",
+              "E. Shock."
+            ],
+            correct: [0, 1, 2, 3, 4],
+            explanation: "Correct Answer: A, B, C, D, E. NSAIDs, alcohol, trauma, bile, and shock all disrupt the gastric mucosal barrier.",
+            details: "All options correct: These factors cause ischemia or direct mucosal damage."
+          },
+          {
+            text: "Which of the following statements regarding H. pylori are true?",
+            choices: [
+              "A. The organism is round in shape.",
+              "B. It has the ability to hydrolyse urea with the production of ammonia.",
+              "C. Some strains produce the cytokines cagA and vacA, which are associated with the ability to cause gastritis, ulceration and cancer.",
+              "D. The incidence of infection in a general population appears to be high.",
+              "E. Treatment is recommended for infected patients who are asymptomatic."
+            ],
+            correct: [1, 2, 3],
+            explanation: "Correct Answer: B, C, D. H. pylori hydrolyses urea, produces cagA/vacA, and has high incidence.",
+            details: "A. Incorrect: Spiral-shaped.\nB. Correct: Urea hydrolysis.\nC. Correct: Cytokines linked to disease.\nD. Correct: High prevalence.\nE. Incorrect: No treatment for asymptomatic."
+          },
+          {
+            text: "Which of the following statements are true?",
+            choices: [
+              "A. Type B gastritis is an autoimmune condition.",
+              "B. Type A gastritis affects the antrum.",
+              "C. Both types A and B gastritis predispose to malignancy.",
+              "D. Erosive gastritis due to NSAIDs is mediated via inhibition of Cox1 enzyme.",
+              "E. Reflux gastritis is commonly seen after gastric surgery."
+            ],
+            correct: [2, 3, 4],
+            explanation: "Correct Answer: C, D, E. Both gastritis types predispose to malignancy, NSAIDs inhibit Cox1, and reflux gastritis follows surgery.",
+            details: "A. Incorrect: Type B is H. pylori-related.\nB. Incorrect: Type A spares antrum.\nC. Correct: Malignancy risk.\nD. Correct: Cox1 inhibition.\nE. Correct: Post-surgical reflux."
+          },
+          {
+            text: "Which of the following regarding peptic ulcers are true?",
+            choices: [
+              "A. The term ‘peptic ulcer’ is a misnomer.",
+              "B. Patients with gastric ulceration have increased levels of gastric acid production.",
+              "C. ‘Kissing ulcers’ refers to adjacent gastric and duodenal ulcers.",
+              "D. There is a greater association between gastric ulcers and malignancy than duodenal ulcers.",
+              "E. All peptic ulcers can be healed by using proton pump inhibitors (PPIs)."
+            ],
+            correct: [0, 3, 4],
+            explanation: "Correct Answer: A, D, E. ‘Peptic ulcer’ is a misnomer, gastric ulcers linked to malignancy, and PPIs heal ulcers.",
+            details: "A. Correct: Misleading term.\nB. Incorrect: Normal acid in gastric ulcers.\nC. Incorrect: Kissing ulcers are duodenal.\nD. Correct: Higher malignancy risk.\nE. Correct: PPIs effective."
+          },
+          {
+            text: "Common sites for peptic ulcers include:",
+            choices: [
+              "A. First part of duodenum",
+              "B. Fundus of stomach",
+              "C. Oesophagus",
+              "D. Jejunum, such as a stomal ulcer after gastric surgery",
+              "E. Meckel’s diverticulum."
+            ],
+            correct: [0, 2, 3, 4],
+            explanation: "Correct Answer: A, C, D, E. Peptic ulcers occur in duodenum, oesophagus, jejunum, and Meckel’s diverticulum.",
+            details: "A. Correct: Common site.\nB. Incorrect: Fundus rare.\nC. Correct: Oesophageal ulcers.\nD. Correct: Stomal ulcers.\nE. Correct: Meckel’s diverticulum."
+          },
+          {
+            text: "Which of the following are predisposing factors for gastric ulcer?",
+            choices: [
+              "A. Gastric acid",
+              "B. H. pylori infection",
+              "C. NSAIDs",
+              "D. Smoking",
+              "E. High socioeconomic groups."
+            ],
+            correct: [1, 2, 3],
+            explanation: "Correct Answer: B, C, D. H. pylori, NSAIDs, and smoking predispose to gastric ulcers.",
+            details: "A. Incorrect: Not specific.\nB. Correct: Major factor.\nC. Correct: Disrupts mucosa.\nD. Correct: Increases risk.\nE. Incorrect: Lower socioeconomic groups."
+          },
+          {
+            text: "Which of the following are true with regard to the clinical features of peptic ulcers?",
+            choices: [
+              "A. The pain never radiates to the back and this differentiates this from biliary colic.",
+              "B. Vomiting is a notable feature.",
+              "C. Bleeding is rare.",
+              "D. They may cause gastric outlet obstruction.",
+              "E. Weight loss is a typical symptom."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Peptic ulcers can cause gastric outlet obstruction.",
+            details: "A. Incorrect: Pain may radiate.\nB. Incorrect: Vomiting not notable.\nC. Incorrect: Bleeding common.\nD. Correct: Can cause obstruction.\nE. Incorrect: Weight gain/underweight typical."
+          },
+          {
+            text: "Which of the following statements regarding treatment of peptic ulceration are true?",
+            choices: [
+              "A. Surgery remains the mainstay treatment.",
+              "B. Eradication therapy is given routinely to all patients with peptic ulceration.",
+              "C. Late dumping syndrome occurring after gastric surgery is due to a sudden increased osmotic load in the small bowel.",
+              "D. Biopsy of the ulcer margins is mandatory when dealing with a duodenal ulcer.",
+              "E. All peptic ulcers can be healed by PPI therapy."
+            ],
+            correct: [1, 4],
+            explanation: "Correct Answer: B, E. Eradication therapy is routine, and PPIs heal peptic ulcers.",
+            details: "A. Incorrect: Medical treatment primary.\nB. Correct: Routine eradication.\nC. Incorrect: Late dumping due to hypoglycaemia.\nD. Incorrect: Biopsy not mandatory for duodenal.\nE. Correct: PPIs heal ulcers."
+          },
+          {
+            text: "Which of the following are true with regard to sequelae/complications after gastric operations?",
+            choices: [
+              "A. Recurrent ulceration is rare after gastric surgery for peptic ulcer.",
+              "B. Early satiety can occur even in the absence of gastric resection.",
+              "C. Early dumping syndrome is due to a sudden high osmotic load to the small bowel.",
+              "D. Late dumping syndrome is due to reactive hypoglycaemia.",
+              "E. The lag-phase between the gastric operation and development of malignancy is usually 10 years."
+            ],
+            correct: [1, 2, 3, 4],
+            explanation: "Correct Answer: B, C, D, E. Early satiety, early/late dumping, and malignancy lag are true.",
+            details: "A. Incorrect: Ulceration not rare.\nB. Correct: Occurs without resection.\nC. Correct: Osmotic load causes early dumping.\nD. Correct: Hypoglycaemia causes late dumping.\nE. Correct: 10-year malignancy lag."
+          },
+          {
+            text: "Which of the following are true with regard to haematemesis?",
+            choices: [
+              "A. The in-patient mortality is about 5 per cent.",
+              "B. Oesophageal varices are the most common cause.",
+              "C. It is better to avoid surgery in elderly patients.",
+              "D. Mallory-Weiss tear is a longitudinal tear below the gastro-oesophageal junction.",
+              "E. Dieulafoy’s lesion is a gastric arteriovenous malformation."
+            ],
+            correct: [0, 3, 4],
+            explanation: "Correct Answer: A, D, E. Haematemesis has 5% mortality, Mallory-Weiss is a tear, and Dieulafoy’s is an AVM.",
+            details: "A. Correct: 5% mortality.\nB. Incorrect: Peptic ulcers more common.\nC. Incorrect: Early surgery preferred.\nD. Correct: Longitudinal tear.\nE. Correct: Gastric AVM."
+          },
+          {
+            text: "Which of the following are true in respect of gastric outlet obstruction (GOO)?",
+            choices: [
+              "A. It is most commonly associated with long-standing peptic ulcer disease and gastric cancer.",
+              "B. The usual metabolic abnormality is hyperchloraemic alkalosis.",
+              "C. Endoscopy has no role in management.",
+              "D. Surgery is the mainstay of treatment.",
+              "E. Hypokalaemia may occur due to paradoxical renal aciduria."
+            ],
+            correct: [0, 3, 4],
+            explanation: "Correct Answer: A, D, E. GOO linked to ulcers/cancer, treated surgically, causes hypokalaemia.",
+            details: "A. Correct: Common causes.\nB. Incorrect: Hypochloraemic alkalosis.\nC. Incorrect: Endoscopy useful.\nD. Correct: Surgery mainstay.\nE. Correct: Hypokalaemia occurs."
+          },
+          {
+            text: "Which of the following are important in the causation of gastric cancer?",
+            choices: [
+              "A. H. pylori infection",
+              "B. Gastric atrophy",
+              "C. Pernicious anaemia",
+              "D. Previous gastric surgery",
+              "E. Smoking."
+            ],
+            correct: [0, 1, 2, 3, 4],
+            explanation: "Correct Answer: A, B, C, D, E. All are multifactorial causes of gastric cancer.",
+            details: "All options correct: H. pylori, atrophy, anaemia, surgery, and smoking contribute."
+          },
+          {
+            text: "Which of the following statements regarding clinical features of gastric cancer are true?",
+            choices: [
+              "A. They may be non-specific in the early stages.",
+              "B. Anaemia can be a presenting symptom.",
+              "C. Troiser’s sign refers to a palpable ‘Virchow’s node’ in the right supraclavicular fossa.",
+              "D. This is a rare cause of GOO.",
+              "E. Trousseau’s sign is diagnostic."
+            ],
+            correct: [0, 1],
+            explanation: "Correct Answer: A, B. Early symptoms are non-specific, and anaemia is common.",
+            details: "A. Correct: Non-specific early.\nB. Correct: Anaemia common.\nC. Incorrect: Virchow’s node on left.\nD. Incorrect: Common GOO cause.\nE. Incorrect: Trousseau’s not diagnostic."
+          },
+          {
+            text: "Which of the following are associated with the molecular pathology of gastric cancer?",
+            choices: [
+              "A. Mutation or loss of heterozygosity in APC gene",
+              "B. Mutation in gene coding for beta-catenin",
+              "C. Mutations in gene coding for E-cadherin",
+              "D. Inactivation of p53",
+              "E. Microsatellite instability."
+            ],
+            correct: [0, 1, 2, 3, 4],
+            explanation: "Correct Answer: A, B, C, D, E. All are linked to gastric cancer’s molecular pathology.",
+            details: "All options correct: APC, beta-catenin, E-cadherin, p53, and microsatellite instability involved."
+          },
+          {
+            text: "Which of the following are true with regard to spread of gastric cancer?",
+            choices: [
+              "A. Tumour reaching the serosa usually indicates incurability.",
+              "B. Blood-borne metastases commonly occur in the absence of lymph node spread.",
+              "C. Krukenberg’s tumours are always associated with other areas of transcoelomic spread.",
+              "D. Sister Joseph’s nodule is diagnostic of gastric cancer.",
+              "E. The lymphatic vessels related to the cardia have no relation to the oesophageal lymphatics."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Serosa involvement indicates incurability.",
+            details: "A. Correct: Serosa spread incurable.\nB. Incorrect: Requires lymph node spread.\nC. Incorrect: Krukenberg’s may be sole spread.\nD. Incorrect: Nodule not diagnostic.\nE. Incorrect: Cardia lymphatics connected."
+          },
+          {
+            text: "Which of the following are unequivocal evidence of incurability in gastric cancer?",
+            choices: [
+              "A. Haematogenous metastases",
+              "B. Involvement of distant peritoneum",
+              "C. N3 nodal disease",
+              "D. Involvement of adjacent organs",
+              "E. Gastric outlet obstruction."
+            ],
+            correct: [0, 1],
+            explanation: "Correct Answer: A, B. Haematogenous metastases and distant peritoneal involvement indicate incurability.",
+            details: "A. Correct: Metastases incurable.\nB. Correct: Distant peritoneal spread incurable.\nC. Incorrect: N3 debated.\nD. Incorrect: Adjacent organs may be resectable.\nE. Incorrect: GOO not incurable."
+          },
+          {
+            text: "Which of the following are true regarding the treatment of gastric cancer?",
+            choices: [
+              "A. D1 resection is superior to a D2 resection.",
+              "B. The 5-year survival in the UK is between 50 and 75 per cent.",
+              "C. There is a definite role for neoadjuvant chemotherapy.",
+              "D. Gastrointestinal continuity is established after total gastrectomy by a Roux loop.",
+              "E. Radiotherapy to the gastric bed is a useful adjunct."
+            ],
+            correct: [2, 3],
+            explanation: "Correct Answer: C, D. Neoadjuvant chemotherapy and Roux loop reconstruction are used.",
+            details: "A. Incorrect: D2 superior.\nB. Incorrect: Survival 25-50%.\nC. Correct: Chemotherapy effective.\nD. Correct: Roux loop used.\nE. Incorrect: Radiotherapy limited."
+          },
+          {
+            text: "Which of the following statements are true?",
+            choices: [
+              "A. Gastrointestinal stromal tumours (GIST) are associated with tyrosine kinase c-kit oncogene mutation.",
+              "B. GIST tumours show a poor response to imatinib.",
+              "C. Gastric lymphoma is more common in young people.",
+              "D. Primary gastric lymphomas are T-cell-defined and arise from mucosa-associated lymphoid tissue (MALT).",
+              "E. Trichobezoars are more common in female patients."
+            ],
+            correct: [0, 4],
+            explanation: "Correct Answer: A, E. GISTs linked to c-kit, trichobezoars common in females.",
+            details: "A. Correct: c-kit mutation.\nB. Incorrect: Good imatinib response.\nC. Incorrect: Common in 6th decade.\nD. Incorrect: B-cell-derived.\nE. Correct: Female predominance."
+          },
+          {
+            text: "Which of the following statements regarding gastric volvulus are true?",
+            choices: [
+              "A. In organoaxial volvulus the rotation occurs in a horizontal direction.",
+              "B. Mesenteroaxial rotation is more common than organoaxial rotation.",
+              "C. The condition is usually associated with a diaphragmatic defect.",
+              "D. The condition is usually chronic.",
+              "E. Management is essentially medical and symptomatic."
+            ],
+            correct: [0, 2, 3],
+            explanation: "Correct Answer: A, C, D. Organoaxial is horizontal, linked to diaphragmatic defect, and usually chronic.",
+            details: "A. Correct: Horizontal rotation.\nB. Incorrect: Mesenteroaxial less common.\nC. Correct: Diaphragmatic defect.\nD. Correct: Chronic condition.\nE. Incorrect: Surgical treatment needed."
+          }
+        ],
+        flashCards: [
+          {
+            front: "A 63-year-old male presents with repeated non-bilious vomiting containing ingested food, upper abdominal fullness, and 3-stone weight loss. He is pale and cachectic. What is the diagnosis?",
+            back: "Gastric outlet obstruction"
+          },
+          {
+            front: "A 42-year-old executive presents with upper abdominal discomfort and heartburn. Smoking and stress worsen it. He is overweight but otherwise normal. What is the diagnosis?",
+            back: "Gastro-oesophageal reflux disease (GORD)"
+          },
+          {
+            front: "A 40-year-old male presents with right upper quadrant pain radiating to the back, episodic, burning, aggravated by spicy food, with occasional black stools. What is the diagnosis?",
+            back: "Duodenal ulcer"
+          },
+          {
+            front: "A 52-year-old female presents with slowly progressive dysphagia, regurgitation of food, choking sensation, and persistent halitosis. What is the diagnosis?",
+            back: "Achalasia cardia"
+          },
+          {
+            front: "A 78-year-old female presents with upper GI bleed and melena, on long-term NSAIDs for arthritis. What is the diagnosis?",
+            back: "Gastritis"
+          },
+          {
+            front: "A 63-year-old male presents with rapidly progressive dysphagia and profound weight loss. He is pale and cachectic. What is the diagnosis?",
+            back: "Carcinoma of the oesophagus"
+          },
+          {
+            front: "A 48-year-old male with previous gastric resection for peptic ulcer presents with tremor, faintness, and prostration 1.5 hours after eating, relieved by food and aggravated by exercise. What is the diagnosis?",
+            back: "Late dumping syndrome"
+          },
+          {
+            front: "A 50-year-old male with previous duodenal ulcer surgery presents with recurrent burning upper abdominal pain, episodic and aggravated by alcohol. What is the diagnosis?",
+            back: "Recurrent ulceration"
+          },
+          {
+            front: "A 54-year-old male with previous total gastrectomy presents with anaemia and tingling in arms and legs, with macrocytic anaemia. What is the diagnosis?",
+            back: "Vitamin B12 deficiency"
+          },
+          {
+            front: "A 58-year-old male with previous gastric resection presents with epigastric fullness, sweating, lightheadedness, and diarrhoea immediately after eating, relieved by lying down. What is the diagnosis?",
+            back: "Early dumping syndrome"
+          },
+          {
+            front: "A 46-year-old male with previous peptic ulcer surgery presents with severe, explosive diarrhoea with urgency, unresponsive to antidiarrhoeal medications. What is the diagnosis?",
+            back: "Postvagotomy diarrhoea"
+          },
+          {
+            front: "A 70-year-old male who underwent partial gastrectomy 30 years ago presents with recent-onset abdominal pain, vomiting, and weight loss. What is the diagnosis?",
+            back: "Malignancy"
+          },
+          {
+            front: "A rare cause of upper GI bleed, essentially a gastric arteriovenous malformation covered by normal mucosa. What is the diagnosis?",
+            back: "Dieulafoy’s lesion"
+          },
+          {
+            front: "A longitudinal tear below the gastro-oesophageal junction induced by repetitive and strenuous vomiting. What is the diagnosis?",
+            back: "Mallory-Weiss tear"
+          },
+          {
+            front: "The most common type is metaplastic, associated with H. pylori. Other types include inflammatory and fundic gland. The true adenoma type has malignant potential. What is the diagnosis?",
+            back: "Gastric polyps"
+          },
+          {
+            front: "Principally of two types – intestinal and diffuse. H. pylori, pernicious anaemia, and gastric atrophy are predisposing factors. What is the diagnosis?",
+            back: "Gastric cancer"
+          },
+          {
+            front: "Associated with a mutation in the tyrosine kinase c-kit oncogene, commonly occurs in the stomach and duodenum, with unpredictable biological behaviour. What is the diagnosis?",
+            back: "GIST"
+          },
+          {
+            front: "Arises from MALT, prevalent in the sixth decade. Bleeding and perforation are complications after chemotherapy. What is the diagnosis?",
+            back: "Gastric lymphoma"
+          },
+          {
+            front: "Causes Zollinger-Ellison syndrome, may be sporadic or part of MEN type 1, usually found in the duodenal loop or pancreas. What is the diagnosis?",
+            back: "Gastrinoma"
+          },
+          {
+            front: "Unusual, almost exclusively found in young female psychiatric patients, can lead to ulceration, perforation, bleeding, and obstruction. What is the diagnosis?",
+            back: "Trichobezoar"
+          },
+          {
+            front: "A cause of upper abdominal pain, vomiting, and difficulty eating, of two types (organoaxial and mesenteroaxial), commonly associated with a diaphragmatic defect. What is the diagnosis?",
+            back: "Gastric volvulus"
+          },
+          {
+            front: "Best long-term results for morbid obesity, done laparoscopically, standard for morbidly obese, with 2% operative mortality. What is the operation?",
+            back: "Gastric bypass"
+          },
+          {
+            front: "Involves resection of part of the stomach, closure of the duodenal stump, and anastomosis with the jejunum. What is the operation?",
+            back: "Billroth 2 procedure"
+          },
+          {
+            front: "Non-selective operation for peptic ulcers, gastric stasis is common, often combined with a drainage procedure. What is the operation?",
+            back: "Truncal vagotomy"
+          },
+          {
+            front: "Common gastric drainage procedure for peptic ulcer surgery, used palliatively in malignancies, can cause diarrhoea. What is the operation?",
+            back: "Gastrojejunostomy"
+          },
+          {
+            front: "Lower half of the stomach resected, gastric remnant anastomosed to the first part of the duodenum, higher rate of anastomotic leak. What is the operation?",
+            back: "Billroth 1 procedure"
+          },
+          {
+            front: "Selectively denervates the parietal cell mass, low side effects, acceptable recurrence rate. What is the operation?",
+            back: "Highly selective vagotomy"
+          },
+          {
+            front: "Popular for morbid obesity, mortality less than 1%, slippage and dysphagia are complications. What is the operation?",
+            back: "Lap band procedure"
+          },
+          {
+            front: "Treats chronic pancreatic pseudocysts, involves communication between the posterior stomach wall and the cyst. What is the operation?",
+            back: "Cystogastrostomy"
+          },
+          {
+            front: "Complex major operation for malignancies, continuity restored by Roux-en-Y loop, requires vitamin B12 injections. What is the operation?",
+            back: "Total gastrectomy"
+          }
+        ]
+      };
+
+      // Initialize quiz content
+      document.title = quizConfig.title;
+      document.getElementById("quizHeader").innerText = quizConfig.title;
+      document.getElementById("lessonText").innerText = `Lesson: ${quizConfig.lesson}`;
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let currentFlashCardIndex = 0;
+      let isFront = true;
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+      }
+
+      function showQuestion() {
+        const q = quizConfig.questions[currentQuestionIndex];
+        document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+        const optionsBox = document.getElementById("optionsBox");
+        optionsBox.innerHTML = ""; // Clear previous options
+
+        q.choices.forEach((choice, idx) => {
+          const btn = document.createElement("button");
+          btn.innerText = decodeHtml(choice);
+          btn.onclick = () => checkAnswer(idx, btn);
+          optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("answerBox").style.display = "none";
+        document.getElementById("detailsBtn").style.display = "none";
+        document.getElementById("detailsBox").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+
+      function checkAnswer(selectedIndex) {
+        const q = quizConfig.questions[currentQuestionIndex];
+        const answerBox = document.getElementById("answerBox");
+        const detailsBtn = document.getElementById("detailsBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+        for (let i = 0; i < optionButtons.length; i++) {
+          optionButtons[i].disabled = true;
+          optionButtons[i].style.opacity = 0.7;
+          if (q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+          } else if (i === selectedIndex && !q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect selected
+          }
+        }
+
+        if (q.correct.includes(selectedIndex)) {
+          answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+          score++;
+        } else {
+          answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+        }
+        answerBox.style.display = "block";
+        detailsBtn.style.display = "inline-block";
+        nextBtn.style.display = "inline-block";
+        updateQuestionNav();
+      }
+
+      function showDetails() {
+        const detailsBox = document.getElementById("detailsBox");
+        const q = quizConfig.questions[currentQuestionIndex];
+        detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+        detailsBox.style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizConfig.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          document.getElementById("questionBox").style.display = "none";
+          const flashCardScreen = document.getElementById("flashCardScreen");
+          flashCardScreen.style.display = "block";
+          document.getElementById("scoreMessage").innerText = `You scored ${score} out of ${quizConfig.questions.length}. Now review with flash cards!`;
+          showFlashCard();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        const navBox = document.getElementById("questionNav");
+        navBox.innerHTML = "";
+        quizConfig.questions.forEach((_, index) => {
+          const btn = document.createElement("button");
+          btn.innerText = `${index + 1}`;
+          btn.onclick = () => goToQuestion(index);
+          navBox.appendChild(btn);
+        });
+        updateQuestionNav();
+      }
+
+      function updateQuestionNav() {
+        const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+        for (let i = 0; i < navButtons.length; i++) {
+          navButtons[i].disabled = (i === currentQuestionIndex);
+          navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+        }
+      }
+
+      function showFlashCard() {
+        const card = quizConfig.flashCards[currentFlashCardIndex];
+        document.getElementById("flashCardText").innerHTML = decodeHtml(isFront ? card.front : card.back);
+        document.getElementById("prevFlashCardBtn").disabled = currentFlashCardIndex === 0;
+        document.getElementById("nextFlashCardBtn").disabled = currentFlashCardIndex === quizConfig.flashCards.length - 1;
+      }
+
+      function flipCard() {
+        isFront = !isFront;
+        showFlashCard();
+      }
+
+      function prevFlashCard() {
+        if (currentFlashCardIndex > 0) {
+          currentFlashCardIndex--;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function nextFlashCard() {
+        if (currentFlashCardIndex < quizConfig.flashCards.length - 1) {
+          currentFlashCardIndex++;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        currentFlashCardIndex = 0;
+        isFront = true;
+        document.getElementById("flashCardScreen").style.display = "none";
+        startQuiz();
+      }
+    </script>
+  </body>
 </html>
