@@ -1,10 +1,1441 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Previous Questions Part1</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: previous-questions-part1.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title id="quizTitle">All previous years' questions part 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        pointer-events: auto; /* Ensure buttons are clickable */
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1 id="quizHeader">All previous years questions part 1</h1>
+        <p id="lessonText">الأسئلة من السنين السابقة</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+    </div>
+
+    <script>
+      // Configuration object for quiz content
+      const quizConfig = {
+        title: "All previous years questions part 1",
+        lesson: "الأسئلة السنين السابقة",
+        questions: [
+          {
+            text: "Which of the following tests is helpful in assessing the operability of cancer?",
+            choices: [
+              "A. MRI",
+              "B. CT & intraluminal US",
+              "C. PET scan",
+              "D. X-ray"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. CT and intraluminal ultrasound provide detailed anatomical and local staging information critical for assessing cancer operability.",
+            details: "A. Incorrect: MRI is useful but less specific for operability compared to CT/US.\nB. Correct: CT assesses resectability; intraluminal US evaluates local invasion.\nC. Incorrect: PET scan detects metastasis but not operability details.\nD. Incorrect: X-ray is too nonspecific."
+          },
+          {
+            text: "What is the most common cause of perforation?",
+            choices: [
+              "A. Trauma",
+              "B. Instrumental",
+              "C. Infection",
+              "D. Ischemia"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Instrumental perforation, often during endoscopy or surgery, is the most common cause of gastrointestinal perforation.",
+            details: "A. Incorrect: Trauma is less common.\nB. Correct: Iatrogenic perforation is frequent.\nC. Incorrect: Infection (e.g., abscess) is secondary.\nD. Incorrect: Ischemia causes necrosis, not primary perforation."
+          },
+          {
+            text: "Which of the following is not associated with a left iliac abscess?",
+            choices: [
+              "A. Diverticulitis",
+              "B. Appendicitis",
+              "C. Crohn’s disease",
+              "D. Pelvic inflammatory disease"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Appendicitis typically causes right iliac abscess, not left.",
+            details: "A. Incorrect: Diverticulitis can cause left-sided abscess.\nB. Correct: Appendicitis affects the right side.\nC. Incorrect: Crohn’s can cause abscesses bilaterally.\nD. Incorrect: PID can lead to left pelvic abscess."
+          },
+          {
+            text: "What is a potential complication of retroperitoneal liposarcoma?",
+            choices: [
+              "A. Uropathy",
+              "B. Intestinal obstruction",
+              "C. Both A and B",
+              "D. None of the above"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Retroperitoneal liposarcoma can compress ureters (causing uropathy) and intestines (causing obstruction).",
+            details: "A. Incorrect: Uropathy is possible but not exclusive.\nB. Incorrect: Obstruction is possible but not exclusive.\nC. Correct: Both are complications.\nD. Incorrect: Complications exist."
+          },
+          {
+            text: "What is the most common type of mesenteric cyst?",
+            choices: [
+              "A. Dermoid cyst",
+              "B. Chylolymphatic cyst",
+              "C. Enteric cyst",
+              "D. Serous cyst"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Chylolymphatic cysts are the most common type of mesenteric cysts, arising from lymphatic tissue.",
+            details: "A. Incorrect: Dermoid cysts are rare in mesentery.\nB. Correct: Most common type.\nC. Incorrect: Enteric cysts are less common.\nD. Incorrect: Serous cysts are not typical."
+          },
+          {
+            text: "What is the most common site for peptic ulcer?",
+            choices: [
+              "A. Stomach fundus",
+              "B. First part of duodenum",
+              "C. Second part of duodenum",
+              "D. Esophagus"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The first part of the duodenum is the most common site for peptic ulcers due to acid exposure.",
+            details: "A. Incorrect: Fundus ulcers are rare.\nB. Correct: Most common site.\nC. Incorrect: Second part is less affected.\nD. Incorrect: Esophageal ulcers are uncommon."
+          },
+          {
+            text: "What is the treatment for a perforated peptic ulcer in a case scenario?",
+            choices: [
+              "A. PPI therapy",
+              "B. Simple closure and omentum patch",
+              "C. Vagotomy",
+              "D. Gastrectomy"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Simple closure with an omental patch is the standard surgical treatment for perforated peptic ulcers.",
+            details: "A. Incorrect: PPI is for non-perforated ulcers.\nB. Correct: Seals perforation.\nC. Incorrect: Vagotomy is outdated.\nD. Incorrect: Gastrectomy is excessive."
+          },
+          {
+            text: "Which hepatic lesion is characterized by a central scar?",
+            choices: [
+              "A. Hemangioma",
+              "B. Hepatocellular carcinoma",
+              "C. Focal nodular hyperplasia (FNH)",
+              "D. Hepatic adenoma"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Focal nodular hyperplasia (FNH) is characterized by a central scar on imaging, reflecting its vascular architecture.",
+            details: "A. Incorrect: Hemangiomas show vascular enhancement.\nB. Incorrect: HCC lacks a central scar.\nC. Correct: Central scar is diagnostic.\nD. Incorrect: Adenomas are homogeneous."
+          },
+          {
+            text: "What is the anatomical relationship of the bile duct relative to the hepatic artery?",
+            choices: [
+              "A. Anterior to the hepatic artery",
+              "B. Posterior to the hepatic artery",
+              "C. Right to the hepatic artery",
+              "D. Left to the hepatic artery"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The bile duct lies to the right of the hepatic artery in the portal triad.",
+            details: "A. Incorrect: Bile duct is lateral, not anterior.\nB. Incorrect: Not posterior.\nC. Correct: Right-sided in triad.\nD. Incorrect: Not left-sided."
+          },
+          {
+            text: "What is the most common risk factor for hepatocellular carcinoma (HCC)?",
+            choices: [
+              "A. Hepatitis B",
+              "B. Cirrhosis",
+              "C. Alcohol abuse",
+              "D. Aflatoxin exposure"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Cirrhosis, from any cause, is the most common risk factor for HCC due to chronic liver injury.",
+            details: "A. Incorrect: Hepatitis B is a major cause but less common than cirrhosis.\nB. Correct: Cirrhosis is primary risk.\nC. Incorrect: Alcohol contributes via cirrhosis.\nD. Incorrect: Aflatoxin is less prevalent."
+          },
+          {
+            text: "What is the treatment for a hydatid cyst?",
+            choices: [
+              "A. Surgical resection only",
+              "B. Percutaneous drainage after antihelminthic treatment",
+              "C. Antibiotics alone",
+              "D. Observation"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Percutaneous drainage (PAIR) after antihelminthic treatment (e.g., albendazole) is effective for hydatid cysts.",
+            details: "A. Incorrect: Surgery is riskier.\nB. Correct: PAIR is standard.\nC. Incorrect: Antibiotics not effective.\nD. Incorrect: Observation risks rupture."
+          },
+          {
+            text: "What is the most common cause of Mallory-Weiss syndrome?",
+            choices: [
+              "A. Alcohol consumption",
+              "B. NSAID use",
+              "C. Helicobacter pylori infection",
+              "D. Esophageal varices"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Alcohol consumption, leading to vomiting, is the most common cause of Mallory-Weiss syndrome (esophageal tears).",
+            details: "A. Correct: Alcohol-induced vomiting causes tears.\nB. Incorrect: NSAIDs cause ulcers.\nC. Incorrect: H. pylori causes gastritis.\nD. Incorrect: Varices cause bleeding, not tears."
+          },
+          {
+            text: "A 17-year-old girl presents with neurological signs and symptoms. What is the most likely diagnosis?",
+            choices: [
+              "A. Hemochromatosis",
+              "B. Wilson’s disease",
+              "C. Primary biliary cholangitis",
+              "D. Autoimmune hepatitis"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Wilson’s disease is likely in a young patient with neurological symptoms due to copper accumulation in the brain.",
+            details: "A. Incorrect: Causes liver and systemic issues, not neurological.\nB. Correct: Neurological symptoms in youth.\nC. Incorrect: Affects middle-aged women.\nD. Incorrect: Primarily liver-related."
+          },
+          {
+            text: "What is the risk threshold for alcoholic liver disease (ALD)?",
+            choices: [
+              "A. 10 g/day of ethanol",
+              "B. 20 g/day of ethanol",
+              "C. 30 g/day of ethanol",
+              "D. 40 g/day of ethanol"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Consuming >30 g/day of ethanol significantly increases the risk of alcoholic liver disease.",
+            details: "A. Incorrect: Too low.\nB. Incorrect: Below threshold.\nC. Correct: Established risk level.\nD. Incorrect: Higher but not threshold."
+          },
+          {
+            text: "Which of the following is true about non-alcoholic fatty liver disease (NAFLD)?",
+            choices: [
+              "A. AST/ALT ratio < 1",
+              "B. AST/ALT ratio > 1",
+              "C. AST/ALT ratio = 1",
+              "D. AST/ALT ratio is irrelevant"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. NAFLD typically has an AST/ALT ratio < 1, with ALT predominant due to hepatocyte injury.",
+            details: "A. Correct: ALT > AST in NAFLD.\nB. Incorrect: >1 is typical in alcoholic liver disease.\nC. Incorrect: Rarely equal.\nD. Incorrect: Ratio is relevant."
+          },
+          {
+            text: "What is the mechanism of idiosyncrasy in drug-induced liver injury?",
+            choices: [
+              "A. Direct hepatotoxicity",
+              "B. Immunoreaction",
+              "C. Mitochondrial dysfunction",
+              "D. Oxidative stress"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Idiosyncratic drug-induced liver injury is mediated by an immunoreaction, often unpredictable.",
+            details: "A. Incorrect: Direct toxicity is dose-dependent.\nB. Correct: Immune-mediated.\nC. Incorrect: Secondary mechanism.\nD. Incorrect: Contributes but not primary."
+          },
+          {
+            text: "What is a common cause of chronic hepatitis related to drug use?",
+            choices: [
+              "A. Single-dose administration",
+              "B. Continuity of drug for 6 months",
+              "C. Intravenous drug use",
+              "D. Topical drug application"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Prolonged drug use (e.g., 6 months) can cause chronic hepatitis due to cumulative toxicity.",
+            details: "A. Incorrect: Single doses cause acute injury.\nB. Correct: Chronic exposure.\nC. Incorrect: IV drugs cause infections.\nD. Incorrect: Topical drugs rarely affect liver."
+          },
+          {
+            text: "What is the treatment for hepatorenal syndrome?",
+            choices: [
+              "A. Diuretics alone",
+              "B. Treat ascites, administer albumin, exclude kidney disease",
+              "C. Dialysis only",
+              "D. Observation"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Treating ascites, giving albumin, and ruling out other kidney diseases are key in managing hepatorenal syndrome.",
+            details: "A. Incorrect: Diuretics worsen hypovolemia.\nB. Correct: Comprehensive approach.\nC. Incorrect: Dialysis is supportive, not primary.\nD. Incorrect: Observation is inadequate."
+          },
+          {
+            text: "What is the role of rifaximin in hepatic encephalopathy?",
+            choices: [
+              "A. Increase ammonia levels",
+              "B. Decrease ammonia levels",
+              "C. No effect on ammonia",
+              "D. Increase urea production"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Rifaximin reduces ammonia levels by decreasing gut bacterial ammonia production.",
+            details: "A. Incorrect: Opposite effect.\nB. Correct: Reduces ammonia.\nC. Incorrect: Has a clear effect.\nD. Incorrect: Does not affect urea."
+          },
+          {
+            text: "Which of the following best describes caput medusa?",
+            choices: [
+              "A. Dilated veins around the umbilicus due to portal hypertension",
+              "B. Spider angiomas on the chest",
+              "C. Ascites causing abdominal distension",
+              "D. Jaundice with scleral icterus"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Caput medusa refers to dilated periumbilical veins due to portal hypertension.",
+            details: "A. Correct: Classic sign.\nB. Incorrect: Spider angiomas are different.\nC. Incorrect: Ascites is fluid-related.\nD. Incorrect: Jaundice is unrelated."
+          },
+          {
+            text: "What is an indication for endoscopy in gastroesophageal reflux disease (GERD)?",
+            choices: [
+              "A. Heartburn for 2 weeks",
+              "B. Hemoglobin level of 8 g/dL",
+              "C. Age < 40 years",
+              "D. No response to PPI after 2 days"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. A hemoglobin level of 8 g/dL suggests possible GI bleeding, warranting endoscopy in GERD.",
+            details: "A. Incorrect: Short-term heartburn doesn’t require endoscopy.\nB. Correct: Anemia indicates bleeding.\nC. Incorrect: Young age is not an indication.\nD. Incorrect: PPI response takes longer."
+          },
+          {
+            text: "What is a risk factor for gastrointestinal motility disorders?",
+            choices: [
+              "A. Hypertension",
+              "B. Diabetes mellitus",
+              "C. Hypothyroidism",
+              "D. Hyperlipidemia"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Diabetes mellitus causes autonomic neuropathy, leading to GI motility disorders like gastroparesis.",
+            details: "A. Incorrect: Hypertension not directly related.\nB. Correct: Diabetes affects motility.\nC. Incorrect: Hypothyroidism less common cause.\nD. Incorrect: Hyperlipidemia not a factor."
+          },
+          {
+            text: "What is the surgical treatment for achalasia?",
+            choices: [
+              "A. Fundoplication",
+              "B. Heller’s myotomy",
+              "C. Vagotomy",
+              "D. Esophagectomy"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Heller’s myotomy, often with fundoplication, is the surgical treatment for achalasia to relieve esophageal obstruction.",
+            details: "A. Incorrect: Fundoplication for reflux.\nB. Correct: Relieves sphincter.\nC. Incorrect: Vagotomy for ulcers.\nD. Incorrect: Esophagectomy too aggressive."
+          },
+          {
+            text: "Which of the following is not part of the Rome IV criteria for irritable bowel syndrome (IBS)?",
+            choices: [
+              "A. Recurrent abdominal pain related to defecation",
+              "B. Change in stool frequency",
+              "C. Change in stool form",
+              "D. Unintentional weight loss"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Unintentional weight loss is not part of Rome IV criteria for IBS; it suggests an organic cause.",
+            details: "A. Incorrect: Part of criteria.\nB. Incorrect: Part of criteria.\nC. Incorrect: Part of criteria.\nD. Correct: Not included."
+          },
+          {
+            text: "Which of the following is part of the Rome IV criteria for irritable bowel syndrome (IBS)?",
+            choices: [
+              "A. Unintentional weight loss",
+              "B. Recurrent abdominal pain related to defecation",
+              "C. Fever",
+              "D. Night sweats"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Recurrent abdominal pain related to defecation is a core component of Rome IV criteria for IBS.",
+            details: "A. Incorrect: Suggests organic disease.\nB. Correct: Key criterion.\nC. Incorrect: Not part of IBS.\nD. Incorrect: Not related to IBS."
+          },
+          {
+            text: "What is the mechanism of drug toxicity in drug-induced liver injury?",
+            choices: [
+              "A. Immunoreaction",
+              "B. Direct hepatotoxicity",
+              "C. Both A and B",
+              "D. None of the above"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Drug-induced liver injury can result from both immunoreactions (idiosyncratic) and direct hepatotoxicity (dose-dependent).",
+            details: "A. Incorrect: Only one mechanism.\nB. Incorrect: Only one mechanism.\nC. Correct: Both mechanisms.\nD. Incorrect: Mechanisms exist."
+          },
+          {
+            text: "What R-value indicates hepatocellular liver injury?",
+            choices: [
+              "A. R ≤ 2",
+              "B. R = 3",
+              "C. R ≥ 5",
+              "D. R < 5"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. R ≥ 5 indicates hepatocellular injury, with elevated ALT relative to ALP.",
+            details: "A. Incorrect: Suggests cholestatic injury.\nB. Incorrect: Indeterminate.\nC. Correct: Hepatocellular pattern.\nD. Incorrect: Too broad."
+          },
+          {
+            text: "What is the AST/ALT ratio in non-alcoholic fatty liver disease (NAFLD)?",
+            choices: [
+              "A. < 1",
+              "B. > 1",
+              "C. = 1",
+              "D. Not relevant"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. NAFLD typically has an AST/ALT ratio < 1, with ALT predominant.",
+            details: "A. Correct: ALT > AST.\nB. Incorrect: Typical in alcoholic liver disease.\nC. Incorrect: Rarely equal.\nD. Incorrect: Ratio is relevant."
+          },
+          {
+            text: "Which enzyme is primarily responsible for alcohol metabolism?",
+            choices: [
+              "A. Cytochrome P450",
+              "B. Alcohol dehydrogenase",
+              "C. Aldehyde dehydrogenase",
+              "D. Glucuronyl transferase"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Alcohol dehydrogenase converts ethanol to acetaldehyde in the liver, the primary step in alcohol metabolism.",
+            details: "A. Incorrect: Secondary pathway.\nB. Correct: Primary enzyme.\nC. Incorrect: Metabolizes acetaldehyde.\nD. Incorrect: Not involved."
+          },
+          {
+            text: "A 17-year-old female presents with depression, a family history of schizophrenia, and increased tone in her right arm. What is the most likely diagnosis?",
+            choices: [
+              "A. Parkinson’s disease",
+              "B. Wilson’s disease",
+              "C. Huntington’s disease",
+              "D. Multiple sclerosis"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Wilson’s disease can present in young patients with neurological symptoms (e.g., dystonia) and psychiatric issues due to copper accumulation.",
+            details: "A. Incorrect: Older age onset.\nB. Correct: Matches symptoms and age.\nC. Incorrect: Later onset, chorea.\nD. Incorrect: No psychiatric link."
+          },
+          {
+            text: "Which of the following is a secondary cause of gastrointestinal motility disorders?",
+            choices: [
+              "A. Diabetes mellitus",
+              "B. Hyperthyroidism",
+              "C. Asthma",
+              "D. Osteoarthritis"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Diabetes mellitus causes GI motility disorders (e.g., gastroparesis) via autonomic neuropathy.",
+            details: "A. Correct: Common cause.\nB. Incorrect: Less associated.\nC. Incorrect: Not related.\nD. Incorrect: No GI impact."
+          },
+          {
+            text: "What is the effect of rifaximin in hepatic encephalopathy?",
+            choices: [
+              "A. Increases ammonia levels",
+              "B. Decreases ammonia levels",
+              "C. No effect on ammonia",
+              "D. Increases urea production"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Rifaximin decreases ammonia levels by reducing gut bacterial ammonia production.",
+            details: "A. Incorrect: Opposite effect.\nB. Correct: Reduces ammonia.\nC. Incorrect: Has effect.\nD. Incorrect: No urea impact."
+          },
+          {
+            text: "Which of the following is a benign hepatic tumor?",
+            choices: [
+              "A. Hepatocellular carcinoma",
+              "B. Focal nodular hyperplasia (FNH)",
+              "C. Cholangiocarcinoma",
+              "D. Metastatic carcinoma"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Focal nodular hyperplasia (FNH) is a benign hepatic tumor, often asymptomatic.",
+            details: "A. Incorrect: Malignant.\nB. Correct: Benign.\nC. Incorrect: Malignant.\nD. Incorrect: Malignant."
+          },
+          {
+            text: "What is the management of a pyogenic liver abscess?",
+            choices: [
+              "A. Antibiotics alone",
+              "B. Surgical resection",
+              "C. Drainage and systemic antibiotics",
+              "D. Observation"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Drainage (percutaneous or surgical) combined with systemic antibiotics is the standard management for pyogenic liver abscess.",
+            details: "A. Incorrect: Insufficient for large abscesses.\nB. Incorrect: Resection rarely needed.\nC. Correct: Standard approach.\nD. Incorrect: Risks sepsis."
+          },
+          {
+            text: "Which of the following is not a feature of irritable bowel syndrome (IBS)?",
+            choices: [
+              "A. Unintentional weight loss",
+              "B. Colicky abdominal pain",
+              "C. Change in stool form",
+              "D. Change in stool appearance"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Unintentional weight loss is not a feature of IBS and suggests an organic cause.",
+            details: "A. Correct: Not IBS-related.\nB. Incorrect: Common in IBS.\nC. Incorrect: Part of Rome criteria.\nD. Incorrect: Related to form."
+          },
+          {
+            text: "A patient with cirrhosis, hepatorenal syndrome, and an abscess presents. What is the most appropriate management?",
+            choices: [
+              "A. Start diuretics",
+              "B. Exclude infection and give fluids with albumin",
+              "C. Perform immediate surgery",
+              "D. Observe without treatment"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Excluding infection, giving fluids, and albumin addresses hepatorenal syndrome and stabilizes the patient.",
+            details: "A. Incorrect: Diuretics worsen hypovolemia.\nB. Correct: Addresses infection and HRS.\nC. Incorrect: Surgery too risky initially.\nD. Incorrect: Observation inadequate."
+          },
+          {
+            text: "What is a complication of peritoneal lipoma?",
+            choices: [
+              "A. Gastric outlet obstruction",
+              "B. Intestinal obstruction",
+              "C. Esophageal stricture",
+              "D. Ascites"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Peritoneal lipomas can cause intestinal obstruction by compressing or twisting the bowel.",
+            details: "A. Incorrect: Not typical.\nB. Correct: Main complication.\nC. Incorrect: Esophagus unaffected.\nD. Incorrect: Ascites unrelated."
+          },
+          {
+            text: "How is hepatic encephalopathy in a patient with cirrhosis treated?",
+            choices: [
+              "A. Diuretics",
+              "B. Rifaximin",
+              "C. Proton pump inhibitors",
+              "D. Antiviral therapy"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Rifaximin is used to treat hepatic encephalopathy by reducing ammonia-producing gut bacteria.",
+            details: "A. Incorrect: For ascites, not encephalopathy.\nB. Correct: Standard treatment.\nC. Incorrect: For ulcers/reflux.\nD. Incorrect: For viral hepatitis."
+          },
+          {
+            text: "What is the purpose of rifaximin in hepatic encephalopathy?",
+            choices: [
+              "A. Increase ammonia levels",
+              "B. Reduce ammonia levels",
+              "C. Reduce bilirubin levels",
+              "D. Increase urea production"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Rifaximin reduces ammonia levels in hepatic encephalopathy by targeting gut bacteria.",
+            details: "A. Incorrect: Opposite effect.\nB. Correct: Primary purpose.\nC. Incorrect: No bilirubin effect.\nD. Incorrect: No urea effect."
+          },
+          {
+            text: "Which of the following is not a feature of generalized peritonitis?",
+            choices: [
+              "A. Fever and tachycardia",
+              "B. Rigid abdomen",
+              "C. Silent intestinal sounds",
+              "D. Colicky pain"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Colicky pain is not a feature of generalized peritonitis, which causes constant, severe pain.",
+            details: "A. Incorrect: Common signs.\nB. Incorrect: Hallmark feature.\nC. Incorrect: Indicates ileus.\nD. Correct: Typical of obstruction."
+          },
+          {
+            text: "Which of the following is not part of the Milan criteria for liver transplantation in HCC?",
+            choices: [
+              "A. Single HCC ≤ 5 cm",
+              "B. Up to three nodules ≤ 3 cm",
+              "C. No extrahepatic spread",
+              "D. Child-Pugh score A"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Child-Pugh score A is not part of the Milan criteria, which focus on tumor size and spread.",
+            details: "A. Incorrect: Part of criteria.\nB. Incorrect: Part of criteria.\nC. Incorrect: Part of criteria.\nD. Correct: Not included."
+          },
+          {
+            text: "What is the next step to assess whether the esophagus is operable in a patient with suspected esophageal cancer?",
+            choices: [
+              "A. Barium swallow",
+              "B. Esophagoscopy",
+              "C. CT scan",
+              "D. PET scan"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Esophagoscopy with biopsy is the next step to confirm esophageal cancer and assess operability.",
+            details: "A. Incorrect: Barium swallow is initial.\nB. Correct: Confirms diagnosis.\nC. Incorrect: For staging, not initial.\nD. Incorrect: For metastasis, not operability."
+          },
+          {
+            text: "A patient with advanced gastric cancer, locally invasive in the fundus, responds well to chemotherapy. What is the next step in management?",
+            choices: [
+              "A. Total gastrectomy",
+              "B. Proximal gastrectomy and D2 lymphadenectomy",
+              "C. Palliative care",
+              "D. Radiotherapy"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Proximal gastrectomy with D2 lymphadenectomy is appropriate for locally invasive fundal gastric cancer responding to chemotherapy.",
+            details: "A. Incorrect: Too extensive for fundal cancer.\nB. Correct: Targeted resection.\nC. Incorrect: Not needed if resectable.\nD. Incorrect: Adjunct, not primary."
+          },
+          {
+            text: "Which of the following is true about hepatic tumors?",
+            choices: [
+              "A. Adenomas are true neoplasms",
+              "B. Hemangiomas are malignant",
+              "C. Focal nodular hyperplasia is always resected",
+              "D. Hepatocellular carcinoma is benign"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Hepatic adenomas are true neoplasms, often associated with hormonal factors.",
+            details: "A. Correct: Neoplastic growth.\nB. Incorrect: Hemangiomas are benign.\nC. Incorrect: FNH rarely resected.\nD. Incorrect: HCC is malignant."
+          },
+          {
+            text: "Which condition is least likely to cause pain in the left lower quadrant?",
+            choices: [
+              "A. Diverticulitis",
+              "B. Appendicitis",
+              "C. Left-sided colitis",
+              "D. Pelvic inflammatory disease"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Appendicitis typically causes pain in the right lower quadrant, not the left.",
+            details: "A. Incorrect: Diverticulitis causes left-sided pain.\nB. Correct: Right-sided pain.\nC. Incorrect: Colitis affects left colon.\nD. Incorrect: PID causes bilateral pain."
+          },
+          {
+            text: "Which of the following is not a symptom of generalized peritonitis?",
+            choices: [
+              "A. Fever",
+              "B. Rigid abdomen",
+              "C. Colicky pain",
+              "D. Silent bowel sounds"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Generalized peritonitis causes constant, severe pain, not colicky pain.",
+            details: "A. Incorrect: Fever is common.\nB. Incorrect: Rigid abdomen is typical.\nC. Correct: Colicky pain is obstructive.\nD. Incorrect: Silent sounds indicate ileus."
+          },
+          {
+            text: "A patient presents with a duodenal perforation. What surgery should be performed?",
+            choices: [
+              "A. Vagotomy",
+              "B. Omental patch",
+              "C. Gastrectomy",
+              "D. Pyloroplasty"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Omental patch is the standard surgical repair for duodenal perforation.",
+            details: "A. Incorrect: Vagotomy for ulcers, not perforation.\nB. Correct: Seals perforation.\nC. Incorrect: Gastrectomy too extensive.\nD. Incorrect: Pyloroplasty not relevant."
+          },
+          {
+            text: "A patient denies hematemesis or melena but has a hemoglobin level of 8 g/dL. What is the next step?",
+            choices: [
+              "A. Colonoscopy",
+              "B. Esophagoscopy",
+              "C. Barium enema",
+              "D. Abdominal X-ray"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Esophagoscopy is indicated to investigate upper GI bleeding, which may not present with hematemesis or melena.",
+            details: "A. Incorrect: For lower GI bleeding.\nB. Correct: Checks upper GI source.\nC. Incorrect: Less sensitive.\nD. Incorrect: Not diagnostic for bleeding."
+          },
+          {
+            text: "What R-value indicates liver injury primarily affecting hepatocytes?",
+            choices: [
+              "A. R ≤ 2",
+              "B. R = 3",
+              "C. R ≥ 5",
+              "D. R < 5"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. R ≥ 5 indicates hepatocellular injury, with elevated ALT relative to ALP.",
+            details: "A. Incorrect: Cholestatic injury.\nB. Incorrect: Indeterminate.\nC. Correct: Hepatocellular pattern.\nD. Incorrect: Too broad."
+          },
+          {
+            text: "What is the diagnostic method for dark bleeding per rectum?",
+            choices: [
+              "A. Esophagoscopy",
+              "B. Colonoscopy",
+              "C. Barium enema",
+              "D. Abdominal CT"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Colonoscopy is the primary method to evaluate dark rectal bleeding, likely from a lower GI source.",
+            details: "A. Incorrect: For upper GI.\nB. Correct: Visualizes colon.\nC. Incorrect: Less specific.\nD. Incorrect: Adjunctive, not primary."
+          },
+          {
+            text: "What deficiency is associated with corkscrew hair?",
+            choices: [
+              "A. Vitamin A",
+              "B. Vitamin C",
+              "C. Vitamin D",
+              "D. Vitamin B12"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Vitamin C deficiency (scurvy) causes corkscrew hair due to impaired collagen synthesis.",
+            details: "A. Incorrect: Causes eye issues.\nB. Correct: Scurvy symptom.\nC. Incorrect: Bone-related.\nD. Incorrect: Neurological issues."
+          },
+          {
+            text: "What is the most common cause of massive rectal bleeding?",
+            choices: [
+              "A. Anal fissure",
+              "B. Crohn’s disease",
+              "C. Colorectal cancer",
+              "D. Diverticulum"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Diverticular bleeding is the most common cause of massive rectal bleeding due to eroded vessels.",
+            details: "A. Incorrect: Minor bleeding.\nB. Incorrect: Chronic bleeding.\nC. Incorrect: Less common.\nD. Correct: Leading cause."
+          },
+          {
+            text: "Which of the following is true about posterior anal fistulae?",
+            choices: [
+              "A. They have a linear appearance",
+              "B. They have a horseshoe appearance",
+              "C. They are always simple",
+              "D. They do not involve the sphincter"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Posterior anal fistulae often have a horseshoe appearance due to curved tracks.",
+            details: "A. Incorrect: Linear is less common.\nB. Correct: Horseshoe is typical.\nC. Incorrect: Can be complex.\nD. Incorrect: Involves sphincter."
+          },
+          {
+            text: "Which of the following is false about colorectal cancer?",
+            choices: [
+              "A. It commonly spreads to lymph nodes",
+              "B. It is always symptomatic early",
+              "C. It can cause rectal bleeding",
+              "D. It may lead to obstruction"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Colorectal cancer is often asymptomatic early, not always symptomatic.",
+            details: "A. Incorrect: Lymph node spread common.\nB. Correct: Early stages silent.\nC. Incorrect: Bleeding occurs.\nD. Incorrect: Obstruction possible."
+          },
+          {
+            text: "A patient with a history of gallbladder stones presents with signs of intestinal obstruction. What is the treatment?",
+            choices: [
+              "A. Laparoscopic cholecystectomy",
+              "B. ERCP",
+              "C. Percutaneous drainage",
+              "D. Observation"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Laparoscopic cholecystectomy treats gallstone ileus causing intestinal obstruction.",
+            details: "A. Correct: Removes gallstone source.\nB. Incorrect: For bile duct stones.\nC. Incorrect: Not relevant.\nD. Incorrect: Requires intervention."
+          },
+          {
+            text: "Which of the following is true about spleen anatomy?",
+            choices: [
+              "A. The spleen lies in front of the right 10th, 11th, and 12th ribs",
+              "B. The spleen lies in front of the left 10th, 11th, and 12th ribs",
+              "C. The spleen is not intraperitoneal",
+              "D. The spleen is supplied solely by the portal vein"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The spleen lies in front of the left 10th, 11th, and 12th ribs.",
+            details: "A. Incorrect: Right side incorrect.\nB. Correct: Left-sided location.\nC. Incorrect: Intraperitoneal.\nD. Incorrect: Supplied by splenic artery."
+          },
+          {
+            text: "What is the first manifestation of hepatorenal syndrome?",
+            choices: [
+              "A. Splanchnic vasodilation",
+              "B. Angiotensin system activation",
+              "C. Renal vasoconstriction",
+              "D. Ascites formation"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Splanchnic vasodilation initiates hepatorenal syndrome by reducing effective arterial volume.",
+            details: "A. Correct: Initial trigger.\nB. Incorrect: Secondary response.\nC. Incorrect: Later effect.\nD. Incorrect: Precedes syndrome."
+          },
+          {
+            text: "Which of the following is not true about constipation due to pelvic floor dysfunction?",
+            choices: [
+              "A. Prolonged and excessive straining",
+              "B. Anterior rectocele is common",
+              "C. Relaxation of pelvic floor and external anal sphincter during defecation",
+              "D. Sense of incomplete evacuation"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Pelvic floor dysfunction involves failure of pelvic floor and sphincter relaxation during defecation.",
+            details: "A. Incorrect: Straining common.\nB. Incorrect: Rectocele frequent.\nC. Correct: Non-relaxation is key.\nD. Incorrect: Incomplete evacuation typical."
+          },
+          {
+            text: "What is the origin of the gastroduodenal artery?",
+            choices: [
+              "A. Celiac trunk",
+              "B. Common hepatic artery",
+              "C. Superior mesenteric artery",
+              "D. Splenic artery"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The gastroduodenal artery arises from the common hepatic artery.",
+            details: "A. Incorrect: Parent vessel.\nB. Correct: Direct branch.\nC. Incorrect: Lower GI supply.\nD. Incorrect: Spleen supply."
+          },
+          {
+            text: "A 15-year-old girl presents with abdominal colicky pain, rectal bleeding, and oral pigmentation. Her sister has a similar history. What is the most probable diagnosis?",
+            choices: [
+              "A. Juvenile polyposis",
+              "B. Peutz-Jeghers syndrome",
+              "C. Familial polyposis",
+              "D. Ulcerative colitis"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Peutz-Jeghers syndrome is characterized by hamartomatous polyps, mucocutaneous pigmentation, and familial history.",
+            details: "A. Incorrect: Lacks pigmentation.\nB. Correct: Matches symptoms.\nC. Incorrect: No pigmentation.\nD. Incorrect: No polyps."
+          },
+          {
+            text: "Which of the following is associated with hemochromatosis?",
+            choices: [
+              "A. Adrenal insufficiency",
+              "B. Hypothyroidism",
+              "C. Hypoparathyroidism",
+              "D. Hypogonadism"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Hemochromatosis causes hypogonadism due to iron deposition in the pituitary or gonads.",
+            details: "A. Incorrect: Not typical.\nB. Incorrect: Less common.\nC. Incorrect: Not a feature.\nD. Correct: Common."
+          },
+          {
+            text: "What is the most common cause of massive bleeding per rectum?",
+            choices: [
+              "A. Peptic ulcer",
+              "B. Anal fissure",
+              "C. Diverticulosis",
+              "D. Colorectal cancer"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Diverticulosis is the most common cause of massive rectal bleeding due to arterial erosion in diverticula. Note: The provided answer (A) is incorrect, as peptic ulcers cause upper GI bleeding.",
+            details: "A. Incorrect: Causes upper GI bleeding.\nB. Incorrect: Minor bleeding.\nC. Correct: Leading cause.\nD. Incorrect: Less common."
+          },
+          {
+            text: "Which of the following statements about the spleen is false?",
+            choices: [
+              "A. The spleen lies in front of the left 10th, 11th, and 12th ribs",
+              "B. The spleen is intraperitoneal",
+              "C. The spleen is supplied by the splenic artery",
+              "D. The spleen is anterior to the stomach"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The spleen is posterior to the stomach, not anterior.",
+            details: "A. Incorrect: Correct location.\nB. Incorrect: Intraperitoneal.\nC. Incorrect: Splenic artery supply.\nD. Correct: Incorrect position."
+          },
+          {
+            text: "Which vessels contribute to lower esophageal varices?",
+            choices: [
+              "A. Superior and inferior gastric veins",
+              "B. Left gastric and-Sanai azygos veins",
+              "C. Portal vein and inferior vena cava",
+              "D. Splenic and superior mesenteric veins"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Esophageal varices form from anastomosis between the left gastric vein (portal) and azygos vein (systemic).",
+            details: "A. Incorrect: Not primary.\nB. Correct: Key anastomosis.\nC. Incorrect: Not direct.\nD. Incorrect: Not involved."
+          },
+          {
+            text: "What is the name of the sign associated with splenic pathology causing pain radiating to the left shoulder?",
+            choices: [
+              "A. Murphy’s sign",
+              "B. Kehr’s sign",
+              "C. Rovsing’s sign",
+              "D. Cullen’s sign"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Kehr’s sign is left shoulder pain due to diaphragmatic irritation from splenic pathology (e.g., rupture).",
+            details: "A. Incorrect: Gallbladder sign.\nB. Correct: Splenic sign.\nC. Incorrect: Appendicitis sign.\nD. Incorrect: Pancreatitis sign."
+          },
+          {
+            text: "What is the antidote for acetaminophen toxicity?",
+            choices: [
+              "A. Flumazenil",
+              "B. N-acetylcysteine",
+              "C. Atropine",
+              "D. Naloxone"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. N-acetylcysteine replenishes glutathione to detoxify acetaminophen’s toxic metabolite.",
+            details: "A. Incorrect: For benzodiazepines.\nB. Correct: Specific antidote.\nC. Incorrect: For cholinergic toxicity.\nD. Incorrect: For opioids."
+          },
+          {
+            text: "Which of the following does not cause huge splenomegaly?",
+            choices: [
+              "A. Malaria",
+              "B. Leukemia",
+              "C. Rickettsial infection",
+              "D. Portal hypertension"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Rickettsial infections cause mild or no splenomegaly, unlike others causing massive enlargement.",
+            details: "A. Incorrect: Causes huge splenomegaly.\nB. Incorrect: Massive spleen.\nC. Correct: Minimal splenomegaly.\nD. Incorrect: Large spleen."
+          },
+          {
+            text: "A patient with positive anti-mitochondrial antibodies (AMA) is diagnosed with what condition?",
+            choices: [
+              "A. Autoimmune hepatitis",
+              "B. Primary biliary cholangitis",
+              "C. Wilson’s disease",
+              "D. Hemochromatosis"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Positive AMA is highly specific for primary biliary cholangitis.",
+            details: "A. Incorrect: Anti-smooth muscle antibodies.\nB. Correct: AMA diagnostic.\nC. Incorrect: Copper disorder.\nD. Incorrect: Iron overload."
+          },
+          {
+            text: "What is the most common drug causing intrahepatic cholestasis?",
+            choices: [
+              "A. Acetaminophen",
+              "B. Oral contraceptives",
+              "C. Statins",
+              "D. Antibiotics"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Oral contraceptives commonly cause intrahepatic cholestasis due to estrogen effects.",
+            details: "A. Incorrect: Hepatocellular injury.\nB. Correct: Estrogen-induced.\nC. Incorrect: Less common.\nD. Incorrect: Less frequent."
+          },
+          {
+            text: "In Wilson’s disease, where is copper increased?",
+            choices: [
+              "A. Serum",
+              "B. Urine",
+              "C. Liver only",
+              "D. Ceruloplasmin"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Wilson’s disease causes increased urinary copper due to impaired excretion.",
+            details: "A. Incorrect: Serum copper low.\nB. Correct: High urinary copper.\nC. Incorrect: Liver high, but urine diagnostic.\nD. Incorrect: Ceruloplasmin low."
+          },
+          {
+            text: "What is the most common manifestation of gastric cancer?",
+            choices: [
+              "A. Epigastric pain",
+              "B. Weight loss",
+              "C. Bleeding",
+              "D. Unknown (question incomplete in file)"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Weight loss is the most common manifestation of gastric cancer, often due to advanced disease. Note: The provided answer (D) is incorrect; weight loss is standard.",
+            details: "A. Incorrect: Less common initially.\nB. Correct: Frequent presentation.\nC. Incorrect: Bleeding less common.\nD. Incorrect: Answer is weight loss."
+          },
+          {
+            text: "What is the most common site for ulcerative colitis?",
+            choices: [
+              "A. Ileum",
+              "B. Rectum",
+              "C. Sigmoid colon",
+              "D. Transverse colon"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Ulcerative colitis most commonly involves the rectum and extends proximally.",
+            details: "A. Incorrect: Ileum spared.\nB. Correct: Primary site.\nC. Incorrect: Involved later.\nD. Incorrect: Less common."
+          },
+          {
+            text: "What is the string sign associated with?",
+            choices: [
+              "A. Crohn’s disease",
+              "B. Ulcerative colitis",
+              "C. Intestinal tuberculosis",
+              "D. Colorectal cancer"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The string sign, seen on imaging, is associated with intestinal tuberculosis due to strictures.",
+            details: "A. Incorrect: Crohn’s causes skip lesions.\nB. Incorrect: Affects mucosa.\nC. Correct: Strictures cause sign.\nD. Incorrect: Causes masses."
+          },
+          {
+            text: "What is the treatment for a hepatic adenoma >6 cm?",
+            choices: [
+              "A. Observation",
+              "B. Resection",
+              "C. Embolization",
+              "D. Chemotherapy"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Hepatic adenoma >6 cm requires resection due to risk of rupture or malignancy.",
+            details: "A. Incorrect: For smaller adenomas.\nB. Correct: Resection for large.\nC. Incorrect: Not standard.\nD. Incorrect: Not indicated."
+          },
+          {
+            text: "What is the treatment for esophageal diverticula?",
+            choices: [
+              "A. Fundoplication",
+              "B. Myotomy",
+              "C. Resection",
+              "D. PPI therapy"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Myotomy, often with diverticulectomy, treats esophageal diverticula by addressing motility issues.",
+            details: "A. Incorrect: For reflux.\nB. Correct: For motility.\nC. Incorrect: Resection alone insufficient.\nD. Incorrect: For acid reflux."
+          },
+          {
+            text: "What is the treatment for an appendicitis abscess?",
+            choices: [
+              "A. Immediate appendectomy",
+              "B. Drainage and appendectomy after 3-6 months",
+              "C. Antibiotics alone",
+              "D. Observation"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Drainage with delayed appendectomy (3-6 months) is standard for appendicitis abscess.",
+            details: "A. Incorrect: Risks complications.\nB. Correct: Standard approach.\nC. Incorrect: Insufficient.\nD. Incorrect: Risks recurrence."
+          },
+          {
+            text: "What is Rovsing’s sign in acute appendicitis?",
+            choices: [
+              "A. Pain in the right iliac fossa on pressure in the left iliac fossa",
+              "B. Pain on leg extension",
+              "C. Pain on internal rotation of the hip",
+              "D. Rebound tenderness"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Rovsing’s sign is pain in the right iliac fossa when pressure is applied to the left, indicating appendicitis.",
+            details: "A. Correct: Classic sign.\nB. Incorrect: Psoas sign.\nC. Incorrect: Obturator sign.\nD. Incorrect: Non-specific."
+          },
+          {
+            text: "What is Grey Turner’s sign?",
+            choices: [
+              "A. Bluish discoloration around the umbilicus",
+              "B. Bluish discoloration of both flanks due to intraperitoneal hemorrhage",
+              "C. Jaundice in the sclera",
+              "D. Palpable mass in the abdomen"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Grey Turner’s sign is bluish flank discoloration due to retroperitoneal hemorrhage, often in pancreatitis.",
+            details: "A. Incorrect: Cullen’s sign.\nB. Correct: Flank discoloration.\nC. Incorrect: Jaundice unrelated.\nD. Incorrect: No mass."
+          },
+          {
+            text: "A patient with tense ascites undergoes large-volume paracentesis for 6 months and is on furosemide (100 mg) and spironolactone (200 mg) but still has moderate ascites. What is the next step?",
+            choices: [
+              "A. Large-volume paracentesis",
+              "B. Add sodium to the diet",
+              "C. Remove sodium from the diet",
+              "D. Increase diuretic dose"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Large-volume paracentesis is indicated for refractory ascites despite maximal diuretic therapy.",
+            details: "A. Correct: Effective for refractory ascites.\nB. Incorrect: Worsens ascites.\nC. Incorrect: Already standard.\nD. Incorrect: Maximal dose reached."
+          },
+          {
+            text: "Esophageal varices are due to anastomosis between which veins?",
+            choices: [
+              "A. Superior gastric vein and inferior gastric vein",
+              "B. Portal vein and inferior vena cava",
+              "C. Left gastric vein and azygos vein",
+              "D. Splenic vein and portal vein"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Esophageal varices result from anastomosis between the left gastric vein and azygos vein.",
+            details: "A. Incorrect: Not involved.\nB. Incorrect: Not direct.\nC. Correct: Primary anastomosis.\nD. Incorrect: Not related."
+          },
+          {
+            text: "What is the Sterling sign associated with?",
+            choices: [
+              "A. Crohn’s disease",
+              "B. Ulcerative colitis",
+              "C. Intestinal carcinoma",
+              "D. Intestinal tuberculosis"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The Sterling sign (string sign) is associated with intestinal tuberculosis due to strictures.",
+            details: "A. Incorrect: Different imaging.\nB. Incorrect: No strictures.\nC. Incorrect: Causes masses.\nD. Correct: Strictures cause sign."
+          },
+          {
+            text: "Which of the following signs is associated with acute pancreatitis?",
+            choices: [
+              "A. Rovsing’s sign",
+              "B. Cullen’s sign",
+              "C. Kehr’s sign",
+              "D. Murphy’s sign"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Cullen’s sign (periumbilical bruising) is associated with acute pancreatitis due to hemorrhagic fluid.",
+            details: "A. Incorrect: Appendicitis.\nB. Correct: Pancreatitis sign.\nC. Incorrect: Splenic sign.\nD. Incorrect: Gallbladder sign."
+          },
+          {
+            text: "What is the surgical approach for colon cancer?",
+            choices: [
+              "A. Bypass surgery",
+              "B. Resection and anastomosis",
+              "C. Stenting",
+              "D. Chemotherapy alone"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Resection and anastomosis is the primary surgical treatment for localized colon cancer.",
+            details: "A. Incorrect: Not standard.\nB. Correct: Curative approach.\nC. Incorrect: For palliation.\nD. Incorrect: Adjunct therapy."
+          },
+          {
+            text: "What is the surgical approach for strangulated intestinal obstruction?",
+            choices: [
+              "A. Bypass surgery",
+              "B. Resection and anastomosis",
+              "C. Stenting",
+              "D. Conservative management"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Resection and anastomosis removes non-viable bowel in strangulated obstruction.",
+            details: "A. Incorrect: Not appropriate.\nB. Correct: Removes strangulated segment.\nC. Incorrect: Not feasible.\nD. Incorrect: Risks perforation."
+          },
+          {
+            text: "What is the most common cause of massive bleeding per rectum?",
+            choices: [
+              "A. Peptic ulcer",
+              "B. Anal fissure",
+              "C. Diverticulosis",
+              "D. Hemorrhoids"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Diverticulosis is the most common cause of massive rectal bleeding. Note: The provided answer (A) is incorrect, as peptic ulcers cause upper GI bleeding.",
+            details: "A. Incorrect: Upper GI bleeding.\nB. Incorrect: Minor bleeding.\nC. Correct: Common cause.\nD. Incorrect: Less severe bleeding."
+          },
+          {
+            text: "In Wilson’s disease, which of the following is true?",
+            choices: [
+              "A. Increased serum copper",
+              "B. Increased copper in urine",
+              "C. Increased serum ceruloplasmin",
+              "D. Decreased urinary copper"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Wilson’s disease causes increased urinary copper due to defective excretion.",
+            details: "A. Incorrect: Serum copper low.\nB. Correct: High urinary copper.\nC. Incorrect: Ceruloplasmin low.\nD. Incorrect: Opposite finding."
+          },
+          {
+            text: "Which of the following is an absolute contraindication to liver transplantation?",
+            choices: [
+              "A. Age over 70",
+              "B. Chest Aspergillus infection",
+              "C. Venous thrombosis",
+              "D. Child-Pugh score B"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Active chest Aspergillus infection is an absolute contraindication due to high mortality risk.",
+            details: "A. Incorrect: Relative contraindication.\nB. Correct: Absolute contraindication.\nC. Incorrect: Manageable.\nD. Incorrect: Not a contraindication."
+          },
+          {
+            text: "What is the origin of the gastroduodenal artery?",
+            choices: [
+              "A. Common hepatic artery",
+              "B. Celiac trunk",
+              "C. Superior mesenteric artery",
+              "D. Splenic artery"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. The gastroduodenal artery is a branch of the common hepatic artery.",
+            details: "A. Correct: Direct branch.\nB. Incorrect: Parent vessel.\nC. Incorrect: Lower GI supply.\nD. Incorrect: Spleen supply."
+          },
+          {
+            text: "Esophageal varices arise from anastomosis between which veins?",
+            choices: [
+              "A. Superior and inferior gastric veins",
+              "B. Left gastric and azygos veins",
+              "C. Portal vein and inferior vena cava",
+              "D. Splenic and superior mesenteric veins"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Esophageal varices form from the left gastric vein and azygos vein anastomosis.",
+            details: "A. Incorrect: Not primary.\nB. Correct: Key anastomosis.\nC. Incorrect: Not direct.\nD. Incorrect: Not involved."
+          },
+          {
+            text: "Where does amino acid absorption primarily occur?",
+            choices: [
+              "A. Stomach",
+              "B. Duodenum",
+              "C. Ileum",
+              "D. Colon"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The duodenum is the primary site for amino acid absorption due to enzymatic activity.",
+            details: "A. Incorrect: Digests, not absorbs.\nB. Correct: Main site.\nC. Incorrect: Absorbs vitamins.\nD. Incorrect: Minimal absorption."
+          },
+          {
+            text: "What deficiency causes corkscrew hair?",
+            choices: [
+              "A. Vitamin A",
+              "B. Vitamin C",
+              "C. Vitamin D",
+              "D. Vitamin B12"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Vitamin C deficiency (scurvy) causes corkscrew hair due to defective collagen.",
+            details: "A. Incorrect: Eye issues.\nB. Correct: Scurvy symptom.\nC. Incorrect: Bone-related.\nD. Incorrect: Neurological."
+          },
+          {
+            text: "What is the first change in hepatorenal syndrome?",
+            choices: [
+              "A. Splanchnic vasodilation",
+              "B. Renin-angiotensin activation",
+              "C. Renal vasoconstriction",
+              "D. Ascites formation"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Splanchnic vasodilation is the initial trigger in hepatorenal syndrome, reducing renal perfusion.",
+            details: "A. Correct: Initiates cascade.\nB. Incorrect: Secondary.\nC. Incorrect: Later effect.\nD. Incorrect: Precedes syndrome."
+          },
+          {
+            text: "A woman presents with gastroenteritis after eating at a restaurant, with diarrhea 9 times a day. What is the best management?",
+            choices: [
+              "A. No treatment",
+              "B. Symptomatic treatment and oral rehydration",
+              "C. Oral antibiotics and discharge home",
+              "D. Intravenous fluids and admission"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Symptomatic treatment with oral rehydration is sufficient for uncomplicated gastroenteritis.",
+            details: "A. Incorrect: Risks dehydration.\nB. Correct: Restores fluids.\nC. Incorrect: Antibiotics not routine.\nD. Incorrect: IV for severe cases."
+          }
+        ]
+      };
+
+      // Initialize quiz content
+      document.title = quizConfig.title;
+      document.getElementById("quizHeader").innerText = quizConfig.title;
+      document.getElementById("lessonText").innerText = `Lesson: ${quizConfig.lesson}`;
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        try {
+          document.getElementById("startScreen").style.display = "none";
+          document.getElementById("questionBox").style.display = "block";
+          showQuestion();
+          renderQuestionNav();
+        } catch (error) {
+          console.error("Error in startQuiz:", error);
+        }
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!q || !q.choices || !Array.isArray(q.correct) || typeof q.correct[0] !== 'number') {
+            console.error('Invalid question structure:', q);
+            return;
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.disabled = false;
+            btn.onclick = () => {
+              console.log(`Button ${idx} clicked`);
+              checkAnswer(idx, btn);
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = "none";
+          document.getElementById("detailsBtn").style.display = "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = "none";
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            optionButtons[i].style.opacity = 0.7;
+            if (i === q.correct[0]) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct[0]) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (selectedIndex === q.correct[0]) {
+            answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+            score++;
+          } else {
+            answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+          }
+          answerBox.style.display = "block";
+          detailsBtn.style.display = "inline-block";
+          nextBtn.style.display = "inline-block";
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+        }
+      }
+
+      function nextQuestion() {
+        try {
+          currentQuestionIndex++;
+          if (currentQuestionIndex < quizConfig.questions.length) {
+            showQuestion();
+            updateQuestionNav();
+          } else {
+            document.getElementById("questionBox").style.display = "none";
+            document.getElementById("startScreen").style.display = "block";
+            document.getElementById("quizHeader").innerText = `Quiz Completed!`;
+            document.getElementById("lessonText").innerText = `You scored ${score} out of ${quizConfig.questions.length}.`;
+            document.getElementById("startScreen").innerHTML += `<button class="start-btn" onclick="restartQuiz()">Restart Quiz</button>`;
+          }
+        } catch (error) {
+          console.error("Error in nextQuestion:", error);
+        }
+      }
+
+      function goToQuestion(index) {
+        try {
+          if (index >= 0 && index < quizConfig.questions.length) {
+            currentQuestionIndex = index;
+            showQuestion();
+            updateQuestionNav();
+          }
+        } catch (error) {
+          console.error("Error in goToQuestion:", error);
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.onclick = () => goToQuestion(index);
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = (i === currentQuestionIndex);
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("quizHeader").innerText = quizConfig.title;
+          document.getElementById("lessonText").innerText = `Lesson: ${quizConfig.lesson}`;
+          document.getElementById("startScreen").innerHTML = `
+            <h1 id="quizHeader">${quizConfig.title}</h1>
+            <p id="lessonText">Lesson: ${quizConfig.lesson}</p>
+            <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+          `;
+          startQuiz();
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+        }
+      }
+    </script>
+  </body>
 </html>
