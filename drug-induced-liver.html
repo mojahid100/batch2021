@@ -1,10 +1,694 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Drug Induced Liver</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: drug-induced-liver.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Drug-Induced Liver Disease Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Drug-Induced Liver Disease Quiz</h1>
+        <p lang="ar">Drug-Induced Liver Disease Quiz</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Drug-Induced Liver Disease Quiz",
+        lesson: "الأسئلة من ملف أمراض الكبد الناتجة عن الأدوية",
+        questions: [
+          // Susceptibility to DILD
+          {
+            text: "Why is the liver particularly susceptible to drug-induced injury?",
+            choices: [
+              "A. It lacks metabolic enzymes",
+              "B. It is the first organ to contact drugs after GI absorption",
+              "C. It does not process xenobiotics",
+              "D. It is distant from the bloodstream"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. The liver’s role in first-pass metabolism makes it susceptible to drug-induced injury.",
+            details: "A. Incorrect: The liver is rich in enzymes. B. Correct: First-pass metabolism exposes the liver to drugs. C. Incorrect: The liver processes xenobiotics. D. Incorrect: The liver is central to bloodstream."
+          },
+          {
+            text: "Which factor increases the risk of DILD in women?",
+            choices: [
+              "A. Lower expression of cytochrome P450 enzymes",
+              "B. Higher susceptibility to sulfonamide-induced hepatitis",
+              "C. Reduced risk of cholestatic reactions",
+              "D. Lower body mass index"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Women are more prone to sulfonamide-induced hepatitis.",
+            details: "A. Incorrect: No evidence of lower P450 in women. B. Correct: Includes diclofenac hepatitis. C. Incorrect: Men have higher cholestatic risk. D. Incorrect: BMI not a primary factor."
+          },
+          {
+            text: "Which condition increases the risk of acetaminophen hepatotoxicity?",
+            choices: [
+              "A. Obesity",
+              "B. Fasting or malnutrition",
+              "C. Preexisting renal disease",
+              "D. High-fiber diet"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Fasting or malnutrition depletes glutathione, increasing acetaminophen toxicity.",
+            details: "A. Incorrect: Linked to halothane. B. Correct: Reduces glutathione stores. C. Incorrect: Not a primary factor. D. Incorrect: Irrelevant to toxicity."
+          },
+          // Mechanisms and Classification
+          {
+            text: "What characterizes an intrinsic drug reaction in DILD?",
+            choices: [
+              "A. Immune-mediated with short latency",
+              "B. Dose-related and predictable",
+              "C. Occurs only in genetically resistant individuals",
+              "D. Always resolves spontaneously"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Intrinsic reactions are dose-related and predictable.",
+            details: "A. Incorrect: Describes immunoallergic reactions. B. Correct: E.g., acetaminophen overdose. C. Incorrect: Not resistance-related. D. Incorrect: Resolution not guaranteed."
+          },
+          {
+            text: "What is the biochemical criterion for defining DILD?",
+            choices: [
+              "A. ALT ≥5× ULN or ALP ≥2× ULN",
+              "B. ALT <3× ULN with normal bilirubin",
+              "C. Normal ALT with elevated GGT",
+              "D. ALP <1× ULN with normal AST"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. DILD is defined by ALT ≥5× ULN or ALP ≥2× ULN.",
+            details: "A. Correct: Includes bilirubin >2× ULN with ALT ≥3× ULN. B. Incorrect: Below threshold. C. Incorrect: Non-diagnostic. D. Incorrect: Below threshold."
+          },
+          {
+            text: "How is a hepatocellular pattern of DILD classified?",
+            choices: [
+              "A. R ≤2 (ALT/ULN ÷ ALP/ULN)",
+              "B. R ≥5",
+              "C. R between 2 and 5",
+              "D. R = 0"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Hepatocellular DILD is defined by R ≥5.",
+            details: "A. Incorrect: Cholestatic pattern. B. Correct: Hepatocellular pattern. C. Incorrect: Mixed pattern. D. Incorrect: Invalid ratio."
+          },
+          {
+            text: "Which drug is associated with an immunoallergic idiosyncratic reaction?",
+            choices: [
+              "A. Acetaminophen",
+              "B. Phenytoin",
+              "C. Methotrexate",
+              "D. Tetracycline"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Phenytoin causes immunoallergic idiosyncratic reactions.",
+            details: "A. Incorrect: Intrinsic mechanism. B. Correct: Fever, rash, eosinophilia. C. Incorrect: Metabolic-idiosyncratic. D. Incorrect: Intrinsic mechanism."
+          },
+          // Clinical Patterns
+          {
+            text: "Which drug is most commonly associated with subclinical hepatitis?",
+            choices: [
+              "A. Amoxicillin-clavulanate",
+              "B. Rifampin",
+              "C. Anabolic steroids",
+              "D. Salicylic acid"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Rifampin causes subclinical hepatitis with asymptomatic enzyme elevation.",
+            details: "A. Incorrect: Causes cholestasis. B. Correct: Common with rifampin. C. Incorrect: Causes cholestasis. D. Incorrect: Linked to Reye’s syndrome."
+          },
+          {
+            text: "What is a clinical feature of acute hepatitis caused by acetaminophen?",
+            choices: [
+              "A. Chronic fatigue without jaundice",
+              "B. Fever, malaise, and rash followed by jaundice",
+              "C. Asymptomatic enzyme elevation",
+              "D. Immediate cholestasis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Acetaminophen-induced hepatitis mimics viral hepatitis with fever, malaise, rash, and jaundice.",
+            details: "A. Incorrect: Not typical. B. Correct: Common presentation. C. Incorrect: Not asymptomatic. D. Incorrect: Hepatocellular, not cholestatic."
+          },
+          {
+            text: "Which drug is associated with granulomatous hepatitis?",
+            choices: [
+              "A. Methotrexate",
+              "B. Sulfonamides",
+              "C. Amiodarone",
+              "D. Oral contraceptives"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Sulfonamides are linked to granulomatous hepatitis.",
+            details: "A. Incorrect: Causes steatosis. B. Correct: Fever, lethargy. C. Incorrect: Causes hepatitis/steatosis. D. Incorrect: Causes cholestasis."
+          },
+          {
+            text: "Which drug is a common cause of intrahepatic cholestasis?",
+            choices: [
+              "A. Phenytoin",
+              "B. Amoxicillin-clavulanate",
+              "C. Acetaminophen",
+              "D. Valproic acid"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Amoxicillin-clavulanate is a frequent cause of intrahepatic cholestasis.",
+            details: "A. Incorrect: Causes hepatitis. B. Correct: Common in men. C. Incorrect: Causes hepatocellular injury. D. Incorrect: Causes steatosis."
+          },
+          {
+            text: "Which drug causes microvesicular steatosis in Reye’s syndrome?",
+            choices: [
+              "A. Tetracycline",
+              "B. Salicylic acid",
+              "C. Minocycline",
+              "D. Irbesartan"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Salicylic acid causes microvesicular steatosis in Reye’s syndrome.",
+            details: "A. Incorrect: Causes macrovesicular steatosis. B. Correct: Aspirin-linked. C. Incorrect: Causes macrovesicular steatosis. D. Incorrect: Causes cholestasis."
+          },
+          {
+            text: "What is a vascular manifestation of DILD associated with oral contraceptives?",
+            choices: [
+              "A. Granulomatous hepatitis",
+              "B. Budd-Chiari syndrome",
+              "C. Chronic hepatitis",
+              "D. Macrovesicular steatosis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Oral contraceptives are a major cause of Budd-Chiari syndrome.",
+            details: "A. Incorrect: Not vascular. B. Correct: Vascular injury. C. Incorrect: Not vascular. D. Incorrect: Not vascular."
+          },
+          // Diagnosis and Treatment
+          {
+            text: "What is the first step in diagnosing suspected DILD?",
+            choices: [
+              "A. Immediate liver biopsy",
+              "B. Detailed history of drug and supplement exposure",
+              "C. Routine colonoscopy",
+              "D. Genetic testing for all patients"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. A detailed drug exposure history is critical for DILD diagnosis.",
+            details: "A. Incorrect: Not initial. B. Correct: First diagnostic step. C. Incorrect: Irrelevant. D. Incorrect: Not routine."
+          },
+          {
+            text: "What is the most important aspect of DILD treatment?",
+            choices: [
+              "A. Starting corticosteroids immediately",
+              "B. Early discontinuation of the offending drug",
+              "C. Routine liver transplantation",
+              "D. Long-term ursodeoxycholic acid"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Stopping the offending drug is the most critical step.",
+            details: "A. Incorrect: Case-specific. B. Correct: Often resolves injury. C. Incorrect: Rarely needed. D. Incorrect: For cholestasis."
+          },
+          {
+            text: "Which antidote is used for acetaminophen-induced hepatotoxicity?",
+            choices: [
+              "A. Ursodeoxycholic acid",
+              "B. N-acetylcysteine (NAC)",
+              "C. Mannitol",
+              "D. Vitamin K"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. N-acetylcysteine is the specific antidote for acetaminophen toxicity.",
+            details: "A. Incorrect: For cholestasis. B. Correct: Replenishes glutathione. C. Incorrect: For cerebral edema. D. Incorrect: For coagulopathy."
+          },
+          {
+            text: "When is ursodeoxycholic acid indicated in DILD?",
+            choices: [
+              "A. Acute hepatocellular injury",
+              "B. Drug-induced cholestatic injury",
+              "C. Microvesicular steatosis",
+              "D. Granulomatous hepatitis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Ursodeoxycholic acid is used for cholestatic DILD.",
+            details: "A. Incorrect: Not for hepatocellular. B. Correct: Dose >15 mg/kg. C. Incorrect: Different treatment. D. Incorrect: Different treatment."
+          },
+          {
+            text: "According to King’s College criteria, what indicates liver transplantation in acetaminophen-induced acute liver failure?",
+            choices: [
+              "A. Normal prothrombin time",
+              "B. Arterial pH <7.30 after resuscitation",
+              "C. Serum bilirubin <17.4 mg/dL",
+              "D. Age <10 years alone"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Arterial pH <7.30 indicates transplantation in acetaminophen-induced ALF.",
+            details: "A. Incorrect: Indicates better prognosis. B. Correct: Includes INR >6.5, creatinine >3.4 mg/dL. C. Incorrect: Below threshold. D. Incorrect: Age not sole criterion."
+          },
+          {
+            text: "What is a supportive treatment for coagulopathy in acute liver failure?",
+            choices: [
+              "A. Oral corticosteroids",
+              "B. Intravenous vitamin K and fresh frozen plasma",
+              "C. High-dose mannitol",
+              "D. Prophylactic antibiotics alone"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Vitamin K and fresh frozen plasma correct coagulopathy in ALF.",
+            details: "A. Incorrect: Not standard. B. Correct: Addresses coagulopathy. C. Incorrect: For cerebral edema. D. Incorrect: Adjunctive."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 2}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 2}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 2}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف أمراض الكبد الناتجة عن الأدوية</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
