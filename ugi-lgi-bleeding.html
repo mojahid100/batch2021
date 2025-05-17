@@ -1,10 +1,944 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Ugi Lgi Bleeding</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: ugi-lgi-bleeding.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>UGI and LGI Bleeding Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>UGI and LGI Bleeding Quiz</h1>
+        <p lang="ar"> UGI and LGI Bleeding</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "UGI and LGI Bleeding Quiz",
+        lesson: "UGI and LGI Bleeding",
+        questions: [
+          // UGI Bleeding Questions
+          {
+            text: "What is the definition of haematemesis in upper gastrointestinal (UGI) bleeding?",
+            choices: [
+              "A. Production of dark, sticky feces containing digested blood",
+              "B. Vomiting of fresh blood or coffee-ground vomitus",
+              "C. Unseen blood in the stool causing anemia",
+              "D. Fresh rectal bleeding"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Haematemesis is vomiting of fresh blood or coffee-ground vomitus, indicating UGI bleeding.",
+            details: "A. Incorrect: Describes melena. B. Correct: Specific to UGI bleeding. C. Incorrect: Refers to occult LGI bleeding. D. Incorrect: Describes haematochezia, typically LGI."
+          },
+          {
+            text: "A patient presents with black, sticky stools for 3 days, lightheadedness, and epigastric burning. What is the most likely source of bleeding?",
+            choices: [
+              "A. Proximal to the ligament of Treitz",
+              "B. Distal to the ligament of Treitz",
+              "C. Hemorrhoidal veins",
+              "D. Large intestine"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Melena suggests UGI bleeding proximal to the ligament of Treitz.",
+            details: "A. Correct: Melena indicates UGI source. B. Incorrect: LGI bleeding causes haematochezia. C. Incorrect: Causes bright red blood. D. Incorrect: Less likely for melena."
+          },
+          {
+            text: "Which condition is a common cause of UGI bleeding associated with long-standing liver disease?",
+            choices: [
+              "A. Peptic ulcer disease",
+              "B. Portal hypertension",
+              "C. Erosive gastritis",
+              "D. Mallory-Weiss tears"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Portal hypertension causes UGI bleeding from esophageal varices in liver disease.",
+            details: "A. Incorrect: Linked to H. pylori/NSAIDs. B. Correct: Common in cirrhosis. C. Incorrect: NSAID/stress-related. D. Incorrect: Alcohol/retching-related."
+          },
+          {
+            text: "What is a common cause of UGI bleeding in a patient with a history of NSAID use? ",
+            choices: [
+              "A. Gastric neoplasms",
+              "B. Erosive gastritis",
+              "C. Vascular anomalies",
+              "D. Aortoenteric fistula"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Erosive gastritis is caused by NSAIDs, leading to UGI bleeding.",
+            details: "A. Incorrect: Rare (1%). B. Correct: NSAID-induced erosions. C. Incorrect: Less NSAID-related. D. Incorrect: Linked to aortic grafts."
+          },
+          {
+            text: "What is the primary source of bleeding in Mallory-Weiss tears? (Page 12)",
+            choices: [
+              "A. Esophageal varices",
+              "B. Gastric mucosa",
+              "C. Gastroesophageal junction",
+              "D. Duodenal ulcers"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Mallory-Weiss tears occur at the gastroesophageal junction.",
+            details: "A. Incorrect: Varices are liver-related. B. Incorrect: Different site. C. Correct: Lacerations at junction. D. Incorrect: Ulcers in duodenum."
+          },
+          {
+            text: "What vital sign finding in a patient with UGI bleeding indicates severe hypovolemia (≥40% blood volume loss)? ",
+            choices: [
+              "A. Resting tachycardia",
+              "B. Orthostatic hypotension",
+              "C. Supine hypotension",
+              "D. Normal blood pressure"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Supine hypotension indicates ≥40% blood volume loss.",
+            details: "A. Incorrect: <15% loss. B. Incorrect: ≥15% loss. C. Correct: Severe hypovolemia. D. Incorrect: Minimal loss."
+          },
+          {
+            text: "What laboratory test is critical to send during the initial evaluation of a patient with UGI bleeding?",
+            choices: [
+              "A. Serum electrolytes only",
+              "B. Complete blood count and cross-matching",
+              "C. Liver function tests only",
+              "D. Blood glucose level"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. CBC and cross-matching assess anemia and prepare for transfusion.",
+            details: "A. Incorrect: Less urgent. B. Correct: Critical for UGI bleeding. C. Incorrect: Secondary. D. Incorrect: Non-urgent."
+          },
+          {
+            text: "What is the purpose of placing a nasogastric tube in selected patients with UGI bleeding? ",
+            choices: [
+              "A. To confirm lower GI bleeding",
+              "B. To remove clots or particulate matter before endoscopy",
+              "C. To replace endoscopic evaluation",
+              "D. To administer fluids"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Nasogastric tube clears stomach for endoscopy.",
+            details: "A. Incorrect: Assesses UGI bleeding. B. Correct: Facilitates endoscopy. C. Incorrect: Endoscopy essential. D. Incorrect: Not for fluids."
+          },
+          {
+            text: "Which symptom during history taking suggests a possible malignancy in UGI bleeding? ",
+            choices: [
+              "A. Melena alone",
+              "B. Involuntary weight loss and cachexia",
+              "C. Epigastric pain relieved by food",
+              "D. Orthostatic dizziness"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Weight loss and cachexia suggest gastric neoplasms.",
+            details: "A. Incorrect: Non-specific. B. Correct: Malignancy red flags. C. Incorrect: Suggests ulcers. D. Incorrect: Indicates hypovolemia."
+          },
+          {
+            text: "What is the initial management step for a patient with UGI bleeding and hemodynamic instability?",
+            choices: [
+              "A. Administer vasoactive medications",
+              "B. Initiate immediate fluid resuscitation",
+              "C. Perform urgent endoscopy",
+              "D. Start oral proton pump inhibitors"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Fluid resuscitation stabilizes hemodynamic instability.",
+            details: "A. Incorrect: Subsequent step. B. Correct: Immediate priority. C. Incorrect: After stabilization. D. Incorrect: Not initial."
+          },
+          {
+            text: "What fluid is recommended for resuscitation in a patient with UGI bleeding and vital instability?",
+            choices: [
+              "A. 5% dextrose in water",
+              "B. 0.9% saline or lactated Ringer’s",
+              "C. 5% albumin",
+              "D. Whole blood"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Saline or lactated Ringer’s are recommended for resuscitation.",
+            details: "A. Incorrect: Not for volume. B. Correct: Crystalloids for instability. C. Incorrect: Not primary. D. Incorrect: Not initial."
+          },
+          {
+            text: "When is blood transfusion indicated in a high-risk patient with UGI bleeding? ",
+            choices: [
+              "A. Hemoglobin <7 g/dL",
+              "B. Hemoglobin <9 g/dL",
+              "C. Hemoglobin <12 g/dL",
+              "D. Hemoglobin <10 g/dL"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Transfusion indicated at hemoglobin <9 g/dL in high-risk patients.",
+            details: "A. Incorrect: Low-risk threshold. B. Correct: High-risk threshold. C. Incorrect: Too high. D. Incorrect: Not standard."
+          },
+          {
+            text: "What is the transfusion threshold for red blood cells in variceal bleeding to avoid over-transfusion?",
+            choices: [
+              "A. Hemoglobin <9 g/dL",
+              "B. Hemoglobin <7 g/dL",
+              "C. Hemoglobin <10 g/dL",
+              "D. Hemoglobin <8 g/dL"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Transfusion at hemoglobin <7 g/dL avoids over-transfusion.",
+            details: "A. Incorrect: Too high. B. Correct: Restrictive strategy. C. Incorrect: Not standard. D. Incorrect: Slightly high."
+          },
+          {
+            text: "What is the role of balloon tamponade in managing UGI bleeding?",
+            choices: [
+              "A. Definitive treatment for peptic ulcers",
+              "B. Temporizing measure for uncontrollable variceal hemorrhage",
+              "C. Routine intervention for all UGI bleeding",
+              "D. Replacement for endoscopic band ligation"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Balloon tamponade temporizes variceal hemorrhage.",
+            details: "A. Incorrect: Not for ulcers. B. Correct: Temporary measure. C. Incorrect: Not routine. D. Incorrect: Not a replacement."
+          },
+          {
+            text: "What is the recommended IV proton pump inhibitor (PPI) regimen before endoscopy in UGI bleeding?",
+            choices: [
+              "A. 40 mg every 24 hours",
+              "B. 80 mg bolus then 40 mg every 12 hours",
+              "C. 20 mg bolus then 20 mg every 8 hours",
+              "D. 80 mg every 6 hours"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. 80 mg bolus then 40 mg every 12 hours is recommended.",
+            details: "A. Incorrect: Too low. B. Correct: Standard regimen. C. Incorrect: Non-standard. D. Incorrect: Excessive dosing."
+          },
+          {
+            text: "What is the purpose of administering IV antibiotics in patients with cirrhosis and UGI bleeding?",
+            choices: [
+              "A. To treat H. pylori infection",
+              "B. To prevent bacterial infections",
+              "C. To reduce gastric acid production",
+              "D. To control variceal bleeding directly"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Antibiotics prevent bacterial infections in cirrhosis.",
+            details: "A. Incorrect: Not for H. pylori. B. Correct: Reduces infection risk. C. Incorrect: Not acid-related. D. Incorrect: Not for bleeding control."
+          },
+          {
+            text: "What is a key precaution when using balloon tamponade for variceal bleeding?",
+            choices: [
+              "A. Administer without intubation",
+              "B. Ensure tracheal intubation to prevent aspiration",
+              "C. Use as a long-term treatment",
+              "D. Inflate without confirming placement"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Tracheal intubation prevents aspiration.",
+            details: "A. Incorrect: Risks aspiration. B. Correct: Essential precaution. C. Incorrect: Temporary measure. D. Incorrect: Risks rupture."
+          },
+          {
+            text: "What is an effective strategy to reduce the risk of rebleeding from esophageal varices?",
+            choices: [
+              "A. Proton pump inhibitors alone",
+              "B. Combination of beta-blockers and variceal band ligation",
+              "C. Antibiotics alone",
+              "D. Fluid resuscitation"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Beta-blockers and band ligation reduce rebleeding risk.",
+            details: "A. Incorrect: Not for varices. B. Correct: Reduces risk to 30-40%. C. Incorrect: For infections. D. Incorrect: For stabilization."
+          },
+          {
+            text: "What procedure may be considered for uncontrolled variceal bleeding despite pharmacologic and endoscopic therapy?",
+            choices: [
+              "A. Esophagectomy",
+              "B. Transjugular intrahepatic portosystemic shunt (TIPS)",
+              "C. Gastric resection",
+              "D. Colonoscopy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. TIPS manages uncontrolled variceal bleeding.",
+            details: "A. Incorrect: Not relevant. B. Correct: Reduces portal pressure. C. Incorrect: Not for varices. D. Incorrect: For LGI."
+          },
+          {
+            text: "Where should patients with hemodynamic instability or active UGI bleeding be admitted?",
+            choices: [
+              "A. General ward",
+              "B. Intensive care unit (ICU)",
+              "C. Outpatient clinic",
+              "D. Step-down unit"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. ICU admission for unstable or active bleeding patients.",
+            details: "A. Incorrect: Inappropriate for instability. B. Correct: Ensures monitoring. C. Incorrect: Not for acute bleeding. D. Incorrect: Less intensive."
+          },
+          // LGI Bleeding Questions
+          {
+            text: "What is the definition of haematochezia in the context of lower gastrointestinal (LGI) bleeding?",
+            choices: [
+              "A. Vomiting of fresh or coffee-ground blood",
+              "B. Passage of fresh blood through the anus, usually with stool",
+              "C. Dark, sticky feces containing partly digested blood",
+              "D. Unseen blood in the stool causing anemia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Haematochezia is fresh blood passage through the anus.",
+            details: "A. Incorrect: Describes haematemesis. B. Correct: Indicates LGI bleeding. C. Incorrect: Describes melena. D. Incorrect: Occult bleeding."
+          },
+          {
+            text: "A patient presents with bright red blood mixed with stool and no abdominal pain. What is the most likely source of bleeding?",
+            choices: [
+              "A. Proximal to the ligament of Treitz",
+              "B. Distal to the ligament of Treitz",
+              "C. Esophageal varices",
+              "D. Gastric mucosa"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Bright red blood suggests LGI bleeding distal to the ligament of Treitz.",
+            details: "A. Incorrect: UGI causes melena. B. Correct: LGI bleeding. C. Incorrect: UGI source. D. Incorrect: UGI source."
+          },
+          {
+            text: "What is the most common cause of significant LGI bleeding?",
+            choices: [
+              "A. Hemorrhoids",
+              "B. Diverticular disease",
+              "C. Angiodysplasia",
+              "D. Ulcerative colitis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Diverticular disease is the most common cause of significant LGI bleeding.",
+            details: "A. Incorrect: Rarely massive. B. Correct: Most common. C. Incorrect: Less frequent. D. Incorrect: Not most common."
+          },
+          {
+            text: "Which condition is a common cause of LGI bleeding in older patients with atherosclerotic disease?",
+            choices: [
+              "A. Crohn’s disease",
+              "B. Ischemic colitis",
+              "C. Anal fissure",
+              "D. Diverticulitis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Ischemic colitis is common in older patients with atherosclerosis.",
+            details: "A. Incorrect: Not atherosclerosis-related. B. Correct: Due to ischemia. C. Incorrect: Not related. D. Incorrect: Different cause."
+          },
+          {
+            text: "What is a common cause of LGI bleeding associated with chronic inflammation and potential colorectal carcinoma risk?",
+            choices: [
+              "A. Hemorrhoids",
+              "B. Ulcerative colitis",
+              "C. Angiodysplasia",
+              "D. Diverticulosis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Ulcerative colitis is linked to inflammation and carcinoma risk.",
+            details: "A. Incorrect: No carcinoma risk. B. Correct: Requires surveillance. C. Incorrect: Vascular cause. D. Incorrect: No inflammation."
+          },
+          {
+            text: "Which criterion defines massive LGI bleeding?",
+            choices: [
+              "A. Hemoglobin drop to 8 g/dL",
+              "B. Transfusion of at least 4 units of blood within 24 hours",
+              "C. Bleeding stops within 24 hours",
+              "D. Hematocrit above 35%"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Transfusion of ≥4 units defines massive LGI bleeding.",
+            details: "A. Incorrect: Threshold is ≤6 g/dL. B. Correct: Key criterion. C. Incorrect: Self-limiting bleeding. D. Incorrect: Inconsistent."
+          },
+          {
+            text: "What laboratory test is urgent in the initial workup of LGI bleeding to assess anemia?",
+            choices: [
+              "A. Liver function tests",
+              "B. Packed cell volume (PCV)",
+              "C. Serum lactate",
+              "D. Blood glucose"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. PCV assesses anemia in LGI bleeding.",
+            details: "A. Incorrect: Less urgent. B. Correct: Urgent for anemia. C. Incorrect: Non-urgent. D. Incorrect: Non-critical."
+          },
+          {
+            text: "What finding in a patient with LGI bleeding suggests an upper GI source?",
+            choices: [
+              "A. BUN/creatinine ratio >30:1",
+              "B. Normocytic anemia",
+              "C. Elevated serum lactate",
+              "D. Normal clotting profile"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. BUN/creatinine ratio >30:1 suggests UGI bleeding.",
+            details: "A. Correct: Indicates UGI source. B. Incorrect: Non-specific. C. Incorrect: Non-specific. D. Incorrect: Non-diagnostic."
+          },
+          {
+            text: "Why is colonoscopy contraindicated in patients with active LGI bleeding? ",
+            choices: [
+              "A. It is only diagnostic, not therapeutic",
+              "B. It cannot detect bleeding rates below 1 mL/min",
+              "C. It poses a risk in hemodynamically unstable patients",
+              "D. It requires prolonged imaging time"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Colonoscopy is risky in unstable patients.",
+            details: "A. Incorrect: Also therapeutic. B. Incorrect: Applies to other methods. C. Correct: Safety risk. D. Incorrect: Irrelevant."
+          },
+          {
+            text: "What is the minimum bleeding rate detectable by mesenteric angiography?",
+            choices: [
+              "A. 0.05–0.1 mL/min",
+              "B. 0.5–1 mL/min",
+              "C. 1–2 mL/min",
+              "D. 2–5 mL/min"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Mesenteric angiography detects 0.5–1 mL/min.",
+            details: "A. Incorrect: Scintigraphy threshold. B. Correct: Angiography threshold. C. Incorrect: Too high. D. Incorrect: Too high."
+          },
+          {
+            text: "What is a key limitation of capsule endoscopy in LGI bleeding?",
+            choices: [
+              "A. It is invasive and requires sedation",
+              "B. It cannot be controlled from outside + not therapeutic",
+              "C. It is contraindicated in stable patients",
+              "D. It has therapeutic capabilities"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Capsule endoscopy cannot be controlled externally.",
+            details: "A. Incorrect: Non-invasive. B. Correct: Diagnostic only. C. Incorrect: Used in stable patients. D. Incorrect: No therapeutic use."
+          },
+          {
+            text: "What diagnostic modality can detect very small amounts of LGI bleeding (0.05–0.1 mL/min)? ",
+            choices: [
+              "A. Colonoscopy",
+              "B. Mesenteric angiography",
+              "C. Technetium-99m labeled RBC scintigraphy",
+              "D. Capsule endoscopy"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Technetium-99m scintigraphy detects 0.05–0.1 mL/min.",
+            details: "A. Incorrect: Higher threshold. B. Incorrect: 0.5–1 mL/min. C. Correct: Lowest threshold. D. Incorrect: Higher threshold."
+          },
+          {
+            text: "What is the initial management step for a patient with acute LGI bleeding and hemodynamic instability?",
+            choices: [
+              "A. Urgent colonoscopy",
+              "B. Volume resuscitation and blood transfusion",
+              "C. Mesenteric angiography",
+              "D. Capsule endoscopy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Resuscitation and transfusion stabilize the patient.",
+            details: "A. Incorrect: After stabilization. B. Correct: Initial priority. C. Incorrect: Diagnostic step. D. Incorrect: Diagnostic only."
+          },
+          {
+            text: "What is a therapeutic use of colonoscopy in controlling LGI bleeding?",
+            choices: [
+              "A. Biopsy of non-bleeding lesions",
+              "B. Epinephrine injection",
+              "C. RBC labeling",
+              "D. Vessel catheterization"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Epinephrine injection controls LGI bleeding.",
+            details: "A. Incorrect: Diagnostic. B. Correct: Therapeutic intervention. C. Incorrect: Scintigraphy-related. D. Incorrect: Angiography-related."
+          },
+          {
+            text: "When is surgery indicated for diverticulitis? ",
+            choices: [
+              "A. After one episode of uncomplicated diverticulitis",
+              "B. No improvement in medical therapy",
+              "C. Presence of diverticulosis without bleeding",
+              "D. Normal colonoscopy findings"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Surgery indicated if medical therapy fails.",
+            details: "A. Incorrect: Not sufficient. B. Correct: Includes complications. C. Incorrect: No bleeding. D. Incorrect: No indication."
+          },
+          {
+            text: "What is the management approach for a first-degree internal hemorrhoid causing painless bleeding? ",
+            choices: [
+              "A. Operative hemorrhoidectomy",
+              "B. Medical therapy with dietary fiber and stool softeners",
+              "C. Urgent angiography",
+              "D. Capsule endoscopy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Medical therapy manages first-degree hemorrhoids.",
+            details: "A. Incorrect: Too invasive. B. Correct: Conservative approach. C. Incorrect: Not relevant. D. Incorrect: Diagnostic only."
+          },
+          {
+            text: "What is the conservative management strategy for an anal fissure causing painful bleeding? ",
+            choices: [
+              "A. Surgical resection",
+              "B. Antibiotics, analgesics, and stool softeners",
+              "C. Endoscopic band ligation",
+              "D. Angiographic embolization"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Conservative therapy with antibiotics and softeners.",
+            details: "A. Incorrect: Not standard. B. Correct: Promotes healing. C. Incorrect: Not for fissures. D. Incorrect: Not applicable."
+          },
+          {
+            text: "What is a characteristic feature of diverticular bleeding?",
+            choices: [
+              "A. Always requires surgical intervention",
+              "B. More than 75% stops spontaneously",
+              "C. Primarily occurs in the small intestine",
+              "D. Associated with high-fiber diets"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Over 75% of diverticular bleeding stops spontaneously.",
+            details: "A. Incorrect: Rarely surgical. B. Correct: Common feature. C. Incorrect: Occurs in colon. D. Incorrect: Low-fiber risk."
+          },
+          {
+            text: "What is a potential complication of ulcerative colitis requiring regular surveillance? ",
+            choices: [
+              "A. Hemorrhoid prolapse",
+              "B. Colorectal carcinoma",
+              "C. Diverticulitis",
+              "D. Angiodysplasia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Ulcerative colitis increases colorectal carcinoma risk.",
+            details: "A. Incorrect: Unrelated. B. Correct: Requires surveillance. C. Incorrect: Different condition. D. Incorrect: Vascular issue."
+          },
+          {
+            text: "What syndrome links angiodysplasia with aortic stenosis and bleeding tendency?",
+            choices: [
+              "A. Cushing’s syndrome",
+              "B. Heyde’s syndrome",
+              "C. Osler-Weber-Rendu syndrome",
+              "D. Lynch syndrome"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Heyde’s syndrome links angiodysplasia, aortic stenosis, and bleeding.",
+            details: "A. Incorrect: Unrelated. B. Correct: Involves von Willebrand’s disease. C. Incorrect: Different bleeding disorder. D. Incorrect: Cancer-related."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف GIT Symptomatology.pdf وملفات UGI وLGI Bleeding</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
