@@ -1,10 +1,685 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Oesophagus</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: oesophagus.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>The oesophagus - GEP 404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen, .end-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Quiz - The oesophagus</h1>
+        <p>Lesson: The oesophagus (surgery)</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <div class="end-screen" id="endScreen" style="display: none;">
+        <h2>End of Quiz</h2>
+        <p id="scoreMessage">Well done! You have completed all questions.</p>
+        <button onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      const questions = [
+    {
+    text: "A 46-year-old woman with a history of hiatal hernia and severe gastroesophageal reflux undergoes antireflux surgery. The reflux symptoms were refractory to medical therapy, so an endoscopic fundoplication procedure is performed. During surgery, the hiatal defect is repaired, and the gastric fundus is mobilized and wrapped around the lower esophagus to reinforce the lower esophageal sphincter. No esophageal or gastric injuries occurred, but a neural structure traversing the esophageal hiatus of the diaphragm was inadvertently injured. Which of the following is the most likely potential effect of this operative injury?",
+    choices: [
+      "A. Delayed gastric emptying",
+      "B. Diaphragmatic paralysis",
+      "C. Fecal incontinence",
+      "D. Gastric acid hypersecretion",
+      "E. Permanent loss of intestinal peristalsis"
+    ],
+    correct: [0],
+    explanation: "Correct Answer: A. Vagal trunk injury during fundoplication causes delayed gastric emptying (gastroparesis).",
+    details: "A. Correct: Vagal injury impairs gastric motility, causing gastroparesis.\nB. Incorrect: Phrenic nerve, not vagus, innervates diaphragm.\nC. Incorrect: Fecal incontinence involves pelvic splanchnic nerves.\nD. Incorrect: Vagal injury reduces acid secretion.\nE. Incorrect: Enteric system maintains peristalsis."
+  },
+  {
+    text: "A 54-year-old man comes to the office due to several months of heartburn, acid regurgitation, and dysphagia. He has taken antacids and over-the-counter medications without relief. Medicalneri history includes hypertension and hyperlipidemia. The patient does not use tobacco, alcohol, or illicit drugs. Vital signs are within normal limits. BMI is 32 kg/m². Physical examination is unremarkable. Upright chest x-ray shows an opacity with an air-fluid level behind the heart. A subsequent barium swallow reveals the proximal stomach herniating through the esophageal hiatus. Which of the following pathophysiological changes most likely contributed to this patient's current condition?",
+    choices: [
+      "A. Cephalad migration of the squamocolumnar junction with a fixed gastroesophageal junction",
+      "B. Circumferential laxity of the phrenoesophageal membrane",
+      "C. Diaphragmatic muscle paralysis due to C3-5 motor nerve injury",
+      "D. Failure of the posterolateral diaphragmatic foramina to fuse",
+      "E. Herniation of abdominal contents through the omental foramen"
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Laxity of the phrenoesophageal membrane causes sliding hiatal hernia, leading to reflux.",
+    details: "A. Incorrect: Suggests Barrett’s, not hernia.\nB. Correct: Membrane laxity allows stomach herniation.\nC. Incorrect: Phrenic nerve injury causes paralysis.\nD. Incorrect: Bochdalek hernia, not hiatal.\nE. Incorrect: Omental foramen is unrelated."
+  },
+        {
+    text: "A 62-year-old man comes to the office due to worsening dysphagia. Three months ago, the patient started having difficulty swallowing large bites of solid food, and now he can swallow only liquids and mashed food. He has lost 9.1 kg (20 lb) since the onset of his symptoms. Medical history is significant for type 2 diabetes mellitus, hypercholesterolemia, and hypertension. The patient recently reduced the doses of his diabetic medications due to weight loss and lower blood glucose levels. He has no recent travel outside of the United States. Vital signs are normal. BMI is 29 kg/m2. Physical examination is normal. A barium swallow study reveals an esophageal mass that significantly narrows the lumen. Endoscopic biopsy reveals moderately differentiated tumor cells with keratin nests and pearls. This patient's condition is most likely related to which of the following risk factors?",
+            choices: [
+              "A. Alcohol consumption and tobacco smoking",
+              "B. Cold beverage consumption",
+              "C. Gastroesophageal reflux disease and esophagitis",
+              "D. Helicobacter pylori infection",
+              "E. Obesity and metabolic syndrome"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Alcohol consumption and tobacco smoking are major risk factors for esophageal squamous cell carcinoma, as indicated by the biopsy findings of keratin nests and pearls.",
+            details: "A. Correct: Alcohol and tobacco are strongly associated with esophageal squamous cell carcinoma, which matches the biopsy findings. B. Incorrect: Cold beverage consumption is not a recognized risk factor. C. Incorrect: GERD is more linked to esophageal adenocarcinoma, not squamous cell carcinoma. D. Incorrect: H. pylori is associated with gastric cancer, not esophageal cancer. E. Incorrect: Obesity and metabolic syndrome are risk factors for adenocarcinoma, not squamous cell carcinoma."
+  },
+  {
+    text: "A 28-year-old woman at 32 weeks gestation is seen in the office for a routine prenatal visit. The patient has had burning, squeezing pain in the middle of her chest that lasts for minutes to hours at a time and usually occurs after meals. The pain is occasionally accompanied by small amounts of sour-tasting material in the back of her throat. The patient does not have any abdominal pain, emesis, or visible blood in the stool. Her pregnancy has been complicated by gestational diabetes mellitus, which has been well controlled with nutritional therapy and exercise. She does not use alcohol, tobacco, or illicit drugs. Vital signs are normal. Fundal height is 32 cm and fetal heart tones are normal. Which of the following is the most likely cause of the patient's symptoms?",
+    choices: [
+      "A. Decreased lower esophageal sphincter tone",
+      "B. Delayed gastric emptying",
+      "C. Diffuse spasm of the esophageal smooth muscle",
+      "D. Helicobacter pylori infection",
+      "E. Increased gastric acid production"
+    ],
+    correct: [0],
+    explanation: "Correct Answer: A. Hormonal relaxation of the lower esophageal sphincter causes reflux in pregnancy.",
+    details: "A. Correct: Estrogen/progesterone reduce sphincter tone.\nB. Incorrect: Not primary cause.\nC. Incorrect: Spasm causes dysphagia.\nD. Incorrect: H. pylori unrelated to pregnancy reflux.\nE. Incorrect: Acid production not primary."
+  },
+  {
+    text: "Which of the following (statements) are true? there are two answers",
+    choices: [
+      "A. The oesophagus is 30 cm long.",
+      "B. The oesophagus has three natural constrictions.",
+      "C. It is lined throughout by columnar epithelium.",
+      "D. The lower oesophageal sphincter (LOS) is a zone of high pressure."
+    ],
+    correct: [1, 3],
+    explanation: "Correct Answers: B and D. The oesophagus is approximately 25 cm long, not 30 cm. It has three natural constrictions and is lined by squamous epithelium, not columnar epithelium. The LOS is a zone of relatively high pressure (10–25 mmHg).",
+    details: "Anatomy clarifies structure.\nA. Incorrect: The oesophagus is 25 cm long.\nB. Correct: It has three natural constrictions.\nC. Incorrect: It is lined by squamous epithelium.\nD. Correct: The LOS is a zone of high pressure."
+  },
+  {
+    text: "Which of the following statements are false?",
+    choices: [
+      "A. Difficulty on swallowing (dysphagia) is a cardinal symptom of oesophageal carcinoma.",
+      "B. Retrosternal pain on swallowing (odynophagia) is always of cardiac origin.",
+      "C. Heartburn is a common symptom of gastro-oesophageal reflux disease (GORD).",
+      "D. Dysphagia in the oral or pharyngeal (voluntary) phase is usually from neurological or muscular diseases."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Retrosternal pain on swallowing (odynophagia) is not always of cardiac origin; it can also indicate inflammation or ulceration of the oesophagus.",
+    details: "Symptoms guide diagnosis.\nA. Correct: Dysphagia is a key symptom of oesophageal carcinoma.\nB. Incorrect: Odynophagia is not always cardiac in origin.\nC. Correct: Heartburn is a hallmark of GORD.\nD. Correct: Dysphagia in the voluntary phase is often neurological or muscular."
+  },
+  {
+    text: "Which of the following statements regarding investigations in dysphagia are false?",
+    choices: [
+      "A. Barium swallow is the investigation of choice in GORD.",
+      "B. Flexible oesophagogastroduodenoscopy (OGD) is the initial investigation of choice in suspected carcinoma.",
+      "C. Endosonography (EUS) should be carried out when a carcinoma is seen in the oesophagus.",
+      "D. Oesophageal manometry should be done when motility disorder is suspected."
+    ],
+    correct: [0],
+    explanation: "Correct Answer: A. Barium swallow is not the investigation of choice for GORD; OGD is preferred as it provides better diagnostic accuracy and allows biopsy.",
+    details: "Investigations guide management.\nA. Incorrect: Barium swallow is not ideal for GORD.\nB. Correct: OGD is the gold standard for suspected carcinoma.\nC. Correct: EUS is essential for staging carcinoma.\nD. Correct: Manometry is used for motility disorders."
+  },
+  {
+    text: "Which of the following conditions are precancerous?",
+    choices: [
+      "A. Pharyngeal (Zenker’s) diverticulum",
+      "B. Gastro-oesophageal reflux disease (GORD)",
+      "C. Achalasia",
+      "D. Corrosive stricture",
+      "E. Barrett’s oesophagus",
+      "F. Schatzki’s ring",
+      "G. Oesophageal candidiasis"
+    ],
+    correct: [4],
+    explanation: "Correct Answer: E. Barrett’s oesophagus. This condition is strongly associated with an increased risk of developing oesophageal adenocarcinoma.",
+    details: "Precancerous conditions guide prevention.\nA. Incorrect: Zenker’s diverticulum is not precancerous.\nB. Incorrect: GORD alone is not precancerous.\nC. Incorrect: Achalasia increases cancer risk but is not directly precancerous.\nD. Incorrect: Corrosive stricture is not precancerous.\nE. Correct: Barrett’s oesophagus is precancerous.\nF. Incorrect: Schatzki’s ring is benign.\nG. Incorrect: Candidiasis is not precancerous."
+  },
+  {
+    text: "One of the curative operations for carcinoma of the oesophagus is called:",
+    choices: [
+      "A. Whipple’s operation",
+      "B. Anderson–Hynes operation",
+      "C. Heller’s operation",
+      "D. Ivor–Lewis operation",
+      "E. Hartmann’s operation"
+    ],
+    correct: 3,
+    explanation: "Correct Answer: D. Ivor–Lewis operation. This procedure involves oesophagectomy and reconstruction and is commonly used for treating oesophageal carcinoma.",
+    details: "Surgical options depend on pathology.\nA. Incorrect: Whipple’s operation is for pancreatic cancer.\nB. Incorrect: Anderson–Hynes is for ureteric reimplantation.\nC. Incorrect: Heller’s operation is for achalasia.\nD. Correct: Ivor–Lewis is for oesophageal carcinoma.\nE. Incorrect: Hartmann’s operation is for colorectal cancer."
+  },
+  {      
+    text: "About spontaneous rupture of the oesophagus, all the following statements are true, except:",
+    choices: [
+      "A. The usual cause is forceful vomiting.",
+      "B. The usual site is the upper oesophagus.",
+      "C. Mediastinal gas can be seen on a plain chest X-ray.",
+      "D. Empyema is a possible result.",
+      "E. If diagnosed within a few hours, suture repair is advised."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. The usual site is the upper oesophagus. Spontaneous rupture typically occurs in the lower oesophagus due to uncoordinated forceful vomiting, often in intoxicated or head-injured individuals.",
+    details: "Spontaneous rupture involves anatomy and pathophysiology.\nA. Correct: Forceful vomiting is the usual cause.\nB. Incorrect: The usual site is the lower, not upper, oesophagus.\nC. Correct: Mediastinal gas is a classic radiological finding.\nD. Correct: Empyema can result from mediastinitis.\nE. Correct: Early diagnosis allows for suture repair."
+  },
+  {
+    text: "All the following statements about the oesophageal hiatus of the diaphragm are true, except:",
+    choices: [
+      "A. It is present at the level of the 10th thoracic vertebra.",
+      "B. It allows the passage of the vagus nerves from the chest to the abdomen.",
+      "C. A sliding hiatus hernia passes through it.",
+      "D. A para-oesophageal hiatus hernia passes through it.",
+      "E. A Bochdalek hernia passes through it."
+    ],
+    correct: [4],
+    explanation: "Correct Answer: E. A Bochdalek hernia passes through it. Bochdalek hernia is a congenital disorder involving a defect between the costal and vertebral origins of the diaphragm, not the oesophageal hiatus.",
+    details: "The oesophageal hiatus is at T10 and allows passage of the oesophagus and vagus nerves.\nA. Correct: Located at T10.\nB. Correct: Vagus nerves pass through.\nC. Correct: Sliding hernia passes through the hiatus.\nD. Correct: Para-oesophageal hernia also passes through.\nE. Incorrect: Bochdalek hernia involves a different diaphragmatic defect, usually on the left side."
+  },
+  {
+    text: "The antireflux mechanisms at the lower oesophagus include all the following except:",
+    choices: [
+      "A. A high pressure zone in the lower oesophagus.",
+      "B. Thickened circular muscle layer in lower oesophagus that makes a sphincter.",
+      "C. The presence of part of the oesophagus inside the abdomen.",
+      "D. Diaphragmatic crura that are snugly fitting around the oesophagus.",
+      "E. The acute angle between the fundus of stomach and the left side of oesophagus (angle of His)."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Thickened circular muscle layer in lower oesophagus that makes a sphincter. There is no anatomical sphincter; the lower oesophagus has a physiological high-pressure zone.",
+    details: "Antireflux mechanisms prevent gastro-oesophageal reflux.\nA. Correct: High-pressure zone exists.\nB. Incorrect: No thickened circular muscle; only a physiological sphincter.\nC. Correct: Intra-abdominal oesophagus aids reflux prevention.\nD. Correct: Diaphragmatic crura contribute.\nE. Correct: Angle of His is an antireflux factor."
+  },
+  {
+    text: "All the following statements are true, except:",
+    choices: [
+      "A. The epithelium of the lower third of oesophagus is columnar.",
+      "B. The oesophagus is about 25cm in length.",
+      "C. The intra-abdominal part of the oesophagus is about 4cm in length.",
+      "D. The lower oesophagus is a site for porta-systemic venous anastomosis.",
+      "E. The cricopharyngeus muscle forms the upper oesophageal sphincter."
+    ],
+    correct: [0],
+    explanation: "Correct Answer: A. The epithelium of the lower third of oesophagus is columnar. The oesophagus is lined by non-keratinized stratified squamous epithelium, transitioning to columnar at the cardia.",
+    details: "Oesophageal anatomy is key.\nA. Incorrect: Squamous epithelium lines the oesophagus; columnar is at the cardia or in Barrett’s oesophagus.\nB. Correct: Oesophagus is ~25cm.\nC. Correct: Intra-abdominal part is ~4cm.\nD. Correct: Porta-systemic anastomosis occurs.\nE. Correct: Cricopharyngeus forms the upper sphincter."
+  },
+  {
+    text: "The commonest form of trachea-oesophageal anomalies is:",
+    choices: [
+      "A. Oesophageal atresia without connection to the trachea.",
+      "B. Oesophageal atresia with a fistula connecting the trachea to the oesophagus distal to the atretic segment.",
+      "C. Oesophageal atresia with a fistula connecting the trachea to the oesophagus proximal to the atretic segment.",
+      "D. Tracheo-oesophageal fistula without oesophageal atresia.",
+      "E. Tracheal atresia without a trachea-oesophageal fistula."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Oesophageal atresia with a fistula connecting the trachea to the oesophagus distal to the atretic segment. This is the most common anomaly (87%).",
+    details: "Trachea-oesophageal anomalies affect newborns.\nA. Incorrect: Less common.\nB. Correct: Proximal atresia with distal fistula is most common, causing saliva/milk aspiration and air in the stomach.\nC. Incorrect: Proximal fistula is rarer.\nD. Incorrect: Fistula without atresia is uncommon.\nE. Incorrect: Tracheal atresia is not typical."
+  },
+  {
+    text: "All the following statements about congenital diaphragmatic hernia (Bochdalek type) are true, except:",
+    choices: [
+      "A. More frequently occurring than the anterior type (Morgagni type).",
+      "B. It occurs more frequently on the left side.",
+      "C. Symptoms are caused by acid reflux.",
+      "D. Plain X-ray of the chest is usually diagnostic.",
+      "E. The stomach, intestine and spleen may prolapse in the chest cavity."
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. Symptoms are caused by acid reflux. Bochdalek hernia causes neonatal respiratory distress, not acid reflux.",
+    details: "Bochdalek hernia is a congenital defect.\nA. Correct: More common than Morgagni.\nB. Correct: Predominantly left-sided (5:1).\nC. Incorrect: Causes respiratory distress, not reflux.\nD. Correct: X-ray shows thoracic gas.\nE. Correct: Organs may prolapse into the chest."
+  },
+  {
+    text: "A 70-year-old man develops increasing dysphagia over six months. Within this period his weight went down from 82kg to 60kg. The most likely cause is:",
+    choices: [
+      "A. Achalasia of the cardia.",
+      "B. Carcinoma of the esophagus.",
+      "C. Sliding hiatal hernia.",
+      "D. Paraesophageal hernia.",
+      "E. Esophageal diverticulum."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Carcinoma of the esophagus. Progressive dysphagia with significant weight loss in an elderly patient is highly suggestive of malignancy.",
+    details: "Dysphagia causes are critical to diagnose.\nA. Incorrect: Achalasia causes intermittent dysphagia.\nB. Correct: Progressive dysphagia and weight loss suggest cancer.\nC. Incorrect: Sliding hernia causes reflux, not dysphagia.\nD. Incorrect: Paraesophageal hernia may cause obstruction, but less likely.\nE. Incorrect: Diverticulum rarely causes severe dysphagia."
+  },
+  {
+    text: "A 30-year-old man gives a two-year history of heartburn and choking attacks during sleep. Recently he has been complaining of dysphagia that he localized deep to lower sternum. The most likely diagnosis is:",
+    choices: [
+      "A. Carcinoma of the esophagus.",
+      "B. Angina pectoris.",
+      "C. Benign peptic stricture of the esophagus.",
+      "D. Achalasia of the cardia.",
+      "E. Mallory Weiss syndrome."
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. Benign peptic stricture of the esophagus. Symptoms are typical of gastro-oesophageal reflux disease leading to stricture.",
+    details: "Reflux-related complications are common.\nA. Incorrect: Cancer is less likely in a young patient.\nB. Incorrect: Angina causes chest pain, not dysphagia.\nC. Correct: Reflux causes stricture, leading to dysphagia.\nD. Incorrect: Achalasia starts with dysphagia, not heartburn.\nE. Incorrect: Mallory Weiss causes haematemesis."
+  },
+  {
+    text: "About para-oesophageal hiatus hernias, one statement only is true:",
+    choices: [
+      "A. They make 85% of hernias through the oesophageal hiatus of the diaphragm.",
+      "B. The oesophagogastric junction lies above the level of the diaphragm.",
+      "C. The main symptom is heartburn.",
+      "D. They may be complicated by gastric volvulus.",
+      "E. The main line of treatment is conservative by diet regulation and by proton pump inhibitors."
+    ],
+    correct: [3],
+    explanation: "Correct Answer: D. They may be complicated by gastric volvulus. Para-oesophageal hernias are prone to volvulus, unlike sliding hernias.",
+    details: "Para-oesophageal hernias are distinct.\nA. Incorrect: They are less common than sliding hernias.\nB. Incorrect: Oesophagogastric junction remains below diaphragm.\nC. Incorrect: Heartburn is typical of sliding hernias.\nD. Correct: Volvulus is a serious complication.\nE. Incorrect: Surgery is often required."
+  },
+  {
+    text: "The complications of GERD include all the following, except:",
+    choices: [
+      "A. Iron deficiency anaemia.",
+      "B. Repeated chest infections.",
+      "C. Oesophageal stricture.",
+      "D. Severe haematemesis.",
+      "E. Columnar-lined oesophagus."
+    ],
+    correct: [3],
+    explanation: "Correct Answer: D. Severe haematemesis. GERD causes slow blood loss, not severe bleeding.",
+    details: "GERD complications are significant.\nA. Correct: Slow bleeding causes anaemia.\nB. Correct: Aspiration leads to infections.\nC. Correct: Stricture is a common complication.\nD. Incorrect: Severe haematemesis is not typical.\nE. Correct: Barrett’s oesophagus is a complication."
+  },
+  {
+    text: "One of the following is not needed for the diagnosis of gastro-oesophageal reflux disease:",
+    choices: [
+      "A. Contrast oesophagography.",
+      "B. CT scan.",
+      "C. Upper GI endoscopy.",
+      "D. Oesophageal manometry.",
+      "E. 24-hour pH monitoring."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. CT scan. CT scan is of no value in diagnosing GERD.",
+    details: "GERD diagnosis relies on specific tests.\nA. Correct: Shows reflux and hernia.\nB. Incorrect: CT is not useful.\nC. Correct: Endoscopy assesses oesophagitis.\nD. Correct: Manometry evaluates sphincter.\nE. Correct: pH monitoring confirms reflux."
+  },
+  {
+    text: "Regarding gastro-oesophageal reflux disease, all the following are true, except:",
+    choices: [
+      "A. A sliding oesophageal hiatus hernia is the usual cause.",
+      "B. A change of the lower oesophageal epithelium is one of its possible complications.",
+      "C. Oesophageal peptic ulcer is one of its possible complications.",
+      "D. May cause chest pain.",
+      "E. Initial treatment is surgical."
+    ],
+    correct: [4],
+    explanation: "Correct Answer: E. Initial treatment is surgical. Conservative measures like diet and proton pump inhibitors are the first line.",
+    details: "GERD management is stepwise.\nA. Correct: Sliding hernia is a common cause.\nB. Correct: Barrett’s oesophagus is a complication.\nC. Correct: Peptic ulcers can occur.\nD. Correct: Chest pain mimics angina.\nE. Incorrect: Surgery is for refractory cases."
+  },
+  {
+    text: "About Nissen fundoplication, all the following statements are true, except:",
+    choices: [
+      "A. It restores the intra-abdominal part of the oesophagus.",
+      "B. It reconstructs the oesophageal hiatus.",
+      "C. The muscle fibres in the lower oesophagus are longitudinally divided.",
+      "D. The acute angle of His is accentuated.",
+      "E. The operation can be done by the laparoscopic approach."
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. The muscle fibres in the lower oesophagus are longitudinally divided. This describes Heller’s cardiomyotomy for achalasia, not Nissen fundoplication.",
+    details: "Nissen fundoplication is an antireflux surgery.\nA. Correct: Restores intra-abdominal oesophagus.\nB. Correct: Narrows the hiatus.\nC. Incorrect: Muscle division is for achalasia.\nD. Correct: Accentuates angle of His.\nE. Correct: Often performed laparoscopically."
+  },
+  {
+    text: "The possible complications of anti-reflux surgery for GERD include all the following, except:",
+    choices: [
+      "A. Recurrent reflux.",
+      "B. Gas bloat syndrome.",
+      "C. Dysphagia.",
+      "D. Dumping syndrome.",
+      "E. Pneumothorax."
+    ],
+    correct: [3],
+    explanation: "Correct Answer: D. Dumping syndrome. Dumping syndrome occurs after gastric surgery, not anti-reflux surgery.",
+    details: "Anti-reflux surgery has specific complications.\nA. Correct: Reflux can recur.\nB. Correct: Gas bloat is common.\nC. Correct: Dysphagia may occur.\nD. Incorrect: Dumping is gastric surgery-related.\nE. Correct: Pneumothorax from pleural injury."
+  },
+  {
+    text: "About achalasia of the cardia, one statement only is true:",
+    choices: [
+      "A. The usual clinical presentation is chest pain.",
+      "B. Symptoms are usually progressive.",
+      "C. Manometry shows defective relaxation of lower esophageal sphincter.",
+      "D. Endoscopic dilatation gives better results than surgery.",
+      "E. Surgery necessitates excision of the cardia."
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. Manometry shows defective relaxation of lower esophageal sphincter. This is the hallmark of achalasia.",
+    details: "Achalasia is a motility disorder.\nA. Incorrect: Dysphagia is the main symptom.\nB. Incorrect: Symptoms are intermittent.\nC. Correct: Manometry confirms the diagnosis.\nD. Incorrect: Surgery (cardiomyotomy) is often superior.\nE. Incorrect: Surgery splits, not excises, the cardia."
+  },
+  {
+    text: "One statement only about the clinical features of achalasia of the cardia is true:",
+    choices: [
+      "A. It usually affects people in the 7th and 8th decades of life.",
+      "B. Dysphagia is painless.",
+      "C. Dysphagia is progressive.",
+      "D. Classically, solid food is more difficult to swallow than fluids.",
+      "E. Patients are commonly malnourished."
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Dysphagia is painless. Achalasia presents with painless, intermittent dysphagia.",
+    details: "Achalasia’s clinical features are distinct.\nA. Incorrect: Affects younger adults (20s–40s).\nB. Correct: Dysphagia is painless.\nC. Incorrect: Dysphagia is intermittent.\nD. Incorrect: Fluids may be harder to swallow.\nE. Incorrect: Patients are usually nourished."
+  },
+  {
+    text: "A patient has dysphagia that is caused by an advanced squamous cell carcinoma of the middle third of oesophagus. He has pulmonary metastases. The best treatment for dysphagia is:",
+    choices: [
+      "A. Open oesophagectomy.",
+      "B. Thoracoscopic oesophagectomy.",
+      "C. Endoscopic placement of a stent.",
+      "D. Chemotherapy.",
+      "E. Gastrostomy."
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. Endoscopic placement of a stent. Stenting is the simplest palliative treatment for dysphagia in advanced cancer.",
+    details: "Palliative care is key in metastatic cancer.\nA. Incorrect: Oesophagectomy is too invasive.\nB. Incorrect: Thoracoscopic surgery is not palliative.\nC. Correct: Stenting relieves dysphagia.\nD. Incorrect: Chemotherapy doesn’t address dysphagia.\nE. Incorrect: Gastrostomy doesn’t relieve dysphagia."
+  },
+  {
+    text: "For early carcinoma of the lower third of oesophagus, the best hope for cure is obtained by:",
+    choices: [
+      "A. Oesophagectomy and gastric pull-up.",
+      "B. Gastrostomy.",
+      "C. Endoscopic stenting.",
+      "D. Radiotherapy.",
+      "E. Chemotherapy."
+    ],
+    correct: [0],
+    explanation: "Correct Answer: A. Oesophagectomy and gastric pull-up. Surgery offers the best chance for cure in early-stage cancer.",
+    details: "Early oesophageal cancer is curable.\nA. Correct: Oesophagectomy removes the tumour.\nB. Incorrect: Gastrostomy is palliative.\nC. Incorrect: Stenting is for advanced cases.\nD. Incorrect: Radiotherapy is less effective.\nE. Incorrect: Chemotherapy is adjunctive."
+  },
+  {
+    text: "In one of the following tumours radiotherapy (offered as a 1st line treatment) has the same results as surgical resection:",
+    choices: [
+      "A. Exocrine carcinoma of the pancreas.",
+      "B. Carcinoma on top of Barrett's oesophagus.",
+      "C. Squamous cell carcinoma of the skin.",
+      "D. Hepatocellular carcinoma.",
+      "E. Renal cell carcinoma."
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. Squamous cell carcinoma of the skin. This cancer responds well to radiotherapy, comparable to surgery.",
+    details: "Radiotherapy efficacy varies by cancer type.\nA. Incorrect: Pancreatic cancer is poorly responsive.\nB. Incorrect: Barrett’s-related cancer needs surgery.\nC. Correct: Skin SCC responds well to radiotherapy.\nD. Incorrect: HCC is surgically managed.\nE. Incorrect: RCC is surgically treated."
+  },
+  {
+    text: "A 20-year-old female is brought to hospital immediately after she had tried to commit suicide by ingesting a strongly-alkaline drain-cleaning fluid. One of the following statements is true:",
+    choices: [
+      "A. Acid solution should be given to neutralize the alkali effect.",
+      "B. Emetics should be administered.",
+      "C. Immediate oesophageal stenting prevents stricture formation.",
+      "D. Early oral feeding is contraindicated.",
+      "E. Corticosteroid administration is contraindicated."
+    ],
+    correct: [3],
+    explanation: "Correct Answer: D. Early oral feeding is contraindicated. Oral feeding is withheld to prevent further injury.",
+    details: "Caustic ingestion requires careful management.\nA. Incorrect: Acid worsens injury.\nB. Incorrect: Emetics risk aspiration.\nC. Incorrect: Stenting is not indicated.\nD. Correct: Oral feeding is withheld initially.\nE. Incorrect: Corticosteroids are often used."
+  },
+  {
+    text: "About post-corrosive oesophageal stricture, all the following statements are true, except:",
+    choices: [
+      "A. Stricture follows healing of a deep burn.",
+      "B. The main symptom is dysphagia.",
+      "C. Endoscopic oesophageal dilatation is effective, but may cause perforation.",
+      "D. Primary treatment is surgical.",
+      "E. Colon bypass is the preferred option when surgery is needed."
+    ],
+    correct: [3],
+    explanation: "Correct Answer: D. Primary treatment is surgical. Endoscopic dilatation is the primary treatment, not surgery.",
+    details: "Post-corrosive strictures are manageable.\nA. Correct: Deep burns cause strictures.\nB. Correct: Dysphagia is the main symptom.\nC. Correct: Dilatation is effective but risky.\nD. Incorrect: Dilatation is primary.\nE. Correct: Colon bypass is used if surgery is needed."
+  },
+  {
+    text: "A 60-year-old man presents with haematemesis following a bout of repeated vomiting. Urgent endoscopy revealed a linear mucosal tear in the lower part of the oesophagus. The diagnosis is:",
+    choices: [
+      "A. Ruptured oesophageal varices.",
+      "B. Reflux oesophagitis with peptic ulceration.",
+      "C. Barrett's esophagus.",
+      "D. Carcinoma of the esophagus.",
+      "E. Mallory-Weiss tear."
+    ],
+    correct: [4],
+    explanation: "Correct Answer: E. Mallory-Weiss tear. A linear mucosal tear after vomiting is characteristic of Mallory-Weiss syndrome.",
+    details: "Vomiting-related injuries are specific.\nA. Incorrect: Varices cause severe bleeding, not linear tears.\nB. Incorrect: Reflux causes ulcers, not tears.\nC. Incorrect: Barrett’s is epithelial change.\nD. Incorrect: Cancer doesn’t present as a tear.\nE. Correct: Mallory-Weiss tear is due to vomiting."
+  },
+  {
+    text: "About endoscopic perforation of the oesophagus, all the following statements are true, except:",
+    choices: [
+      "A. It is more frequent with endoscopic dilatation than diagnostic oesophagoscopy.",
+      "B. It presents with pain at site of perforation.",
+      "C. It causes mediastinitis and empyema.",
+      "D. Contrast oesophagography is diagnostic.",
+      "E. If a perforation does not spontaneously heal in 48 hours, surgical suturing is indicated."
+    ],
+    correct: [4],
+    explanation: "Correct Answer: E. If a perforation does not spontaneously heal in 48 hours, surgical suturing is indicated. Delayed suturing is ineffective due to friable tissue.",
+    details: "Endoscopic perforation is serious.\nA. Correct: Dilatation is riskier.\nB. Correct: Pain is a symptom.\nC. Correct: Mediastinitis and empyema occur.\nD. Correct: Contrast oesophagography diagnoses.\nE. Incorrect: Delayed suturing fails; conservative management is preferred."
+  }
+];
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+      }
+
+      function showQuestion() {
+        const q = questions[currentQuestionIndex];
+        document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+        const optionsBox = document.getElementById("optionsBox");
+        optionsBox.innerHTML = ""; // Clear previous options
+
+        q.choices.forEach((choice, idx) => {
+          const btn = document.createElement("button");
+          btn.innerText = decodeHtml(choice);
+          btn.onclick = () => checkAnswer(idx, btn);
+          optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("answerBox").style.display = "none";
+        document.getElementById("detailsBtn").style.display = "none";
+        document.getElementById("detailsBox").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+
+      function checkAnswer(selectedIndex) {
+        const q = questions[currentQuestionIndex];
+        const answerBox = document.getElementById("answerBox");
+        const detailsBtn = document.getElementById("detailsBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+        for (let i = 0; i < optionButtons.length; i++) {
+          optionButtons[i].disabled = true;
+          optionButtons[i].style.opacity = 0.7;
+          if (q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+          } else if (i === selectedIndex && !q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect selected
+          }
+        }
+
+        if (q.correct.includes(selectedIndex)) {
+          answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+          score++;
+        } else {
+          answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+        }
+        answerBox.style.display = "block";
+        detailsBtn.style.display = "inline-block";
+        nextBtn.style.display = "inline-block";
+        updateQuestionNav();
+      }
+
+      function showDetails() {
+        const detailsBox = document.getElementById("detailsBox");
+        const q = questions[currentQuestionIndex];
+        detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+        detailsBox.style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          document.getElementById("questionBox").style.display = "none";
+          const endScreen = document.getElementById("endScreen");
+          endScreen.style.display = "block";
+          document.getElementById("scoreMessage").innerText = `You scored ${score} out of ${questions.length}. Well done!`;
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        const navBox = document.getElementById("questionNav");
+        navBox.innerHTML = "";
+        questions.forEach((_, index) => {
+          const btn = document.createElement("button");
+          btn.innerText = `${index + 1}`;
+          btn.onclick = () => goToQuestion(index);
+          navBox.appendChild(btn);
+        });
+        updateQuestionNav();
+      }
+
+      function updateQuestionNav() {
+        const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+        for (let i = 0; i < navButtons.length; i++) {
+          navButtons[i].disabled = (i === currentQuestionIndex);
+          navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        document.getElementById("endScreen").style.display = "none";
+        startQuiz();
+      }
+    </script>
+  </body>
 </html>
