@@ -1,10 +1,581 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Spleen</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: spleen.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quiz - Chapter 62: The spleen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn, .flip-btn, .flashcard-nav-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover, .flip-btn:hover, .flashcard-nav-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active, .flip-btn:active, .flashcard-nav-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen, .flash-card-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .flash-card-screen {
+        display: none;
+      }
+      .flash-card {
+        background: #ffffff;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        min-height: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .flashcard-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Quiz - Chapter 62: The spleen</h1>
+        <p>Lesson: Chapter 62 - The spleen</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <div class="flash-card-screen" id="flashCardScreen">
+        <h2>Flash Card Review</h2>
+        <p id="scoreMessage"></p>
+        <div class="flash-card" id="flashCardText"></div>
+        <button class="flip-btn" onclick="flipCard()">Flip Card</button>
+        <div class="flashcard-nav">
+          <button class="flashcard-nav-btn" id="prevFlashCardBtn" onclick="prevFlashCard()">Previous</button>
+          <button class="flashcard-nav-btn" id="nextFlashCardBtn" onclick="nextFlashCard()">Next</button>
+        </div>
+        <button class="start-btn" onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      const spleenContent = {
+        questions: [
+          {
+            text: "Which of the following ligaments are connected to the spleen and keep it in its place?",
+            choices: [
+              "A. Gastrocolic omentum",
+              "B. Lienorenal ligament",
+              "C. Phrenicocolic ligament",
+              "D. Gastrophrenic ligament",
+              "E. Gastrosplenic ligament"
+            ],
+            correct: [1, 2, 4],
+            explanation: "Correct Answer: B, C, E. The spleen is anchored by lienorenal, phrenicocolic, and gastrosplenic ligaments.",
+            details: "A. Incorrect: Gastrocolic omentum unrelated.\nB. Correct: Connects to posterior wall.\nC. Correct: Anchors to anterolateral wall.\nD. Incorrect: Gastrophrenic not involved.\nE. Correct: Connects anteriorly."
+          },
+          {
+            text: "Which of the following statements are false?",
+            choices: [
+              "A. The spleen lies in front of the left 10th, 11th and 12th ribs.",
+              "B. The splenic artery arises from the coeliac axis.",
+              "C. The inferior mesenteric vein empties into the splenic vein.",
+              "D. The tail of the pancreas lies in the lienorenal ligament.",
+              "E. The inner surface of the spleen has two impressions - gastric and colic."
+            ],
+            correct: [0, 4],
+            explanation: "Correct Answer: A, E. Spleen at 9th–11th ribs; has multiple impressions.",
+            details: "A. Incorrect: 9th–11th ribs.\nB. Correct: From coeliac axis.\nC. Correct: Joins splenic vein.\nD. Correct: Tail in ligament.\nE. Incorrect: Has gastric, colic, renal, pancreatic impressions."
+          },
+          {
+            text: "Which of the following statements are true?",
+            choices: [
+              "A. Partial splenectomy can result in splenic regeneration.",
+              "B. During splenectomy the tail of the pancreas can be damaged.",
+              "C. A gastric or pancreatic fistula can occur as a post-splenectomy complication.",
+              "D. In a left hemicolectomy the spleen can be in danger.",
+              "E. The risk of opportunist post-splenectomy infection (OPSI) is greatest after the first 6 months of splenectomy."
+            ],
+            correct: [0, 1, 2, 3],
+            explanation: "Correct Answer: A, B, C, D. Regeneration, pancreatic damage, fistulas, and hemicolectomy risk are true; OPSI peaks in 2–3 years.",
+            details: "A. Correct: Allows regeneration.\nB. Correct: Tail at risk.\nC. Correct: Fistulas possible.\nD. Correct: Spleen at risk.\nE. Incorrect: OPSI peaks in 2–3 years."
+          },
+          {
+            text: "Which one of the following statements is false?",
+            choices: [
+              "A. Splenunculi are present in approximately 10-30 per cent of the population.",
+              "B. Splenic artery aneurysm can occur as a complication of acute pancreatitis.",
+              "C. Plain abdominal X-ray is the ideal imaging modality.",
+              "D. A massively enlarged spleen is prone to infarction.",
+              "E. The splenic hilum is a common site for the development of a pseudocyst of the pancreas."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. CECT is ideal, not plain X-ray.",
+            details: "A. Correct: 10–30% prevalence.\nB. Correct: Linked to pancreatitis.\nC. Incorrect: CECT preferred.\nD. Correct: Risks infarction.\nE. Correct: Pseudocysts at hilum."
+          },
+          {
+            text: "The peripheral smear of a child with anemia shows hypochromic microcytic anemia with target cells. What is the child's diagnosis?",
+            choices: [
+              "A. Thalassaemia.",
+              "B. Hereditary spherocytosis.",
+              "C. Sickle cell disease.",
+              "D. Idiopathic autoimmune haemolytic anaemia.",
+              "E. ITP."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Hypochromic microcytic anemia with target cells is characteristic of thalassaemia.",
+            details: "A. Correct: Thalassaemia shows target cells.\nB. Incorrect: Spherocytosis shows spherical RBCs.\nC. Incorrect: Sickle cell disease shows sickle cells.\nD. Incorrect: Autoimmune haemolytic anemia lacks target cells.\nE. Incorrect: ITP affects platelets, not RBCs."
+          },
+          {
+            text: "Where are the accessory spleens mainly found?",
+            choices: [
+              "A. Splenic hilum.",
+              "B. Greater omentum.",
+              "C. Lesser omentum.",
+              "D. Gastrosplenic ligament."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Accessory spleens are mainly found in the splenic hilum (80%).",
+            details: "A. Correct: Splenic hilum is the primary site.\nB. Incorrect: Less common in greater omentum.\nC. Incorrect: Rare in lesser omentum.\nD. Incorrect: Not typical in gastrosplenic ligament."
+          },
+          {
+            text: "What is the main function of the spleen?",
+            choices: [
+              "A. Red blood cells production.",
+              "B. Leukocyte production.",
+              "C. Blood reservoir.",
+              "D. Immunologic protection."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The spleen’s primary function is immunologic protection.",
+            details: "A. Incorrect: RBC production occurs in bone marrow.\nB. Incorrect: Leukocytes produced in marrow.\nC. Incorrect: Blood reservoir is secondary.\nD. Correct: Host defense is primary."
+          },
+          {
+            text: "Hodgkin's lymphoma is discovered in a biopsy of a cervical lymph node. All the following statements are true, except:",
+            choices: [
+              "A. Splenectomy is not required for staging.",
+              "B. Stage II involves disease in two lymph node groups on the same sides of the diaphragm.",
+              "C. If the spleen is involved, in addition to the cervical nodes, the patient has stage III disease.",
+              "D. Stage IV disease is treated mainly by radiotherapy.",
+              "E. Lymphocyte-depletion type carries the worst prognosis."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Stage IV Hodgkin's lymphoma is treated mainly by chemotherapy, not radiotherapy.",
+            details: "A. Correct: Modern imaging avoids splenectomy.\nB. Correct: Stage II is same-side nodes.\nC. Correct: Spleen involvement is stage III.\nD. Incorrect: Stage IV uses chemotherapy.\nE. Correct: Lymphocyte-depletion has poor prognosis."
+          },
+          {
+            text: "Which one of the following malignancies is associated with Epstein Barr virus (EBV)?",
+            choices: [
+              "A. Burkitt's lymphoma.",
+              "B. Hodgkin's disease.",
+              "C. Nasopharyngeal carcinoma.",
+              "D. All of the above."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. EBV is associated with Burkitt’s lymphoma, Hodgkin’s disease, and nasopharyngeal carcinoma.",
+            details: "A. Correct: Linked to EBV.\nB. Correct: Associated with EBV.\nC. Correct: EBV-related.\nD. Correct: All are EBV-associated."
+          },
+          {
+            text: "About idiopathic thrombocytopenic purpura (ITP), all the following statements are true, except:",
+            choices: [
+              "A. Females are more affected than males.",
+              "B. Platelet count is normal but their function is impaired.",
+              "C. Megakaryocyte count in bone marrow is elevated.",
+              "D. The disease usually presents with menorrhagia and petechiae.",
+              "E. Prothrombin time is normal."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Platelet count is low in ITP, not normal.",
+            details: "A. Correct: Females more affected.\nB. Incorrect: Low platelet count.\nC. Correct: Elevated megakaryocytes.\nD. Correct: Presents with bleeding.\nE. Correct: Normal prothrombin time."
+          },
+          {
+            text: "About idiopathic thrombocytopenic purpura (ITP), all the following statements are true, except:",
+            choices: [
+              "A. It is an autoimmune disease.",
+              "B. The spleen is hugely enlarged.",
+              "C. Treatment is not necessary for patients with platelet count of 60 000/uL.",
+              "D. Corticosteroids with or without immunoglobulins is the main line of treatment.",
+              "E. At splenectomy, missing the removal of accessory spleniculi may lead to recurrence."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The spleen is normal or minimally enlarged in ITP.",
+            details: "A. Correct: Autoimmune etiology.\nB. Incorrect: Spleen not hugely enlarged.\nC. Correct: No treatment above 50,000/uL.\nD. Correct: Steroids primary treatment.\nE. Correct: Missed spleniculi cause recurrence."
+          },
+          {
+            text: "Splenectomy for idiopathic thrombocytopenic purpura (ITP) obviates the further need for steroids in:",
+            choices: [
+              "A. 20% of patients.",
+              "B. 35% of patients.",
+              "C. 60% of patients.",
+              "D. 75% of patients."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Splenectomy eliminates steroid need in 75% of ITP patients.",
+            details: "A. Incorrect: Too low.\nB. Incorrect: Too low.\nC. Incorrect: Underestimates success.\nD. Correct: 75% achieve remission."
+          },
+          {
+            text: "A 55-year-old patient presented with bleeding gastroesophageal varices and splenic vein thrombosis with good liver function. What is the treatment of choice?",
+            choices: [
+              "A. Beta blockers.",
+              "B. Urgent splenectomy.",
+              "C. Splenic vein ligation.",
+              "D. Injection sclerotherapy of varices, then splenectomy."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Sclerotherapy controls acute bleeding, followed by splenectomy for splenic vein thrombosis.",
+            details: "A. Incorrect: Beta blockers for prevention.\nB. Incorrect: Not urgent.\nC. Incorrect: Not effective.\nD. Correct: Sclerotherapy then splenectomy."
+          },
+          {
+            text: "The haemolytic anaemia that responds best to splenectomy is:",
+            choices: [
+              "A. Autoimmune haemolytic anaemia.",
+              "B. Thalassaemia.",
+              "C. Hereditary spherocytosis.",
+              "D. Sickle cell disease."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Hereditary spherocytosis responds best to splenectomy.",
+            details: "A. Incorrect: Variable response.\nB. Incorrect: Limited benefit.\nC. Correct: Splenectomy effective.\nD. Incorrect: Autosplenectomy common."
+          },
+          {
+            text: "About hereditary spherocytosis, all the following statements are true, except:",
+            choices: [
+              "A. It is transmitted as autosomal dominant disease.",
+              "B. It is associated with marked increase in the incidence of gallstone formation.",
+              "C. RBCs undergo lysis at a lower osmotic pressure.",
+              "D. Reticulocyte count is elevated.",
+              "E. Treatment is by splenectomy."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. RBCs in hereditary spherocytosis lyse at higher osmotic pressure.",
+            details: "A. Correct: Autosomal dominant.\nB. Correct: Gallstones common.\nC. Incorrect: Higher osmotic pressure lysis.\nD. Correct: Elevated reticulocytes.\nE. Correct: Splenectomy is treatment."
+          },
+          {
+            text: "The treatment of choice of a splenic abscess is:",
+            choices: [
+              "A. Antibiotic therapy and rest.",
+              "B. Percutaneous drainage under ultrasound guidance.",
+              "C. Partial splenectomy and antibiotics.",
+              "D. Splenectomy and antibiotics."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Splenectomy with antibiotics is the definitive treatment for splenic abscess.",
+            details: "A. Incorrect: Insufficient alone.\nB. Incorrect: For non-surgical candidates.\nC. Incorrect: Not standard.\nD. Correct: Splenectomy definitive."
+          },
+          {
+            text: "What is the most common postoperative complication following splenectomy?",
+            choices: [
+              "A. Atelectasis of the left lower lobe of the lung.",
+              "B. Subphrenic abscess.",
+              "C. Burst abdomen.",
+              "D. Haemorrhage."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Left lower lobe atelectasis is the most common post-splenectomy complication.",
+            details: "A. Correct: Common due to proximity.\nB. Incorrect: Less frequent.\nC. Incorrect: Rare.\nD. Incorrect: Less common."
+          },
+          {
+            text: "Vaccination for elective splenectomy should be given:",
+            choices: [
+              "A. Two weeks before splenectomy.",
+              "B. 1 week before splenectomy.",
+              "C. With induction.",
+              "D. Two weeks after surgery."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Vaccines should be given two weeks before elective splenectomy.",
+            details: "A. Correct: Optimal timing for immunity.\nB. Incorrect: Too short.\nC. Incorrect: Not effective.\nD. Incorrect: Post-surgery less effective."
+          }
+        ],
+        flashCards: [
+          {
+            front: "A 55-year-old male with myelofibrosis presents with severe left upper quadrant and shoulder tip pain for 8 hours, fever, and tenderness over an enlarged spleen. CECT shows a perfusion defect in the spleen. What is the diagnosis?",
+            back: "Splenic infarction"
+          },
+          {
+            front: "An 18-year-old male presents with intermittent abdominal pain, mild jaundice, anorexia, pallor, jaundice, splenomegaly, and gallstones on ultrasound. What is the diagnosis?",
+            back: "Hereditary spherocytosis"
+          },
+          {
+            front: "A 30-year-old female presents with petechial haemorrhagic spots, menorrhagia, skin ecchymoses, normal coagulation, low platelet count, and increased megakaryocytes in bone marrow. What is the diagnosis?",
+            back: "Idiopathic thrombocytopenic purpura (ITP)"
+          },
+          {
+            front: "A 25-year-old male kicked in the abdomen during football, felt dizzy with intense left upper abdominal pain and left shoulder tip pain, with rigidity and rebound tenderness. He had malaria until age 18. What is the diagnosis?",
+            back: "Splenic rupture"
+          },
+          {
+            front: "A 30-year-old pregnant woman has a calcified 1 cm mass in the epigastrium on ultrasound, with a bruit heard. She is asymptomatic. What is the diagnosis?",
+            back: "Splenic artery aneurysm"
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let currentFlashCardIndex = 0;
+      let isFront = true;
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+      }
+
+      function showQuestion() {
+        const q = spleenContent.questions[currentQuestionIndex];
+        document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+        const optionsBox = document.getElementById("optionsBox");
+        optionsBox.innerHTML = ""; // Clear previous options
+
+        q.choices.forEach((choice, idx) => {
+          const btn = document.createElement("button");
+          btn.innerText = decodeHtml(choice);
+          btn.onclick = () => checkAnswer(idx, btn);
+          optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("answerBox").style.display = "none";
+        document.getElementById("detailsBtn").style.display = "none";
+        document.getElementById("detailsBox").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+
+      function checkAnswer(selectedIndex) {
+        const q = spleenContent.questions[currentQuestionIndex];
+        const answerBox = document.getElementById("answerBox");
+        const detailsBtn = document.getElementById("detailsBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+        for (let i = 0; i < optionButtons.length; i++) {
+          optionButtons[i].disabled = true;
+          optionButtons[i].style.opacity = 0.7;
+          if (q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+          } else if (i === selectedIndex && !q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect selected
+          }
+        }
+
+        if (q.correct.includes(selectedIndex)) {
+          answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+          score++;
+        } else {
+          answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+        }
+        answerBox.style.display = "block";
+        detailsBtn.style.display = "inline-block";
+        nextBtn.style.display = "inline-block";
+        updateQuestionNav();
+      }
+
+      function showDetails() {
+        const detailsBox = document.getElementById("detailsBox");
+        const q = spleenContent.questions[currentQuestionIndex];
+        detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+        detailsBox.style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < spleenContent.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          document.getElementById("questionBox").style.display = "none";
+          const flashCardScreen = document.getElementById("flashCardScreen");
+          flashCardScreen.style.display = "block";
+          document.getElementById("scoreMessage").innerText = `You scored ${score} out of ${spleenContent.questions.length}. Now review with flash cards!`;
+          showFlashCard();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < spleenContent.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        const navBox = document.getElementById("questionNav");
+        navBox.innerHTML = "";
+        spleenContent.questions.forEach((_, index) => {
+          const btn = document.createElement("button");
+          btn.innerText = `${index + 1}`;
+          btn.onclick = () => goToQuestion(index);
+          navBox.appendChild(btn);
+        });
+        updateQuestionNav();
+      }
+
+      function updateQuestionNav() {
+        const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+        for (let i = 0; i < navButtons.length; i++) {
+          navButtons[i].disabled = (i === currentQuestionIndex);
+          navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+        }
+      }
+
+      function showFlashCard() {
+        const card = spleenContent.flashCards[currentFlashCardIndex];
+        document.getElementById("flashCardText").innerHTML = decodeHtml(isFront ? card.front : card.back);
+        document.getElementById("prevFlashCardBtn").disabled = currentFlashCardIndex === 0;
+        document.getElementById("nextFlashCardBtn").disabled = currentFlashCardIndex === spleenContent.flashCards.length - 1;
+      }
+
+      function flipCard() {
+        isFront = !isFront;
+        showFlashCard();
+      }
+
+      function prevFlashCard() {
+        if (currentFlashCardIndex > 0) {
+          currentFlashCardIndex--;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function nextFlashCard() {
+        if (currentFlashCardIndex < spleenContent.flashCards.length - 1) {
+          currentFlashCardIndex++;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        currentFlashCardIndex = 0;
+        isFront = true;
+        document.getElementById("flashCardScreen").style.display = "none";
+        startQuiz();
+      }
+    </script>
+  </body>
 </html>
