@@ -730,7 +730,31 @@
     }
 </style>
 </head>
+    <script>
+  // إنشاء زر الرجوع تلقائيًا
+  const backBtn = document.createElement('a');
+  backBtn.href = 'index.html';
+  backBtn.innerText = '⬅️ الرجوع إلى الصفحة الرئيسية';
+  backBtn.style = `
+    display: inline-block;
+    margin: 40px auto;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-size: 18px;
+  `;
+  backBtn.style.textAlign = 'center';
+
+  // إضافته إلى منتصف الصفحة
+  document.body.appendChild(backBtn);
+</script>
+
 <body>
+    
     <!-- شريط التقدم -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
