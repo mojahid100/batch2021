@@ -1,10 +1,813 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Inflammatory Bowel</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: inflammatory-bowel.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inflammatory Bowel Disease Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Inflammatory Bowel Disease Quiz</h1>
+        <p lang="ar">Inflammatory Bowel Disease</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Inflammatory Bowel Disease Quiz",
+        lesson: "الأسئلة من النوتس للنقاط المهمة",
+        questions: [
+          // General IBD Questions
+          {
+            text: "A 24-year-old man presents with chronic diarrhea, weight loss, and right lower quadrant abdominal pain. Colonoscopy reveals skip lesions and a cobblestone appearance. Biopsy shows transmural inflammation. What is the most likely diagnosis?",
+            choices: [
+              "A. Ulcerative colitis",
+              "B. Irritable bowel syndrome",
+              "C. Crohn’s disease",
+              "D. Infectious colitis"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Crohn’s disease is indicated by skip lesions, cobblestoning, and transmural inflammation.",
+            details: "A. Incorrect: UC has continuous mucosal inflammation. B. Incorrect: IBS lacks endoscopic findings. C. Correct: Typical Crohn’s features. D. Incorrect: Infectious colitis lacks transmural inflammation."
+          },
+          {
+            text: "Which T-helper cell subtype is predominantly associated with the pathogenesis of Crohn's disease, and what is its main role?",
+            choices: [
+              "A. Th1 cells; promote macrophage activation and granuloma formation",
+              "B. Th2 cells; induce eosinophilic infiltration",
+              "C. Th17 cells; promote neutrophil recruitment",
+              "D. Treg cells; suppress immune response"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Th1 cells drive Crohn’s pathogenesis by promoting macrophage activation and granuloma formation.",
+            details: "A. Correct: Th1-mediated response in Crohn’s. B. Incorrect: Th2 is more UC-related. C. Incorrect: Th17 is secondary. D. Incorrect: Treg suppresses immunity."
+          },
+          {
+            text: "Which serological marker is most commonly positive in patients with ulcerative colitis?",
+            choices: [
+              "A. ASCA (Anti-Saccharomyces cerevisiae antibodies)",
+              "B. pANCA (Perinuclear anti-neutrophil cytoplasmic antibodies)",
+              "C. Anti-dsDNA",
+              "D. Anti-CCP"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. pANCA is frequently positive in ulcerative colitis.",
+            details: "A. Incorrect: ASCA is Crohn’s-associated. B. Correct: Common in UC. C. Incorrect: Linked to lupus. D. Incorrect: Linked to rheumatoid arthritis."
+          },
+          {
+            text: "Which of the following is a life-threatening complication of ulcerative colitis characterized by colonic dilation and systemic toxicity?",
+            choices: [
+              "A. Toxic megacolon",
+              "B. Intestinal perforation",
+              "C. Small bowel obstruction",
+              "D. Fistula formation"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Toxic megacolon involves acute colonic dilatation and systemic toxicity in UC.",
+            details: "A. Correct: Severe UC complication. B. Incorrect: Complication but less specific. C. Incorrect: More Crohn’s-related. D. Incorrect: Typical of Crohn’s."
+          },
+          {
+            text: "Which medication is considered first-line for maintenance of remission in mild to moderate ulcerative colitis?",
+            choices: [
+              "A. Mesalazine (5-ASA)",
+              "B. Prednisolone",
+              "C. Infliximab",
+              "D. Methotrexate"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Mesalazine is first-line for UC maintenance.",
+            details: "A. Correct: Standard for mild-moderate UC. B. Incorrect: For induction. C. Incorrect: For severe cases. D. Incorrect: Less common in UC."
+          },
+          {
+            text: "Which of the following is an absolute indication for surgery in ulcerative colitis?",
+            choices: [
+              "A. Refractory disease despite maximal medical therapy",
+              "B. Mild disease with good response to steroids",
+              "C. Presence of perianal fistulas",
+              "D. Mild proctitis"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Refractory disease is an absolute surgical indication in UC.",
+            details: "A. Correct: Includes dysplasia, toxic megacolon. B. Incorrect: Managed medically. C. Incorrect: Crohn’s feature. D. Incorrect: Mild, treatable."
+          },
+          {
+            text: "A 40-year-old man with known ulcerative colitis presents with 12 bloody stools/day, fever, tachycardia, and abdominal distension. Abdominal X-ray shows colonic dilation. What is the immediate management priority?",
+            choices: [
+              "A. Start intravenous corticosteroids and admit for close monitoring",
+              "B. Begin oral mesalazine and discharge",
+              "C. Schedule elective colectomy in 2 weeks",
+              "D. Start antibiotics for presumed infection"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. IV corticosteroids and hospitalization are urgent for acute severe colitis/toxic megacolon.",
+            details: "A. Correct: Addresses severe UC. B. Incorrect: Inappropriate for severity. C. Incorrect: Not immediate. D. Incorrect: Secondary to steroids."
+          },
+          {
+            text: "Which vitamin deficiency is most commonly associated with Crohn’s disease affecting the terminal ileum?",
+            choices: [
+              "A. Vitamin C",
+              "B. Vitamin B12",
+              "C. Vitamin D",
+              "D. Vitamin A"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Vitamin B12 deficiency is common in terminal ileum Crohn’s.",
+            details: "A. Incorrect: Less specific. B. Correct: B12 absorbed in ileum. C. Incorrect: Common but less specific. D. Incorrect: Less common."
+          },
+          {
+            text: "A 40-year-old Crohn’s patient with multiple resections has severe malnutrition and electrolyte abnormalities. What is the most appropriate nutritional intervention?",
+            choices: [
+              "A. Exclusive enteral nutrition",
+              "B. Total parenteral nutrition with electrolyte correction",
+              "C. Oral supplements only",
+              "D. High-fat diet without monitoring"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. TPN with electrolyte correction is appropriate for severe malnutrition.",
+            details: "A. Incorrect: Less effective post-resections. B. Correct: Addresses malnutrition. C. Incorrect: Insufficient. D. Incorrect: Inappropriate."
+          },
+          // Ulcerative Colitis Questions
+          {
+            text: "What is the primary anatomical site affected by ulcerative colitis?",
+            choices: [
+              "A. Small intestine only",
+              "B. Colon and rectum",
+              "C. Entire gastrointestinal tract",
+              "D. Esophagus and stomach"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Ulcerative colitis affects the colon and rectum.",
+            details: "A. Incorrect: Crohn’s feature. B. Correct: Starts at rectum. C. Incorrect: Crohn’s feature. D. Incorrect: Unrelated to UC."
+          },
+          {
+            text: "Which environmental factor is protective against ulcerative colitis?",
+            choices: [
+              "A. Smoking",
+              "B. High-fat diet",
+              "C. Stress",
+              "D. NSAID use"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Smoking is protective for UC.",
+            details: "A. Correct: Reduces UC risk. B. Incorrect: Not protective. C. Incorrect: May exacerbate. D. Incorrect: May worsen."
+          },
+          {
+            text: "What is the most common clinical presentation of ulcerative colitis?",
+            choices: [
+              "A. Severe abdominal pain with constipation",
+              "B. Chronic diarrhea with blood",
+              "C. Asymptomatic weight gain",
+              "D. Intermittent vomiting"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Chronic bloody diarrhea is the hallmark of UC.",
+            details: "A. Incorrect: More Crohn’s/IBS. B. Correct: Typical UC symptom. C. Incorrect: Not UC-related. D. Incorrect: Non-specific."
+          },
+          {
+            text: "Which serological marker is most associated with ulcerative colitis?",
+            choices: [
+              "A. Anti-Saccharomyces cerevisiae antibodies (ASCA)",
+              "B. Perinuclear anti-neutrophil cytoplasmic antibodies (pANCA)",
+              "C. Anti-smooth muscle antibodies",
+              "D. Anti-mitochondrial antibodies"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. pANCA is commonly associated with UC.",
+            details: "A. Incorrect: Crohn’s marker. B. Correct: UC marker. C. Incorrect: Autoimmune hepatitis. D. Incorrect: Primary biliary cholangitis."
+          },
+          {
+            text: "What is the gold-standard diagnostic test for ulcerative colitis?",
+            choices: [
+              "A. Double-contrast barium enema",
+              "B. Colonoscopy",
+              "C. Fecal calprotectin",
+              "D. CT enterography"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Colonoscopy is the gold-standard for UC diagnosis.",
+            details: "A. Incorrect: Supportive, not primary. B. Correct: Shows diffuse inflammation. C. Incorrect: Screening tool. D. Incorrect: For Crohn’s."
+          },
+          {
+            text: "Which endoscopic finding is characteristic of ulcerative colitis?",
+            choices: [
+              "A. Cobblestone appearance",
+              "B. Skip lesions",
+              "C. Loss of haustration (lead-pipe pattern)",
+              "D. Deep fissured ulcers"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Loss of haustration is typical in UC.",
+            details: "A. Incorrect: Crohn’s feature. B. Incorrect: Crohn’s feature. C. Correct: UC endoscopic sign. D. Incorrect: Crohn’s feature."
+          },
+          {
+            text: "According to Truelove-Witts criteria, what indicates severe ulcerative colitis?",
+            choices: [
+              "A. ≤4 bloody stools/day with normal vital signs",
+              "B. ≥6 bloody stools/day with anemia or fever",
+              "C. Normal ESR and mild erythema",
+              "D. 4-6 stools/day without systemic symptoms"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. ≥6 bloody stools/day with anemia or fever defines severe UC.",
+            details: "A. Incorrect: Mild UC. B. Correct: Severe UC criteria. C. Incorrect: Mild findings. D. Incorrect: Moderate UC."
+          },
+          {
+            text: "What is the first-line treatment for inducing remission in mild ulcerative colitis?",
+            choices: [
+              "A. Intravenous glucocorticoids",
+              "B. Mesalamine (5-ASA)",
+              "C. Infliximab",
+              "D. Azathioprine"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Mesalamine is first-line for inducing remission in mild UC.",
+            details: "A. Incorrect: For severe UC. B. Correct: Standard for mild UC. C. Incorrect: For severe cases. D. Incorrect: For maintenance."
+          },
+          {
+            text: "What is a major complication of ulcerative colitis increasing the risk of colorectal cancer?",
+            choices: [
+              "A. Fistulae",
+              "B. Pancolitis with disease duration >10 years",
+              "C. Skip lesions",
+              "D. Creeping fat"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Pancolitis >10 years increases colorectal cancer risk.",
+            details: "A. Incorrect: Crohn’s feature. B. Correct: UC cancer risk. C. Incorrect: Crohn’s feature. D. Incorrect: Crohn’s feature."
+          },
+          {
+            text: "What is the management approach for toxic megacolon in ulcerative colitis?",
+            choices: [
+              "A. Oral antibiotics alone",
+              "B. Rehydration and pulse steroid therapy",
+              "C. Immediate colonoscopy",
+              "D. Maintenance with 5-ASA"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Rehydration and pulse steroids manage toxic megacolon.",
+            details: "A. Incorrect: Insufficient. B. Correct: Urgent therapy. C. Incorrect: Contraindicated. D. Incorrect: Not for acute management."
+          },
+          // Crohn’s Disease Questions
+          {
+            text: "What is a defining characteristic of Crohn’s disease?",
+            choices: [
+              "A. Limited to mucosa and submucosa",
+              "B. Transmural inflammation with skip lesions",
+              "C. Continuous colonic inflammation",
+              "D. Affects only the rectum"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Transmural inflammation with skip lesions defines Crohn’s.",
+            details: "A. Incorrect: UC feature. B. Correct: Crohn’s hallmark. C. Incorrect: UC feature. D. Incorrect: UC feature."
+          },
+          {
+            text: "Which site is most commonly affected at presentation in Crohn’s disease?",
+            choices: [
+              "A. Esophagus",
+              "B. Terminal ileum and ileocecal valve",
+              "C. Rectum",
+              "D. Stomach"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Terminal ileum and ileocecal valve are most common in Crohn’s.",
+            details: "A. Incorrect: Rare. B. Correct: Affected in 50% of cases. C. Incorrect: Less common. D. Incorrect: Less common."
+          },
+          {
+            text: "Which clinical feature is more prominent in Crohn’s disease than ulcerative colitis?",
+            choices: [
+              "A. Chronic bloody diarrhea",
+              "B. Abdominal pain",
+              "C. Urgent bowel movements",
+              "D. Asymptomatic anemia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Abdominal pain is more prominent in Crohn’s.",
+            details: "A. Incorrect: UC hallmark. B. Correct: Crohn’s feature. C. Incorrect: Common in both. D. Incorrect: Non-specific."
+          },
+          {
+            text: "What is a pathognomonic histological finding in Crohn’s disease?",
+            choices: [
+              "A. Crypt abscesses",
+              "B. Non-caseating granulomas",
+              "C. Pseudopolyps",
+              "D. Atrophic crypts"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Non-caseating granulomas are pathognomonic for Crohn’s.",
+            details: "A. Incorrect: UC feature. B. Correct: Seen in ~60% of cases. C. Incorrect: UC feature. D. Incorrect: UC feature."
+          },
+          {
+            text: "What imaging modality is particularly useful for diagnosing Crohn’s disease involving the small intestine?",
+            choices: [
+              "A. Double-contrast barium enema",
+              "B. CT or MR enterography",
+              "C. Plain abdominal X-ray",
+              "D. Radionuclide studies"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. CT or MR enterography is sensitive for small intestine Crohn’s.",
+            details: "A. Incorrect: UC-related. B. Correct: Detects small bowel involvement. C. Incorrect: For complications. D. Incorrect: Less specific."
+          },
+          {
+            text: "What is the first-choice treatment for inducing remission in Crohn’s disease with ileal involvement?",
+            choices: [
+              "A. Mesalamine",
+              "B. Budesonide",
+              "C. Prednisolone",
+              "D. Vedolizumab"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Budesonide is preferred for ileal Crohn’s.",
+            details: "A. Incorrect: Ineffective. B. Correct: Low systemic toxicity. C. Incorrect: Broader disease. D. Incorrect: Severe cases."
+          },
+          {
+            text: "What is the most effective strategy for inducing and maintaining remission in Crohn’s disease?",
+            choices: [
+              "A. 5-ASA alone",
+              "B. Combination of anti-TNF and azathioprine",
+              "C. Oral glucocorticoids long-term",
+              "D. Antibiotics as monotherapy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Anti-TNF and azathioprine are most effective for Crohn’s remission.",
+            details: "A. Incorrect: Ineffective. B. Correct: Standard combination. C. Incorrect: Not for maintenance. D. Incorrect: Adjunctive."
+          },
+          {
+            text: "What is a common indication for surgery in Crohn’s disease?",
+            choices: [
+              "A. Toxic megacolon",
+              "B. Fistulae",
+              "C. Pancolitis",
+              "D. Pseudopolyps"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Fistulae are a common surgical indication in Crohn’s.",
+            details: "A. Incorrect: UC feature. B. Correct: Frequent in Crohn’s. C. Incorrect: UC feature. D. Incorrect: UC feature."
+          },
+          {
+            text: "Which extra-intestinal manifestation occurs during active Crohn’s disease?",
+            choices: [
+              "A. Primary sclerosing cholangitis",
+              "B. Pyoderma gangrenosum",
+              "C. Ankylosing spondylitis",
+              "D. Gallstones"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Pyoderma gangrenosum is linked to active Crohn’s.",
+            details: "A. Incorrect: Chronic, UC-related. B. Correct: Active IBD phase. C. Incorrect: Chronic, not activity-linked. D. Incorrect: Non-specific."
+          },
+          {
+            text: "What must be excluded before starting biological therapy in Crohn’s disease?",
+            choices: [
+              "A. Hypertension",
+              "B. Tuberculosis and hepatitis B",
+              "C. Diabetes mellitus",
+              "D. Hyperlipidemia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Screening for TB and HBV is mandatory before biologics.",
+            details: "A. Incorrect: Not specific. B. Correct: Prevents reactivation. C. Incorrect: Not required. D. Incorrect: Not required."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف التهاب الأمعاء الالتهابي</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
