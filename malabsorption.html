@@ -1,10 +1,695 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Malabsorption</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: malabsorption.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Malabsorption Syndromes Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Malabsorption Syndromes Quiz</h1>
+        <p lang="ar">Malabsorption</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Malabsorption Syndromes Quiz",
+        lesson: "الأسئلة من ملف متلازمات سوء الامتصاص",
+        questions: [
+          // Phases of Absorption
+          {
+            text: "Which phase of absorption involves hydrolysis of dietary fats, proteins, and carbohydrates?",
+            choices: [
+              "A. Mucosal phase",
+              "B. Postabsorptive phase",
+              "C. Luminal phase",
+              "D. Lymphatic phase"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. The luminal phase involves digestion by enzymes and bile to hydrolyze nutrients.",
+            details: "A. Incorrect: Mucosal phase is for absorption. B. Incorrect: Postabsorptive phase is for transport. C. Correct: Hydrolysis occurs in the lumen. D. Incorrect: Not a recognized phase."
+          },
+          {
+            text: "What is the role of the mucosal phase in nutrient absorption?",
+            choices: [
+              "A. Transport of nutrients via lymphatics",
+              "B. Hydrolysis of nutrients by pancreatic enzymes",
+              "C. Uptake of digested products by intestinal villi",
+              "D. Secretion of bile for micelle formation"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. The mucosal phase involves uptake of digested nutrients into enterocytes.",
+            details: "A. Incorrect: Lymphatics are postabsorptive. B. Incorrect: Hydrolysis is luminal. C. Correct: Via brush-border membrane. D. Incorrect: Bile secretion is luminal."
+          },
+          {
+            text: "How are lipids primarily transported during the postabsorptive phase?",
+            choices: [
+              "A. Via portal circulation",
+              "B. Via lymphatics",
+              "C. Via pancreatic secretions",
+              "D. Via gastric mucosa"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Lipids are transported via lymphatics after absorption.",
+            details: "A. Incorrect: Proteins and carbohydrates use portal circulation. B. Correct: Lipids via lymphatics. C. Incorrect: Secretions aid digestion. D. Incorrect: Not involved."
+          },
+          // Causes of Malabsorption
+          {
+            text: "Which condition causes malabsorption due to pancreatic enzyme insufficiency?",
+            choices: [
+              "A. Celiac disease",
+              "B. Chronic pancreatitis",
+              "C. Bacterial overgrowth",
+              "D. Intestinal lymphangiectasia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Chronic pancreatitis reduces pancreatic enzyme production, impairing the luminal phase.",
+            details: "A. Incorrect: Affects mucosal phase. B. Correct: Enzyme deficiency. C. Incorrect: Affects mucosal phase. D. Incorrect: Affects postabsorptive phase."
+          },
+          {
+            text: "What is a biliary cause of malabsorption?",
+            choices: [
+              "A. Rapid intestinal transit",
+              "B. Lactase deficiency",
+              "C. Liver cirrhosis reducing bile salt synthesis",
+              "D. Small intestinal biopsy showing villous atrophy"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Liver cirrhosis impairs bile production, disrupting micelle formation.",
+            details: "A. Incorrect: Not biliary. B. Incorrect: Mucosal enzyme deficiency. C. Correct: Bile salt reduction. D. Incorrect: Mucosal issue."
+          },
+          {
+            text: "Which condition in the mucosal phase leads to malabsorption?",
+            choices: [
+              "A. Pancreatic cancer",
+              "B. Celiac disease",
+              "C. Zollinger-Ellison syndrome",
+              "D. Biliary obstruction"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Celiac disease damages the intestinal mucosa, impairing absorption.",
+            details: "A. Incorrect: Luminal phase. B. Correct: Mucosal damage. C. Incorrect: Luminal phase. D. Incorrect: Luminal phase."
+          },
+          {
+            text: "What is a cause of malabsorption in the postabsorptive phase?",
+            choices: [
+              "A. Disaccharidase deficiency",
+              "B. Whipple’s disease",
+              "C. Gastric hypersecretion",
+              "D. Small bowel resection"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Whipple’s disease causes lymphatic obstruction, impairing transport.",
+            details: "A. Incorrect: Mucosal phase. B. Correct: Lymphatic obstruction. C. Incorrect: Luminal phase. D. Incorrect: Mucosal phase."
+          },
+          // Clinical Presentation
+          {
+            text: "What is a common clinical feature of malabsorption syndrome?",
+            choices: [
+              "A. Hypertension",
+              "B. Steatorrhea",
+              "C. Hypoglycemia",
+              "D. Joint swelling"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Steatorrhea is characteristic due to fat malabsorption.",
+            details: "A. Incorrect: Not typical. B. Correct: Bulky, greasy stools. C. Incorrect: Not common. D. Incorrect: Not typical."
+          },
+          {
+            text: "Which manifestation is associated with protein malabsorption?",
+            choices: [
+              "A. Peripheral neuropathy",
+              "B. Edema and ascites",
+              "C. Tetany",
+              "D. Pellagra"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Protein malabsorption leads to hypoalbuminemia, causing edema and ascites.",
+            details: "A. Incorrect: Vitamin B12 deficiency. B. Correct: Due to low albumin. C. Incorrect: Calcium/magnesium deficiency. D. Incorrect: Niacin deficiency."
+          },
+          {
+            text: "What neurological manifestation may occur in malabsorption syndrome?",
+            choices: [
+              "A. Seizures",
+              "B. Tetany",
+              "C. Vision loss",
+              "D. Hearing loss"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Tetany results from calcium or magnesium deficiency due to malabsorption.",
+            details: "A. Incorrect: Less common. B. Correct: Common in malabsorption. C. Incorrect: Rare. D. Incorrect: Not typical."
+          },
+          {
+            text: "What is a clinical feature of celiac disease in children?",
+            choices: [
+              "A. Growth retardation",
+              "B. Hyperpigmentation",
+              "C. Cardiomyopathy",
+              "D. Chronic cough"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Celiac disease causes growth retardation in children.",
+            details: "A. Correct: Failure to thrive. B. Incorrect: Not typical. C. Incorrect: Rare. D. Incorrect: Not associated."
+          },
+          // Diagnosis
+          {
+            text: "Which test is used to assess small intestinal absorption in malabsorption?",
+            choices: [
+              "A. Secretin/CCK test",
+              "B. D-xylose test",
+              "C. Schilling test",
+              "D. Lactose-H2 breath test"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. The D-xylose test evaluates small intestinal absorption.",
+            details: "A. Incorrect: Tests pancreatic function. B. Correct: Assesses mucosal absorption. C. Incorrect: For B12 absorption. D. Incorrect: For lactose intolerance."
+          },
+          {
+            text: "What finding on small intestinal biopsy suggests celiac disease?",
+            choices: [
+              "A. Flat villi and foamy macrophages",
+              "B. Villous atrophy and mosaic-like scalloping",
+              "C. Subtotal patchy villous atrophy",
+              "D. Normal villi with bacterial overgrowth"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Celiac disease shows villous atrophy and scalloping on biopsy.",
+            details: "A. Incorrect: Whipple’s disease. B. Correct: Celiac hallmark. C. Incorrect: Tropical Sprue. D. Incorrect: Normal biopsy."
+          },
+          {
+            text: "What does the Schilling test diagnose in malabsorption?",
+            choices: [
+              "A. Lactose intolerance",
+              "B. Vitamin B12 malabsorption",
+              "C. Pancreatic enzyme deficiency",
+              "D. Bacterial overgrowth"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. The Schilling test identifies causes of B12 malabsorption.",
+            details: "A. Incorrect: Breath test used. B. Correct: E.g., pernicious anemia, ileal disease. C. Incorrect: Other tests. D. Incorrect: Breath test used."
+          },
+          {
+            text: "Which test confirms bacterial overgrowth in malabsorption?",
+            choices: [
+              "A. 14C-xylose breath test",
+              "B. Endomysial antibody test",
+              "C. Quantitative fecal fat test",
+              "D. Bentiromide test"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. The 14C-xylose breath test detects bacterial overgrowth.",
+            details: "A. Correct: Specific for overgrowth. B. Incorrect: For celiac disease. C. Incorrect: For fat malabsorption. D. Incorrect: For pancreatic function."
+          },
+          // Treatment and Specific Diseases
+          {
+            text: "What is the primary treatment for malabsorption syndrome?",
+            choices: [
+              "A. Routine corticosteroid therapy",
+              "B. Treatment of the underlying cause",
+              "C. Immediate surgical resection",
+              "D. High-dose antibiotics for all cases"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Addressing the underlying cause is key for malabsorption.",
+            details: "A. Incorrect: Not routine. B. Correct: E.g., celiac, bacterial overgrowth. C. Incorrect: Case-specific. D. Incorrect: Not universal."
+          },
+          {
+            text: "What is the dietary treatment for celiac disease?",
+            choices: [
+              "A. High-gluten diet",
+              "B. Gluten-free diet",
+              "C. High-lactose diet",
+              "D. Low-protein diet"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. A gluten-free diet is essential for celiac disease.",
+            details: "A. Incorrect: Worsens celiac. B. Correct: Avoids wheat, rye, barley. C. Incorrect: Irrelevant. D. Incorrect: Not needed."
+          },
+          {
+            text: "How is Tropical Sprue treated?",
+            choices: [
+              "A. Gluten-free diet",
+              "B. Broad-spectrum antibiotics and vitamin supplementation",
+              "C. Pancreatic enzyme replacement",
+              "D. Corticosteroids alone"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Tropical Sprue is treated with antibiotics and folate/B12 supplementation.",
+            details: "A. Incorrect: For celiac. B. Correct: E.g., tetracycline, folate. C. Incorrect: For pancreatic insufficiency. D. Incorrect: Not primary."
+          },
+          {
+            text: "What is a diagnostic feature of Whipple’s disease on biopsy?",
+            choices: [
+              "A. Villous atrophy with scalloping",
+              "B. Flat villi and foamy macrophages",
+              "C. Subtotal patchy villous atrophy",
+              "D. Normal villi with ulceration"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Whipple’s disease shows flat villi and foamy macrophages (PAS-positive).",
+            details: "A. Incorrect: Celiac disease. B. Correct: Diagnostic for Whipple’s. C. Incorrect: Tropical Sprue. D. Incorrect: Crohn’s disease."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 2}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 2}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 2}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف متلازمات سوء الامتصاص</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
