@@ -1,10 +1,911 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Constipation Diarrhea</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: constipation-diarrhea.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Constipation and Diarrhea Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Constipation and Diarrhea Quiz</h1>
+        <p lang="ar">Constipation and Diarrhea</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Constipation and Diarrhea Quiz",
+        lesson: "الأسئلة من ملف الإمساك والإسهال",
+        questions: [
+          // Constipation Questions (Q1–7)
+          {
+            text: "The following are associated symptoms with constipation except:",
+            choices: [
+              "A. Bad taste",
+              "B. Abdominal discomfort",
+              "C. Hypotension",
+              "D. Headache"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Hypotension is not a typical symptom of constipation.",
+            details: "A. Correct: Bad taste due to toxin buildup. B. Correct: Abdominal discomfort is common. C. Incorrect: Hypotension is unrelated, tied to cardiovascular issues. D. Correct: Headache from discomfort."
+          },
+          {
+            text: "The following are causes of constipation except:",
+            choices: [
+              "A. Hyperthyroidism",
+              "B. Diabetes mellitus",
+              "C. Hyperparathyroidism",
+              "D. Lack of fiber in diet"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Hyperthyroidism typically causes diarrhea, not constipation.",
+            details: "A. Incorrect: Increases motility, causing diarrhea. B. Correct: Diabetes causes constipation via neuropathy. C. Correct: Hypercalcemia reduces motility. D. Correct: Low fiber reduces stool bulk."
+          },
+          {
+            text: "The following is true for constipation due to defecatory disorders except:",
+            choices: [
+              "A. Relaxation of pelvic floor muscle during defecation",
+              "B. Rectocele is common",
+              "C. Accompanied with weakness of rectovaginal septum and stool trapping",
+              "D. Associated with rectal prolapse"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Defecatory disorders involve failure of pelvic floor relaxation.",
+            details: "A. Incorrect: Dyssynergia prevents relaxation. B. Correct: Rectocele is common. C. Correct: Weak septum causes trapping. D. Correct: Prolapse is associated."
+          },
+          {
+            text: "The best investigation for defecatory disorders (dyssynergia) causing constipation is:",
+            choices: [
+              "A. Stool analysis",
+              "B. Colonoscopy",
+              "C. Defecography",
+              "D. Marker study"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Defecography is the gold standard for dyssynergia.",
+            details: "A. Incorrect: Limited for functional issues. B. Incorrect: Assesses structure, not dynamics. C. Correct: Visualizes pelvic floor dynamics. D. Incorrect: Measures transit, not defecation."
+          },
+          {
+            text: "The best for diagnosing colonic hypomotility that cause constipation is:",
+            choices: [
+              "A. Stool analysis",
+              "B. PR exam",
+              "C. Colonoscopy",
+              "D. Marker study"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Marker study diagnoses colonic hypomotility.",
+            details: "A. Incorrect: Not specific for motility. B. Incorrect: Limited scope. C. Incorrect: Structural assessment. D. Correct: Measures transit time."
+          },
+          {
+            text: "The following is true for chronic constipation except:",
+            choices: [
+              "A. Occurs for 2 weeks/12 months",
+              "B. Accompanied with straining",
+              "C. Sense of anorectal block",
+              "D. Sense of incomplete evacuation"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Chronic constipation requires 3 months, not 2 weeks.",
+            details: "A. Incorrect: Rome criteria require 3 months. B. Correct: Straining is common. C. Correct: Anorectal block is a symptom. D. Correct: Incomplete evacuation is typical."
+          },
+          {
+            text: "The following are associated symptoms with constipation except:",
+            choices: [
+              "A. Bad taste",
+              "B. Abdominal discomfort",
+              "C. Bradycardia",
+              "D. Headache"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Bradycardia is not a typical symptom of constipation.",
+            details: "A. Correct: Bad taste from toxins. B. Correct: Discomfort is common. C. Incorrect: Bradycardia is unrelated, tied to vagal issues. D. Correct: Headache from discomfort."
+          },
+          // Diarrhea Questions (Q8–17)
+          {
+            text: "Diarrhea is defined as:",
+            choices: [
+              "A. Increased stool weight >200 gm/day",
+              "B. Increased liquidity only",
+              "C. Increased frequency only",
+              "D. Anal sphincter dysfunction"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Diarrhea is defined as stool weight >200 gm/day.",
+            details: "A. Correct: Objective definition. B. Incorrect: Liquidity is a feature, not definition. C. Incorrect: Frequency is a feature. D. Incorrect: Sphincter issues are unrelated."
+          },
+          {
+            text: "Diarrhea is defined as:",
+            choices: [
+              "A. Increased stool weight >200 gm/day",
+              "B. Usually with increased liquidity",
+              "C. Increased frequency",
+              "D. All of the above",
+              "E. None of the above"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Diarrhea includes increased weight, liquidity, and frequency.",
+            details: "A. Correct: Part of definition. B. Correct: Common feature. C. Correct: Common feature. D. Correct: All features combined. E. Incorrect."
+          },
+          {
+            text: "The following is true except:",
+            choices: [
+              "A. Voluminous diarrhea is due to colonic lesions",
+              "B. Small intestine is responsible for absorption and secretion",
+              "C. Intestinal absorption occurs mainly in the small intestine",
+              "D. Ileal fluid is isotonic to plasma"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Voluminous diarrhea is due to small intestinal lesions, not colonic.",
+            details: "A. Incorrect: Colonic lesions cause smaller stools. B. Correct: Small intestine handles absorption/secretion. C. Correct: Primary absorption site. D. Correct: Ileal fluid is isotonic."
+          },
+          {
+            text: "The following is true except:",
+            choices: [
+              "A. Voluminous diarrhea is due to small intestinal lesions as well as colonic lesions",
+              "B. Small intestine is responsible for absorption and secretion",
+              "C. Intestinal absorption occurs mainly in the small intestine",
+              "D. Ileal fluid is isotonic to plasma"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Voluminous diarrhea is primarily due to small intestinal lesions.",
+            details: "A. Incorrect: Mainly small intestine, not colon. B. Correct: Absorption/secretion role. C. Correct: Main absorption site. D. Correct: Ileal fluid isotonic."
+          },
+          {
+            text: "One of the following is not true for osmotic diarrhea:",
+            choices: [
+              "A. It is due to poorly absorbed solutes",
+              "B. It is due to maldigestion of lactose",
+              "C. Diarrhea stops with fasting",
+              "D. Normal osmotic gap"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Osmotic diarrhea has an increased osmotic gap.",
+            details: "A. Correct: Caused by unabsorbed solutes. B. Correct: Lactose maldigestion is a cause. C. Correct: Stops with fasting. D. Incorrect: Gap >50 mOsm/kg."
+          },
+          {
+            text: "One of the following is not a cause of secretory diarrhea:",
+            choices: [
+              "A. Enterotoxins e.g. cholera",
+              "B. Pancreatic cholera",
+              "C. Carcinoid",
+              "D. Lactose intolerance"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Lactose intolerance causes osmotic diarrhea.",
+            details: "A. Correct: Cholera is secretory. B. Correct: Pancreatic cholera (VIPoma) is secretory. C. Correct: Carcinoid causes secretion. D. Incorrect: Osmotic due to unabsorbed lactose."
+          },
+          {
+            text: "One of the following is not a feature of secretory diarrhea:",
+            choices: [
+              "A. Diarrhea persists with fasting",
+              "B. Normal osmotic gap",
+              "C. Stool large in volume and watery",
+              "D. Ulcerated intestinal mucosa"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Ulcerated mucosa is not a feature of secretory diarrhea.",
+            details: "A. Correct: Persists with fasting. B. Correct: Gap <50 mOsm/kg. C. Correct: Large, watery stools. D. Incorrect: Typical of inflammatory diarrhea."
+          },
+          {
+            text: "One of the following is not a cause of diarrhea due to dysmotility:",
+            choices: [
+              "A. Diabetes mellitus",
+              "B. Thyrotoxicosis",
+              "C. E. coli",
+              "D. Intestinal resection"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. E. coli causes infectious diarrhea, not dysmotility.",
+            details: "A. Correct: Neuropathy causes dysmotility. B. Correct: Increased motility. C. Incorrect: Causes secretory/inflammatory diarrhea. D. Correct: Short bowel syndrome."
+          },
+          {
+            text: "One of the following is a cause of secretory diarrhea:",
+            choices: [
+              "A. IBD",
+              "B. Shigella",
+              "C. Cholera",
+              "D. Ischemic colitis"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Cholera causes secretory diarrhea.",
+            details: "A. Incorrect: IBD causes inflammatory diarrhea. B. Incorrect: Shigella causes inflammatory diarrhea. C. Correct: Cholera is secretory. D. Incorrect: Ischemic colitis is inflammatory."
+          },
+          {
+            text: "One of the following cause of diarrhea:",
+            choices: [
+              "A. Zollinger-Ellison syndrome",
+              "B. VIPoma",
+              "C. Myxedema",
+              "D. Carcinoid"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. VIPoma causes secretory diarrhea.",
+            details: "A. Correct: Acid hypersecretion may cause diarrhea. B. Correct: VIPoma is secretory. C. Incorrect: Myxedema causes constipation. D. Correct: Carcinoid causes diarrhea."
+          },
+          // Additional Constipation Questions (Q19–28)
+          {
+            text: "What defines constipation according to Rome IV?",
+            choices: [
+              "A. Daily bowel movements with soft stools",
+              "B. <3 bowel movements/week with straining",
+              "C. Blood in stool without straining",
+              "D. Abdominal pain without stool changes"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Rome IV defines constipation as <3 movements/week with straining.",
+            details: "A. Incorrect: Normal bowel habits. B. Correct: Includes straining and other symptoms. C. Incorrect: Suggests other pathology. D. Incorrect: Not specific to constipation."
+          },
+          {
+            text: "What is the maximum gut transit time?",
+            choices: [
+              "A. 24 hours",
+              "B. 48 hours",
+              "C. 72 hours",
+              "D. 96 hours"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Maximum gut transit time is 72 hours.",
+            details: "A. Incorrect: Too short. B. Incorrect: Underestimates maximum. C. Correct: Standard maximum. D. Incorrect: Too long."
+          },
+          {
+            text: "Which type of constipation involves paradoxical sphincter contraction?",
+            choices: [
+              "A. Normal-transit",
+              "B. Slow-transit",
+              "C. Pelvic floor dysfunction",
+              "D. Mixed"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Pelvic floor dysfunction involves paradoxical contraction.",
+            details: "A. Incorrect: Normal motility. B. Incorrect: Slow motility. C. Correct: Dyssynergia causes contraction. D. Incorrect: Combined issues."
+          },
+          {
+            text: "What is a secondary cause of constipation?",
+            choices: [
+              "A. Psychological distress",
+              "B. Hypothyroidism",
+              "C. Slow colonic motility",
+              "D. Normal transit"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Hypothyroidism is a secondary cause of constipation.",
+            details: "A. Incorrect: Primary or contributing factor. B. Correct: Endocrine cause. C. Incorrect: Primary cause. D. Incorrect: Not a cause."
+          },
+          {
+            text: "Which test has high specificity for dyssynergia?",
+            choices: [
+              "A. Colonoscopy",
+              "B. Balloon expulsion test",
+              "C. Fecal fat analysis",
+              "D. Lactose-H2 breath test"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Balloon expulsion test is specific for dyssynergia.",
+            details: "A. Incorrect: Structural assessment. B. Correct: 80-90% specificity. C. Incorrect: Tests malabsorption. D. Incorrect: Tests lactose intolerance."
+          },
+          {
+            text: "What does the wireless motility capsule measure?",
+            choices: [
+              "A. Blood in stool",
+              "B. pH, temperature, pressure",
+              "C. Fecal fat content",
+              "D. Bacterial overgrowth"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. The capsule measures pH, temperature, and pressure.",
+            details: "A. Incorrect: Not measured. B. Correct: Assesses motility. C. Incorrect: Different test. D. Incorrect: Breath tests used."
+          },
+          {
+            text: "What is an alarming feature of constipation?",
+            choices: [
+              "A. Hard stools",
+              "B. Weight loss",
+              "C. Straining",
+              "D. Bloating"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Weight loss is an alarming feature.",
+            details: "A. Incorrect: Common symptom. B. Correct: Suggests serious pathology. C. Incorrect: Common symptom. D. Incorrect: Common symptom."
+          },
+          {
+            text: "What is the primary treatment for pelvic floor dysfunction?",
+            choices: [
+              "A. Stimulant laxatives",
+              "B. Biofeedback training",
+              "C. Antibiotics",
+              "D. Surgery"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Biofeedback training corrects dyssynergia.",
+            details: "A. Incorrect: Less effective. B. Correct: First-line treatment. C. Incorrect: Irrelevant. D. Incorrect: Last resort."
+          },
+          {
+            text: "Which laxative stimulates motility and secretion?",
+            choices: [
+              "A. Bran",
+              "B. Lactulose",
+              "C. Phenolphthalein",
+              "D. Methylcellulose"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Phenolphthalein is a stimulant laxative.",
+            details: "A. Incorrect: Bulk-forming. B. Incorrect: Osmotic laxative. C. Correct: Stimulates motility/secretion. D. Incorrect: Bulk-forming."
+          },
+          {
+            text: "What is a complication of constipation?",
+            choices: [
+              "A. Hypertension",
+              "B. Rectal prolapse",
+              "C. Hypoglycemia",
+              "D. Joint pain"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Rectal prolapse is a complication of constipation.",
+            details: "A. Incorrect: Unrelated. B. Correct: Due to straining. C. Incorrect: Unrelated. D. Incorrect: Unrelated."
+          },
+          // Additional Diarrhea Questions (Q29–38)
+          {
+            text: "What is a feature of diarrhea?",
+            choices: [
+              "A. Hard, lumpy stools",
+              "B. Increased stool weight >200 g/day",
+              "C. Decreased stool frequency",
+              "D. No urgency"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Increased stool weight >200 g/day is a feature of diarrhea.",
+            details: "A. Incorrect: Typical of constipation. B. Correct: Defines diarrhea. C. Incorrect: Frequency increases. D. Incorrect: Urgency is common."
+          },
+          {
+            text: "What characterizes osmotic diarrhea?",
+            choices: [
+              "A. Persists with fasting",
+              "B. Stops with fasting",
+              "C. Low osmotic gap",
+              "D. Blood in stool"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Osmotic diarrhea stops with fasting.",
+            details: "A. Incorrect: Secretory persists. B. Correct: No solute, no diarrhea. C. Incorrect: High gap (>50 mOsm/kg). D. Incorrect: Exudative feature."
+          },
+          {
+            text: "Which condition causes secretory diarrhea?",
+            choices: [
+              "A. Lactose intolerance",
+              "B. Carcinoid syndrome",
+              "C. Ulcerative colitis",
+              "D. Gastrocolic fistula"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Carcinoid syndrome causes secretory diarrhea.",
+            details: "A. Incorrect: Osmotic diarrhea. B. Correct: Secretory due to hormones. C. Incorrect: Exudative diarrhea. D. Incorrect: Osmotic or mixed."
+          },
+          {
+            text: "What is a cause of exudative diarrhea?",
+            choices: [
+              "A. Giardia",
+              "B. Shigella",
+              "C. Rotavirus",
+              "D. Laxative abuse"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Shigella causes exudative diarrhea.",
+            details: "A. Incorrect: Osmotic/secretory. B. Correct: Mucosal damage. C. Incorrect: Secretory. D. Incorrect: Osmotic/secretory."
+          },
+          {
+            text: "What does a low osmotic gap (<50 mOsm/kg) suggest?",
+            choices: [
+              "A. Osmotic diarrhea",
+              "B. Secretory diarrhea",
+              "C. Exudative diarrhea",
+              "D. Motility-related diarrhea"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Low osmotic gap suggests secretory diarrhea.",
+            details: "A. Incorrect: High gap. B. Correct: Normal gap <50 mOsm/kg. C. Incorrect: Variable gap. D. Incorrect: Variable gap."
+          },
+          {
+            text: "Which test diagnoses lactose intolerance?",
+            choices: [
+              "A. Balloon expulsion test",
+              "B. Lactose-H2 breath test",
+              "C. Schilling test",
+              "D. Wireless motility capsule"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Lactose-H2 breath test diagnoses lactose intolerance.",
+            details: "A. Incorrect: For dyssynergia. B. Correct: Detects lactose malabsorption. C. Incorrect: For B12. D. Incorrect: For motility."
+          },
+          {
+            text: "What does blood-only stool suggest?",
+            choices: [
+              "A. Irritable bowel syndrome",
+              "B. Neoplasm",
+              "C. Viral diarrhea",
+              "D. Giardia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Blood-only stool suggests neoplasm.",
+            details: "A. Incorrect: Rarely bloody. B. Correct: Suggests neoplasm or ischemia. C. Incorrect: Non-bloody. D. Incorrect: Non-bloody."
+          },
+          {
+            text: "What is the primary treatment for diarrhea?",
+            choices: [
+              "A. Routine corticosteroids",
+              "B. Treatment of the cause",
+              "C. Stimulant laxatives",
+              "D. Surgery"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Treating the cause is primary for diarrhea.",
+            details: "A. Incorrect: Specific to IBD. B. Correct: E.g., infection, malabsorption. C. Incorrect: Worsens diarrhea. D. Incorrect: Rarely needed."
+          },
+          {
+            text: "Which drug is avoided in diarrhea with fever?",
+            choices: [
+              "A. Rifaximin",
+              "B. Loperamide",
+              "C. Bismuth",
+              "D. Nitazoxanide"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Loperamide is avoided in diarrhea with fever.",
+            details: "A. Correct: Safe for infections. B. Incorrect: Contraindicated in toxemia. C. Correct: Safe symptomatic relief. D. Correct: Treats infections."
+          },
+          {
+            text: "What is the role of oral rehydration therapy?",
+            choices: [
+              "A. Reduces motility",
+              "B. Replaces fluids/electrolytes",
+              "C. Treats infection",
+              "D. Prevents mucosal damage"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Oral rehydration replaces fluids and electrolytes.",
+            details: "A. Incorrect: Not motility-related. B. Correct: Restores hydration. C. Incorrect: Not antimicrobial. D. Incorrect: Not protective."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف الإمساك والإسهال</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
