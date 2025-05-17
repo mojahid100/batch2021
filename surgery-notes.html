@@ -1,10 +1,2277 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Surgery Notes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>all surgery notes Flashcards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    section {
+      margin: 40px 0;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    section h2 {
+      color: #007BFF; /* اللون الأزرق المميز للمدونة */
+      border-bottom: 2px solid #007BFF;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .flashcard-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px; /* زيادة المسافة بين الفلاش كاردز لتجنب التصاقها */
+      justify-content: center;
+    }
+    .flashcard {
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+      position: relative;
+      cursor: pointer;
+    }
+    .flashcard-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+    }
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+    .flashcard-front, .flashcard-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      font-size: 16px;
+      text-align: center;
+    }
+    .flashcard-front {
+      background-color: #007BFF;
+      color: white;
+    }
+    .flashcard-back {
+      background-color: #fff;
+      color: #333;
+      transform: rotateY(180deg);
+      overflow-y: auto; /* للتعامل مع النصوص الطويلة */
+    }
+  </style>
 </head>
 <body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: surgery-notes.html</h1>
+  <h1>all surgery notes</h1>
+
+  <!-- قسم: Stomach & Duodenum -->
+  <section id="stomach-duodenum">
+    <h2>Stomach & Duodenum</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Which parts of the duodenum are retroperitoneal?</div>
+          <div class="flashcard-back">All parts except the 1st part (intraperitoneal)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is acute gastric dilatation associated with?</div>
+          <div class="flashcard-back">Common after splenectomy and upper abdominal surgeries</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What happens in neglected cases of acute gastric dilatation?</div>
+          <div class="flashcard-back">Metabolic alkalosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are clinical signs of acute gastric dilatation?</div>
+          <div class="flashcard-back">Succession splash, early case: tachycardia, hiccough</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common site of peptic ulcer?</div>
+          <div class="flashcard-back">Duodenum (1st part)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the gastroduodenal artery a branch of?</div>
+          <div class="flashcard-back">Common hepatic artery</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What causes true stress ulcers leading to acute gastritis hemorrhage?</div>
+          <div class="flashcard-back">Major burns (Curling’s ulcer), head injuries (Cushing ulcer)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+<div class="flashcard-inner">
+          <div class="flashcard-front">Where are duodenal ulcers (DU) more commonly located?</div>
+          <div class="flashcard-back">Posterior wall</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a kissing ulcer in DU?</div>
+          <div class="flashcard-back">Ulcers on both anterior and posterior walls</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a saddle ulcer?</div>
+          <div class="flashcard-back">Gastric ulcer (GU)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the clinical features of DU?</div>
+          <div class="flashcard-back">Night pain, hunger pain, usually in adults, overweight patients</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the clinical features of GU?</div>
+          <div class="flashcard-back">Pain shortly after meals, usually in elderly, weight loss</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is seen on barium meal in DU?</div>
+          <div class="flashcard-back">Fixed-out pouching of the duodenal cap (trefoil deformity)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is seen on barium meal in GU?</div>
+          <div class="flashcard-back">Outpouching (niche) on lesser curvature, ulcer notch on greater curvature</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the radiological appearance of pyloric stenosis?</div>
+          <div class="flashcard-back">Soup dish stomach</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What does back pain in DU or GU suggest?</div>
+          <div class="flashcard-back">Penetration into the pancreas</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are symptoms of long-standing ulcer leading to pyloric stenosis?</div>
+          <div class="flashcard-back">Projectile vomiting, pain increases with meals (eat breakfast, small lunch, can’t eat dinner)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the acid secretion status in Type I gastric ulcers?</div>
+          <div class="flashcard-back">Lower than normal acid secretion</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the acid secretion status in Type II and III ulcers?</div>
+          <div class="flashcard-back">Gastric hypersecretion</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What causes obstruction in DU?</div>
+          <div class="flashcard-back">Pyloric stenosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What causes obstruction in GU?</div>
+          <div class="flashcard-back">Hourglass stomach</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+<div class="flashcard-front">What is diagnostic for perforation in DU or GU?</div>
+          <div class="flashcard-back">Air under the cupula of the diaphragm</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the standard treatment for pyloric stenosis?</div>
+          <div class="flashcard-back">Truncal vagotomy and gastrojejunostomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common benign neoplasm in the stomach?</div>
+          <div class="flashcard-back">Leiomyoma</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common malignant neoplasm in the stomach?</div>
+          <div class="flashcard-back">Adenocarcinoma</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the safety margin for radical resection in gastric cancer?</div>
+          <div class="flashcard-back">At least 5 cm</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the safety margin for esophageal cancer resection?</div>
+          <div class="flashcard-back">10 cm above and below</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most commonly performed bariatric surgery?</div>
+          <div class="flashcard-back">Sleeve gastrectomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What type of anemia does gastric cancer lead to?</div>
+          <div class="flashcard-back">Micro or macrocytic anemia (pernicious anemia)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the clinical presentations of gastric cancer?</div>
+          <div class="flashcard-back">1. Discomfort after meals  
+2. Anorexia  
+3. Weight loss  
+4. Dysphagia  
+5. Ascites  
+6. Supraclavicular lymph node enlargement</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for gastric cancer in the upper 1/3 of the stomach?</div>
+          <div class="flashcard-back">Total gastrectomy + Roux-en-Y esophagojejunostomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for gastric cancer in the middle 1/3 of the stomach?</div>
+          <div class="flashcard-back">Subtotal gastrectomy (Billroth II) + lymphadenectomy + Roux-en-Y gastrojejunostomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for gastric cancer in the lower 1/3 of the stomach?</div>
+          <div class="flashcard-back">Distal gastrectomy (partial) + lymphadenectomy + gastrojejunostomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are clinical signs of perforation in DU or GU?</div>
+          <div class="flashcard-back">Board-like abdominal rigidity, tenderness, air under the cupula</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are possible sites of peptic ulcer?</div>
+<div class="flashcard-back">A. Duodenum  
+B. Gastric antrum  
+C. Jejunum after gastrojejunostomy  
+D. Lower esophagus  
+E. Small intestines  
+F. Meckel’s diverticulum</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم: Esophagus -->
+  <section id="esophagus">
+    <h2>Esophagus</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common symptom of esophageal disorders?</div>
+          <div class="flashcard-back">Dysphagia</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common investigation for the upper GI tract?</div>
+          <div class="flashcard-back">Endoscopy (EGD)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is Barrett’s esophagus?</div>
+          <div class="flashcard-back">Replacement of squamous cells with columnar cells (precancerous)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">When does esophageal perforation most commonly occur?</div>
+          <div class="flashcard-back">During esophagoscopy or dilatation of stricture</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the common site of esophageal perforation?</div>
+          <div class="flashcard-back">Cricopharyngeus muscle level</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is seen on CXR in esophageal perforation?</div>
+          <div class="flashcard-back">Wide mediastinum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Should endoscopy be performed in esophageal perforation?</div>
+          <div class="flashcard-back">No, avoid endoscopy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What does a barium swallow show in corrosive esophageal injury?</div>
+          <div class="flashcard-back">Regular outline stricture</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What does a barium swallow show in esophageal cancer?</div>
+          <div class="flashcard-back">Irregular narrowing (scirrhous lesions)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the symptoms of Zenker’s diverticulum based on size?</div>
+          <div class="flashcard-back">Small: Pharyngeal dysphagia  
+Large: Halitosis, esophageal dysphagia</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What imaging is used for the esophagus?</div>
+          <div class="flashcard-back">Barium swallow</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What imaging is used for the stomach?</div>
+          <div class="flashcard-back">Barium meal</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What imaging is used for the small intestine?</div>
+          <div class="flashcard-back">Barium follow-through</div>
+        </div>
+      </div>
+<div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What imaging is used for the colon?</div>
+          <div class="flashcard-back">Barium enema</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the characteristics of esophageal cancer?</div>
+          <div class="flashcard-back">1. More common in males  
+2. Old age  
+3. Dysphagia to solids > fluids (late: both)  
+4. Continuous</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the characteristics of achalasia?</div>
+          <div class="flashcard-back">1. Equal in males and females  
+2. 2nd to 4th decade  
+3. Dysphagia to fluids and solids from the start  
+4. Painless  
+5. Intermittent</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What does a barium swallow show in achalasia?</div>
+          <div class="flashcard-back">Early: Funnel shape  
+Late: Sigmoid esophagus, hen’s beak, no gastric air bubbles</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most reliable treatment for achalasia?</div>
+          <div class="flashcard-back">Heller cardiomyotomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common upper digestive disorder?</div>
+          <div class="flashcard-back">Gastroesophageal reflux disease (GERD)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of sliding hiatal hernia?</div>
+          <div class="flashcard-back">A. Herniation of gastroesophageal junction  
+B. Reflux esophagitis  
+C. Medical or surgical treatment</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of paraesophageal hernia?</div>
+          <div class="flashcard-back">A. Herniation of fundus  
+B. No reflux esophagitis  
+C. Always surgical repair</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common anti-reflux mechanism?</div>
+          <div class="flashcard-back">Nissen fundoplication (360°)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are predisposing factors for esophageal cancer?</div>
+          <div class="flashcard-back">1. Low fiber diet  
+2. Alcohol  
+3. Smoking  
+4. Corrosive stricture  
+5. Achalasia  
+6. Long-standing reflux  
+7. Barrett’s esophagus (most important)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the surgical approach for lower 1/3 esophageal cancer?</div>
+          <div class="flashcard-back">Left thoracoabdominal resection (esophagogastric)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the surgical approaches for middle 1/3 esophageal cancer?</div>
+          <div class="flashcard-back">1. Ivor Lewis (2 incisions: midline for stomach mobilization, right 5th intercostal space)  
+2. McKeown (Ivor Lewis + cervical incision)  
+3. Blunt transhiatal total esophagectomy + neck anastomosis (no thoracotomy)
+4. Thoracoscopic laparoscopic approach + cervical anastomosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the advantages of gastric replacement in esophageal surgery?</div>
+          <div class="flashcard-back">A. Rich blood supply  
+B. Complete serosal covering  
+C. Easy mobilization</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم: Small Intestine -->
+  <section id="small-intestine">
+    <h2>Small Intestine</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of bleeding per rectum in childhood?</div>
+          <div class="flashcard-back">Meckel’s diverticulum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most prevalent congenital anomaly of the GIT?</div>
+          <div class="flashcard-back">Meckel’s diverticulum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common presentation of Meckel’s diverticulum?</div>
+          <div class="flashcard-back">Bleeding</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common complication of Meckel’s diverticulum?</div>
+          <div class="flashcard-back">Intestinal obstruction</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where is abdominal pain located in Meckel’s diverticulum?</div>
+          <div class="flashcard-back">Around the umbilicus</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the indications for resection of Meckel’s diverticulum?</div>
+          <div class="flashcard-back">1. Narrow-mouthed (likely diverticulitis)  
+2. Thickened wall (contains ectopic gastric tissue, likely peptic ulcer)  
+3. Attached band of adhesions (likely intestinal obstruction)  
+4. Young adults and children (likely various complications)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What condition mimics acute appendicitis in Meckel’s diverticulum?</div>
+          <div class="flashcard-back">Meckel’s diverticulitis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How is Meckel’s diverticulitis differentiated from acute appendicitis?</div>
+          <div class="flashcard-back">At operation, if the appendix is normal, check for Meckel’s diverticulum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the “rule of 2” for Meckel’s diverticulum?</div>
+          <div class="flashcard-back">A. 2% of people  
+B. 2% of affected have complications  
+C. 2 times more in males  
+D. 2 feet (60 cm) from ileocecal junction  
+E. 2 inches long</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How much small intestinal secretion is produced daily?</div>
+          <div class="flashcard-back">4-6 liters</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the functions of the terminal ileum?</div>
+<div class="flashcard-back">A. Lymphatics (immunity)  
+B. Enterohepatic circulation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of ulcerative-type intestinal TB?</div>
+          <div class="flashcard-back">Terminal ileum, covered with caseous material, positive Sterling sign, may lead to perforation and peritonitis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of hypertrophic-type intestinal TB?</div>
+          <div class="flashcard-back">Ileocecal, fibrosis causing intestinal obstruction, no gross caseous necrosis, narrowing of ileum with elevated cecum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common surgical complication of typhoid and paratyphoid?</div>
+          <div class="flashcard-back">Paralytic ileus</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a common cause of small intestinal fistula?</div>
+          <div class="flashcard-back">Injury during operation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the common cause of colovesical fistula?</div>
+          <div class="flashcard-back">Diverticulitis of the colon (complaint: gas with urine)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Why are proximal intestinal fistulas more serious?</div>
+          <div class="flashcard-back">Higher output, more electrolyte loss (Na, K), leading to severe hyponatremia and hypokalemia</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What metabolic disturbance is caused by loss of intestinal content?</div>
+          <div class="flashcard-back">Metabolic acidosis (e.g., intestinal fistula)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What metabolic disturbance is caused by loss of gastric content?</div>
+          <div class="flashcard-back">Metabolic alkalosis (e.g., pyloric stenosis)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is required for all intestinal injuries?</div>
+          <div class="flashcard-back">Laparotomy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم: Disease of Peritoneum & Mesentery -->
+  <section id="peritoneum-mesentery">
+    <h2>Disease of Peritoneum & Mesentery</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of secondary peritonitis?</div>
+          <div class="flashcard-back">E. coli</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the mortality rate of perforated gastric or duodenal ulcer?</div>
+          <div class="flashcard-back">Nearly 20%</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of peritonitis in children and young adults?</div>
+          <div class="flashcard-back">Perforated appendix</div>
+        </div>
+</div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a complication of peritonitis seen on imaging?</div>
+          <div class="flashcard-back">Air under the diaphragm</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most important diagnostic and therapeutic measure for peritonitis?</div>
+          <div class="flashcard-back">Laparoscopy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common organism in subphrenic abscess?</div>
+          <div class="flashcard-back">E. coli</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common mesenteric true cyst?</div>
+          <div class="flashcard-back">Chylolymphatic cyst</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of a chylolymphatic cyst?</div>
+          <div class="flashcard-back">1. Thin-walled  
+2. Lined by epithelium  
+3. Has separate blood supply</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of an enterogenous cyst?</div>
+          <div class="flashcard-back">1. Thick-walled, lined with mucosa, contains mucus  
+2. Same blood supply as adjacent structures</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the Tillaux triad for mesenteric cysts?</div>
+          <div class="flashcard-back">1. Cystic swelling near the umbilicus  
+2. Crossed by a band of resonance (bowel)  
+3. Mobile across, not along, the root of the mesentery</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is ascitic fluid in peritoneal tumors called?</div>
+          <div class="flashcard-back">Malignant ascites</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is pseudomyxoma peritonei?</div>
+          <div class="flashcard-back">Abdomen filled with yellow jelly-like material</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What can retroperitoneal sarcoma cause?</div>
+          <div class="flashcard-back">Large bowel obstruction</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is retroperitoneal lipoma prone to?</div>
+          <div class="flashcard-back">Malignant transformation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What structure is associated with the right iliac fossa?</div>
+          <div class="flashcard-back">Appendix</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What structure is associated with the left iliac fossa?</div>
+          <div class="flashcard-back">Colon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم: Malignant Diseases of Intestine -->
+  <section id="malignant-diseases-intestine">
+    <h2>Malignant Diseases of Intestine</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+<div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of Peutz-Jeghers syndrome?</div>
+          <div class="flashcard-back">Multiple polyps, melanosis (oral-lips), 3% malignant transformation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where does non-Hodgkin’s lymphoma commonly affect the intestine?</div>
+          <div class="flashcard-back">Terminal ileum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where does adenocarcinoma commonly affect the intestine?</div>
+          <div class="flashcard-back">Duodenum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where does carcinoid tumor commonly affect the intestine?</div>
+          <div class="flashcard-back">Appendix</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where does familial polyposis coli (FPC) commonly affect?</div>
+          <div class="flashcard-back">Sigmoid colon and rectum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of familial polyposis coli (FPC)?</div>
+          <div class="flashcard-back">>100 polyps, autosomal dominant</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Which polyps have the highest malignancy risk in FPC?</div>
+          <div class="flashcard-back">Villous adenomas >2 cm</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the standard treatment for FPC?</div>
+          <div class="flashcard-back">Panproctocolectomy with permanent ileostomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for FPC if the rectum is spared?</div>
+          <div class="flashcard-back">Ileoproctostomy + lifelong screening of rectal mucosa</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are risk factors for colorectal cancer?</div>
+          <div class="flashcard-back">Western diet, ulcerative colitis (UC), ureterocolic anastomosis, FPC, Gardner’s syndrome</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is Blumer’s shelf in colorectal cancer?</div>
+          <div class="flashcard-back">Spread to rectovesical pouch, felt by per rectal (PR) examination</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of right colon cancer?</div>
+          <div class="flashcard-back">Cauliflower mass, rare intestinal obstruction, more in females, 3As (anemia, anorexia, asthenia)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of left colon cancer?</div>
+          <div class="flashcard-back">Stricture (apple core appearance), obstruction common, bleeding per rectum, more in males</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the features of rectal cancer?</div>
+<div class="flashcard-back">Bleeding per rectum, tenesmus, painless</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What must be ruled out in middle-aged or older patients with rectal bleeding, even with hemorrhoids?</div>
+          <div class="flashcard-back">Rectal cancer</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the surgical treatment for tumors of the cecum?</div>
+          <div class="flashcard-back">Right hemicolectomy + ileocolic and right colic vessels divided + removal of peritoneum, terminal 10 inches of ileum, cecum, ascending colon, hepatic flexure, right half of transverse colon + ileotransverse anastomosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the surgical treatment for tumors of the ascending colon or hepatic flexure?</div>
+          <div class="flashcard-back">Extended right hemicolectomy + middle colic vessel divided + resection to junction of right 2/3 and left 1/3 of transverse colon + ileocolic anastomosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the surgical treatment for tumors of the transverse colon?</div>
+          <div class="flashcard-back">Transverse colectomy with hepatic and splenic flexures + middle colic vessels divided + transverse mesocolon and omentum</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the surgical treatment for tumors of the left colon?</div>
+          <div class="flashcard-back">Left hemicolectomy extending to rectum + inferior mesenteric vessels divided</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the surgical treatment for tumors of the sigmoid colon?</div>
+          <div class="flashcard-back">Sigmoid colectomy + sigmoid vessels divided</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the urgent treatment for colorectal cancer with intestinal obstruction in the left colon?</div>
+          <div class="flashcard-back">Colon resection and colostomy, then later anastomosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the urgent treatment for colorectal cancer with intestinal obstruction in the right colon?</div>
+          <div class="flashcard-back">Resection and anastomosis immediately</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for colorectal cancer with intestinal obstruction in critically ill patients?</div>
+          <div class="flashcard-back">Proximal colostomy only</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for upper 1/3 rectal cancer?</div>
+          <div class="flashcard-back">Anterior restorative resection</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for middle 1/3 rectal cancer?</div>
+          <div class="flashcard-back">Neoadjuvant chemotherapy + anterior restorative resection</div>
+        </div>
+</div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for lower 1/3 rectal cancer?</div>
+          <div class="flashcard-back">Neoadjuvant chemotherapy + abdominoperineal resection + terminal colostomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">When is abdominoperineal resection indicated for rectal cancer?</div>
+          <div class="flashcard-back">Sphincter involvement, incontinence, concern for distal margin (<2 cm)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم: Intestinal Obstruction -->
+  <section id="intestinal-obstruction">
+    <h2>Intestinal Obstruction</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is simple intestinal obstruction?</div>
+          <div class="flashcard-back">Obstruction of the gut without interference with its blood supply</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is strangulated intestinal obstruction?</div>
+          <div class="flashcard-back">Impairment of blood supply; if unrelieved within 6 hours, leads to gangrene</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the typical clinical presentations of intestinal obstruction?</div>
+          <div class="flashcard-back">Distention, vomiting, constipation, colicky pain</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the earliest symptom of intestinal obstruction?</div>
+          <div class="flashcard-back">Pain</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How does the level of obstruction affect symptoms?</div>
+          <div class="flashcard-back">Higher obstruction: earlier vomiting  
+Lower obstruction: earlier constipation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What distinguishes paralytic ileus from other intestinal obstructions?</div>
+          <div class="flashcard-back">No colic</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are complications of paralytic ileus?</div>
+          <div class="flashcard-back">Hyponatremia, hypokalemia</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are causes of adynamic intestinal obstruction?</div>
+          <div class="flashcard-back">Mesenteric vascular occlusion (MVO), paralytic ileus</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is seen on an erect abdominal X-ray in intestinal obstruction?</div>
+          <div class="flashcard-back">Air-fluid levels</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a characteristic feature of jejunal obstruction on X-ray?</div>
+          <div class="flashcard-back">Valvulae conniventes</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are ultrasound findings in intussusception?</div>
+<div class="flashcard-back">Target, doughnut, pseudokidney sign</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is seen on barium enema in intussusception?</div>
+          <div class="flashcard-back">Claw sign</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are X-ray findings in volvulus?</div>
+          <div class="flashcard-back">Omega sign, coffee bean</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is seen on barium enema in volvulus?</div>
+          <div class="flashcard-back">Ace of spades, bird’s beak deformity</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What does a high total leukocyte count (TLC) suggest in intestinal obstruction?</div>
+          <div class="flashcard-back">Strangulation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How does nasogastric (NG) suction affect different types of obstruction?</div>
+          <div class="flashcard-back">Simple obstruction: Relieves pain in hours  
+Strangulated: Does not relieve pain  
+Paralytic ileus: Relieves distention</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for gangrenous small intestine or right colon?</div>
+          <div class="flashcard-back">Primary resection and anastomosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for gangrenous left colon?</div>
+          <div class="flashcard-back">Exteriorization (Mikulicz, Hartman, or Dudley)</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of intestinal obstruction in newborns?</div>
+          <div class="flashcard-back">Jejunoileal atresia or stenosis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of intestinal obstruction in infancy and childhood?</div>
+          <div class="flashcard-back">Intussusception, strangulated external hernia</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of intestinal obstruction in young and middle-aged adults?</div>
+          <div class="flashcard-back">Adhesive intestinal obstruction</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common cause of intestinal obstruction in the elderly?</div>
+          <div class="flashcard-back">Malignant obstruction</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">In whom is volvulus common?</div>
+          <div class="flashcard-back">Elderly males with habitual constipation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">When should other causes be suspected in postoperative paralytic ileus?</div>
+          <div class="flashcard-back">If symptoms persist beyond the 3rd postoperative day</div>
+</div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are endocrine causes of intestinal pseudo-obstruction?</div>
+          <div class="flashcard-back">Diabetes, hypothyroidism, hypoparathyroidism</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم: Anal Canal -->
+  <section id="anal-canal">
+    <h2>Anal Canal</h2>
+    <div class="flashcard-container">
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where do anal glands open?</div>
+          <div class="flashcard-back">At the anal crypts, forming the dentate line</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a common minor condition of the skin overlying the sacrum?</div>
+          <div class="flashcard-back">Pilonidal sinus</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where are anal fissures always located, and what percentage are posterior?</div>
+          <div class="flashcard-back">Midline, 90% posterior</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a feature of chronic anal fissure?</div>
+          <div class="flashcard-back">Sentinel piles</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for a not very chronic anal fissure?</div>
+          <div class="flashcard-back">Lateral sphincterotomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for a chronic anal fissure with sentinel piles?</div>
+          <div class="flashcard-back">Fissurectomy and posterior internal sphincterotomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for acute anal fissure?</div>
+          <div class="flashcard-back">Conservative treatment</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How does an anal fissure in Crohn’s disease present?</div>
+          <div class="flashcard-back">Not indurated, not very painful</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the main symptom of anal fissure?</div>
+          <div class="flashcard-back">Pain</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the main symptom of hemorrhoids?</div>
+          <div class="flashcard-back">Bleeding</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Which type of hemorrhoid is more common?</div>
+          <div class="flashcard-back">Internal hemorrhoid</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">When is an internal hemorrhoid painless?</div>
+          <div class="flashcard-back">Until complicated</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">When is an external hemorrhoid painful?</div>
+          <div class="flashcard-back">From the start</div>
+        </div>
+      </div>
+<div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How do anal fissure and hemorrhoids differ in symptoms?</div>
+          <div class="flashcard-back">Anal fissure: Pain is the main symptom, small amount of blood  
+Hemorrhoids: Bleeding is the main symptom, painless until complicated</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the treatments for 1st and 2nd degree hemorrhoids?</div>
+          <div class="flashcard-back">Conservative, injection sclerotherapy, rubber band ligation, photocoagulation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What are the treatments for 3rd degree hemorrhoids?</div>
+          <div class="flashcard-back">Hemorrhoidectomy, sclerotherapy, rubber band ligation, photocoagulation</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for 4th degree hemorrhoids?</div>
+          <div class="flashcard-back">Hemorrhoidectomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">Where is injection sclerotherapy administered for hemorrhoids?</div>
+          <div class="flashcard-back">Into the submucosa, not vessels</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">How are 1st degree hemorrhoids diagnosed?</div>
+          <div class="flashcard-back">Only by proctoscopy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for intersphincteric fistula?</div>
+          <div class="flashcard-back">Part of the internal sphincter is divided</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for transsphincteric fistula?</div>
+          <div class="flashcard-back">Part of the internal sphincter and superficial part of the external sphincter are divided</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for suprasphincteric fistula?</div>
+          <div class="flashcard-back">Staged fistulotomy (seton procedure), suture left in the remaining part</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for extrasphincteric fistula?</div>
+          <div class="flashcard-back">Colostomy and staged fistulotomy</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the most common type of anorectal abscess?</div>
+          <div class="flashcard-back">Perineal abscess</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is a horseshoe abscess?</div>
+          <div class="flashcard-back">Ischiorectal abscess</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What causes pelvirectal abscess?</div>
+          <div class="flashcard-back">Secondary to appendicitis, salpingitis, or diverticulitis</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+<div class="flashcard-front">What is complete rectal prolapse?</div>
+          <div class="flashcard-back">Circular mucosa</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is partial rectal prolapse?</div>
+          <div class="flashcard-back">Longitudinal mucosa</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for rectal prolapse in children?</div>
+          <div class="flashcard-back">Conservative treatment</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is Delorme’s operation for rectal prolapse?</div>
+          <div class="flashcard-back">Excision of excess rectal mucosa, sutures passed through rectal muscles</div>
+        </div>
+      </div>
+      <div class="flashcard">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">What is the treatment for rectal prolapse in patients unfit for surgery or elderly?</div>
+          <div class="flashcard-back">Narrowing of the anus</div>
+        </div>
+      </div>
+    </div>
+<!-- قسم: Liver -->
+<section id="liver">
+  <h2>Liver</h2>
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the anatomical position of the common bile duct in the portal triad?</div>
+        <div class="flashcard-back">Anterior and right</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the anatomical position of the hepatic artery in the portal triad?</div>
+        <div class="flashcard-back">Anterior and left</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the anatomical position of the portal vein in the portal triad?</div>
+        <div class="flashcard-back">Posterior</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the boundaries of the foramen of Winslow?</div>
+        <div class="flashcard-back">Anteriorly: Porta hepatis<br>Posteriorly: Inferior vena cava (IVC)<br>Superiorly: Caudate lobe<br>Inferiorly: 1st part of duodenum</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the Pringle maneuver?</div>
+        <div class="flashcard-back">Controls arterial and portal vein hemorrhage from the liver</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Cantlie’s line?</div>
+        <div class="flashcard-back">From gallbladder fossa to inferior vena cava</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the normal liver blood supply distribution?</div>
+        <div class="flashcard-back">75% portal vein (PV), 25% hepatic artery (HA)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the oxygenated blood supply distribution to the liver?</div>
+        <div class="flashcard-back">50% hepatic artery, 50% portal vein</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the blood supply distribution in hepatocellular carcinoma (HCC)?</div>
+        <div class="flashcard-back">75% hepatic artery, 25% portal vein</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What does the common hepatic artery divide into?</div>
+        <div class="flashcard-back">Gastroduodenal artery, hepatic artery proper</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What happens if the right hepatic artery is ligated?</div>
+        <div class="flashcard-back">Jaundice, as the biliary system is only supplied by the right hepatic artery</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What supplies the caudate lobe (Segment I)?</div>
+        <div class="flashcard-back">Hepatic artery and portal vein, drains directly to IVC</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Which segments are drained by the right hepatic vein?</div>
+        <div class="flashcard-back">Segments VI and VII</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Which segments are drained by the middle hepatic vein?</div>
+        <div class="flashcard-back">Segments IV, V, VIII</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Which segments are drained by the left hepatic vein?</div>
+        <div class="flashcard-back">Segments II and III</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Where does the right hepatic vein drain?</div>
+        <div class="flashcard-back">Directly into the IVC</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common source of pyogenic liver abscess?</div>
+        <div class="flashcard-back">Biliary (E. coli)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are other sources of pyogenic liver abscess and their associated organisms?</div>
+        <div class="flashcard-back">Portal vein (anaerobes, streptococci), arterial (staphylococci)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for pyogenic liver abscess based on source?</div>
+        <div class="flashcard-back">Biliary: Tazobactam or piperacillin<br>Portal vein: Metronidazole or clindamycin<br>Arterial: Penicillin or 3rd generation cephalosporin</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the clinical features and treatment of pyogenic liver abscess?</div>
+        <div class="flashcard-back">Fever, abdominal pain, clear wall (ring appearance), treated with surgical intervention + systemic antibiotics</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features and treatment of amebic liver abscess?</div>
+        <div class="flashcard-back">Low-grade fever, shaggy wall, sterile brown chocolate pus, occurs after return from endemic areas, affects posterosuperior segment, treated with conservative medical therapy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How is echinococcal cyst (hydatid disease) diagnosed and treated?</div>
+        <div class="flashcard-back">Not aspirated for diagnosis due to spillage risk, mainly operative treatment, Casoni skin test 85% sensitive</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Is hemangioma premalignant?</div>
+        <div class="flashcard-back">No, but hepatocellular adenoma is premalignant</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the CT findings of hemangioma in different phases?</div>
+        <div class="flashcard-back">Arterial phase: Peripheral enhancement, beaded shape<br>Portovenous phase: Central enhancement<br>Delayed phase: Uniformly enhanced</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the typical presentation of hepatocellular carcinoma (HCC)?</div>
+        <div class="flashcard-back">Asymptomatic</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How does HCC appear on imaging?</div>
+        <div class="flashcard-back">Enhances in arterial phase, washout in delayed phase</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the role of alpha-fetoprotein (AFP) in HCC?</div>
+        <div class="flashcard-back">Used for prognosis and follow-up (>200 ng/mL)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is more specific than AFP for HCC?</div>
+        <div class="flashcard-back">Des-gamma-carboxy prothrombin</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">In which conditions can AFP rise besides HCC?</div>
+        <div class="flashcard-back">HBV, HCV, paracetamol toxicity, acute hepatic necrosis, liver cirrhosis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What suggests HCC if alkaline phosphatase rises acutely without obstructive jaundice?</div>
+        <div class="flashcard-back">Suspicion of HCC</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why is biopsy avoided in HCC diagnosis?</div>
+        <div class="flashcard-back">Risk of bleeding and spread; use lab and imaging first</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">When is biopsy indicated for HCC?</div>
+        <div class="flashcard-back">In HBV or patients without cirrhosis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the characteristics and management of hemangioma?</div>
+        <div class="flashcard-back">Blood supply from hepatic artery, needle biopsy contraindicated, only observation</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features and treatment of focal nodular hyperplasia (FNH)?</div>
+        <div class="flashcard-back">Central stellate scar, stop oral contraceptives (OCPs), pregnancy not contraindicated, MRI shows cogwheel appearance, conservative treatment</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features and treatment of hepatocellular adenoma?</div>
+        <div class="flashcard-back">Strong association with OCPs, pregnancy contraindicated, risk of spontaneous rupture, standard treatment is resection</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the common etiology for HCC?</div>
+        <div class="flashcard-back">Liver cirrhosis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the Milan criteria for HCC?</div>
+        <div class="flashcard-back">Single HCC ≤5 cm, or up to three nodules ≤3 cm, no extrahepatic spread</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for HCC Stage 0 (single <2 cm)?</div>
+        <div class="flashcard-back">Resection (not cirrhotic)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for HCC Stage A?</div>
+        <div class="flashcard-back">Resection (single <5 cm, not cirrhotic), ablation (single <5 cm, cirrhotic, or 3 lesions <3 cm), liver transplantation (single <5 cm or 3 lesions <3 cm, candidate)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for HCC Stage B?</div>
+        <div class="flashcard-back">Chemoembolization (>3 cm and <4 cm)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for HCC Stage C?</div>
+        <div class="flashcard-back">Systemic agents (invasion)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for HCC Stage D?</div>
+        <div class="flashcard-back">Symptomatic treatment (end-stage disease)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How does fibrolamellar carcinoma (FLC) differ from HCC?</div>
+        <div class="flashcard-back">FLC: Equal in males and females, younger age, not enhanced central scar<br>HCC: More common in males, older age</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is a distinguishing feature of focal nodular hyperplasia (FNH)?</div>
+        <div class="flashcard-back">Enhanced central scar</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common type of HCC?</div>
+        <div class="flashcard-back">Solitary HCC</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is used for HCC screening?</div>
+        <div class="flashcard-back">Ultrasound (US) and AFP</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common hepatic tumor?</div>
+        <div class="flashcard-back">Metastatic liver tumor (colorectal cancer is the main source)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common benign liver tumor?</div>
+        <div class="flashcard-back">Hemangioma</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the second most common benign hepatic tumor?</div>
+        <div class="flashcard-back">Focal nodular hyperplasia (FNH)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common malignant hepatic tumor?</div>
+        <div class="flashcard-back">Hepatocellular carcinoma (HCC)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the second most common malignant hepatic tumor?</div>
+        <div class="flashcard-back">Cholangiocarcinoma</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the rank of HCC among cancers?</div>
+        <div class="flashcard-back">5th most common in men, 8th in women</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the rank of gallbladder (GB) cancer among GIT cancers?</div>
+        <div class="flashcard-back">Most common biliary tract cancer, 6th most common GIT cancer</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم: Spleen -->
+<section id="spleen">
+  <h2>Spleen</h2>
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Where is the spleen located?</div>
+        <div class="flashcard-back">Along ribs 9, 10, 11</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What prevents spleen enlargement?</div>
+        <div class="flashcard-back">Phrenicocolic ligament</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most frequently injured organ in the abdomen?</div>
+        <div class="flashcard-back">Spleen</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Ballance’s sign in splenic injury?</div>
+        <div class="flashcard-back">Shifting dullness on the right side, fixed dullness on the left</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Kehr’s sign in splenic injury?</div>
+        <div class="flashcard-back">Pain in the left shoulder</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Cullen’s sign in splenic injury?</div>
+        <div class="flashcard-back">Brownish or bluish discoloration around the umbilicus</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is a common infection of the spleen?</div>
+        <div class="flashcard-back">Hydatid cyst</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why is a malarial spleen prone to rupture?</div>
+        <div class="flashcard-back">Huge and soft due to malaria</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for acute splenic abscess?</div>
+        <div class="flashcard-back">Percutaneous drainage</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for hydatid disease of the spleen?</div>
+        <div class="flashcard-back">Splenectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are causes of splenomegaly and huge splenomegaly?</div>
+        <div class="flashcard-back">Hydatid disease</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم: Gallbladder and Biliary System -->
+<section id="biliary-system">
+  <h2>Biliary System</h2>
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the clinical features of gallbladder pain?</div>
+        <div class="flashcard-back">Pain in right hypochondrium and epigastric regions, radiates to right shoulder and back below scapula, lasts 1-5 hours, stimulated by fatty meal</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How does acute cholecystitis pain differ from gallbladder pain?</div>
+        <div class="flashcard-back">Acute cholecystitis pain lasts >6 hours</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What happens in cholecystoduodenal fistula?</div>
+        <div class="flashcard-back">Stone migrates to ileum, causing intestinal obstruction; X-ray shows pneumobilia or aerobilia</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the management of cholecystoduodenal fistula?</div>
+        <div class="flashcard-back">Surgical exploration: laparotomy, enterotomy, stone removal</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Murphy’s sign, and how is it elicited?</div>
+        <div class="flashcard-back">Diagnostic for acute cholecystitis; press on right costal margin in midclavicular line, ask patient to take a deep breath, positive if breathing stops suddenly with tenderness</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Charcot’s triad in ascending cholangitis?</div>
+        <div class="flashcard-back">Pain, jaundice, fever with rigors</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Reynold’s pentad in ascending cholangitis?</div>
+        <div class="flashcard-back">Charcot’s triad + shock + altered mental status</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What does Courvoisier’s law state?</div>
+        <div class="flashcard-back">In obstructive jaundice, if the gallbladder is palpable, it is most likely non-calcular (suggests malignancy, with exceptions)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common type of gallbladder stone?</div>
+        <div class="flashcard-back">Mixed</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for asymptomatic gallbladder stones?</div>
+        <div class="flashcard-back">Conservative, no cholecystectomy (exceptions in lecture)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for symptomatic gallbladder stones?</div>
+        <div class="flashcard-back">Laparoscopic cholecystectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are contraindications for cholecystectomy?</div>
+        <div class="flashcard-back">Bleeding tendency, cardiovascular disease, pulmonary disease</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How is laparoscopic cholecystectomy performed?</div>
+        <div class="flashcard-back">Induce pneumoperitoneum with CO2 gas, use 3-4 small ports, introduce fibro-optic scope to visualize on TV screen, perform cholecystectomy with special instruments</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the management of obstructive jaundice?</div>
+        <div class="flashcard-back">Surgical emergency: ERCP with sphincterotomy and stone removal, followed by elective cholecystectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are complications of ERCP?</div>
+        <div class="flashcard-back">Perforation, bleeding, cholangitis, pancreatitis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the most common risk factors for cholangiocarcinoma?</div>
+        <div class="flashcard-back">Primary sclerosing cholangitis (PSC), choledochal cyst, flukes</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common and worst type of cholangiocarcinoma?</div>
+        <div class="flashcard-back">Hilar</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What does painless jaundice suggest in cholangiocarcinoma?</div>
+        <div class="flashcard-back">Malignancy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is used for prognosis and follow-up in cholangiocarcinoma?</div>
+        <div class="flashcard-back">Biliary insulin-like growth factor</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What imaging detects mass and metastasis in cholangiocarcinoma?</div>
+        <div class="flashcard-back">Dynamic CT scan</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What imaging detects the vascular system in cholangiocarcinoma?</div>
+        <div class="flashcard-back">Endoscopic ultrasound (EUS)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the imaging of choice for cholangiocarcinoma?</div>
+        <div class="flashcard-back">Magnetic resonance cholangiopancreatography (MRCP), better than ERCP, non-invasive</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What imaging detects occult metastases in cholangiocarcinoma?</div>
+        <div class="flashcard-back">Positron emission tomography (PET)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for peripheral cholangiocarcinoma?</div>
+        <div class="flashcard-back">Hepatectomy or liver transplantation</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for distal cholangiocarcinoma?</div>
+        <div class="flashcard-back">Whipple operation</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for hilar cholangiocarcinoma?</div>
+        <div class="flashcard-back">Resection of caudate lobe, segment 4, right or left hepatectomy, bile duct, lymph nodes, sometimes vascular resection</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why does gallbladder cancer have a poor prognosis?</div>
+        <div class="flashcard-back">Aggressive, more common in females than males</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common risk factor for gallbladder cancer?</div>
+        <div class="flashcard-back">Gallstones</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">When is cholecystectomy indicated for gallbladder polyps?</div>
+        <div class="flashcard-back">Polyp ≥1 cm, sessile, hyperechogenic by ultrasound</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is porcelain gallbladder?</div>
+        <div class="flashcard-back">Diffuse wall calcification seen on ultrasound</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for gallbladder cancer stage Tis and T1a?</div>
+        <div class="flashcard-back">Cholecystectomy with R0 resection</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for gallbladder cancer early T1b and T2?</div>
+        <div class="flashcard-back">Radical cholecystectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for gallbladder cancer late T2 and T3?</div>
+        <div class="flashcard-back">More radical cholecystectomy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم: Appendix -->
+<section id="appendix">
+  <h2>Appendix</h2>
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What artery supplies the appendix?</div>
+        <div class="flashcard-back">Appendicular artery, a branch of the ileocolic artery</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Where is McBurney’s point located?</div>
+        <div class="flashcard-back">Lateral 1/3 and medial 2/3 of a line from the anterior superior iliac spine to the umbilicus</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How is appendicitis diagnosed?</div>
+        <div class="flashcard-back">Clinical diagnosis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">In which age group is appendicitis most common?</div>
+        <div class="flashcard-back">Below 40 years, rare in elderly and children</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common factor in appendicitis?</div>
+        <div class="flashcard-back">Obstruction</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is hyperesthesia of Sherren’s triangle associated with?</div>
+        <div class="flashcard-back">Subhepatic appendicitis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the obturator sign, and when is it seen?</div>
+        <div class="flashcard-back">Pain on internal rotation, seen in pelvic appendicitis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the psoas sign, and when is it seen?</div>
+        <div class="flashcard-back">Pain on extension of right thigh, seen in retrocecal appendicitis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the cardinal features of appendicitis?</div>
+        <div class="flashcard-back">Fever (37.3-38.5°C), pain <72 hours, vomiting 1-3 times</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">When is vomiting more prominent in appendicitis?</div>
+        <div class="flashcard-back">If complications are present</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Which groups are at higher risk for perforation in appendicitis?</div>
+        <div class="flashcard-back">Children, elderly, diabetics</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why do children have rapid generalized peritonitis in appendicitis?</div>
+        <div class="flashcard-back">Underdeveloped omentum</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why is perforation slower in the elderly with appendicitis?</div>
+        <div class="flashcard-back">Fibrotic appendix wall</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the main symptom sequence in appendicitis?</div>
+        <div class="flashcard-back">Pain followed by vomiting</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Is constipation or diarrhea more common in appendicitis?</div>
+        <div class="flashcard-back">Constipation (more common, especially in pelvic or retro-iliac appendicitis)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why are PR and PV examinations important in appendicitis?</div>
+        <div class="flashcard-back">To exclude gynecological causes, especially in females</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common position of the appendix?</div>
+        <div class="flashcard-back">Retrocecal</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How does appendicitis present in pregnancy?</div>
+        <div class="flashcard-back">Pain in a higher position</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why is post-iliac appendicitis often misdiagnosed?</div>
+        <div class="flashcard-back">Mimics gastroenteritis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Who is more likely to have subhepatic appendicitis?</div>
+        <div class="flashcard-back">Young patients, no pain in shoulder or back</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the symptoms of carcinoid syndrome?</div>
+        <div class="flashcard-back">Diarrhea, flushing, bronchospasm</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for a carcinoid tumor of the appendix <2 cm?</div>
+        <div class="flashcard-back">Appendectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for a carcinoid tumor of the appendix >2 cm?</div>
+        <div class="flashcard-back">Right hemicolectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for appendicular mass?</div>
+        <div class="flashcard-back">Oschner-Sherren regimen (Ryle’s tube, catheter, fluids, IV antibiotics: ampicillin, metronidazole, aminoglycosides), appendectomy after 3 months</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for appendicular abscess?</div>
+        <div class="flashcard-back">Muscle-cutting incision (extraperitoneal drainage), antibiotics, appendectomy after 3-6 months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قسم: Pancreas -->
+<section id="pancreas">
+  <h2>Pancreas</h2>
+  <div class="flashcard-container">
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Where is the pancreas located?</div>
+        <div class="flashcard-back">Retroperitoneal, at L2 (head, neck, body, tail)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is annular pancreas associated with?</div>
+        <div class="flashcard-back">Common with Down’s syndrome</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for annular pancreas?</div>
+        <div class="flashcard-back">Duodenoduodenostomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Why is pancreas divisum risky?</div>
+        <div class="flashcard-back">Risk of pancreatitis due to accumulation and premature activation of pancreatic enzymes</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common cause of acute pancreatitis?</div>
+        <div class="flashcard-back">Bile duct stone</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the main, commonest, and earliest symptom of acute pancreatitis?</div>
+        <div class="flashcard-back">Epigastric pain radiating to the back, improved by sitting or leaning forward, not responding to analgesia</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the clinical signs of acute pancreatitis?</div>
+        <div class="flashcard-back">Bluish discoloration in the flanks (Grey Turner’s sign), around the umbilicus (Cullen’s sign), distal to inguinal ligament (Fox sign)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What causes shock in acute pancreatitis?</div>
+        <div class="flashcard-back">Vasoactive kinins</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What causes tetany in acute pancreatitis?</div>
+        <div class="flashcard-back">Hypocalcemia</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How specific is amylase for acute pancreatitis, and when is it elevated?</div>
+        <div class="flashcard-back">Non-specific, elevated for 2-3 days, diagnostic level >1000</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">How specific is lipase for acute pancreatitis?</div>
+        <div class="flashcard-back">Specific, longer half-life</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are X-ray findings in acute pancreatitis?</div>
+        <div class="flashcard-back">Colon cut-off sign (distended transverse colon, collapse of descending colon), sentinel loop ileum (distention of duodenum and upper jejunum)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What criteria are used for acute pancreatitis prognosis?</div>
+        <div class="flashcard-back">Ranson’s criteria</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the main treatment for acute and chronic pancreatitis?</div>
+        <div class="flashcard-back">Conservative</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the most common cause of pseudopancreatic cyst?</div>
+        <div class="flashcard-back">Acute pancreatitis, next common is pancreatic trauma</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the main presentation of chronic pancreatitis?</div>
+        <div class="flashcard-back">Recurrent attacks of pain, malabsorption, diabetes mellitus</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the locations of exocrine pancreatic cancer?</div>
+        <div class="flashcard-back">60-70% head, 20% body, 10% tail</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the clinical features of cancer of the pancreatic head?</div>
+        <div class="flashcard-back">Courvoisier’s sign, obstructive jaundice, enlarged liver</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the clinical features of cancer of the pancreatic body and tail?</div>
+        <div class="flashcard-back">Trousseau’s sign, Troisier’s sign</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the role of CEA in pancreatic cancer?</div>
+        <div class="flashcard-back">Common tumor marker in GIT malignancy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the role of CA19-9 in pancreatic cancer?</div>
+        <div class="flashcard-back">Used for follow-up, not screening</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for pancreatic head cancer involving the pylorus?</div>
+        <div class="flashcard-back">Whipple operation</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for pancreatic head cancer not involving the pylorus?</div>
+        <div class="flashcard-back">Pylorus-sparing Whipple</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">When is mannitol given preoperatively in pancreatic cancer surgery?</div>
+        <div class="flashcard-back">If bilirubin >15 mg/dL to avoid postoperative oliguria</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the nature of insulinomas?</div>
+        <div class="flashcard-back">90% benign</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is Whipple’s triad in insulinomas?</div>
+        <div class="flashcard-back">Symptoms of hypoglycemia, blood glucose <45 mg/dL, improvement with glucose</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for insulinomas?</div>
+        <div class="flashcard-back">Enucleation of tumor, distal pancreatectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the clinical features of gastrinoma?</div>
+        <div class="flashcard-back">Multiple peptic ulcers resistant to treatment, in ectopic sites (jejunum), steatorrhea, bleeding</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the diagnostic gastrin level for gastrinoma?</div>
+        <div class="flashcard-back">>500 ng/L</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">Where is gastrinoma typically located?</div>
+        <div class="flashcard-back">Passaro’s triangle (junction of cystic duct and CBD, second and third part of duodenum, neck and body of pancreas)</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for gastrinoma in the pancreatic head?</div>
+        <div class="flashcard-back">Whipple operation</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for gastrinoma in the pancreatic body or tail?</div>
+        <div class="flashcard-back">Distal pancreatectomy</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for undetectable gastrinoma?</div>
+        <div class="flashcard-back">Blind body and tail pancreatectomy, gastrectomy, omeprazole in large doses for 6-12 months</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features of VIPoma syndrome?</div>
+        <div class="flashcard-back">Watery diarrhea, hypokalemia, achlorhydria</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for VIPoma?</div>
+        <div class="flashcard-back">Somatostatin analogues, artery embolization, palliative debulking</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features of glucagonoma?</div>
+        <div class="flashcard-back">Diabetes, dermatitis</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What is the treatment for glucagonoma?</div>
+        <div class="flashcard-back">Palliative debulking</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features of serous cystadenoma?</div>
+        <div class="flashcard-back">Benign, more common in females, honeycomb appearance, conservative treatment</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features of mucinous cystic neoplasms?</div>
+        <div class="flashcard-back">Premalignant, more common in females, requires resection</div>
+      </div>
+    </div>
+    <div class="flashcard">
+      <div class="flashcard-inner">
+        <div class="flashcard-front">What are the features of intraductal papillary mucinous tumors?</div>
+        <div class="flashcard-back">More common in males, very high malignant potential</div>
+      </div>
+    </div>
+  </div>
+</section>
+  
+  <script>
+    // JavaScript لتفعيل خاصية القلب (flip) عند النقر على الفلاش كارد
+    document.querySelectorAll('.flashcard').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('flipped');
+      });
+    });
+  </script>
 </body>
 </html>
