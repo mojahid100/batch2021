@@ -1,10 +1,781 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Anal Canal</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: anal-canal.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title id="quizTitle">Quiz anal canal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn, .flip-btn, .flashcard-nav-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover, .flip-btn:hover, .flashcard-nav-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active, .flip-btn:active, .flashcard-nav-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen, .flash-card-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .flash-card-screen {
+        display: none;
+      }
+      .flash-card {
+        background: #ffffff;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        min-height: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .flashcard-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+ diplomatic-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1 id="quizHeader">Quiz</h1>
+        <p id="lessonText">Lesson: anal canal</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <div class="flash-card-screen" id="flashCardScreen">
+        <h2>Flash Card Review</h2>
+        <p id="scoreMessage"></p>
+        <div class="flash-card" id="flashCardText"></div>
+        <button class="flip-btn" onclick="flipCard()">Flip Card</button>
+        <div class="flashcard-nav">
+          <button class="flashcard-nav-btn" id="prevFlashCardBtn" onclick="prevFlashCard()">Previous</button>
+          <button class="flashcard-nav-btn" id="nextFlashCardBtn" onclick="nextFlashCard()">Next</button>
+        </div>
+        <button class="start-btn" onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      // Configuration object for quiz content
+      const quizConfig = {
+        title: "Quiz - anal canal",
+        lesson: "anal canal",
+        
+  questions: [
+    {
+      text: "A 32-year-old woman presents to the clinic complaining of severe anal pain during and after defecation for the past week. She also reports noticing small amounts of bright red blood on the toilet paper. On examination, the anal canal appears contracted with a posterior midline tear visible. Which of the following is the most appropriate initial management?",
+      choices: [
+        "A. Lateral internal sphincterotomy",
+        "B. Botox injection into the sphincter",
+        "C. High-fiber diet and warm sitz baths",
+        "D. Hemorrhoidectomy",
+        "E. Rubber band ligation"
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Acute anal fissure is managed initially with conservative measures like high-fiber diet and warm sitz baths.",
+      details: "A. Incorrect: For chronic fissures.\nB. Incorrect: For refractory cases.\nC. Correct: First-line for acute fissure.\nD. Incorrect: For hemorrhoids.\nE. Incorrect: For hemorrhoids."
+    },
+    {
+      text: "A 45-year-old man presents with painless rectal bleeding during defecation. He describes the blood as bright red, sometimes dripping after passing stool. On examination, there is a prolapsed mass that reduces spontaneously after defecation. Which of the following is the most likely diagnosis?",
+      choices: [
+        "A. Anal fissure",
+        "B. Grade III internal hemorrhoids",
+        "C. Grade II internal hemorrhoids",
+        "D. External hemorrhoids",
+        "E. Rectal prolapse"
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Grade II internal hemorrhoids prolapse and reduce spontaneously, causing painless bright red bleeding.",
+      details: "A. Incorrect: Painful, minor bleeding.\nB. Incorrect: Requires manual reduction.\nC. Correct: Spontaneous reduction.\nD. Incorrect: Painful if thrombosed.\nE. Incorrect: Full-thickness protrusion."
+    },
+    {
+      text: "About chronic anal fissure, all the following statements are true, except:",
+      choices: [
+        "A. This is a longitudinal wound in the lower part of anal canal.",
+        "B. The fissure can be seen by parting the edges of the anal verge.",
+        "C. The fissure is tender and indurated.",
+        "D. The commonest site is the midline anteriorly.",
+        "E. The classic treatment is internal sphincterotomy."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. The commonest site for chronic anal fissure is posterior midline, not anterior.",
+      details: "A. Correct: Longitudinal wound.\nB. Correct: Visible with gentle parting.\nC. Correct: Tender, indurated.\nD. Incorrect: Posterior midline common.\nE. Correct: Sphincterotomy standard."
+    },
+    {
+      text: "A 25-year-old woman complains of painful defecation. Pain remains for a few hours afterwards. It is occasionally associated with a drop of fresh blood that is observed on toilet paper. The most probable diagnosis is:",
+      choices: [
+        "A. Low anal fistula",
+        "B. Perianal abscess",
+        "C. Pilonidal sinus",
+        "D. Anal fissure",
+        "E. Haemorrhoids"
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Anal fissure presents with painful defecation and minor bleeding.",
+      details: "A. Incorrect: Painless unless infected.\nB. Incorrect: Continuous pain, no bleeding.\nC. Incorrect: Sacrococcygeal, no bleeding.\nD. Correct: Classic fissure symptoms.\nE. Incorrect: Painless bleeding."
+    },
+    {
+      text: "About haemorrhoids, all the following statements are true, except:",
+      choices: [
+        "A. The enlargement and prolapse of anal arterio-venous cushions causes haemorrhoids.",
+        "B. The incidence of haemorrhoids is higher in portal hypertension patients than in the rest of the population.",
+        "C. Chronic constipation predisposes to haemorrhoid formation.",
+        "D. Cancer of the rectum can cause haemorrhoids.",
+        "E. Mother piles usually occur at left lateral, right posterior and right anterior positions of anal canal."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Haemorrhoid incidence is not higher in portal hypertension.",
+      details: "A. Correct: Caused by cushion prolapse.\nB. Incorrect: Same incidence.\nC. Correct: Constipation predisposes.\nD. Correct: Rectal cancer can cause.\nE. Correct: 3, 7, 11 o’clock positions."
+    },
+    {
+      text: "About second degree haemorrhoids, all the following statements are true, except:",
+      choices: [
+        "A. May cause bleeding per rectum.",
+        "B. Protrude out of the anus at defecation and reduce spontaneously.",
+        "C. If uncomplicated, they are painless.",
+        "D. Neglected cases can cause anal fistula.",
+        "E. Can be treated by rubber band ligation."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Haemorrhoids do not cause anal fistulas, which result from abscesses.",
+      details: "A. Correct: Cause bleeding.\nB. Correct: Spontaneous reduction.\nC. Correct: Painless if uncomplicated.\nD. Incorrect: Fistulas from abscesses.\nE. Correct: Band ligation effective."
+    },
+    {
+      text: "About haemorrhoidal bleeding, one statement only is true:",
+      choices: [
+        "A. It occurs only in acutely thrombosed piles.",
+        "B. It is bright red.",
+        "C. It is mixed with the faecal matter.",
+        "D. It is usually painful.",
+        "E. It is most observed on the underwear."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Haemorrhoidal bleeding is bright red, painless, and not mixed with stool.",
+      details: "A. Incorrect: Not only thrombosed.\nB. Correct: Bright red blood.\nC. Incorrect: Not mixed with stool.\nD. Incorrect: Painless.\nE. Incorrect: Seen in toilet bowl."
+    },
+    {
+      text: "About rubber band ligation of haemorrhoids, all the following statements are true, except:",
+      choices: [
+        "A. It is the ideal treatment of bleeding third degree haemorrhoids.",
+        "B. It can be done without anaesthesia.",
+        "C. The bands are applied above the dentate line.",
+        "D. It requires the use of an anoscope.",
+        "E. Pain after this procedure is less than pain after open haemorrhoidectomy."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Rubber band ligation is ideal for first and second degree haemorrhoids, not third degree.",
+      details: "A. Incorrect: Not for third degree.\nB. Correct: No anaesthesia needed.\nC. Correct: Above dentate line.\nD. Correct: Anoscope used.\nE. Correct: Less painful."
+    },
+    {
+      text: "About the treatment of haemorrhoids, all the following statements are true, except:",
+      choices: [
+        "A. Maximal anal dilatation under anesthesia is the standard treatment of thrombosed piles.",
+        "B. Third degree haemorrhoids can be treated by open haemorrhoidectomy (Milligan and Morgan's operation).",
+        "C. Third degree haemorrhoids can be treated by closed haemorrhoidectomy (Fergusson's operation).",
+        "D. Stapled haemorrhoidectomy by circular stapler is suitable for third degree haemorrhoids.",
+        "E. A high-fibre diet and regular soft motions are useful for haemorrhoid patients."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Maximal anal dilatation is not standard for thrombosed piles; conservative or urgent haemorrhoidectomy is used.",
+      details: "A. Incorrect: Causes incontinence.\nB. Correct: Open haemorrhoidectomy.\nC. Correct: Closed haemorrhoidectomy.\nD. Correct: Stapled suitable.\nE. Correct: Diet beneficial."
+    },
+    {
+      text: "Complications of haemorrhoidectomy include all the following, except:",
+      choices: [
+        "A. Acute urinary incontinence.",
+        "B. Reactionary haemorrhage that occurs within the first 24 hours.",
+        "C. Secondary haemorrhage that occurs within 1-2 weeks.",
+        "D. Faecal incontinence.",
+        "E. Anal stenosis."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Haemorrhoidectomy may cause urinary retention, not incontinence.",
+      details: "A. Incorrect: Retention, not incontinence.\nB. Correct: Early bleeding.\nC. Correct: Delayed bleeding.\nD. Correct: If sphincter damaged.\nE. Correct: Due to scarring."
+    },
+    {
+      text: "One of these investigations should be done before any haemorrhoidectomy:",
+      choices: [
+        "A. Biopsy of at least one of the haemorrhoids.",
+        "B. Endorectal ultrasound.",
+        "C. Sigmoidoscopy.",
+        "D. Full colonoscopy.",
+        "E. Occult blood in stools."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Sigmoidoscopy is required to exclude rectal cancer before haemorrhoidectomy.",
+      details: "A. Incorrect: Not routine.\nB. Incorrect: For specific cases.\nC. Correct: Excludes cancer.\nD. Incorrect: Not always needed.\nE. Incorrect: Non-specific."
+    },
+    {
+      text: "Complications of haemorrhoids include any of the following, except:",
+      choices: [
+        "A. Anaemia.",
+        "B. Acute thrombosis.",
+        "C. Faecal incontinence.",
+        "D. Haemorrhoid gangrene.",
+        "E. Portal pyaemia."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Haemorrhoids do not affect the sphincter, so faecal incontinence is not a complication.",
+      details: "A. Correct: From chronic bleeding.\nB. Correct: Thrombosis common.\nC. Incorrect: Sphincter unaffected.\nD. Correct: Rare gangrene.\nE. Correct: Rare pyaemia."
+    },
+    {
+      text: "After straining at defecation, a healthy 26-year-old man develops a painful bump at the anal verge. Pain is continuous. There is no fever. On examination a bluish 1.5x1cm tender swelling is present in the right edge of anal verge and is not extending inwards. The most probable diagnosis is:",
+      choices: [
+        "A. Prolapse of uncomplicated haemorrhoid.",
+        "B. Acutely thrombosed internal haemorrhoid.",
+        "C. Acute perianal haematoma.",
+        "D. Perianal abscess.",
+        "E. Sentinel pile."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Acute perianal haematoma presents as a painful, bluish, tender swelling at the anal verge.",
+      details: "A. Incorrect: Painless prolapse.\nB. Incorrect: Internal, less external.\nC. Correct: Classic haematoma.\nD. Incorrect: Fever, diffuse.\nE. Incorrect: Chronic fissure feature."
+    },
+    {
+      text: "About perianal abscess, all the following statements are true, except:",
+      choices: [
+        "A. In most of the cases it is caused by infection of an anal gland.",
+        "B. The abscess lies some distance away from the anal verge.",
+        "C. Incision and drainage should be urgently done even if fluctuation cannot be elicited.",
+        "D. Spontaneous rupture may be followed by the development of an anal fistula.",
+        "E. Timely incision and drainage may be followed by the development of an anal fistula."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Perianal abscess is close to the anal verge, unlike ischiorectal abscess.",
+      details: "A. Correct: Anal gland infection.\nB. Incorrect: Close to verge.\nC. Correct: Urgent drainage.\nD. Correct: Fistula risk.\nE. Correct: Fistula possible."
+    },
+    {
+      text: "About anal fistulas, all the following statements are true, except:",
+      choices: [
+        "A. The main presentation is discharge.",
+        "B. Patients are prone to develop repeated suppuration in the fistula track.",
+        "C. Multiple posterior external openings usually have a common internal opening in midline posteriorly.",
+        "D. Multiple anterior external openings usually have separate internal openings.",
+        "E. Fistulotomy should be followed by primary skin closure to avoid faecal contamination."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Fistulotomy wounds are left open to prevent infection and recurrence.",
+      details: "A. Correct: Discharge main symptom.\nB. Correct: Recurrent infections.\nC. Correct: Common posterior opening.\nD. Correct: Separate anterior openings.\nE. Incorrect: Open wound healing."
+    },
+    {
+      text: "About anal fistulas, all the following statements are true, except:",
+      choices: [
+        "A. A low anal fistula has its internal opening at the dentate line.",
+        "B. The differential diagnosis of a solitary midline external opening is suppurative hidradenitis.",
+        "C. Crohn’s disease is one of the causes of anal fistula formation.",
+        "D. Anal fistula is one cause of pruritus ani.",
+        "E. Excised fistula tissues should be histologically examined."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Hidradenitis suppurativa involves multiple sinuses, not a solitary midline opening.",
+      details: "A. Correct: Dentate line opening.\nB. Incorrect: Multiple sinuses.\nC. Correct: Crohn’s linked.\nD. Correct: Causes pruritus.\nE. Correct: Histology needed."
+    },
+    {
+      text: "Which of the following are true regarding anal canal anatomy?",
+      choices: [
+        "A. The anorectal ring marks the junction between the rectum and the anal canal.",
+        "B. The puborectalis muscle is not concerned with the continence mechanism.",
+        "C. The intersphincteric plane is not of much significance.",
+        "D. The internal sphincter is the thickened distal continuation of the circular muscle layer of the rectum.",
+        "E. The dentate line is an important landmark representing the site of fusion of the proctodaeum and postallantoic gut."
+      ],
+      correct: [0, 3, 4],
+      explanation: "Correct Answer: A, D, E. Anorectal ring, internal sphincter, and dentate line are key anatomical features.",
+      details: "A. Correct: Marks junction.\nB. Incorrect: Puborectalis aids continence.\nC. Incorrect: Intersphincteric plane significant.\nD. Correct: Sphincter continuation.\nE. Correct: Dentate line landmark."
+    },
+    {
+      text: "Which of the following are true regarding anal glands?",
+      choices: [
+        "A. These are found in the anal mucosa.",
+        "B. They normally number between 20 and 25 in an individual.",
+        "C. They drain via ducts into anal sinuses at the level of the dentate line.",
+        "D. They are widely considered as the potential source of anal sepsis.",
+        "E. They secrete mucus, which helps to ease defaecation."
+      ],
+      correct: [2, 3, 4],
+      explanation: "Correct Answer: C, D, E. Anal glands drain at dentate line, cause sepsis, and secrete mucus.",
+      details: "A. Incorrect: In submucosa/intersphincteric.\nB. Incorrect: 0-10 glands.\nC. Correct: Drain at dentate line.\nD. Correct: Source of sepsis.\nE. Correct: Mucus secretion."
+    },
+    {
+      text: "Which of the following statements regarding the congenital anomalies of the anal canal are true?",
+      choices: [
+        "A. The dorsal part of the cloacal membrane is called the anal membrane.",
+        "B. Imperforate anus is divided into two types - high and low - depending on the level of rectal termination in relation to the urinary bladder.",
+        "C. Low defects are easier to correct but more prone to constipation.",
+        "D. Postanal dermoid usually remains asymptomatic until adult life.",
+        "E. A postanal dimple is of no clinical significance."
+      ],
+      correct: [0, 2, 3, 4],
+      explanation: "Correct Answer: A, C, D, E. Anal membrane, low defect traits, dermoid, and dimple are true.",
+      details: "A. Correct: Anal membrane definition.\nB. Incorrect: Pelvic floor relation.\nC. Correct: Easier, constipation-prone.\nD. Correct: Asymptomatic until adulthood.\nE. Correct: No significance."
+    },
+    {
+      text: "Which of the following statements regarding pilonidal sinus are true?",
+      choices: [
+        "A. It is usually congenital.",
+        "B. The primary sinuses are always in the midline between the sacrococcygeal joint and the tip of coccyx.",
+        "C. Bascom’s procedure involves a midline incision directly over the sinus cavity.",
+        "D. The Karydakis operation avoids a midline scar.",
+        "E. It is more common in women."
+      ],
+      correct: [1, 3],
+      explanation: "Correct Answer: B, D. Pilonidal sinuses are midline, and Karydakis avoids midline scar.",
+      details: "A. Incorrect: Acquired condition.\nB. Correct: Midline sinuses.\nC. Incorrect: Lateral incision.\nD. Correct: Avoids midline scar.\nE. Incorrect: More common in men."
+    },
+    {
+      text: "Which of the following statements about anal incontinence are true?",
+      choices: [
+        "A. The most common cause of anal sphincter disruption is obstetric damage.",
+        "B. Anal incontinence cannot occur in the absence of sphincter disruption.",
+        "C. Double overlap repair is the standard technique to repair discrete muscle disruption.",
+        "D. Gracilis muscle transposition can be effective in approximately 20 per cent of patients in the long term.",
+        "E. Sacral nerve stimulation works by neurophysiological modulation of the hindgut by stimulation of the sacral nerve roots."
+      ],
+      correct: [0, 2, 4],
+      explanation: "Correct Answer: A, C, E. Obstetric damage, overlap repair, and sacral stimulation are true.",
+      details: "A. Correct: Obstetric damage common.\nB. Incorrect: Can occur without disruption.\nC. Correct: Standard repair.\nD. Incorrect: ~60% effective.\nE. Correct: Neurophysiological modulation."
+    },
+    {
+      text: "Which of the following statements regarding anal fissure are true?",
+      choices: [
+        "A. It is a longitudinal split in the lower rectal mucosa.",
+        "B. It is most common in the posterior wall.",
+        "C. The common finding is a hypotonic anal sphincter.",
+        "D. Operation can be avoided in about 50 per cent of patients by the use of local agents like glyceryl trinitrate (GTN) or Diltiazem.",
+        "E. The most important complication after lateral internal sphincterotomy is incontinence, which may affect up to 30 per cent of patients."
+      ],
+      correct: [1, 3, 4],
+      explanation: "Correct Answer: B, D, E. Posterior location, medical treatment, and incontinence risk are true.",
+      details: "A. Incorrect: In anoderm.\nB. Correct: Posterior common.\nC. Incorrect: Hypertonic sphincter.\nD. Correct: ~50% heal medically.\nE. Correct: Incontinence risk."
+    },
+    {
+      text: "Which of the following statements about haemorrhoids are true?",
+      choices: [
+        "A. Most haemorrhoids are congenital.",
+        "B. Pain is rare in uncomplicated grade 1 haemorrhoids.",
+        "C. Piles which remain permanently prolapsed are called grade 3 haemorrhoids.",
+        "D. Portal pyaemia is a rare but known complication of haemorrhoids.",
+        "E. Profuse haemorrhage is never seen."
+      ],
+      correct: [1, 3],
+      explanation: "Correct Answer: B, D. Painless grade 1 and rare pyaemia are true.",
+      details: "A. Incorrect: Acquired condition.\nB. Correct: Pain rare in grade 1.\nC. Incorrect: Grade 4 permanent.\nD. Correct: Rare complication.\nE. Incorrect: Profuse bleeding possible."
+    },
+    {
+      text: "Which of the following statements regarding management of piles are true?",
+      choices: [
+        "A. Submucosal injection of 50 per cent phenol is an effective treatment for grade 1 piles.",
+        "B. Banding of piles involves application of tight elastic bands onto the base of the pedicle which cause ischaemic necrosis of the piles.",
+        "C. Cryotherapy and infrared coagulation are also methods of treating piles.",
+        "D. Milligan-Morgan haemorrhoidectomy is a closed technique where the piles are excised and the mucosa completely closed.",
+        "E. Stapled haemorrhoidectomy is a method where a special stapling gun is used to excise a strip of mucosa and submucosa."
+      ],
+      correct: [1, 2, 4],
+      explanation: "Correct Answer: B, C, E. Banding, cryotherapy/infrared, and stapled haemorrhoidectomy are true.",
+      details: "A. Incorrect: 5% phenol.\nB. Correct: Causes necrosis.\nC. Correct: Alternative treatments.\nD. Incorrect: Open technique.\nE. Correct: Mucosa excision."
+    },
+    {
+      text: "Which of the following statements regarding pruritus ani are true?",
+      choices: [
+        "A. It is a common problem.",
+        "B. The perianal skin is usually normal.",
+        "C. Threadworms need to be excluded, especially in young patients.",
+        "D. Skin biopsies may sometimes be needed to confirm diagnosis.",
+        "E. Washing the area with soap can be helpful."
+      ],
+      correct: [0, 2, 3],
+      explanation: "Correct Answer: A, C, D. Common problem, threadworm exclusion, and biopsies are true.",
+      details: "A. Correct: Common condition.\nB. Incorrect: Often reddened.\nC. Correct: Threadworms checked.\nD. Correct: Biopsies for diagnosis.\nE. Incorrect: Soap avoided."
+    },
+    {
+      text: "Which of the following statements regarding perianal abscesses are true?",
+      choices: [
+        "A. They present as a painful, throbbing swelling in the perianal area.",
+        "B. They are always associated with an underlying anal fistula.",
+        "C. Fistulotomy is advised if a fistula is found at the time of draining the abscess.",
+        "D. Treatment of abscess involves a cruciate incision over the most fluctuant point, deroofing the cavity and finger curettage.",
+        "E. Finding Gram-positive organisms on pus culture is associated with an underlying anal fistula."
+      ],
+      correct: [0, 3],
+      explanation: "Correct Answer: A, D. Painful swelling and cruciate incision are true.",
+      details: "A. Correct: Painful swelling.\nB. Incorrect: Not always fistulae.\nC. Incorrect: Fistulotomy avoided.\nD. Correct: Standard treatment.\nE. Incorrect: Gram-negative linked."
+    },
+    {
+      text: "Which of the following statements about anal fistula are true?",
+      choices: [
+        "A. It may be found in association with ulcerative colitis.",
+        "B. Trans-sphincteric fistulae usually have an external opening close to the anal verge.",
+        "C. Posterior fistulae are more likely to have a curved track and a horseshoe communication.",
+        "D. Fistulotomy is the treatment of choice in trans-sphincteric fistula involving more than 30 per cent of the external sphincter.",
+        "E. Setons can either be ‘loose’ or ‘tight’."
+      ],
+      correct: [2, 4],
+      explanation: "Correct Answer: C, E. Posterior fistulae curved tracks and seton types are true.",
+      details: "A. Incorrect: Crohn’s, not UC.\nB. Incorrect: Distant openings.\nC. Correct: Curved/horseshoe.\nD. Incorrect: Avoid fistulotomy.\nE. Correct: Loose/tight setons."
+    },
+    {
+      text: "Which of the following statements regarding anal warts are true?",
+      choices: [
+        "A. They are associated with HPV infection.",
+        "B. HPV subtypes 4 and 8 are associated with greater risk of progression to malignancy.",
+        "C. The incidence has decreased over the last three decades.",
+        "D. Acetic acid is helpful in diagnosis.",
+        "E. Treatment options include 25 per cent podophyllin and surgical excision."
+      ],
+      correct: [0, 3, 4],
+      explanation: "Correct Answer: A, D, E. HPV association, acetic acid, and podophyllin/excision are true.",
+      details: "A. Correct: HPV linked.\nB. Incorrect: Subtypes 16, 18, etc.\nC. Incorrect: Incidence increased.\nD. Correct: Diagnostic aid.\nE. Correct: Treatment options."
+    }
+  ],
+  flashCards: [
+    {
+      front: "A 36-year-old male with recurrent anal fistulae needing several operations. What is the investigation?",
+      back: "Magnetic resonance imaging (MRI) scan"
+    },
+    {
+      front: "A 26-year-old female with fresh blood per rectum post-pregnancy, normal bowels, no abdominal symptoms. What is the investigation?",
+      back: "Rigid sigmoidoscopy"
+    },
+    {
+      front: "A 28-year-old male with severe anal pain despite medications, anal sphincter spasm preventing examination. What is the investigation?",
+      back: "Examination under anaesthesia (EUA)"
+    },
+    {
+      front: "A 58-year-old female with worsening urge incontinence, previous perineal tear during delivery. What is the investigation?",
+      back: "Anorectal physiology"
+    },
+    {
+      front: "A 65-year-old male with a 1.5 cm hard lump at the anal verge. What is the investigation?",
+      back: "Biopsy"
+    },
+    {
+      front: "Primary treatment of anal fissure. What is the treatment?",
+      back: "Glyceryl trinitrate"
+    },
+    {
+      front: "Anal polyp. What is the treatment?",
+      back: "Excision biopsy"
+    },
+    {
+      front: "Anal fissure resistant to medical therapy. What is the treatment?",
+      back: "Lateral internal sphincterotomy"
+    },
+    {
+      front: "High anal fistula. What is the treatment?",
+      back: "Lay open/seton insertion"
+    },
+    {
+      front: "Grade 3 piles. What is the treatment?",
+      back: "Stapled anopexy"
+    },
+    {
+      front: "Essentially due to failure of supports of the rectum usually compounded by straining. What is the diagnosis?",
+      back: "Rectal prolapse"
+    },
+    {
+      front: "Most common cause is an occult obstetric sphincter injury. What is the diagnosis?",
+      back: "Urge incontinence"
+    },
+    {
+      front: "HIV and HPV infection can predispose to this. What is the diagnosis?",
+      back: "Anal SCC"
+    },
+    {
+      front: "Usually caused by the failure of relaxation of the puborectalis muscle during defaecation. What is the diagnosis?",
+      back: "Anismus"
+    },
+    {
+      front: "Evidence of straining during defaecation with an internal intussusception in most cases. What is the diagnosis?",
+      back: "Solitary rectal ulcer syndrome (SRUS)"
+    },
+    {
+      front: "Caused by a hypertonic anal sphincter with resultant mucosal ischaemia. What is the diagnosis?",
+      back: "Anal fissure"
+    },
+    {
+      front: "Associated with dilatation and prolapse of the anal vascular cushions usually due to straining. What is the diagnosis?",
+      back: "Haemorrhoids"
+    },
+    {
+      front: "Usually cryptogenic and associated with sepsis in the terminal part of the anal glands. What is the diagnosis?",
+      back: "Anal fistula"
+    }
+  ]
+};
+
+      // Initialize quiz content
+      document.title = quizConfig.title;
+      document.getElementById("quizHeader").innerText = quizConfig.title;
+      document.getElementById("lessonText").innerText = `Lesson: ${quizConfig.lesson}`;
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let currentFlashCardIndex = 0;
+      let isFront = true;
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+      }
+
+      function showQuestion() {
+        const q = quizConfig.questions[currentQuestionIndex];
+        document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+        const optionsBox = document.getElementById("optionsBox");
+        optionsBox.innerHTML = ""; // Clear previous options
+
+        q.choices.forEach((choice, idx) => {
+          const btn = document.createElement("button");
+          btn.innerText = decodeHtml(choice);
+          btn.onclick = () => checkAnswer(idx, btn);
+          optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("answerBox").style.display = "none";
+        document.getElementById("detailsBtn").style.display = "none";
+        document.getElementById("detailsBox").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+
+      function checkAnswer(selectedIndex) {
+        const q = quizConfig.questions[currentQuestionIndex];
+        const answerBox = document.getElementById("answerBox");
+        const detailsBtn = document.getElementById("detailsBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+        for (let i = 0; i < optionButtons.length; i++) {
+          optionButtons[i].disabled = true;
+          optionButtons[i].style.opacity = 0.7;
+          if (q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+          } else if (i === selectedIndex && !q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect selected
+          }
+        }
+
+        if (q.correct.includes(selectedIndex)) {
+          answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+          score++;
+        } else {
+          answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+        }
+        answerBox.style.display = "block";
+        detailsBtn.style.display = "inline-block";
+        nextBtn.style.display = "inline-block";
+        updateQuestionNav();
+      }
+
+      function showDetails() {
+        const detailsBox = document.getElementById("detailsBox");
+        const q = quizConfig.questions[currentQuestionIndex];
+        detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+        detailsBox.style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizConfig.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          document.getElementById("questionBox").style.display = "none";
+          const flashCardScreen = document.getElementById("flashCardScreen");
+          flashCardScreen.style.display = "block";
+          document.getElementById("scoreMessage").innerText = `You scored ${score} out of ${quizConfig.questions.length}. Now review with flash cards!`;
+          showFlashCard();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        const navBox = document.getElementById("questionNav");
+        navBox.innerHTML = "";
+        quizConfig.questions.forEach((_, index) => {
+          const btn = document.createElement("button");
+          btn.innerText = `${index + 1}`;
+          btn.onclick = () => goToQuestion(index);
+          navBox.appendChild(btn);
+        });
+        updateQuestionNav();
+      }
+
+      function updateQuestionNav() {
+        const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+        for (let i = 0; i < navButtons.length; i++) {
+          navButtons[i].disabled = (i === currentQuestionIndex);
+          navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+        }
+      }
+
+      function showFlashCard() {
+        const card = quizConfig.flashCards[currentFlashCardIndex];
+        document.getElementById("flashCardText").innerHTML = decodeHtml(isFront ? card.front : card.back);
+        document.getElementById("prevFlashCardBtn").disabled = currentFlashCardIndex === 0;
+        document.getElementById("nextFlashCardBtn").disabled = currentFlashCardIndex === quizConfig.flashCards.length - 1;
+      }
+
+      function flipCard() {
+        isFront = !isFront;
+        showFlashCard();
+      }
+
+      function prevFlashCard() {
+        if (currentFlashCardIndex > 0) {
+          currentFlashCardIndex--;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function nextFlashCard() {
+        if (currentFlashCardIndex < quizConfig.flashCards.length - 1) {
+          currentFlashCardIndex++;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        currentFlashCardIndex = 0;
+        isFront = true;
+        document.getElementById("flashCardScreen").style.display = "none";
+        startQuiz();
+      }
+    </script>
+  </body>
 </html>
