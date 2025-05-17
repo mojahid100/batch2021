@@ -1,10 +1,936 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Previous Questions Part3</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: previous-questions-part3.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All previous years' questions part 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr; /* Default LTR, overridden for RTL elements */
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>All previous years' questions part 3</h1>
+        <p lang="ar">الأسئلة من السنين السابقة</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "All previous years' questions part 3",
+        lesson: "الأسئلة من السنين السابقة",
+        questions: [
+          {
+            text: "A 25-year-old male presents with chronic diarrhea and abdominal pain waking him from sleep at night. A colonoscopy revealed linear ulcerations in the colon. What is the most common extra-intestinal manifestation of this disorder?",
+            choices: ["A. Iritis", "B. Erythema nodosum", "C. Arthralgia", "D. Arthritis"],
+            correct: 2,
+            explanation: "Correct Answer: C. Arthralgia is the most common extra-intestinal manifestation of inflammatory bowel disease (IBD), such as ulcerative colitis or Crohn’s disease.",
+            details: "A. Incorrect: Iritis occurs but is less common.\nB. Incorrect: Erythema nodosum is less frequent.\nC. Correct: Arthralgia affects ~20–30% of IBD patients.\nD. Incorrect: Arthritis is less common than arthralgia."
+          },
+          {
+            text: "A 56-year-old man presents with a 2-week history of diarrhea following an episode of food poisoning. Which investigation is most appropriate?",
+            choices: ["A. Full blood count", "B. Urea and electrolytes", "C. Stool sample for microscopy, culture, and sensitivities", "D. Abdominal X-ray"],
+            correct: 2,
+            explanation: "Correct Answer: C. Stool sample identifies infectious causes of diarrhea post-food poisoning.",
+            details: "A. Incorrect: Non-specific for infection.\nB. Incorrect: Assesses dehydration, not cause.\nC. Correct: Detects pathogens.\nD. Incorrect: Not first-line for diarrhea."
+          },
+          {
+            text: "A 47-year-old woman presents with a three-month history of dysphagia to solids but not liquids, without drastic weight loss. Which of the following is not an obstructive cause of dysphagia?",
+            choices: ["A. Pharyngeal carcinoma", "B. Esophageal web", "C. Retrosternal goiter", "D. Achalasia"],
+            correct: 3,
+            explanation: "Correct Answer: D. Achalasia is a motility disorder, not an obstructive cause of dysphagia.",
+            details: "A. Incorrect: Carcinoma causes obstruction.\nB. Incorrect: Web physically obstructs.\nC. Incorrect: Goiter compresses esophagus.\nD. Correct: Motility issue, not structural."
+          },
+          {
+            text: "A 65-year-old man presents with epigastric pain relieved by food, heartburn, hemoglobin of 8.8 g/dL, and Helicobacter pylori infection. What is the best pharmacological treatment to relieve his symptoms?",
+            choices: ["A. Omeprazole and Clarithromycin", "B. Omeprazole and Metronidazole", "C. Amoxicillin, proton pump inhibitor, Clarithromycin, Metronidazole", "D. Metronidazole and Amoxicillin"],
+            correct: 2,
+            explanation: "Correct Answer: C. Quadruple therapy (PPI, Amoxicillin, Clarithromycin, Metronidazole) eradicates H. pylori and relieves ulcer symptoms.",
+            details: "A. Incorrect: Incomplete regimen.\nB. Incorrect: Incomplete regimen.\nC. Correct: Standard quadruple therapy.\nD. Incorrect: Lacks PPI."
+          },
+          {
+            text: "Which of the following is correct regarding ischemic colitis?",
+            choices: ["A. Never occurs in young people", "B. Usually associated with melena", "C. Estrogen therapy could be a risk factor", "D. Bleeding is massive in most patients"],
+            correct: 2,
+            explanation: "Correct Answer: C. Estrogen therapy increases thrombotic risk, contributing to ischemic colitis.",
+            details: "A. Incorrect: Can occur in young people.\nB. Incorrect: Bloody diarrhea, not melena.\nC. Correct: Estrogen is a risk factor.\nD. Incorrect: Bleeding is rarely massive."
+          },
+          {
+            text: "A 26-year-old woman with type 1 diabetes mellitus presents with diarrhea, fatigue, and weight loss for three months. She improved after excluding gluten. What is the most appropriate next step to confirm celiac disease?",
+            choices: ["A. Check HbA1c", "B. Check anti-endomysial antibodies", "C. Arrange a jejunal biopsy", "D. Ask her to reintroduce gluten for 6 weeks before testing"],
+            correct: 3,
+            explanation: "Correct Answer: D. Gluten challenge for 6 weeks ensures accurate serology or biopsy for celiac disease confirmation.",
+            details: "A. Incorrect: Assesses diabetes control.\nB. Incorrect: Requires gluten exposure.\nC. Incorrect: Biopsy needs gluten challenge.\nD. Correct: Ensures diagnostic accuracy."
+          },
+          {
+            text: "A 40-year-old woman with a 1-year history of reflux symptoms has minimal relief with once-daily PPI for 12 weeks and twice-daily PPI for 6 weeks. She has intermittent solid-food dysphagia and a BMI of 35. What is the most appropriate next step?",
+            choices: ["A. Add an H2 blocker at night", "B. Ambulatory esophageal pH study", "C. Endoscopy", "D. Fundoplication"],
+            correct: 2,
+            explanation: "Correct Answer: C. Endoscopy evaluates refractory GERD and dysphagia for complications like stricture or Barrett’s.",
+            details: "A. Incorrect: Limited benefit in refractory GERD.\nB. Incorrect: Endoscopy precedes pH study.\nC. Correct: Assesses complications.\nD. Incorrect: Premature without evaluation."
+          },
+          {
+            text: "What is the most common cause of oropharyngeal dysphagia?",
+            choices: ["A. Esophageal cancer", "B. Brain stem stroke", "C. Achalasia", "D. GERD"],
+            correct: 1,
+            explanation: "Correct Answer: B. Brain stem stroke commonly causes oropharyngeal dysphagia due to neurological impairment.",
+            details: "A. Incorrect: Causes esophageal dysphagia.\nB. Correct: Disrupts swallowing coordination.\nC. Incorrect: Esophageal motility disorder.\nD. Incorrect: Esophageal symptoms."
+          },
+          {
+            text: "Which of the following is associated with upper GI bleeding but not with a high mortality rate?",
+            choices: ["A. Systolic blood pressure < 90 mmHg", "B. Heart rate < 80 bpm", "C. Hemoglobin < 7 g/dL", "D. Age > 65 years"],
+            correct: 1,
+            explanation: "Correct Answer: B. Heart rate < 80 bpm indicates stability and lower mortality risk in GI bleeding.",
+            details: "A. Incorrect: Hypotension increases mortality.\nB. Correct: Stable vitals, lower risk.\nC. Incorrect: Severe anemia raises risk.\nD. Incorrect: Age increases risk."
+          },
+          {
+            text: "Which of the following is not an indication for endoscopy in dyspepsia?",
+            choices: ["A. Age < 40 years", "B. Weight loss", "C. Anemia", "D. Persistent vomiting"],
+            correct: 0,
+            explanation: "Correct Answer: A. Age < 40 years alone is not an indication for endoscopy in dyspepsia without alarm symptoms.",
+            details: "A. Correct: Not an alarm feature.\nB. Incorrect: Alarm symptom.\nC. Incorrect: Alarm symptom.\nD. Incorrect: Alarm symptom."
+          },
+          {
+            text: "Which of the following is incorrect regarding iron absorption?",
+            choices: ["A. Iron is absorbed in the duodenum", "B. Organic iron is better absorbed than inorganic iron", "C. Iron absorption is regulated by mucosal cells", "D. Iron is absorbed in the terminal ileum"],
+            correct: 3,
+            explanation: "Correct Answer: D. Iron is absorbed in the duodenum, not the terminal ileum.",
+            details: "A. Incorrect: True, primary site.\nB. Incorrect: True, heme iron better absorbed.\nC. Incorrect: True, mucosal regulation.\nD. Correct: False, ileum not primary."
+          },
+          {
+            text: "Which of the following is not a complication of ulcerative colitis?",
+            choices: ["A. Toxic megacolon", "B. Colorectal cancer", "C. Stricture", "D. Primary sclerosing cholangitis"],
+            correct: 2,
+            explanation: "Correct Answer: C. Strictures are rare in ulcerative colitis, more common in Crohn’s disease.",
+            details: "A. Incorrect: Acute complication.\nB. Incorrect: Long-term risk.\nC. Correct: Not typical.\nD. Incorrect: Extraintestinal complication."
+          },
+          {
+            text: "Which of the following is a secondary cause of constipation?",
+            choices: ["A. Diabetes mellitus", "B. High-fiber diet", "C. Hyperthyroidism", "D. Regular exercise"],
+            correct: 0,
+            explanation: "Correct Answer: A. Diabetes mellitus causes constipation via autonomic neuropathy.",
+            details: "A. Correct: Secondary cause.\nB. Incorrect: Prevents constipation.\nC. Incorrect: Causes diarrhea.\nD. Incorrect: Improves motility."
+          },
+          {
+            text: "Which of the following is correct regarding dysphagia?",
+            choices: ["A. Difficulty during swallowing to either fluids or solids", "B. Sensation of throat lump relieved by swallowing", "C. Due to esophageal and gastric causes only", "D. Always painless"],
+            correct: 0,
+            explanation: "Correct Answer: A. Dysphagia is difficulty swallowing fluids or solids.",
+            details: "A. Correct: Defines dysphagia.\nB. Incorrect: Describes globus.\nC. Incorrect: Includes oropharyngeal causes.\nD. Incorrect: Can be painful (odynophagia)."
+          },
+          {
+            text: "Which of the following is incorrect regarding dysphagia?",
+            choices: ["A. It means difficulty during swallowing", "B. Difficulty in swallowing to either fluids or solids", "C. The sensation of throat lump relieved by swallowing", "D. Due to esophageal causes only"],
+            correct: 3,
+            explanation: "Correct Answer: D. Dysphagia includes oropharyngeal and esophageal causes, not esophageal only.",
+            details: "A. Incorrect: True definition.\nB. Incorrect: True description.\nC. Incorrect: Describes globus, not dysphagia.\nD. Correct: False, includes oropharyngeal."
+          },
+          {
+            text: "Which of the following is not a cause of dysphagia?",
+            choices: ["A. Esophageal varices", "B. Zenker’s diverticulum", "C. Myasthenia gravis", "D. GERD"],
+            correct: 0,
+            explanation: "Correct Answer: A. Esophageal varices cause bleeding, not dysphagia.",
+            details: "A. Correct: Not a cause.\nB. Incorrect: Causes oropharyngeal dysphagia.\nC. Incorrect: Neuromuscular cause.\nD. Incorrect: Causes dysphagia via stricture."
+          },
+          {
+            text: "Which of the following is not a cause of dysphagia?",
+            choices: ["A. Barrett’s esophagus", "B. Stomatitis", "C. Myasthenia gravis", "D. Zenker’s diverticulum"],
+            correct: 1,
+            explanation: "Correct Answer: B. Stomatitis causes oral pain, not dysphagia.",
+            details: "A. Incorrect: Can cause dysphagia via stricture.\nB. Correct: Not a dysphagia cause.\nC. Incorrect: Neuromuscular cause.\nD. Incorrect: Oropharyngeal cause."
+          },
+          {
+            text: "Which of the following is true regarding vomiting?",
+            choices: ["A. Rapid evacuation of gastric contents with forcible abdominal wall contraction", "B. Asymptomatic regurgitation of gastric contents, rechewing, reswallowing", "C. Regurgitation of bitter fluid to the mouth", "D. Usually not preceded by nausea"],
+            correct: 0,
+            explanation: "Correct Answer: A. Vomiting involves forceful gastric evacuation with abdominal contraction.",
+            details: "A. Correct: Defines vomiting.\nB. Incorrect: Describes rumination.\nC. Incorrect: Describes regurgitation.\nD. Incorrect: Nausea typically precedes."
+          },
+          {
+            text: "Which of the following is not a stage of vomiting?",
+            choices: ["A. Nausea", "B. Increased gastric motility", "C. Retching", "D. Evacuation"],
+            correct: 1,
+            explanation: "Correct Answer: B. Increased gastric motility is not a distinct stage of vomiting.",
+            details: "A. Incorrect: First stage.\nB. Correct: Not a stage, but a mechanism.\nC. Incorrect: Precedes evacuation.\nD. Incorrect: Final stage."
+          },
+          {
+            text: "Which of the following is incorrect regarding chronic constipation?",
+            choices: ["A. Occurs for 2 weeks per 12 months", "B. Accompanied with straining", "C. Sense of anorectal block", "D. Sense of incomplete evacuation"],
+            correct: 0,
+            explanation: "Correct Answer: A. Chronic constipation requires symptoms for ≥3 months, not 2 weeks.",
+            details: "A. Correct: False, per Rome IV criteria.\nB. Incorrect: True symptom.\nC. Incorrect: True symptom.\nD. Incorrect: True symptom."
+          },
+          {
+            text: "Which of the following is incorrect regarding intestinal physiology?",
+            choices: ["A. Voluminous diarrhea is due to a colonic lesion", "B. Small intestine is responsible for absorption and secretion", "C. Intestinal absorption occurs mainly in the small intestine", "D. Ileal fluid is isotonic to plasma"],
+            correct: 0,
+            explanation: "Correct Answer: A. Voluminous diarrhea is due to small intestinal lesions, not colonic.",
+            details: "A. Correct: False, small intestine causes voluminous diarrhea.\nB. Incorrect: True, absorbs and secretes.\nC. Incorrect: True, primary absorption site.\nD. Incorrect: True, isotonic fluid."
+          },
+          {
+            text: "Which of the following is not a cause of constipation?",
+            choices: ["A. Hyperthyroidism", "B. Diabetes mellitus", "C. Hyperparathyroidism", "D. Lack of fiber in the diet"],
+            correct: 0,
+            explanation: "Correct Answer: A. Hyperthyroidism causes diarrhea, not constipation.",
+            details: "A. Correct: Increases motility.\nB. Incorrect: Causes constipation.\nC. Incorrect: Causes constipation.\nD. Incorrect: Causes constipation."
+          },
+          {
+            text: "Which of the following is incorrect regarding osmotic diarrhea?",
+            choices: ["A. Due to poorly absorbed solutes", "B. Due to maldigestion of lactose", "C. Diarrhea stops with fasting", "D. Normal osmotic gap"],
+            correct: 3,
+            explanation: "Correct Answer: D. Osmotic diarrhea has an increased osmotic gap (>50 mOsm/kg).",
+            details: "A. Incorrect: True, caused by solutes.\nB. Incorrect: True, lactose maldigestion.\nC. Incorrect: True, stops with fasting.\nD. Correct: False, gap is elevated."
+          },
+          {
+            text: "Which of the following is false regarding gastrointestinal physiology?",
+            choices: ["A. The esophagus is not responsible for digestion or absorption", "B. The pancreas is responsible for nutrient digestion", "C. The small intestine is responsible for digestion and absorption", "D. The colon is responsible for nutrients and water absorption"],
+            correct: 3,
+            explanation: "Correct Answer: D. The colon absorbs water and electrolytes, not nutrients.",
+            details: "A. Incorrect: True, esophagus transports.\nB. Incorrect: True, pancreatic enzymes digest.\nC. Incorrect: True, primary site.\nD. Correct: False, minimal nutrient absorption."
+          },
+          {
+            text: "Which of the following is false regarding iron absorption?",
+            choices: ["A. Organic iron is better absorbed than inorganic iron", "B. Iron is absorbed according to the body’s needs", "C. Iron is absorbed by mucosal regulation", "D. Iron is absorbed mainly in the terminal ileum"],
+            correct: 3,
+            explanation: "Correct Answer: D. Iron is absorbed in the duodenum, not the terminal ileum.",
+            details: "A. Incorrect: True, heme iron better absorbed.\nB. Incorrect: True, regulated by need.\nC. Incorrect: True, mucosal control.\nD. Correct: False, duodenum primary."
+          },
+          {
+            text: "What is the gold standard test for achalasia cardia?",
+            choices: ["A. Esophageal manometry", "B. Barium swallow", "C. Endoscopy", "D. Endoscopic ultrasound"],
+            correct: 0,
+            explanation: "Correct Answer: A. Esophageal manometry confirms achalasia by showing impaired LES relaxation.",
+            details: "A. Correct: Diagnostic gold standard.\nB. Incorrect: Suggestive, not definitive.\nC. Incorrect: Rules out other causes.\nD. Incorrect: Not routine."
+          },
+          {
+            text: "What is the most common complication of achalasia?",
+            choices: ["A. Recurrent pulmonary infections", "B. Stricture of the esophagus", "C. Pleurisy", "D. Peptic ulcer"],
+            correct: 0,
+            explanation: "Correct Answer: A. Recurrent pulmonary infections occur due to aspiration in achalasia.",
+            details: "A. Correct: Common due to aspiration.\nB. Incorrect: Less common.\nC. Incorrect: Not related.\nD. Incorrect: Unrelated."
+          },
+          {
+            text: "A 41-year-old patient with chronic diarrhea for 3 months undergoes a xylose absorption test. What does this test assess?",
+            choices: ["A. Carbohydrate malabsorption due to mucosal disease", "B. Carbohydrate malabsorption due to chronic pancreatitis", "C. Fat malabsorption due to lymphatic obstruction", "D. Fat malabsorption due to chronic pancreatitis"],
+            correct: 0,
+            explanation: "Correct Answer: A. Xylose absorption test assesses carbohydrate malabsorption due to mucosal disease (e.g., celiac).",
+            details: "A. Correct: Tests mucosal function.\nB. Incorrect: Pancreatitis affects enzymes.\nC. Incorrect: Tests fat, not xylose.\nD. Incorrect: Tests fat, not xylose."
+          },
+          {
+            text: "Which of the following is true regarding Schilling’s test?",
+            choices: ["A. Abnormal in pernicious anemia", "B. Normal in bacterial overgrowth syndrome", "C. Normal in ileal disease", "D. Normal in chronic pancreatitis"],
+            correct: 0,
+            explanation: "Correct Answer: A. Schilling’s test is abnormal in pernicious anemia due to B12 malabsorption.",
+            details: "A. Correct: Lacks intrinsic factor.\nB. Incorrect: Abnormal in overgrowth.\nC. Incorrect: Abnormal in ileal disease.\nD. Incorrect: May be abnormal."
+          },
+          {
+            text: "Which of the following is true regarding the clinical features of peptic ulcers?",
+            choices: ["A. The pain never radiates to the back", "B. Vomiting is a notable feature", "C. They may cause gastric outlet obstruction", "D. Bleeding is rare"],
+            correct: 2,
+            explanation: "Correct Answer: C. Peptic ulcers can cause gastric outlet obstruction. Note: Provided answer (D) is incorrect; bleeding is common.",
+            details: "A. Incorrect: Pain can radiate.\nB. Incorrect: Vomiting not prominent.\nC. Correct: Known complication.\nD. Incorrect: Bleeding is frequent."
+          },
+          {
+            text: "Which of the following statements regarding investigations in dysphagia is false?",
+            choices: ["A. Barium swallow is the investigation of choice in GERD", "B. Flexible esophagogastroduodenoscopy (OGD) is the initial investigation for suspected carcinoma", "C. Esophageal manometry is used for suspected motility disorders", "D. 24-hour pH recording is accurate for evaluating GERD"],
+            correct: 0,
+            explanation: "Correct Answer: A. Barium swallow is not the investigation of choice in GERD; OGD is preferred.",
+            details: "A. Correct: False, OGD first-line.\nB. Incorrect: True, OGD for carcinoma.\nC. Incorrect: True, manometry for motility.\nD. Incorrect: True, pH confirms GERD."
+          },
+          {
+            text: "Which of the following conditions is precancerous for esophageal cancer?",
+            choices: ["A. GERD", "B. Achalasia", "C. Corrosive stricture", "D. All of the above"],
+            correct: 0,
+            explanation: "Correct Answer: A. GERD is strongly precancerous via Barrett’s esophagus. Note: Provided answer (D) includes achalasia and corrosive stricture, which have weaker associations.",
+            details: "A. Correct: Leads to adenocarcinoma.\nB. Incorrect: Weak squamous carcinoma risk.\nC. Incorrect: Minimal risk.\nD. Incorrect: GERD is primary."
+          },
+          {
+            text: "A 30-year-old female presents with a 2-day history of right upper quadrant pain, vomiting, fever, and a positive Murphy’s sign. What is the diagnosis?",
+            choices: ["A. Cholangitis", "B. Pancreatitis", "C. Empyema of the gallbladder", "D. Acute cholecystitis"],
+            correct: 3,
+            explanation: "Correct Answer: D. Acute cholecystitis presents with RUQ pain, fever, vomiting, and Murphy’s sign.",
+            details: "A. Incorrect: Includes jaundice.\nB. Incorrect: Epigastric pain.\nC. Incorrect: Complication, less likely.\nD. Correct: Classic presentation."
+          },
+          {
+            text: "Which of the following is true regarding the treatment of peptic ulceration?",
+            choices: ["A. Surgery remains the mainstay treatment", "B. Eradication therapy including PPI is given routinely to all patients", "C. Late dumping syndrome after gastric surgery is due to increased osmotic load in the small bowel", "D. Biopsy of ulcer margins is mandatory for duodenal ulcers"],
+            correct: 2,
+            explanation: "Correct Answer: C. Late dumping syndrome is due to rapid glucose absorption causing hypoglycemia.",
+            details: "A. Incorrect: Surgery for complications.\nB. Incorrect: Only for H. pylori-positive.\nC. Correct: Hypoglycemia mechanism.\nD. Incorrect: Not mandatory."
+          },
+          {
+            text: "Constructional apraxia is defined as the inability to:",
+            choices: ["A. Draw a five-point star", "B. Identify the surrounding", "C. Move limbs", "D. Pronounce appropriately"],
+            correct: 0,
+            explanation: "Correct Answer: A. Constructional apraxia is the inability to perform tasks like drawing a five-point star.",
+            details: "A. Correct: Classic feature.\nB. Incorrect: Environmental agnosia.\nC. Incorrect: Motor apraxia.\nD. Incorrect: Speech issue."
+          },
+          {
+            text: "A 27-year-old female with fatigue, joint pain, and positive smooth muscle antibodies. What is the most appropriate next investigation?",
+            choices: ["A. Liver function tests", "B. Thyroid function test", "C. Creatinine kinase", "D. Serum glucose"],
+            correct: 0,
+            explanation: "Correct Answer: A. Liver function tests evaluate suspected autoimmune hepatitis with positive smooth muscle antibodies.",
+            details: "A. Correct: Assesses liver damage.\nB. Incorrect: Thyroid unrelated.\nC. Incorrect: Muscle-related.\nD. Incorrect: Diabetes unrelated."
+          },
+          {
+            text: "A 14-year-old female with lower abdominal pain, diarrhea, weight loss, and fevers for 4 months has hemoglobin 10.2 g/dL, MCV 65%, ESR 45 mm/h, and colonoscopy showing chronic colitis and ileitis with granulomas. What is the most appropriate initial management for Crohn’s disease?",
+            choices: ["A. Lactobacillus", "B. Mesalamine", "C. Metronidazole", "D. Prednisolone"],
+            correct: 3,
+            explanation: "Correct Answer: D. Prednisolone induces remission in active Crohn’s disease with systemic symptoms.",
+            details: "A. Incorrect: No proven benefit.\nB. Incorrect: Less effective for Crohn’s.\nC. Incorrect: For perianal disease.\nD. Correct: First-line for active disease."
+          },
+          {
+            text: "Which of the following is a posthepatic cause of portal hypertension?",
+            choices: ["A. Budd-Chiari syndrome", "B. Veno-occlusive disease", "C. Chronic right-sided cardiac congestion", "D. All of the above"],
+            correct: 2,
+            explanation: "Correct Answer: C. Chronic right-sided cardiac congestion causes posthepatic portal hypertension.",
+            details: "A. Incorrect: Hepatic vein thrombosis.\nB. Incorrect: Intrahepatic cause.\nC. Correct: Posthepatic obstruction.\nD. Incorrect: Not all are posthepatic."
+          },
+          {
+            text: "A 25-year-old female under investigation for secondary amenorrhea presents with jaundice, spider naevi, tender hepatomegaly, Hb 11.6 g/dL, platelets 95,000, albumin 3.3 g/dL, total bilirubin 4.5 mg/dL, AST 245 IU/L. What is the most likely diagnosis?",
+            choices: ["A. Hemochromatosis", "B. Wilson’s disease", "C. Primary biliary cirrhosis", "D. Autoimmune hepatitis"],
+            correct: 3,
+            explanation: "Correct Answer: D. Autoimmune hepatitis is likely in a young female with jaundice, hepatomegaly, and elevated AST.",
+            details: "A. Incorrect: Iron overload, less likely.\nB. Incorrect: Neurological symptoms.\nC. Incorrect: AMA-positive, older women.\nD. Correct: Matches presentation."
+          },
+          {
+            text: "Which of the following is a complication of portal hypertension?",
+            choices: ["A. Gastroesophageal varices with hemorrhage", "B. Ascites", "C. Hypersplenism", "D. All of the above"],
+            correct: 3,
+            explanation: "Correct Answer: D. All are complications of portal hypertension.",
+            details: "A. Incorrect: True, causes bleeding.\nB. Incorrect: True, fluid accumulation.\nC. Incorrect: True, spleen sequesters cells.\nD. Correct: All are complications."
+          },
+          {
+            text: "Which of the following causes odynophagia?",
+            choices: ["A. Esophageal cancer", "B. Esophageal web", "C. Myasthenia gravis", "D. Esophageal moniliasis"],
+            correct: 3,
+            explanation: "Correct Answer: D. Esophageal moniliasis (candidiasis) causes painful swallowing (odynophagia).",
+            details: "A. Incorrect: Dysphagia, not odynophagia.\nB. Incorrect: Dysphagia, not painful.\nC. Incorrect: Neuromuscular dysphagia.\nD. Correct: Infection causes pain."
+          },
+          {
+            text: "The portal vein supplies what percentage of oxygen to the liver?",
+            choices: ["A. 25%", "B. 50%", "C. 75%", "D. 100%"],
+            correct: 2,
+            explanation: "Correct Answer: C. The portal vein supplies ~75% of the liver’s oxygen.",
+            details: "A. Incorrect: Too low.\nB. Incorrect: Underestimates.\nC. Correct: Majority via portal vein.\nD. Incorrect: Hepatic artery contributes."
+          },
+          {
+            text: "Which substance is involved in the pathophysiology of hepatic encephalopathy?",
+            choices: ["A. Ammonia", "B. Glucose", "C. Creatinine", "D. Magnesium"],
+            correct: 0,
+            explanation: "Correct Answer: A. Ammonia accumulation contributes to hepatic encephalopathy.",
+            details: "A. Correct: Key neurotoxin.\nB. Incorrect: Not involved.\nC. Incorrect: Renal marker.\nD. Incorrect: Not a factor."
+          },
+          {
+            text: "Which of the following is a known precipitating factor for hepatic encephalopathy?",
+            choices: ["A. High carbohydrate diet", "B. Sugary fluids", "C. Constipation", "D. Analgesics"],
+            correct: 2,
+            explanation: "Correct Answer: C. Constipation increases ammonia absorption, precipitating hepatic encephalopathy.",
+            details: "A. Incorrect: Not a trigger.\nB. Incorrect: Not a factor.\nC. Correct: Ammonia retention.\nD. Incorrect: Some analgesics may contribute."
+          },
+          {
+            text: "Which of the following is a characteristic sign of hepatic encephalopathy?",
+            choices: ["A. Fine tremors", "B. Flapping tremors", "C. Ptosis", "D. Lower limb edema"],
+            correct: 1,
+            explanation: "Correct Answer: B. Flapping tremors (asterixis) are characteristic of hepatic encephalopathy.",
+            details: "A. Incorrect: Seen in Parkinson’s.\nB. Correct: Classic sign.\nC. Incorrect: Not related.\nD. Incorrect: Seen in cirrhosis."
+          },
+          {
+            text: "Which of the following is an absolute contraindication for liver transplantation?",
+            choices: ["A. Advanced age (70 years or more)", "B. Portal and mesenteric vein thrombosis", "C. Advanced HCC", "D. Extrahepatic malignancy"],
+            correct: 3,
+            explanation: "Correct Answer: D. Extrahepatic malignancy is an absolute contraindication for liver transplantation.",
+            details: "A. Incorrect: Relative contraindication.\nB. Incorrect: Manageable.\nC. Incorrect: Depends on stage.\nD. Correct: Absolute due to recurrence risk."
+          },
+          {
+            text: "Which of the following is true regarding dysphagia?",
+            choices: ["A. Motility disorders and organic esophageal lesions give the same presentation", "B. Endoscopy can be diagnostic and therapeutic", "C. Barium swallow can be used for diagnosis", "D. Manometry can diagnose some causes"],
+            correct: 1,
+            explanation: "Correct Answer: B. Endoscopy can diagnose and treat dysphagia causes (e.g., dilation for strictures).",
+            details: "A. Incorrect: Presentations differ.\nB. Correct: Diagnostic and therapeutic.\nC. Incorrect: True but less specific.\nD. Incorrect: True for motility disorders."
+          },
+          {
+            text: "Which of the following is true regarding vomiting?",
+            choices: ["A. Rapid evacuation of gastric contents with forcible abdominal wall contraction", "B. Asymptomatic regurgitation, rechewing, reswallowing", "C. Regurgitation of bitter fluid to the mouth", "D. Usually not preceded by nausea"],
+            correct: 0,
+            explanation: "Correct Answer: A. Vomiting involves forceful gastric evacuation with abdominal contraction.",
+            details: "A. Correct: Defines vomiting.\nB. Incorrect: Rumination.\nC. Incorrect: Regurgitation.\nD. Incorrect: Nausea precedes."
+          },
+          {
+            text: "Antinuclear antibody (ANA) is positive in which type of autoimmune hepatitis?",
+            choices: ["A. Type 1", "B. Type 2", "C. Type 3", "D. Type 4"],
+            correct: 0,
+            explanation: "Correct Answer: A. ANA is positive in type 1 autoimmune hepatitis.",
+            details: "A. Correct: Classic for type 1.\nB. Incorrect: Anti-LKM1 in type 2.\nC. Incorrect: Not a standard type.\nD. Incorrect: Not a standard type."
+          },
+          {
+            text: "An 8-year-old male with chronic diarrhea, abdominal pain waking him at night, declining school performance, esophagitis, and linear ulcerations in the colon. What is the most common extraintestinal manifestation related to this disorder?",
+            choices: ["A. Gallstones", "B. Iritis", "C. Sacroiliitis", "D. Arthralgia"],
+            correct: 3,
+            explanation: "Correct Answer: D. Arthralgia is the most common extraintestinal manifestation of IBD in children.",
+            details: "A. Incorrect: Less common.\nB. Incorrect: Less frequent.\nC. Incorrect: Less common.\nD. Correct: Most common."
+          },
+          {
+            text: "A 68-year-old man with an 8-week history of increased bowel frequency (4 times/day, looser stools) and hemoglobin 10 g/dL. What is the most appropriate investigation?",
+            choices: ["A. Stool culture", "B. Barium enema", "C. CT scan of abdomen and pelvis", "D. Colonoscopy"],
+            correct: 3,
+            explanation: "Correct Answer: D. Colonoscopy evaluates chronic diarrhea and anemia, likely indicating colorectal pathology.",
+            details: "A. Incorrect: For acute infection.\nB. Incorrect: Less sensitive.\nC. Incorrect: Adjunct, not first-line.\nD. Correct: Direct visualization."
+          },
+          {
+            text: "Autoimmune hepatitis is associated with elevated levels of which immunoglobulin?",
+            choices: ["A. IgA", "B. IgE", "C. IgM", "D. IgG"],
+            correct: 3,
+            explanation: "Correct Answer: D. Autoimmune hepatitis is associated with elevated IgG levels.",
+            details: "A. Incorrect: Not specific.\nB. Incorrect: Allergic conditions.\nC. Incorrect: Primary biliary cholangitis.\nD. Correct: Typical finding."
+          },
+          {
+            text: "Which statement best reflects the evidence on the association between smoking and ulcerative colitis?",
+            choices: ["A. Smokers are at increased risk of developing ulcerative colitis", "B. No association between smoking and ulcerative colitis", "C. Smokers are at reduced risk of developing ulcerative colitis", "D. Smoking has no effect on ulcerative colitis progression"],
+            correct: 2,
+            explanation: "Correct Answer: C. Smoking is associated with a reduced risk of developing ulcerative colitis.",
+            details: "A. Incorrect: Opposite effect.\nB. Incorrect: Association exists.\nC. Correct: Protective effect.\nD. Incorrect: Affects progression."
+          },
+          {
+            text: "What is the normal portal vein pressure?",
+            choices: ["A. 2-5 mmHg", "B. 5-10 mmHg", "C. 10-15 mmHg", "D. 20-25 mmHg"],
+            correct: 1,
+            explanation: "Correct Answer: B. Normal portal vein pressure is 5–10 mmHg.",
+            details: "A. Incorrect: Too low.\nB. Correct: Normal range.\nC. Incorrect: Indicates hypertension.\nD. Incorrect: Severe hypertension."
+          },
+          {
+            text: "A 52-year-old female is diagnosed with non-alcoholic steatohepatitis (NASH) following a liver biopsy. What is the most important step to prevent disease progression?",
+            choices: ["A. Stop smoking", "B. Start statin therapy", "C. Start sulfonylurea", "D. Weight loss"],
+            correct: 3,
+            explanation: "Correct Answer: D. Weight loss is the most effective way to prevent NASH progression.",
+            details: "A. Incorrect: Smoking not primary.\nB. Incorrect: Treats lipids, not NASH.\nC. Incorrect: For diabetes, not NASH.\nD. Correct: Reduces liver fat."
+          },
+          {
+            text: "A 65-year-old woman with a 2 cm duodenal ulcer and positive urease test completed a 14-day anti-H. pylori regimen. What is the next most appropriate step?",
+            choices: ["A. Immediately repeat urea breath test to confirm H. pylori eradication", "B. Extend treatment with the same anti-H. pylori regimen for 14 days", "C. Continue treatment with proton pump inhibitors for 4-6 weeks", "D. Repeat upper gastrointestinal endoscopy"],
+            correct: 2,
+            explanation: "Correct Answer: C. PPI therapy for 4–6 weeks heals the ulcer post-H. pylori treatment.",
+            details: "A. Incorrect: Test after 4 weeks off PPI.\nB. Incorrect: No indication to extend.\nC. Correct: Promotes healing.\nD. Incorrect: Not routine."
+          },
+          {
+            text: "A 31-year-old man with no past medical history presents with a single episode of vomiting a small amount of blood. When is a blood transfusion required?",
+            choices: ["A. No need for transfusion, regardless of hemoglobin level", "B. If hemoglobin level < 7 g/dL", "C. If hemoglobin level < 9 g/dL", "D. If hemoglobin level < 10 g/dL"],
+            correct: 1,
+            explanation: "Correct Answer: B. Transfusion is indicated for hemoglobin < 7 g/dL in stable GI bleeding.",
+            details: "A. Incorrect: Severe anemia requires transfusion.\nB. Correct: Standard threshold.\nC. Incorrect: Too high for stable patient.\nD. Incorrect: Too high."
+          },
+          {
+            text: "A 57-year-old man with persistent heartburn unrelieved by low-dose PPI and lifestyle measures. Screening blood tests are unremarkable. What is the most appropriate management?",
+            choices: ["A. Discontinue PPI and advise lifestyle measures", "B. Continue low-dose PPI long-term", "C. Give intermittent high-dose PPI for symptom relief", "D. Perform an upper GI endoscopy"],
+            correct: 3,
+            explanation: "Correct Answer: D. Endoscopy evaluates refractory heartburn for underlying causes.",
+            details: "A. Incorrect: Risks worsening symptoms.\nB. Incorrect: Ineffective dose.\nC. Incorrect: Endoscopy first.\nD. Correct: Assesses complications."
+          },
+          {
+            text: "Which of the following is true regarding rectal varices?",
+            choices: ["A. Found in about 30% of portal hypertension patients", "B. Can cause bleeding and are often mistaken for hemorrhoids", "C. Due to anastomosis between superior rectal vein and middle/inferior rectal veins", "D. All of the above"],
+            correct: 3,
+            explanation: "Correct Answer: D. All statements about rectal varices in portal hypertension are true.",
+            details: "A. Incorrect: True, ~30% prevalence.\nB. Incorrect: True, bleeding risk.\nC. Incorrect: True, anastomosis cause.\nD. Correct: All are true."
+          },
+          {
+            text: "Which of the following is not associated with non-alcoholic steatohepatitis (NASH)?",
+            choices: ["A. Hyperlipidemia", "B. Obesity", "C. Sudden weight loss", "D. Type 1 diabetes mellitus"],
+            correct: 3,
+            explanation: "Correct Answer: D. Type 1 diabetes is not typically associated with NASH; type 2 diabetes is.",
+            details: "A. Incorrect: Common in NASH.\nB. Incorrect: Major risk factor.\nC. Incorrect: May occur, not primary.\nD. Correct: Not associated."
+          },
+          {
+            text: "Which of the following is incorrect regarding intestinal physiology?",
+            choices: ["A. Voluminous diarrhea is due to small intestinal and colonic lesions", "B. Small intestine is responsible for absorption and secretion", "C. Intestinal absorption occurs mainly in the small intestine", "D. Ileal fluid is isotonic to plasma"],
+            correct: 0,
+            explanation: "Correct Answer: A. Voluminous diarrhea is primarily due to small intestinal lesions, not both.",
+            details: "A. Correct: False, small intestine primary.\nB. Incorrect: True, absorbs and secretes.\nC. Incorrect: True, main site.\nD. Incorrect: True, isotonic."
+          },
+          {
+            text: "Which of the following is not a cause of constipation?",
+            choices: ["A. Hyperthyroidism", "B. Diabetes mellitus", "C. Hyperparathyroidism", "D. Lack of fiber in the diet"],
+            correct: 0,
+            explanation: "Correct Answer: A. Hyperthyroidism causes diarrhea, not constipation.",
+            details: "A. Correct: Increases motility.\nB. Incorrect: Causes constipation.\nC. Incorrect: Causes constipation.\nD. Incorrect: Causes constipation."
+          },
+          {
+            text: "A 34-year-old man with reflux esophagitis is started on esomeprazole after lifestyle changes failed. What is the mode of action of esomeprazole?",
+            choices: ["A. Binds to the histamine H1 receptor", "B. Binds to the histamine H2 receptor", "C. Inhibits the calcium receptor of the gastric mucosa", "D. Inhibits the hydrogen-potassium-ATP pump"],
+            correct: 3,
+            explanation: "Correct Answer: D. Esomeprazole inhibits the H+/K+-ATPase pump, reducing acid secretion.",
+            details: "A. Incorrect: H1 for allergies.\nB. Incorrect: H2 for ranitidine.\nC. Incorrect: No such receptor.\nD. Correct: PPI mechanism."
+          },
+          {
+            text: "A 26-year-old woman presents with intermittent abdominal distension, bloating varying with her menstrual cycle, loose motions, and a history of depression/anxiety. Examination, blood tests, and sigmoidoscopy are normal. What is the best-fit diagnosis?",
+            choices: ["A. Chronic pancreatitis", "B. Ulcerative colitis", "C. Diverticulitis", "D. Irritable bowel syndrome"],
+            correct: 3,
+            explanation: "Correct Answer: D. IBS matches bloating, loose stools, and normal tests, often linked to stress.",
+            details: "A. Incorrect: Steatorrhea, pain.\nB. Incorrect: Bloody diarrhea.\nC. Incorrect: Pain, fever.\nD. Correct: Rome IV criteria."
+          },
+          {
+            text: "Which of the following is incorrect regarding osmotic diarrhea?",
+            choices: ["A. Due to poorly absorbed solutes", "B. Due to maldigestion of lactose", "C. Diarrhea stops with fasting", "D. Normal osmotic gap"],
+            correct: 3,
+            explanation: "Correct Answer: D. Osmotic diarrhea has an increased osmotic gap (>50 mOsm/kg).",
+            details: "A. Incorrect: True, solute-driven.\nB. Incorrect: True, lactose example.\nC. Incorrect: True, fasting stops.\nD. Correct: False, gap elevated."
+          },
+          {
+            text: "In patients with liver cirrhosis and medium/large varices or small varices with red wale marks or advanced cirrhosis (Child-Pugh B or C), what is true regarding prevention of the first episode of variceal bleeding?",
+            choices: ["A. No prophylaxis is needed", "B. Prophylaxis with nonselective beta-adrenergic blockers is recommended", "C. Injection sclerotherapy is the prophylactic option of choice", "D. Injection sclerotherapy is preferred over band ligation for high-risk patients"],
+            correct: 1,
+            explanation: "Correct Answer: B. Nonselective beta-blockers (e.g., propranolol) prevent first variceal bleeding.",
+            details: "A. Incorrect: Prophylaxis needed.\nB. Correct: Standard prophylaxis.\nC. Incorrect: Not first-line.\nD. Incorrect: Band ligation preferred."
+          },
+          {
+            text: "Which of the following is true regarding portal hypertension?",
+            choices: ["A. Represents an increase in hydrostatic pressure within the portal vein or its tributaries", "B. Always caused by extrahepatic obstruction", "C. Does not lead to variceal bleeding", "D. Only occurs in alcoholic liver disease"],
+            correct: 0,
+            explanation: "Correct Answer: A. Portal hypertension is increased pressure in the portal vein system.",
+            details: "A. Correct: Defines condition.\nB. Incorrect: Intrahepatic causes common.\nC. Incorrect: Causes variceal bleeding.\nD. Incorrect: Multiple causes."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizConfig.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          showEndScreen();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length && answeredQuestions.has(index)) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = !answeredQuestions.has(i) || i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.5);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من السنين السابقة</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      // Add keyboard navigation for accessibility
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
