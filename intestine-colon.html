@@ -1,10 +1,1315 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Intestine Colon</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: intestine-colon.html</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title id="quizTitle">Quiz Small Intestine, Colon, and Rectum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff; /* Blue color for headings */
+      }
+      .question-box {
+        display: none;
+      }
+      .question-text {
+        font-size: 18px; /* Increased for better readability */
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px; /* Increased for better readability */
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .options button:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+      .options button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+      .answer {
+        background: #d8f3dc; /* Light green for answer feedback */
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+      .details-box {
+        background: #eef7ff; /* Light blue for details */
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+      .next-btn, .start-btn, .more-details-btn, .flip-btn, .flashcard-nav-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .next-btn:hover, .start-btn:hover, .more-details-btn:hover, .flip-btn:hover, .flashcard-nav-btn:hover {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .next-btn:active, .start-btn:active, .more-details-btn:active, .flip-btn:active, .flashcard-nav-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .start-screen, .flash-card-screen {
+        text-align: center;
+      }
+      #answerBox, #detailsBox, #detailsBtn, #nextBtn {
+        display: none; /* Initially hidden */
+      }
+      .flash-card-screen {
+        display: none;
+      }
+      .flash-card {
+        background: #ffffff;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        min-height: 150px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .flashcard-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .question-nav button:hover {
+ diplomatic-color: #104e8b;
+        border-color: #104e8b;
+      }
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1 id="quizHeader">Quiz Small Intestine, Colon, and Rectum</h1>
+        <p id="lessonText">Lesson: Small Intestine, Colon, and Rectum</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <div class="flash-card-screen" id="flashCardScreen">
+        <h2>Flash Card Review</h2>
+        <p id="scoreMessage"></p>
+        <div class="flash-card" id="flashCardText"></div>
+        <button class="flip-btn" onclick="flipCard()">Flip Card</button>
+        <div class="flashcard-nav">
+          <button class="flashcard-nav-btn" id="prevFlashCardBtn" onclick="prevFlashCard()">Previous</button>
+          <button class="flashcard-nav-btn" id="nextFlashCardBtn" onclick="nextFlashCard()">Next</button>
+        </div>
+        <button class="start-btn" onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      // Configuration object for quiz content
+      const quizConfig = {
+        title: "Quiz - Chapter 65: Small Intestine, Colon, and Rectum",
+        lesson: "Chapter 65: Small Intestine, Colon, and Rectum",
+        questions: [
+  {
+    text: "Researchers studying neural crest cell migration in a human fetus observe normal activity beginning at the 8th week of embryogenesis with interruption during the 12th week, when migration is typically completed. Which of the following structures is most likely to lack innervation as a result of this disruption?",
+    choices: [
+      "A. Esophagus",
+      "B. Duodenum",
+      "C. Jejunum",
+      "D. Ileum",
+      "E. Cecum",
+      "F. Transverse colon",
+      "G. Rectum"
+    ],
+    correct: [6],
+    explanation: "Correct Answer: G. The rectum, derived from the hindgut, is most affected by disrupted neural crest cell migration at 12 weeks, leading to absent innervation (e.g., Hirschsprung’s disease).",
+    details: "A. Incorrect: Esophagus innervation earlier.\nB. Incorrect: Duodenum (foregut) less affected.\nC. Incorrect: Jejunum (midgut) earlier.\nD. Incorrect: Ileum (midgut) earlier.\nE. Incorrect: Cecum (midgut) earlier.\nF. Incorrect: Transverse colon (mid/hindgut) less affected.\nG. Correct: Rectum innervation disrupted."
+  },
+  {
+    text: "A 9-year-old boy is brought to the emergency department with a 2-day history of abdominal pain and passage of dark-colored stools. He has no history of trauma or previous surgeries. On examination, he has mild tenderness around the umbilicus but no rebound or guarding. Laboratory tests reveal a hemoglobin of 9.5 g/dL. A Tc-99m pertechnetate scan shows uptake in the right lower quadrant. Which of the following is the most likely cause of this patient’s condition?",
+    choices: [
+      "A. Intussusception",
+      "B. Meckel’s diverticulum",
+      "C. Crohn’s disease",
+      "D. Volvulus",
+      "E. Duodenal ulcer"
+    ],
+    correct: [1],
+    explanation: "Correct Answer: B. Meckel’s diverticulum causes painless rectal bleeding and periumbilical pain in children, with Tc-99m scan detecting ectopic gastric mucosa.",
+    details: "A. Incorrect: Colicky pain, currant jelly stools.\nB. Correct: Classic Meckel’s presentation.\nC. Incorrect: Rare in children, chronic symptoms.\nD. Incorrect: Obstruction, not bleeding.\nE. Incorrect: Epigastric pain, not periumbilical."
+  },
+  {
+    text: "A 35-year-old man with a history of pulmonary tuberculosis presents with chronic abdominal pain and weight loss. He complains of frequent episodes of diarrhea and passing small amounts of blood with stool. On examination, he is pale, and there is a firm, tender mass in the right iliac fossa. A barium follow-through shows narrowing of the terminal ileum with elevated cecum. Which of the following is the most likely diagnosis?",
+    choices: [
+      "A. Crohn’s disease",
+      "B. Ulcerative colitis",
+      "C. Hypertrophic ileocecal tuberculosis",
+      "D. Intestinal lymphoma",
+      "E. Intussusception"
+    ],
+    correct: [2],
+    explanation: "Correct Answer: C. Hypertrophic ileocecal tuberculosis presents with a right iliac fossa mass, ileal narrowing, and systemic TB symptoms in a patient with TB history.",
+    details: "A. Incorrect: Skip lesions, less mass-forming.\nB. Incorrect: Rectal involvement, mucosal.\nC. Correct: TB with ileocecal mass.\nD. Incorrect: Less TB association.\nE. Incorrect: Acute, not chronic."
+  },
+    {
+      text: "About embryology of the gut, all the following statements are true, except:",
+      choices: [
+        "A. The caecum is a part of the hindgut.",
+        "B. The superior mesenteric artery supplies the midgut.",
+        "C. Volvulus of the hindgut is a common cause of neonatal intestinal obstruction.",
+        "D. The inferior mesenteric artery supplies the foregut.",
+        "E. The junction of the mid and hindguts is in the second part of duodenum."
+      ],
+      correct: [0, 2, 3, 4],
+      explanation: "Correct Answer: A, C, D, E. The caecum is midgut, midgut volvulus is common, inferior mesenteric artery supplies hindgut, and mid/hindgut junction is at transverse colon.",
+      details: "A. Incorrect: Caecum is midgut.\nB. Correct: Superior mesenteric artery supplies midgut.\nC. Incorrect: Midgut volvulus common.\nD. Incorrect: Celiac artery supplies foregut.\nE. Incorrect: Junction at transverse colon."
+    },
+    {
+      text: "About anatomy of the rectum, all the following statements are true, except:",
+      choices: [
+        "A. The rectum develops from the hindgut.",
+        "B. The rectum has no taenia coli.",
+        "C. The whole rectum is covered on the front and sides with peritoneum.",
+        "D. The rectum is not a straight tube.",
+        "E. Lymphatic drainage of the rectum goes mainly to inferior mesenteric nodes."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Only the upper third of the rectum is covered by peritoneum on front and sides.",
+      details: "A. Correct: Hindgut origin.\nB. Correct: No taenia coli.\nC. Incorrect: Partial peritoneal coverage.\nD. Correct: Conforms to sacrum.\nE. Correct: Drains to inferior mesenteric nodes."
+    },
+    {
+      text: "About preoperative bowel preparation, all the following statements are true, except:",
+      choices: [
+        "A. Is done before surgery for perforated diverticulitis.",
+        "B. Is done before elective resection of left colon cancer.",
+        "C. Is not done before small intestinal surgery.",
+        "D. Its aim is to reduce the bacteria content of the bowel.",
+        "E. Intestinal antiseptics may be added to mechanical preparation."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Bowel preparation is not done for emergency surgeries like perforated diverticulitis.",
+      details: "A. Incorrect: Not done in emergencies.\nB. Correct: Done for elective colon surgery.\nC. Correct: Not needed for small intestine.\nD. Correct: Reduces bacteria.\nE. Correct: Antiseptics may be used."
+    },
+    {
+      text: "Choose the one correct statement about colostomy:",
+      choices: [
+        "A. A left iliac colostomy is always permanent.",
+        "B. A colostomy may be an end or a loop type.",
+        "C. After sigmoid resection a proximal colostomy and closure of distal stump is called Hartmann's procedure.",
+        "D. A colostomy is always an incontinent opening.",
+        "E. A colostomy may be complicated with external and/or an internal hernia."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Colostomies can be end or loop type.",
+      details: "A. Incorrect: Not always permanent.\nB. Correct: End or loop types exist.\nC. Incorrect: Hartmann's is specific procedure.\nD. Incorrect: Continent ileostomy possible.\nE. Incorrect: Hernias are complications, not defining."
+    },
+    {
+      text: "About prophylactic parenteral antibiotics for elective colon surgery, all the following statements are true, except:",
+      choices: [
+        "A. Their use aims at reducing surgical site infection.",
+        "B. Metronidazole is given to kill anaerobic bacteria.",
+        "C. An aminoglycoside is used to kill gram-negative bacteria.",
+        "D. Antibiotics are started one hour before surgery.",
+        "E. Antibiotics are continued for five days after surgery."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Prophylactic antibiotics are not continued for five days post-surgery.",
+      details: "A. Correct: Reduces infection.\nB. Correct: Metronidazole for anaerobes.\nC. Correct: Aminoglycosides for gram-negative.\nD. Correct: Started preoperatively.\nE. Incorrect: Stopped within 24 hours."
+    },
+    {
+      text: "About ileostomy, all the following statements are true, except:",
+      choices: [
+        "A. An ileostomy brings out fluidy excreta.",
+        "B. Ileostomy effluent is irritant to the skin.",
+        "C. A good terminal ileostomy should protrude above the skin level.",
+        "D. The main indication for a permanent ileostomy is diverticular disease of the colon.",
+        "E. A temporary ileostomy is done to protect a low rectal anastomosis."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Permanent ileostomy is for ulcerative colitis or polyposis, not diverticular disease.",
+      details: "A. Correct: Fluidy excreta.\nB. Correct: Irritant to skin.\nC. Correct: Protrudes for collection.\nD. Incorrect: Not for diverticular disease.\nE. Correct: Protects anastomosis."
+    },
+    {
+      text: "About intestinal injuries, choose the most appropriate statement:",
+      choices: [
+        "A. Colon injuries are less serious than small intestinal injuries.",
+        "B. Tears of the small intestinal mesentery that are parallel to the bowel are less serious than those perpendicular to it.",
+        "C. Adhesions reduce the incidence of intestinal injury at laparoscopy.",
+        "D. Small intestinal injuries are usually repaired without making a stoma.",
+        "E. Bleeding is the main life-threatening problem in cases of intestinal injury."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Small intestinal injuries are typically repaired without a stoma.",
+      details: "A. Incorrect: Colon injuries more serious.\nB. Incorrect: Parallel tears worse.\nC. Incorrect: Adhesions increase risk.\nD. Correct: Primary repair common.\nE. Incorrect: Peritonitis is main threat."
+    },
+    {
+      text: "About intestinal fistulas, one statement only is correct:",
+      choices: [
+        "A. Most of external intestinal fistulas are the result of colon cancer.",
+        "B. A common cause of colovesical fistula is colonic diverticulitis.",
+        "C. Proximal bowel obstruction is cause of persistence of a fistula.",
+        "D. A high-output fistula means an output that is more than 200ml/day.",
+        "E. Most of postoperative fistulas require surgical intervention."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Colonic diverticulitis is a common cause of colovesical fistula.",
+      details: "A. Incorrect: Most are postoperative.\nB. Correct: Diverticulitis common cause.\nC. Incorrect: Distal obstruction persists fistula.\nD. Incorrect: High-output >500ml/day.\nE. Incorrect: Most close conservatively."
+    },
+    {
+      text: "All the following factors cause persistence of an external intestinal fistula, except:",
+      choices: [
+        "A. Colonic Schistosomiasis.",
+        "B. Hypoproteinaemia.",
+        "C. Distal obstruction.",
+        "D. Crohn’s disease.",
+        "E. Fistulising colon cancer."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Colonic Schistosomiasis does not cause fistula persistence.",
+      details: "A. Incorrect: Not linked to persistence.\nB. Correct: Impairs healing.\nC. Correct: Prevents closure.\nD. Correct: Chronic inflammation.\nE. Correct: Tumor-related."
+    },
+    {
+      text: "All the following statements about colovesical fistulas are true, except:",
+      choices: [
+        "A. May be caused by sigmoid carcinoma.",
+        "B. May be caused by colonic diverticulitis.",
+        "C. May be caused by ulcerative colitis.",
+        "D. Pneumaturia is the specific symptom.",
+        "E. Is associated with resistant urinary tract infection."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Ulcerative colitis is mucosal and does not typically cause fistulas.",
+      details: "A. Correct: Sigmoid cancer causes fistulas.\nB. Correct: Diverticulitis main cause.\nC. Incorrect: UC not fistulizing.\nD. Correct: Pneumaturia pathognomonic.\nE. Correct: Causes resistant UTI."
+    },
+    {
+      text: "About external intestinal fistulas, all the following statements are true, except:",
+      choices: [
+        "A. Patients with low-output fistulas can be nutritionally maintained by oral feeding.",
+        "B. An intra-abdominal abscess that is related to the fistula can be percutaneously drained under CT guidance.",
+        "C. The level of a fistula is best shown on ultrasound examination.",
+        "D. Infliximab can help closure of a Crohn’s fistula.",
+        "E. Skin maceration is one of its complications."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Contrast radiography, not ultrasound, best shows fistula level.",
+      details: "A. Correct: Oral feeding possible.\nB. Correct: CT-guided drainage.\nC. Incorrect: Radiography preferred.\nD. Correct: Infliximab aids closure.\nE. Correct: Skin maceration common."
+    },
+    {
+      text: "About Meckel’s diverticulum, all the following statements are true, except:",
+      choices: [
+        "A. It is present in the ileum, usually 2-3 feet from the ileocaecal valve.",
+        "B. It is usually present on the mesenteric border.",
+        "C. It is usually asymptomatic.",
+        "D. If discovered accidentally at laparotomy for another reason in an elderly its excision is not indicated.",
+        "E. It may initiate ileoileal intussusceptions."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Meckel’s diverticulum is on the antimesenteric border.",
+      details: "A. Correct: Located in ileum.\nB. Incorrect: Antimesenteric border.\nC. Correct: Mostly asymptomatic.\nD. Correct: No excision in elderly.\nE. Correct: Causes intussusception."
+    },
+    {
+      text: "About Meckel’s diverticulum, all the following statements are true, except:",
+      choices: [
+        "A. It represents a patent part of the vitello-intestinal duct.",
+        "B. It occurs in 2-3% of the population.",
+        "C. It is formed of mucosa only.",
+        "D. It may initiate volvulus.",
+        "E. Its removal should include a rim of bowel around its base."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Meckel’s diverticulum has all bowel layers, not just mucosa.",
+      details: "A. Correct: Vitello-intestinal duct remnant.\nB. Correct: 2-3% prevalence.\nC. Incorrect: Full-thickness diverticulum.\nD. Correct: May cause volvulus.\nE. Correct: Rim resection needed."
+    },
+    {
+      text: "The commonest cause of acute intestinal obstruction in adults is:",
+      choices: [
+        "A. Postoperative adhesions.",
+        "B. Strangulated hernias.",
+        "C. Colon cancer.",
+        "D. Sigmoid volvulus.",
+        "E. Crohn’s disease."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Postoperative adhesions are the most common cause of intestinal obstruction.",
+      details: "A. Correct: Most common cause.\nB. Incorrect: Second most common.\nC. Incorrect: Common for colon obstruction.\nD. Incorrect: Rare cause.\nE. Incorrect: Less common."
+    },
+    {
+      text: "All the following types of intestinal obstruction may resolve on conservative treatment without surgery, except:",
+      choices: [
+        "A. Adhesive intestinal obstruction.",
+        "B. Infantile ileocaecal intussusceptions.",
+        "C. Sigmoid volvulus.",
+        "D. Paralytic ileus.",
+        "E. Midgut volvulus."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Midgut volvulus requires surgical correction.",
+      details: "A. Correct: May resolve conservatively.\nB. Correct: Hydrostatic reduction possible.\nC. Correct: Sigmoidoscopy reduction.\nD. Correct: Non-surgical treatment.\nE. Incorrect: Surgical correction needed."
+    },
+    {
+      text: "All the following diseases predispose to colorectal cancer, except:",
+      choices: [
+        "A. Ulcerative colitis.",
+        "B. Crohn’s disease.",
+        "C. A single adenomatous polyp.",
+        "D. Adenomatous polyposis coli.",
+        "E. Diverticular disease of the colon."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Diverticular disease is not precancerous.",
+      details: "A. Correct: UC increases risk.\nB. Correct: Crohn’s has lower risk.\nC. Correct: Polyps may turn malignant.\nD. Correct: APC has 100% risk.\nE. Incorrect: Not precancerous."
+    },
+    {
+      text: "The commonest site of colorectal cancer is:",
+      choices: [
+        "A. Caecum.",
+        "B. Transverse colon.",
+        "C. Splenic flexure.",
+        "D. Descending colon.",
+        "E. Rectosigmoid area."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Rectosigmoid area accounts for two-thirds of colorectal cancers.",
+      details: "A. Incorrect: 10% in caecum.\nB. Incorrect: Less common.\nC. Incorrect: Rare site.\nD. Incorrect: Less frequent.\nE. Correct: Most common site."
+    },
+    {
+      text: "Regarding colon carcinoma, one statement only is true:",
+      choices: [
+        "A. Caecal carcinoma commonly presents with intestinal obstruction.",
+        "B. Schistosomal polyps are premalignant.",
+        "C. Massive bleeding per rectum is the main symptom of left colon cancer.",
+        "D. Left colon cancer spreads to inferior mesenteric lymph nodes.",
+        "E. The disease is primarily treated by radiotherapy."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Left colon cancer drains to inferior mesenteric lymph nodes.",
+      details: "A. Incorrect: Caecal cancer causes vague symptoms.\nB. Incorrect: Schistosomiasis not precancerous.\nC. Incorrect: Minor bleeding typical.\nD. Correct: Lymphatic drainage to inferior mesenteric nodes.\nE. Incorrect: Surgery is primary treatment."
+    },
+    {
+      text: "The following conditions are examples of strangulation obstruction, except:",
+      choices: [
+        "A. Intussusception.",
+        "B. Obstructing sigmoid cancer.",
+        "C. Mesenteric vascular occlusion.",
+        "D. Volvulus.",
+        "E. Strangulated femoral hernia."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Sigmoid cancer causes obstruction, not strangulation.",
+      details: "A. Correct: Strangulation possible.\nB. Incorrect: No strangulation.\nC. Correct: Vascular occlusion causes ischaemia.\nD. Correct: Volvulus causes strangulation.\nE. Correct: Hernia with strangulation."
+    },
+    {
+      text: "All the following findings raise suspicion of strangulation in a case of intestinal obstruction, except:",
+      choices: [
+        "A. Abdominal pain that persists after gastric decompression of the GIT by a tube.",
+        "B. Persistent vomiting.",
+        "C. Abdominal tenderness.",
+        "D. Abdominal rigidity.",
+        "E. Leukocytosis."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Persistent vomiting occurs in both simple and strangulation obstruction.",
+      details: "A. Correct: Pain persists in strangulation.\nB. Incorrect: Vomiting not specific.\nC. Correct: Tenderness suggests strangulation.\nD. Correct: Rigidity indicates ischaemia.\nE. Correct: Leukocytosis raises suspicion."
+    },
+    {
+      text: "All the following are possible complications of colonic diverticula, except:",
+      choices: [
+        "A. Bleeding per rectum.",
+        "B. Colon stricture.",
+        "C. Toxic megacolon.",
+        "D. Pericolic abscess.",
+        "E. Feculent peritonitis."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Toxic megacolon is a complication of ulcerative colitis, not diverticula.",
+      details: "A. Correct: Diverticula may bleed.\nB. Correct: Stricture possible.\nC. Incorrect: Linked to UC.\nD. Correct: Abscess common.\nE. Correct: Peritonitis from rupture."
+    },
+    {
+      text: "All the following are possible causes of massive bleeding per rectum in adults, except:",
+      choices: [
+        "A. Colonic diverticular disease.",
+        "B. Ulcerative colitis.",
+        "C. Adenomatous polyposis coli.",
+        "D. Ischaemic colitis.",
+        "E. Angiodysplasia of the colon."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Polyposis causes minor bleeding, not massive.",
+      details: "A. Correct: Diverticula cause massive bleeding.\nB. Correct: UC may bleed profusely.\nC. Incorrect: Minor bleeding typical.\nD. Correct: Ischaemic colitis causes bleeding.\nE. Correct: Angiodysplasia common cause."
+    },
+    {
+      text: "About diverticular disease of the colon one of the following statements is true:",
+      choices: [
+        "A. Bleeding from the diverticula usually stops spontaneously.",
+        "B. The disease usually affects people with tendency to diarrhoea.",
+        "C. The disease is precancerous.",
+        "D. All cases require resection of the affected colon segment.",
+        "E. The diverticula are made of all layers of the bowel wall."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Diverticular bleeding often stops spontaneously.",
+      details: "A. Correct: Bleeding usually resolves.\nB. Incorrect: Linked to constipation.\nC. Incorrect: Not precancerous.\nD. Incorrect: Conservative treatment common.\nE. Incorrect: Mucosa only."
+    },
+    {
+      text: "About Crohn’s disease, all the following statements are true, except:",
+      choices: [
+        "A. The disease affects the full thickness of the intestine.",
+        "B. It is characterized by skip areas.",
+        "C. The rectum is the commonest site of affection.",
+        "D. It tends to cause strictures.",
+        "E. It tends to cause fistulas."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. The ileocaecal region, not rectum, is the commonest site for Crohn’s.",
+      details: "A. Correct: Transmural disease.\nB. Correct: Skip lesions typical.\nC. Incorrect: Ileocaecal most common.\nD. Correct: Strictures common.\nE. Correct: Fistulas frequent."
+    },
+    {
+      text: "All the following cancers commonly produce vague symptoms of ill health, except:",
+      choices: [
+        "A. Cancer of the body of stomach.",
+        "B. Cancer of the tail of pancreas.",
+        "C. Cancer of the caecum.",
+        "D. Cancer of the middle third of oesophagus.",
+        "E. Hepatocellular carcinoma."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Oesophageal cancer causes specific symptoms like dysphagia, not vague ill health.",
+      details: "A. Correct: Vague symptoms.\nB. Correct: Non-specific symptoms.\nC. Correct: Anaemia, weight loss.\nD. Incorrect: Dysphagia specific.\nE. Correct: Vague ill health."
+    },
+    {
+      text: "Which of the following statements are false?",
+      choices: [
+        "A. The small bowel is approximately 10 metres long.",
+        "B. The colon is approximately 3 metres long.",
+        "C. The most fixed part of the small bowel is the duodenum.",
+        "D. The jejunum is wider, thicker and more vascular than the ileum.",
+        "E. Peyer’s patches are contained in the ileum."
+      ],
+      correct: [0, 1],
+      explanation: "Correct Answer: A, B. Small bowel is ~6-7 meters, colon ~1.5 meters.",
+      details: "A. Incorrect: ~6-7 meters.\nB. Incorrect: ~1.5 meters.\nC. Correct: Duodenum fixed.\nD. Correct: Jejunum characteristics.\nE. Correct: Peyer’s in ileum."
+    },
+    {
+      text: "Which of the following statements are true?",
+      choices: [
+        "A. Duodenal diverticulum may result from a long-standing duodenal ulcer.",
+        "B. Jejunal diverticula may give rise to malabsorption problems.",
+        "C. A Meckel’s diverticulum can cause severe lower gastrointestinal haemorrhage.",
+        "D. A suspected Meckel’s diverticulum is best imaged by a barium meal and follow through.",
+        "E. Pain originating in a Meckel’s diverticulum is located around the umbilicus."
+      ],
+      correct: [1, 2, 4],
+      explanation: "Correct Answer: B, C, E. Jejunal diverticula cause malabsorption, Meckel’s causes bleeding, and pain is periumbilical.",
+      details: "A. Incorrect: Congenital, not ulcer-related.\nB. Correct: Malabsorption possible.\nC. Correct: Severe bleeding.\nD. Incorrect: Technetium scan preferred.\nE. Correct: Periumbilical pain."
+    },
+    {
+      text: "Which of the following statements are false?",
+      choices: [
+        "A. In the Western world, 60 per cent of the population over the age of 60 have diverticular disease.",
+        "B. A low-fibre diet causes the disease.",
+        "C. These diverticula consist of mucosa, muscle and serosa.",
+        "D. Those with perforation have a 10 times higher mortality than those with an inflammatory mass.",
+        "E. Sepsis is the principal cause of morbidity."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Diverticula consist of mucosa and submucosa, lacking muscle.",
+      details: "A. Correct: 60% prevalence.\nB. Correct: Low-fibre cause.\nC. Incorrect: No muscle layer.\nD. Correct: Higher mortality.\nE. Correct: Sepsis major morbidity."
+    },
+    {
+      text: "Which of the following is not a complication of diverticular disease of the colon?",
+      choices: [
+        "A. Paracolic abscess.",
+        "B. Fistulae.",
+        "C. Lower gastrointestinal haemorrhage.",
+        "D. Carcinoma.",
+        "E. Stricture."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Carcinoma is not a direct complication of diverticular disease.",
+      details: "A. Correct: Abscess common.\nB. Correct: Fistulae possible.\nC. Correct: Haemorrhage frequent.\nD. Incorrect: Not linked.\nE. Correct: Stricture possible."
+    },
+    {
+      text: "Which of the following are not true in complicated diverticular disease?",
+      choices: [
+        "A. Urinary symptoms may be the predominant presentation at times.",
+        "B. Profuse colonic haemorrhage may occur in 17 per cent.",
+        "C. Fistulae occur in 5 per cent of cases.",
+        "D. The commonest fistula is coloenteric.",
+        "E. In acute diverticulitis, CT scan is the ‘gold standard’ for imaging."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. The commonest fistula is colovesical, not coloenteric.",
+      details: "A. Correct: Urinary symptoms possible.\nB. Correct: 17% haemorrhage.\nC. Correct: 5% fistulae.\nD. Incorrect: Colovesical most common.\nE. Correct: CT is gold standard."
+    },
+    {
+      text: "Which of the following is not a cause of vesicocolic fistula?",
+      choices: [
+        "A. Carcinoma of rectosigmoid.",
+        "B. Radiation enteritis.",
+        "C. Crohn’s colitis.",
+        "D. Diverticular disease.",
+        "E. Amoebic colitis."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Amoebic colitis is not a cause of vesicocolic fistula.",
+      details: "A. Correct: Cancer causes fistulae.\nB. Correct: Radiation linked.\nC. Correct: Crohn’s fistulizing.\nD. Correct: Diverticulitis common cause.\nE. Incorrect: Not associated."
+    },
+    {
+      text: "In the surgical treatment of diverticular disease, which of the following statements are true?",
+      choices: [
+        "A. Colonoscopy must be carried out in all elective cases.",
+        "B. Barium enema is essential prior to elective operation.",
+        "C. Primary resection and end-to-end anastomosis must be carried out in all cases.",
+        "D. Hartmann’s operation is the procedure of choice in perforated diverticulitis.",
+        "E. In vesicocolic fistula, a one-stage operation can usually be done."
+      ],
+      correct: [3, 4],
+      explanation: "Correct Answer: D, E. Hartmann’s for perforated diverticulitis, one-stage for vesicocolic fistula.",
+      details: "A. Incorrect: Not mandatory.\nB. Incorrect: Not essential.\nC. Incorrect: Not always required.\nD. Correct: Hartmann’s for perforation.\nE. Correct: One-stage possible."
+    },
+    {
+      text: "Which of the following statements are true in ulcerative colitis (UC)?",
+      choices: [
+        "A. In 95 per cent of cases, the disease starts in the rectum and spreads proximally.",
+        "B. It is a diffuse disease affecting all the layers of the large bowel.",
+        "C. Granulomas are a typical microscopic feature.",
+        "D. The transverse colon is affected in toxic megacolon.",
+        "E. Patients may present as an emergency with fulminating colitis in 5-10 per cent."
+      ],
+      correct: [0, 3, 4],
+      explanation: "Correct Answer: A, D, E. UC starts in rectum, affects transverse colon in megacolon, and 5-10% present emergently.",
+      details: "A. Correct: Rectal onset.\nB. Incorrect: Mucosal disease.\nC. Incorrect: Granulomas in Crohn’s.\nD. Correct: Megacolon affects transverse colon.\nE. Correct: Emergency presentation."
+    },
+    {
+      text: "Which of the following is not a complication of ulcerative colitis (UC)?",
+      choices: [
+        "A. Carcinoma.",
+        "B. Primary sclerosing cholangitis.",
+        "C. Internal fistulae.",
+        "D. Ankylosing spondylitis.",
+        "E. Perforation."
+      ],
+      correct: [2],
+      explanation: "Correct Answer: C. Internal fistulae are typical of Crohn’s, not UC.",
+      details: "A. Correct: Cancer risk.\nB. Correct: Cholangitis associated.\nC. Incorrect: Not typical.\nD. Correct: Spondylitis linked.\nE. Correct: Perforation possible."
+    },
+    {
+      text: "Which of the following is not a barium enema finding in ulcerative colitis (UC)?",
+      choices: [
+        "A. Loss of haustrations.",
+        "B. Narrow contracted colon.",
+        "C. Increase in the presacral space.",
+        "D. Cobblestone appearance.",
+        "E. Backwash ileitis."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Cobblestone appearance is specific to Crohn’s, not UC.",
+      details: "A. Correct: Haustrations lost.\nB. Correct: Narrow colon.\nC. Correct: Presacral space increased.\nD. Incorrect: Crohn’s feature.\nE. Correct: Backwash ileitis."
+    },
+    {
+      text: "What is colonoscopy routinely used for in ulcerative colitis (UC)?",
+      choices: [
+        "A. To assess the extent of the disease.",
+        "B. To distinguish it from Crohn’s disease.",
+        "C. To monitor the response to treatment.",
+        "D. To carry out surveillance for the development of cancer.",
+        "E. To assess severity in acute cases."
+      ],
+      correct: [0, 1, 2, 3],
+      explanation: "Correct Answer: A, B, C, D. Colonoscopy assesses extent, distinguishes Crohn’s, monitors treatment, and surveils for cancer.",
+      details: "A. Correct: Extent assessment.\nB. Correct: Differentiates Crohn’s.\nC. Correct: Monitors response.\nD. Correct: Cancer surveillance.\nE. Incorrect: Not for acute severity."
+    },
+    {
+      text: "Which of the following criteria do not indicate severe disease in ulcerative colitis (UC)?",
+      choices: [
+        "A. More than four motions a day.",
+        "B. Pyrexia of over 37.5°C.",
+        "C. Tachycardia >90/min.",
+        "D. Tachypnoea >20/min.",
+        "E. Hypoalbuminaemia <30 g/L."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Tachypnoea is not a criterion for severe UC.",
+      details: "A. Correct: >4 motions/day.\nB. Correct: Pyrexia >37.5°C.\nC. Correct: Tachycardia >90/min.\nD. Incorrect: Not a criterion.\nE. Correct: Hypoalbuminaemia <30 g/L."
+    },
+    {
+      text: "Which ulcerative colitis (UC) patients have an enhanced risk of developing cancer?",
+      choices: [
+        "A. Those who have had the disease since childhood.",
+        "B. Those who have had the disease for over 10 years.",
+        "C. Those who have had a very severe first attack.",
+        "D. Those who have the entire colon involved.",
+        "E. Those who have another member of the family with the disease."
+      ],
+      correct: [0, 1, 3],
+      explanation: "Correct Answer: A, B, D. Childhood onset, >10 years duration, and pancolitis increase cancer risk.",
+      details: "A. Correct: Childhood onset.\nB. Correct: Long duration.\nC. Incorrect: Severity not linked.\nD. Correct: Pancolitis.\nE. Incorrect: Family history not direct risk."
+    },
+    {
+      text: "Which of the following drugs are not used in the medical treatment of ulcerative colitis (UC)?",
+      choices: [
+        "A. Prednisolone.",
+        "B. 5-ASA compounds.",
+        "C. Predsol enema.",
+        "D. Azathioprine.",
+        "E. Isoniazid."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Isoniazid is for tuberculosis, not UC.",
+      details: "A. Correct: Steroid used.\nB. Correct: 5-ASA standard.\nC. Correct: Enema used.\nD. Correct: Immunosuppressant.\nE. Incorrect: Not for UC."
+    },
+    {
+      text: "In the management of a severe attack of ulcerative colitis (UC), which of the following is not true?",
+      choices: [
+        "A. Every patient needs a proctocolectomy after resuscitation.",
+        "B. Daily plain abdominal X-ray is taken to assess transverse colon dilatation.",
+        "C. Parenteral high-calorie alimentation is instituted.",
+        "D. Intravenous hydrocortisone is given.",
+        "E. Azathioprine or cyclosporin A is given."
+      ],
+      correct: [0],
+      explanation: "Correct Answer: A. Proctocolectomy is not mandatory for all severe UC patients.",
+      details: "A. Incorrect: Not always needed.\nB. Correct: X-rays monitor dilatation.\nC. Correct: Parenteral nutrition.\nD. Correct: IV steroids.\nE. Correct: Immunosuppressants used."
+    },
+    {
+      text: "What are the indications for surgery in ulcerative colitis (UC)?",
+      choices: [
+        "A. Severe fulminating disease not responding to vigorous medical treatment.",
+        "B. Severe dysplastic change or cancer on biopsy.",
+        "C. Non-compliance of medical treatment.",
+        "D. Chronic steroid-dependent disease requiring large doses.",
+        "E. Extraintestinal disease."
+      ],
+      correct: [0, 1, 2, 3],
+      explanation: "Correct Answer: A, B, C, D. Fulminating disease, dysplasia/cancer, non-compliance, and steroid dependence are surgical indications.",
+      details: "A. Correct: Unresponsive disease.\nB. Correct: Cancer risk.\nC. Correct: Non-compliance.\nD. Correct: Steroid dependence.\nE. Incorrect: Not primary indication."
+    },
+    {
+      text: "Which of the following statements regarding surgery in ulcerative colitis (UC) is false?",
+      choices: [
+        "A. In the emergency situation, total abdominal colectomy and ileostomy should be the procedure of choice.",
+        "B. Proctocolectomy and ileostomy are associated with the lowest complication rate.",
+        "C. Restorative proctocolectomy with an ileoanal pouch should be considered in all patients.",
+        "D. Colectomy with ileorectal anastomosis is the most favoured procedure.",
+        "E. Ileostomy with a continent intraabdominal pouch is not often done."
+      ],
+      correct: [2, 3],
+      explanation: "Correct Answer: C, D. Restorative proctocolectomy not for all, ileorectal anastomosis not most favoured.",
+      details: "A. Correct: Emergency procedure.\nB. Correct: Low complications.\nC. Incorrect: Not for all patients.\nD. Incorrect: Not most favoured.\nE. Correct: Continent pouch rare."
+    },
+    {
+      text: "Which of the following statements is not true of Crohn’s disease (CD)?",
+      choices: [
+        "A. The ileum is affected in 60 per cent of cases.",
+        "B. It affects the entire thickness of the bowel.",
+        "C. Non-caseating granulomas are found in only 60 per cent of patients.",
+        "D. One in 10 patients have a first-degree relative with the disease.",
+        "E. A patient can be cured of CD once the diseased small or large bowel is removed."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Crohn’s disease is not cured by resection due to recurrence.",
+      details: "A. Correct: 60% ileum involvement.\nB. Correct: Transmural disease.\nC. Correct: 60% granulomas.\nD. Correct: 10% familial.\nE. Incorrect: Recurrence common."
+    },
+    {
+      text: "Which of the following pathological features is not found in Crohn’s disease (CD)?",
+      choices: [
+        "A. Internal fistulae.",
+        "B. Serpiginous and aphthous ulcers.",
+        "C. Chronic inflammation involves all layers of the bowel wall.",
+        "D. Pseudopolypi.",
+        "E. Cobblestone mucosa."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Pseudopolypi are typical of ulcerative colitis, not Crohn’s.",
+      details: "A. Correct: Fistulae common.\nB. Correct: Ulcers typical.\nC. Correct: Transmural inflammation.\nD. Incorrect: UC feature.\nE. Correct: Cobblestone mucosa."
+    },
+    {
+      text: "Which of the following can cause acute presentation of Crohn’s disease (CD)?",
+      choices: [
+        "A. Mimicking acute appendicitis.",
+        "B. Perforation.",
+        "C. Intestinal obstruction.",
+        "D. Toxic megacolon.",
+        "E. All of the above."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Crohn’s can present acutely with all listed conditions.",
+      details: "A. Correct: Appendicitis-like.\nB. Correct: Perforation possible.\nC. Correct: Obstruction common.\nD. Correct: Megacolon rare but possible.\nE. Correct: All included."
+    },
+    {
+      text: "Which of the following are true of large-bowel Crohn’s disease (CD)?",
+      choices: [
+        "A. 50-70 per cent will have an anal lesion.",
+        "B. Non-caseating giant-cell granulomas are most common in perianal disease.",
+        "C. In a strictured area malignancy can occur.",
+        "D. A perianal abscess or a fissure may be the first presenting feature.",
+        "E. Surgery is usually indicated."
+      ],
+      correct: [0, 2, 3],
+      explanation: "Correct Answer: A, C, D. Anal lesions, malignancy in strictures, and abscess/fissure as presentations are true.",
+      details: "A. Correct: 50-70% anal lesions.\nB. Incorrect: Granulomas not specific.\nC. Correct: Malignancy risk.\nD. Correct: Common presentations.\nE. Incorrect: Surgery not always needed."
+    },
+    {
+      text: "Which of the following is not a clinical presentation of Crohn’s disease (CD)?",
+      choices: [
+        "A. Bloodstained diarrhoea.",
+        "B. Intermittent abdominal pain.",
+        "C. Mass in the right iliac fossa.",
+        "D. Typical evening rise of temperature.",
+        "E. Pneumaturia and urinary tract infections."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Evening temperature rise is typical of tuberculosis, not Crohn’s.",
+      details: "A. Correct: Diarrhoea common.\nB. Correct: Pain frequent.\nC. Correct: Mass possible.\nD. Incorrect: Tuberculosis feature.\nE. Correct: Fistula-related."
+    },
+    {
+      text: "Which of the following statements about imaging in Crohn’s disease (CD) are true?",
+      choices: [
+        "A. Small-bowel enema is the imaging of choice in small-bowel disease.",
+        "B. Barium enema and colonoscopy should be done for large-bowel disease.",
+        "C. MRI is the ‘gold standard’ for perianal fistulae.",
+        "D. CT scan is used for suspected intraabdominal abscess and internal fistulae.",
+        "E. All of the above."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. All imaging modalities listed are used for Crohn’s disease.",
+      details: "A. Correct: Small-bowel enema.\nB. Correct: Barium/colonoscopy.\nC. Correct: MRI for fistulae.\nD. Correct: CT for abscess/fistulae.\nE. Correct: All true."
+    },
+    {
+      text: "Which of the following drugs are used in the treatment of Crohn’s disease (CD)?",
+      choices: [
+        "A. Steroids.",
+        "B. 5-ASA compounds.",
+        "C. Azathioprine.",
+        "D. Infliximab.",
+        "E. Metronidazole.",
+        "F. All of the above."
+      ],
+      correct: [5],
+      explanation: "Correct Answer: F. All listed drugs are used in Crohn’s treatment.",
+      details: "A. Correct: Steroids used.\nB. Correct: 5-ASA effective.\nC. Correct: Immunosuppressant.\nD. Correct: Anti-TNF therapy.\nE. Correct: Antibiotic for fistulae.\nF. Correct: All included."
+    },
+    {
+      text: "Which of the following operations is not done in Crohn’s disease (CD)?",
+      choices: [
+        "A. Segmental resections.",
+        "B. Strictureplasty.",
+        "C. Proctocolectomy and ileostomy.",
+        "D. Colectomy and ileorectal anastomosis.",
+        "E. Restorative proctocolectomy with ileoanal pouch."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. Restorative proctocolectomy is for UC, not CD, due to recurrence risk.",
+      details: "A. Correct: Segmental resection common.\nB. Correct: Strictureplasty used.\nC. Correct: Proctocolectomy possible.\nD. Correct: Ileorectal anastomosis.\nE. Incorrect: Not for CD."
+    },
+    {
+      text: "Which of the following statements about inflammatory bowel disease (UC and CD) is not true?",
+      choices: [
+        "A. Patients must be managed jointly by the physician and surgeon.",
+        "B. Surgery, when indicated, must be as radical as possible.",
+        "C. Patients must be given a good trial of optimum medical treatment prior to surgery.",
+        "D. There is more chance of a cure after surgery in UC than in CD.",
+        "E. In emergency presentation, patients must be vigorously resuscitated prior to operation and managed in the ITU postoperatively."
+      ],
+      correct: [1],
+      explanation: "Correct Answer: B. Surgery in IBD, especially CD, should be conservative, not radical.",
+      details: "A. Correct: Joint management.\nB. Incorrect: Conservative surgery.\nC. Correct: Medical trial first.\nD. Correct: UC curable.\nE. Correct: Resuscitation/ITU."
+    },
+    {
+      text: "In familial adenomatous polyposis (FAP), which of the following statements is false?",
+      choices: [
+        "A. It is inherited as a Mendelian dominant condition.",
+        "B. More than 80 per cent occur in patients with a positive family history.",
+        "C. The majority will become malignant.",
+        "D. The condition usually manifests by the age of 15 years.",
+        "E. Family members should be offered genetic testing in their early teens.",
+        "F. At-risk family members should be offered annual colonoscopic surveillance from the age of 12 years."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. FAP typically manifests by age 20-25, not 15.",
+      details: "A. Correct: Mendelian dominant.\nB. Correct: 80% familial.\nC. Correct: High malignancy risk.\nD. Incorrect: Manifests later.\nE. Correct: Genetic testing.\nF. Correct: Surveillance from 12."
+    },
+    {
+      text: "In familial adenomatous polyposis (FAP), which of these statements are true?",
+      choices: [
+        "A. 20 per cent of FAP arise as a result of new mutations in the adenomatous polyposis coli (APC) gene.",
+        "B. Large-bowel cancer occurs 15-20 years after the onset of the disease.",
+        "C. On surveillance, if there are no polyps by the age of 30 years, FAP is unlikely.",
+        "D. Polyps do not develop anywhere else other than the colon.",
+        "E. Colectomy with ileorectal anastomosis may result in rectal cancer later."
+      ],
+      correct: [0, 1, 2, 4],
+      explanation: "Correct Answer: A, B, C, E. New mutations, cancer latency, no polyps by 30, and rectal cancer risk are true.",
+      details: "A. Correct: 20% new mutations.\nB. Correct: 15-20 years to cancer.\nC. Correct: No polyps by 30 rules out.\nD. Incorrect: Polyps in stomach/duodenum.\nE. Correct: Rectal cancer risk."
+    },
+    {
+      text: "Which of the following are true in hereditary non-polyposis colorectal cancer (HNPCC)?",
+      choices: [
+        "A. The lifetime risk of developing colorectal cancer is 80 per cent.",
+        "B. The mean age of diagnosis is 44 years.",
+        "C. Females with HNPCC have a 30-50 per cent risk of developing endometrial博客网赚 cancer.",
+        "D. It can be diagnosed by genetic testing.",
+        "E. It is a much more malignant type of cancer.",
+        "F. The majority occur in the proximal colon."
+      ],
+      correct: [0, 1, 2, 3, 5],
+      explanation: "Correct Answer: A, B, C, D, F. Lifetime risk, diagnosis age, endometrial cancer, genetic testing, and proximal colon are true.",
+      details: "A. Correct: 80% risk.\nB. Correct: Mean age 44.\nC. Correct: 30-50% endometrial risk.\nD. Correct: Genetic diagnosis.\nE. Incorrect: Not more malignant.\nF. Correct: Proximal colon."
+    },
+    {
+      text: "Which of the following statements are true with regard to colorectal cancer?",
+      choices: [
+        "A. Almost 60 per cent occur in the rectosigmoid region.",
+        "B. Reduced dietary fibre is associated with an increased risk.",
+        "C. The least malignant form is the cauliflower type.",
+        "D. 20 per cent present as an emergency with intestinal obstruction.",
+        "E. All of the above."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. All statements about colorectal cancer are true.",
+      details: "A. Correct: 60% rectosigmoid.\nB. Correct: Low fibre risk.\nC. Correct: Cauliflower least malignant.\nD. Correct: 20% obstruction.\nE. Correct: All true."
+    },
+    {
+      text: "Which of the following statements are false?",
+      choices: [
+        "A. Right colonic cancers present with features of anaemia.",
+        "B. Left colonic cancers present with rectal bleeding and obstructive symptoms.",
+        "C. Even for an experienced colonoscopist, the failure rate to visualise the caecum is 10 per cent.",
+        "D. Intravenous urography (IVU) should be routinely done.",
+        "E. Synchronous cancers occur in 5 per cent."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. IVU is not routinely done for colorectal cancer.",
+      details: "A. Correct: Anaemia in right-sided.\nB. Correct: Bleeding/obstruction left-sided.\nC. Correct: 10% failure rate.\nD. Incorrect: Not routine.\nE. Correct: 5% synchronous."
+    },
+    {
+      text: "In large bowel cancer, which of the following statements are true?",
+      choices: [
+        "A. Thorough preoperative assessment and staging should be done with colonoscopy, US and spiral CT.",
+        "B. Resection is not done if the patient has liver metastases.",
+        "C. If, at operation, hepatic metastases are found, biopsy should be done.",
+        "D. Hepatic resection for metastases should be considered as a staged procedure.",
+        "E. Over 95 per cent of colonic carcinomas can be resected."
+      ],
+      correct: [0, 3, 4],
+      explanation: "Correct Answer: A, D, E. Staging, staged hepatic resection, and high resectability are true.",
+      details: "A. Correct: Comprehensive staging.\nB. Incorrect: Resection possible with metastases.\nC. Incorrect: Biopsy avoided.\nD. Correct: Staged resection.\nE. Correct: >95% resectable."
+    },
+    {
+      text: "Which of the following is false with regard to an enterocutaneous fistula?",
+      choices: [
+        "A. The commonest cause is postoperative.",
+        "B. A high-output fistula is defined as one where there is >1 L/day.",
+        "C. They should be thoroughly assessed with barium studies and CT scans.",
+        "D. They always need an operation to cure the problem.",
+        "E. Hypoproteinaemia and sepsis often accompany the condition."
+      ],
+      correct: [3],
+      explanation: "Correct Answer: D. Some fistulae close spontaneously, so surgery is not always needed.",
+      details: "A. Correct: Postoperative common.\nB. Correct: >1 L/day high-output.\nC. Correct: Barium/CT assessment.\nD. Incorrect: May close conservatively.\nE. Correct: Hypoproteinaemia/sepsis."
+    },
+    {
+      text: "In rectal cancer, which of the following statements are false?",
+      choices: [
+        "A. Low-grade well-differentiated cancers account for almost 50 per cent.",
+        "B. Mucoid adenocarcinomas have a poor prognosis.",
+        "C. Circumferential local spread is the most important.",
+        "D. Synchronous cancers are seen in 5 per cent.",
+        "E. Lymphatic spread occurs along the blood vessels to the para-aortic, iliac and inguinal nodes."
+      ],
+      correct: [0, 4],
+      explanation: "Correct Answer: A, E. Low-grade cancers are 11%, and lymphatic spread is primarily to para-aortic nodes.",
+      details: "A. Incorrect: 11% low-grade.\nB. Correct: Poor prognosis.\nC. Correct: Circumferential spread key.\nD. Correct: 5% synchronous.\nE. Incorrect: Primarily para-aortic."
+    },
+    {
+      text: "Assessment in rectal cancer should include:",
+      choices: [
+        "A. Sigmoidoscopy and biopsy.",
+        "B. Colonoscopy or CT colonography or barium enema to exclude synchronous cancer.",
+        "C. CT scan of liver and chest.",
+        "D. Magnetic resonance imaging (MRI) of pelvis and endoluminal ultrasound.",
+        "E. All of the above."
+      ],
+      correct: [4],
+      explanation: "Correct Answer: E. All listed assessments are part of rectal cancer evaluation.",
+      details: "A. Correct: Sigmoidoscopy/biopsy.\nB. Correct: Exclude synchronous cancer.\nC. Correct: CT for metastases.\nD. Correct: MRI/ultrasound for staging.\nE. Correct: All included."
+    },
+    {
+      text: "In all patients with rectal cancer, which of the following is not part of routine preoperative preparation?",
+      choices: [
+        "A. Mechanical bowel preparation.",
+        "B. Counseling and siting of stoma.",
+        "C. Radiotherapy.",
+        "D. Prophylactic antibiotics.",
+        "E. Prophylaxis for deep vein thrombosis."
+      ],
+      correct: [1, 2],
+      explanation: "Correct Answer: B, C. Stoma counseling and radiotherapy are not routine for all patients.",
+      details: "A. Correct: Bowel prep routine.\nB. Incorrect: Only for low resection.\nC. Incorrect: For advanced cases.\nD. Correct: Antibiotics standard.\nE. Correct: DVT prophylaxis."
+    },
+    {
+      text: "In surgery for rectal cancer, which of the following statements are false?",
+      choices: [
+        "A. The vast majority are treated by abdominoperineal resection.",
+        "B. Locally advanced tumours are treated preoperatively by chemoradiotherapy.",
+        "C. Anterior resection with total mesorectal excision is possible in a selected few.",
+        "D. In node-positive disease, adjuvant chemotherapy should be given.",
+        "E. Liver resection for secondaries at a subsequent operation offers a chance for cure in a selected group."
+      ],
+      correct: [0, 2],
+      explanation: "Correct Answer: A, C. Most undergo anterior resection, and mesorectal excision is standard.",
+      details: "A. Incorrect: Anterior resection common.\nB. Correct: Chemoradiotherapy for advanced.\nC. Incorrect: Standard procedure.\nD. Correct: Adjuvant chemotherapy.\nE. Correct: Liver resection possible."
+    },
+    {
+      text: "In the staging for rectal cancer, which of the following are true?",
+      choices: [
+        "A. The incidence of Dukes’ stage A is 15 per cent.",
+        "B. The incidence in Dukes’ stage C is 50 per cent.",
+        "C. Dukes’ stage D indicates distant metastasis, usually to the liver.",
+        "D. In the TNM staging, T3 indicates invasion through the serosa or mesorectal fascia.",
+        "E. In the TNM staging, N1 indicates the involvement of one to three lymph nodes."
+      ],
+      correct: [0, 1, 2, 4],
+      explanation: "Correct Answer: A, B, C, E. Dukes’ A, C, D, and TNM N1 are correct; T3 is not serosa invasion.",
+      details: "A. Correct: 15% Dukes’ A.\nB. Correct: 50% Dukes’ C.\nC. Correct: Dukes’ D metastasis.\nD. Incorrect: T3 through muscularis.\nE. Correct: N1 1-3 nodes."
+    }
+  ],
+  flashCards: [
+    {
+      front: "What is the most fixed part of the small bowel?",
+      back: "Duodenum"
+    },
+    {
+      front: "What are the characteristics of the jejunum compared to the ileum?",
+      back: "Wider, thicker, more vascular"
+    },
+    {
+      front: "Where are Peyer’s patches located?",
+      back: "Ileum"
+    },
+    {
+      front: "What complications can arise from a Meckel’s diverticulum?",
+      back: "Severe lower gastrointestinal haemorrhage, pain around the umbilicus"
+    },
+    {
+      front: "What is the principal cause of morbidity in diverticular disease of the colon?",
+      back: "Sepsis"
+    },
+    {
+      front: "What is the ‘gold standard’ imaging for acute diverticulitis?",
+      back: "CT scan"
+    },
+    {
+      front: "What is the procedure of choice for perforated diverticulitis?",
+      back: "Hartmann’s operation"
+    },
+    {
+      front: "What is the typical progression of ulcerative colitis?",
+      back: "Starts in the rectum and spreads proximally in 95% of cases"
+    },
+    {
+      front: "What are the indications for surgery in ulcerative colitis?",
+      back: "Severe fulminating disease, severe dysplasia/cancer, non-compliance, chronic steroid dependence"
+    },
+    {
+      front: "What is the imaging of choice for small-bowel Crohn’s disease?",
+      back: "Small-bowel enema"
+    },
+    {
+      front: "What is the ‘gold standard’ imaging for perianal fistulae in Crohn’s disease?",
+      back: "MRI"
+    },
+    {
+      front: "What is the inheritance pattern of familial adenomatous polyposis (FAP)?",
+      back: "Mendelian dominant"
+    },
+    {
+      front: "What is the lifetime risk of colorectal cancer in HNPCC?",
+      back: "80%"
+    },
+    {
+      front: "What is the most common location for colorectal cancer?",
+      back: "Rectosigmoid region (60%)"
+    },
+    {
+      front: "What is the commonest cause of enterocutaneous fistula?",
+      back: "Postoperative"
+    },
+    {
+      front: "A 45-year-old male with profuse mucous discharge, weakness, weight loss, and a fronded rectal growth with serum potassium of 2.2 mmol/L. What is the diagnosis?",
+      back: "Villous adenoma"
+    },
+    {
+      front: "A 35-year-old male with rectal bleeding, tenesmus, and a fleshy ulcerated mass in the mid-rectum after living in the Far East. What is the diagnosis?",
+      back: "Amoebic granuloma"
+    },
+    {
+      front: "A 50-year-old female with rectal bleeding, flatus, mucus, blood, and inflamed rectal mucosa up to 15 cm on sigmoidoscopy. What is the diagnosis?",
+      back: "Proctitis"
+    },
+    {
+      front: "A 40-year-old female with rectal bleeding, mucus, constipation, occasional incontinence, partial rectal prolapse, and an anterior wall ulcer at 10 cm. What is the diagnosis?",
+      back: "Solitary rectal ulcer"
+    },
+    {
+      front: "A 55-year-old female with a 5 cm rectal prolapse for 10 months, reducible with a gurgle. What is the diagnosis?",
+      back: "Rectal prolapse"
+    },
+    {
+      front: "A 65-year-old male with early morning diarrhoea, urgency, tenesmus, blood, mucus, and a hard indurated mass at 8 cm. What is the diagnosis?",
+      back: "Carcinoma of rectum"
+    },
+    {
+      front: "A 68-year-old male with bright red painless bleeding, recent bowel change, and incomplete defaecation sensation. What is the diagnosis?",
+      back: "Rectal cancer"
+    },
+    {
+      front: "An 82-year-old male with previous myocardial infarctions and AAA repair, abdominal pain, and darkish rectal bleeding. What is the diagnosis?",
+      back: "Ischaemic colitis"
+    },
+    {
+      front: "A 90-year-old female with chronic constipation, lower abdominal pain, and painless dark blood per rectum. What is the diagnosis?",
+      back: "Diverticulitis"
+    },
+    {
+      front: "An 18-year-old student post-travel with bloody diarrhoea and colicky abdominal pain. What is the diagnosis?",
+      back: "Infective colitis"
+    },
+    {
+      front: "A 24-year-old female with 6-month diarrhoea, blood, mucus, weight loss, and a mother with a stoma. What is the diagnosis?",
+      back: "Ulcerative colitis"
+    },
+    {
+      front: "A 30-year-old HIV-positive male with 2-week severe tenesmus and fresh blood per rectum. What is the diagnosis?",
+      back: "Proctitis"
+    }
+  ]
+};
+
+      // Initialize quiz content
+      document.title = quizConfig.title;
+      document.getElementById("quizHeader").innerText = quizConfig.title;
+      document.getElementById("lessonText").innerText = `Lesson: ${quizConfig.lesson}`;
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let currentFlashCardIndex = 0;
+      let isFront = true;
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+      }
+
+      function showQuestion() {
+        const q = quizConfig.questions[currentQuestionIndex];
+        document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+        const optionsBox = document.getElementById("optionsBox");
+        optionsBox.innerHTML = ""; // Clear previous options
+
+        q.choices.forEach((choice, idx) => {
+          const btn = document.createElement("button");
+          btn.innerText = decodeHtml(choice);
+          btn.onclick = () => checkAnswer(idx, btn);
+          optionsBox.appendChild(btn);
+        });
+
+        document.getElementById("answerBox").style.display = "none";
+        document.getElementById("detailsBtn").style.display = "none";
+        document.getElementById("detailsBox").style.display = "none";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+
+      function checkAnswer(selectedIndex) {
+        const q = quizConfig.questions[currentQuestionIndex];
+        const answerBox = document.getElementById("answerBox");
+        const detailsBtn = document.getElementById("detailsBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+        for (let i = 0; i < optionButtons.length; i++) {
+          optionButtons[i].disabled = true;
+          optionButtons[i].style.opacity = 0.7;
+          if (q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+          } else if (i === selectedIndex && !q.correct.includes(i)) {
+            optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect selected
+          }
+        }
+
+        if (q.correct.includes(selectedIndex)) {
+          answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+          score++;
+        } else {
+          answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+        }
+        answerBox.style.display = "block";
+        detailsBtn.style.display = "inline-block";
+        nextBtn.style.display = "inline-block";
+        updateQuestionNav();
+      }
+
+      function showDetails() {
+        const detailsBox = document.getElementById("detailsBox");
+        const q = quizConfig.questions[currentQuestionIndex];
+        detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+        detailsBox.style.display = "block";
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizConfig.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          document.getElementById("questionBox").style.display = "none";
+          const flashCardScreen = document.getElementById("flashCardScreen");
+          flashCardScreen.style.display = "block";
+          document.getElementById("scoreMessage").innerText = `You scored ${score} out of ${quizConfig.questions.length}. Now review with flash cards!`;
+          showFlashCard();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        const navBox = document.getElementById("questionNav");
+        navBox.innerHTML = "";
+        quizConfig.questions.forEach((_, index) => {
+          const btn = document.createElement("button");
+          btn.innerText = `${index + 1}`;
+          btn.onclick = () => goToQuestion(index);
+          navBox.appendChild(btn);
+        });
+        updateQuestionNav();
+      }
+
+      function updateQuestionNav() {
+        const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+        for (let i = 0; i < navButtons.length; i++) {
+          navButtons[i].disabled = (i === currentQuestionIndex);
+          navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : 1;
+        }
+      }
+
+      function showFlashCard() {
+        const card = quizConfig.flashCards[currentFlashCardIndex];
+        document.getElementById("flashCardText").innerHTML = decodeHtml(isFront ? card.front : card.back);
+        document.getElementById("prevFlashCardBtn").disabled = currentFlashCardIndex === 0;
+        document.getElementById("nextFlashCardBtn").disabled = currentFlashCardIndex === quizConfig.flashCards.length - 1;
+      }
+
+      function flipCard() {
+        isFront = !isFront;
+        showFlashCard();
+      }
+
+      function prevFlashCard() {
+        if (currentFlashCardIndex > 0) {
+          currentFlashCardIndex--;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function nextFlashCard() {
+        if (currentFlashCardIndex < quizConfig.flashCards.length - 1) {
+          currentFlashCardIndex++;
+          isFront = true;
+          showFlashCard();
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        currentFlashCardIndex = 0;
+        isFront = true;
+        document.getElementById("flashCardScreen").style.display = "none";
+        startQuiz();
+      }
+    </script>
+  </body>
 </html>
