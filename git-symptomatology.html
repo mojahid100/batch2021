@@ -1,10 +1,676 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>Git Symptomatology</title>
-</head>
-<body>
-    <h1 style="text-align:center; margin-top: 100px;">🔧 جاري إضافة المحتوى لاحقًا: git-symptomatology.html</h1>
-</body>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GIT Symptomatology Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>GIT Symptomatology Quiz</h1>
+        <p lang="ar">الأسئلة من ملف GIT Symptomatology.pdf</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "GIT Symptomatology Quiz",
+        lesson: "الأسئلة من ملف GIT Symptomatology.pdf",
+        questions: [
+          {
+            text: "What information in a patient’s personal history provides an impression about fertility?",
+            choices: ["A. Occupation", "B. Marital status, number of children, and age of first and last child", "C. Residence and place of birth", "D. Special habits like smoking"],
+            correct: 1,
+            explanation: "Correct Answer: B. Marital status and reproductive history indicate fertility status.",
+            details: "A. Incorrect: Occupation relates to exposures, not fertility.\nB. Correct: Number and timing of children assess reproductive history.\nC. Incorrect: Residence is relevant for endemic diseases.\nD. Incorrect: Smoking affects fertility indirectly."
+          },
+          {
+            text: "Which aspect of personal history is relevant for assessing the risk of viral hepatitis exposure?",
+            choices: ["A. Age and sex", "B. Occupation", "C. Number of children", "D. Residence in an endemic area"],
+            correct: 1,
+            explanation: "Correct Answer: B. Occupations like healthcare increase hepatitis exposure risk.",
+            details: "A. Incorrect: Non-specific for hepatitis.\nB. Correct: High-risk jobs involve blood exposure.\nC. Incorrect: Unrelated to hepatitis risk.\nD. Incorrect: Residence is also relevant but not selected."
+          },
+          {
+            text: "When taking the history of the present illness, what should be included after analyzing the complaint?",
+            choices: ["A. Family history of malignancy", "B. Chronological related history from the last time the patient was well", "C. Menstrual and obstetric history", "D. Travel history"],
+            correct: 1,
+            explanation: "Correct Answer: B. Chronological history is the core of the present illness.",
+            details: "A. Incorrect: Part of family history.\nB. Correct: Timeline of symptoms is essential.\nC. Incorrect: Included if relevant.\nD. Incorrect: Included if relevant to complaint."
+          },
+          {
+            text: "Which of the following is part of the past medical history?",
+            choices: ["A. Current medication for chronic illness", "B. History of blood transfusion", "C. Consanguinity in the family", "D. Recent travel destinations"],
+            correct: 1,
+            explanation: "Correct Answer: B. Blood transfusions are significant past medical events.",
+            details: "A. Incorrect: Part of current treatment.\nB. Correct: Indicates past medical issues.\nC. Incorrect: Family history.\nD. Incorrect: Social/travel history."
+          },
+          {
+            text: "What should be asked about in the family history?",
+            choices: ["A. Patient’s occupation and special habits", "B. Diseases or malignancies running in the family", "C. Patient’s compliance with treatment", "D. Recent vaccinations received"],
+            correct: 1,
+            explanation: "Correct Answer: B. Family history identifies genetic disease risks.",
+            details: "A. Incorrect: Personal history.\nB. Correct: Focuses on hereditary conditions.\nC. Incorrect: Current management.\nD. Incorrect: Immunization history."
+          },
+          {
+            text: "What is the definition of vomiting according to the document?",
+            choices: ["A. Release of gas from the esophagus or stomach", "B. Forceful retrograde expulsion of gastric contents", "C. Spasmodic contraction of the diaphragm", "D. Difficulty in swallowing"],
+            correct: 1,
+            explanation: "Correct Answer: B. Vomiting is the forceful expulsion of gastric contents.",
+            details: "A. Incorrect: Describes eructation.\nB. Correct: Involves abdominal contractions.\nC. Incorrect: Describes hiccough.\nD. Incorrect: Describes dysphagia."
+          },
+          {
+            text: "Which characteristic of vomiting suggests pyloric stenosis?",
+            choices: ["A. Bile-stained vomiting", "B. Faeculent vomiting", "C. Projectile vomiting of non-bile-stained gastric content", "D. Vomiting preceded by severe nausea"],
+            correct: 2,
+            explanation: "Correct Answer: C. Projectile, non-bile-stained vomiting is classic for pyloric stenosis.",
+            details: "A. Incorrect: Suggests post-duodenal obstruction.\nB. Incorrect: Indicates distal obstruction.\nC. Correct: Due to gastric outlet obstruction.\nD. Incorrect: Non-specific."
+          },
+          {
+            text: "What is a key question to ask about haematemesis?",
+            choices: ["A. Is it associated with lactose intolerance?", "B. Does it occur after meals or fasting?", "C. Has the patient required blood transfusion?", "D. Is it painful or painless?"],
+            correct: 2,
+            explanation: "Correct Answer: C. Transfusion history assesses haematemesis severity.",
+            details: "A. Incorrect: Unrelated to haematemesis.\nB. Incorrect: Less critical than severity.\nC. Correct: Indicates significant blood loss.\nD. Incorrect: Less relevant."
+          },
+          {
+            text: "Which of the following is a feature of oropharyngeal dysphagia?",
+            choices: ["A. Worse with solids than liquids", "B. Associated nasal regurgitation", "C. Food sticks soon after swallowing", "D. Always associated with heartburn"],
+            correct: 1,
+            explanation: "Correct Answer: B. Nasal regurgitation is a hallmark of oropharyngeal dysphagia.",
+            details: "A. Incorrect: Typical of esophageal dysphagia.\nB. Correct: Due to swallowing incoordination.\nC. Incorrect: Suggests esophageal issue.\nD. Incorrect: Heartburn not always present."
+          },
+          {
+            text: "What defines dyspepsia?",
+            choices: ["A. Burning sensation in the chest or upper abdomen", "B. Sense of indigestion and abdominal discomfort", "C. Spasmodic contraction of the diaphragm", "D. Passage of black, tarry stools"],
+            correct: 1,
+            explanation: "Correct Answer: B. Dyspepsia involves indigestion and discomfort.",
+            details: "A. Incorrect: Describes heartburn.\nB. Correct: Core definition of dyspepsia.\nC. Incorrect: Describes hiccough.\nD. Incorrect: Describes melena."
+          },
+          {
+            text: "Which type of dyspepsia is characterized by epigastric pain relieved by food or antacids?",
+            choices: ["A. Reflux-like dyspepsia", "B. Ulcer-like dyspepsia", "C. Dysmotility-like dyspepsia", "D. Functional dyspepsia"],
+            correct: 1,
+            explanation: "Correct Answer: B. Ulcer-like dyspepsia features pain relief with food/antacids.",
+            details: "A. Incorrect: Involves heartburn.\nB. Correct: Mimics peptic ulcer symptoms.\nC. Incorrect: Involves bloating, fullness.\nD. Incorrect: Non-specific symptoms."
+          },
+          {
+            text: "What is a key feature of heartburn?",
+            choices: ["A. Forceful expulsion of gastric contents", "B. Burning sensation in the center of chest or upper abdomen", "C. Release of gas from the esophagus or stomach", "D. Difficulty initiating swallowing"],
+            correct: 1,
+            explanation: "Correct Answer: B. Heartburn is a burning sensation in the chest/abdomen.",
+            details: "A. Incorrect: Describes vomiting.\nB. Correct: Due to acid reflux.\nC. Incorrect: Describes eructation.\nD. Incorrect: Describes dysphagia."
+          },
+          {
+            text: "What defines eructation (belching)?",
+            choices: ["A. Spasmodic contraction of the diaphragm", "B. Release of gas from the esophagus or stomach", "C. Passage of three or more loose stools per day", "D. Yellowish discoloration of the skin"],
+            correct: 1,
+            explanation: "Correct Answer: B. Eructation is the release of gas from the esophagus/stomach.",
+            details: "A. Incorrect: Describes hiccough.\nB. Correct: Commonly called belching.\nC. Incorrect: Describes diarrhea.\nD. Incorrect: Describes jaundice."
+          },
+          {
+            text: "What is the definition of flatulence and bloating?",
+            choices: ["A. Passage of black, tarry stools", "B. Increased gases in the abdomen", "C. Difficulty in swallowing", "D. Spasmodic contraction of the diaphragm"],
+            correct: 1,
+            explanation: "Correct Answer: B. Flatulence and bloating involve increased abdominal gases.",
+            details: "A. Incorrect: Describes melena.\nB. Correct: Causes discomfort and distension.\nC. Incorrect: Describes dysphagia.\nD. Incorrect: Describes hiccough."
+          },
+          {
+            text: "Which characteristic of diarrhea suggests an osmotic process?",
+            choices: ["A. Large volume, not affected by fasting", "B. Moderate volume, improves on fasting", "C. Bloody diarrhea with abdominal pain", "D. Frequent low volume diarrhea"],
+            correct: 1,
+            explanation: "Correct Answer: B. Osmotic diarrhea improves with fasting.",
+            details: "A. Incorrect: Suggests secretory diarrhea.\nB. Correct: Due to unabsorbed solutes.\nC. Incorrect: Suggests inflammatory diarrhea.\nD. Incorrect: Non-specific."
+          },
+          {
+            text: "What defines constipation?",
+            choices: ["A. Passage of three or more loose stools per day", "B. Less than three bowel motions per week with hard stool", "C. Fresh rectal bleeding", "D. Yellowish discoloration of the skin"],
+            correct: 1,
+            explanation: "Correct Answer: B. Constipation is infrequent, hard stools.",
+            details: "A. Incorrect: Describes diarrhea.\nB. Correct: Per Rome IV criteria.\nC. Incorrect: Describes haematochezia.\nD. Incorrect: Describes jaundice."
+          },
+          {
+            text: "What is a key question to ask about bleeding per rectum (haematochezia)?",
+            choices: ["A. Is it associated with nausea or vomiting?", "B. Is it painful or painless?", "C. Is it preceded by severe retching?", "D. Does it occur after fasting?"],
+            correct: 1,
+            explanation: "Correct Answer: B. Painful vs. painless bleeding guides diagnosis.",
+            details: "A. Incorrect: Less relevant.\nB. Correct: Pain suggests anal fissure, painless suggests polyps.\nC. Incorrect: Relevant for vomiting.\nD. Incorrect: Non-specific."
+          },
+          {
+            text: "What does melena indicate?",
+            choices: ["A. Fresh rectal bleeding distal to the ligament of Treitz", "B. Upper GIT bleeding up to the first part of the duodenum", "C. Bleeding from the lower colon only", "D. Hemolytic jaundice"],
+            correct: 1,
+            explanation: "Correct Answer: B. Melena indicates upper GIT bleeding.",
+            details: "A. Incorrect: Describes haematochezia.\nB. Correct: Blood degrades in upper GIT.\nC. Incorrect: Lower bleeding is fresh.\nD. Incorrect: Jaundice unrelated."
+          },
+          {
+            text: "What volume of blood loss is implied by melena?",
+            choices: ["A. Less than 10 mL", "B. Greater than 50 mL", "C. Exactly 25 mL", "D. Greater than 100 mL"],
+            correct: 1,
+            explanation: "Correct Answer: B. Melena requires >50 mL blood loss.",
+            details: "A. Incorrect: Too low for melena.\nB. Correct: Sufficient for tarry stools.\nC. Incorrect: Not precise.\nD. Incorrect: May occur but not required."
+          },
+          {
+            text: "What is the definition of jaundice?",
+            choices: ["A. Passage of black, tarry stools", "B. Yellowish discoloration of skin and mucous membranes", "C. Increased gases in the abdomen", "D. Burning sensation in the chest"],
+            correct: 1,
+            explanation: "Correct Answer: B. Jaundice is yellowish skin/mucous membrane discoloration.",
+            details: "A. Incorrect: Describes melena.\nB. Correct: Due to bilirubin accumulation.\nC. Incorrect: Describes bloating.\nD. Incorrect: Describes heartburn."
+          },
+          {
+            text: "Which feature is associated with cholestatic jaundice?",
+            choices: ["A. Normal urine color", "B. Dark urine and acholic stool", "C. Pale urine and dark stool", "D. No pruritus"],
+            correct: 1,
+            explanation: "Correct Answer: B. Cholestatic jaundice causes dark urine and acholic stool.",
+            details: "A. Incorrect: Urine is dark.\nB. Correct: Due to conjugated bilirubin.\nC. Incorrect: Opposite pattern.\nD. Incorrect: Pruritus is common."
+          },
+          {
+            text: "What is a key question to ask about jaundice?",
+            choices: ["A. Is it associated with lactose intolerance?", "B. Is there pain in the right hypochondrium related to meals?", "C. Is it painful or painless swallowing?", "D. Does it occur after fasting?"],
+            correct: 1,
+            explanation: "Correct Answer: B. Pain related to meals suggests biliary issues.",
+            details: "A. Incorrect: Unrelated to jaundice.\nB. Correct: Indicates gallstones or obstruction.\nC. Incorrect: Relevant for dysphagia.\nD. Incorrect: Non-specific."
+          },
+          {
+            text: "Which type of jaundice is associated with pruritus?",
+            choices: ["A. Prehepatic jaundice", "B. Hepatic jaundice", "C. Posthepatic jaundice", "D. Hemolytic jaundice"],
+            correct: 2,
+            explanation: "Correct Answer: C. Posthepatic jaundice causes pruritus.",
+            details: "A. Incorrect: No bile salt accumulation.\nB. Incorrect: Less associated with pruritus.\nC. Correct: Due to bile duct obstruction.\nD. Incorrect: Unconjugated bilirubin."
+          },
+          {
+            text: "What stool color is typically seen in hemolytic jaundice?",
+            choices: ["A. Pale (clay-colored)", "B. Dark", "C. Acholic", "D. Slightly pale"],
+            correct: 1,
+            explanation: "Correct Answer: B. Hemolytic jaundice causes dark stools.",
+            details: "A. Incorrect: Seen in cholestatic jaundice.\nB. Correct: Due to urobilinogen.\nC. Incorrect: Synonymous with pale.\nD. Incorrect: Non-specific."
+          },
+          {
+            text: "Which of the following is a constitutional symptom?",
+            choices: ["A. Dysphagia", "B. Cachexia", "C. Eructation", "D. Flatulence"],
+            correct: 1,
+            explanation: "Correct Answer: B. Cachexia is a constitutional symptom.",
+            details: "A. Incorrect: GIT-specific symptom.\nB. Correct: Systemic weight loss.\nC. Incorrect: GIT symptom.\nD. Incorrect: GIT symptom."
+          },
+          {
+            text: "What is a constitutional symptom that may accompany GIT disorders?",
+            choices: ["A. Painful swallowing", "B. Excessive sweating", "C. Nasal regurgitation", "D. Passage of fresh blood per rectum"],
+            correct: 1,
+            explanation: "Correct Answer: B. Excessive sweating is a constitutional symptom.",
+            details: "A. Incorrect: Specific to dysphagia.\nB. Correct: Systemic symptom in GIT diseases.\nC. Incorrect: Specific to dysphagia.\nD. Incorrect: Specific to bleeding."
+          },
+          {
+            text: "How is the intensity of pain typically graded?",
+            choices: ["A. On a scale from 1 to 5", "B. On a scale from 0 to 10", "C. As mild, moderate, or severe", "D. Based on patient’s verbal description only"],
+            correct: 1,
+            explanation: "Correct Answer: B. Pain is graded on a 0–10 scale.",
+            details: "A. Incorrect: Less common scale.\nB. Correct: Standard numerical scale.\nC. Incorrect: Qualitative, not numerical.\nD. Incorrect: Subjective, not standardized."
+          },
+          {
+            text: "Which characteristic of pain should be assessed during history taking?",
+            choices: ["A. Color of the pain", "B. Character (e.g., colicky, dull aching, burning)", "C. Volume of the pain", "D. Odor of the pain"],
+            correct: 1,
+            explanation: "Correct Answer: B. Pain character is a key assessment.",
+            details: "A. Incorrect: Not a pain feature.\nB. Correct: Describes pain type.\nC. Incorrect: Not applicable.\nD. Incorrect: Not applicable."
+          },
+          {
+            text: "What is a key feature to assess for oral ulcers?",
+            choices: ["A. Are they associated with lactose intolerance?", "B. Are they painful or painless?", "C. Do they occur after meals?", "D. Are they preceded by nausea?"],
+            correct: 1,
+            explanation: "Correct Answer: B. Painful vs. painless ulcers guide diagnosis.",
+            details: "A. Incorrect: Unrelated to ulcers.\nB. Correct: Pain suggests inflammatory cause.\nC. Incorrect: Non-specific.\nD. Incorrect: Unrelated."
+          },
+          {
+            text: "Which symptom is defined as spasmodic involuntary contraction of the diaphragm?",
+            choices: ["A. Eructation", "B. Hiccough", "C. Heartburn", "D. Melena"],
+            correct: 1,
+            explanation: "Correct Answer: B. Hiccough is diaphragmatic contraction.",
+            details: "A. Incorrect: Gas release.\nB. Correct: Involuntary diaphragm spasms.\nC. Incorrect: Acid reflux symptom.\nD. Incorrect: Upper GIT bleeding."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizConfig.questions.length) {
+          showQuestion();
+          updateQuestionNav();
+        } else {
+          showEndScreen();
+        }
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length && answeredQuestions.has(index)) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = !answeredQuestions.has(i) || i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.5);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف GIT Symptomatology.pdf</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
