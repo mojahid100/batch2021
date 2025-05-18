@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GI Motility Disorders Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+     <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>GI Motility Disorders Quiz</h1>
+        <p lang="ar">الاسئلة من النوتس السنة الفاتت</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "GI Motility Disorders Quiz",
+        lesson: "الأسئلة من ملف اضطرابات حركية الجهاز الهضمي",
+        questions: [
+          {
+            text: "What requires coordinated GI smooth muscle contractions?",
+            choices: [
+              "A. Enzyme secretion",
+              "B. GI motility",
+              "C. Nutrient absorption",
+              "D. Blood flow regulation"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. GI motility depends on coordinated smooth muscle contractions.",
+            details: "A. Incorrect: Enzyme secretion is glandular. B. Correct: Motility requires peristalsis. C. Incorrect: Absorption is passive/active transport. D. Incorrect: Blood flow is vascular."
+          },
+          {
+            text: "What is a secondary cause of esophageal dysmotility?",
+            choices: [
+              "A. Achalasia",
+              "B. Parkinson’s disease",
+              "C. Nutcracker esophagus",
+              "D. GERD"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Parkinson’s disease is a secondary cause of esophageal dysmotility.",
+            details: "A. Incorrect: Achalasia is primary. B. Correct: Neurological disorders like Parkinson’s cause secondary dysmotility. C. Incorrect: Nutcracker is primary. D. Incorrect: GERD is not a direct cause."
+          },
+          {
+            text: "What characterizes diffuse esophageal spasm on barium swallow?",
+            choices: [
+              "A. Parrot beak narrowing",
+              "B. Corkscrew esophagus",
+              "C. Patulous junction",
+              "D. Dilated esophagus"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Corkscrew esophagus is seen in diffuse esophageal spasm.",
+            details: "A. Incorrect: Parrot beak is achalasia. B. Correct: Corkscrew due to uncoordinated contractions. C. Incorrect: Patulous junction is not specific. D. Incorrect: Dilated in achalasia."
+          },
+          {
+            text: "What is a feature of nutcracker esophagus?",
+            choices: [
+              "A. Weak peristalsis",
+              "B. Vigorous prolonged contractions",
+              "C. Failure of LES relaxation",
+              "D. Low LESP"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Nutcracker esophagus involves vigorous prolonged contractions.",
+            details: "A. Incorrect: Peristalsis is strong. B. Correct: High-amplitude contractions. C. Incorrect: LES relaxation is normal. D. Incorrect: LESP is normal or high."
+          },
+          {
+            text: "What is seen in scleroderma-related esophageal dysmotility?",
+            choices: [
+              "A. High LESP",
+              "B. Weak peristalsis and weak LESP",
+              "C. Aperistalsis and high LESP",
+              "D. Corkscrew esophagus"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Scleroderma causes weak peristalsis and weak LESP.",
+            details: "A. Incorrect: LESP is low. B. Correct: Fibrosis weakens muscles. C. Incorrect: LESP is low. D. Incorrect: Corkscrew is diffuse spasm."
+          },
+          {
+            text: "What predisposes achalasia to squamous cell carcinoma?",
+            choices: [
+              "A. Food retention",
+              "B. Weak LESP",
+              "C. Vigorous peristalsis",
+              "D. Alkaline saliva"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Food retention increases carcinoma risk in achalasia.",
+            details: "A. Correct: Stasis causes irritation. B. Incorrect: LESP is high. C. Incorrect: Peristalsis is absent. D. Incorrect: Saliva is not a factor."
+          },
+          {
+            text: "What is a risk factor for GERD?",
+            choices: [
+              "A. Hypothyroidism",
+              "B. Hiatal hernia",
+              "C. Celiac disease",
+              "D. Hyperthyroidism"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Hiatal hernia is a risk factor for GERD.",
+            details: "A. Incorrect: Not directly linked. B. Correct: Disrupts LES function. C. Incorrect: Unrelated to reflux. D. Incorrect: Not a risk factor."
+          },
+          {
+            text: "What is an endoscopic finding in Barrett’s esophagus?",
+            choices: [
+              "A. Narrow cardia",
+              "B. Salmon pink mucosa",
+              "C. Corkscrew esophagus",
+              "D. Food retention"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Barrett’s esophagus shows salmon pink mucosa.",
+            details: "A. Incorrect: Not typical. B. Correct: Due to columnar metaplasia. C. Incorrect: Spasm-related. D. Incorrect: Achalasia-related."
+          },
+          {
+            text: "When is endoscopy indicated for GERD?",
+            choices: [
+              "A. All patients with symptoms",
+              "B. No response to PPI for >4 weeks",
+              "C. Normal PPI response",
+              "D. Negative pH monitoring"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Endoscopy is indicated for PPI non-responders or alarm signs.",
+            details: "A. Incorrect: Not all need endoscopy. B. Correct: Evaluates complications. C. Incorrect: No need if responding. D. Incorrect: Negative pH doesn’t trigger endoscopy."
+          },
+          {
+            text: "What is a side effect of H2 blockers in GERD treatment?",
+            choices: [
+              "A. Heals esophagitis",
+              "B. Tachyphylaxis",
+              "C. Increases calcium absorption",
+              "D. Reduces pneumonia risk"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. H2 blockers cause tachyphylaxis.",
+            details: "A. Incorrect: Limited healing. B. Correct: Reduced efficacy over time. C. Incorrect: Not affected. D. Incorrect: May increase pneumonia risk."
+          },
+          {
+            text: "What is a surgical treatment for GERD?",
+            choices: [
+              "A. Heller myotomy",
+              "B. Esophageal fundoplication",
+              "C. Pneumatic dilatation",
+              "D. Tube cecostomy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Esophageal fundoplication is used for refractory GERD.",
+            details: "A. Incorrect: For achalasia. B. Correct: Strengthens LES. C. Incorrect: For achalasia. D. Incorrect: For colonic issues."
+          },
+          {
+            text: "What is a cornerstone treatment for gastroparesis?",
+            choices: [
+              "A. H2 blockers",
+              "B. Prokinetics",
+              "C. Antibiotics",
+              "D. Laxatives"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Prokinetics enhance gastric emptying in gastroparesis.",
+            details: "A. Incorrect: For acid reflux. B. Correct: E.g., metoclopramide. C. Incorrect: For infections. D. Incorrect: For constipation."
+          },
+          {
+            text: "What is a cause of IBS?",
+            choices: [
+              "A. Mechanical obstruction",
+              "B. Altered GI microbiome",
+              "C. Esophageal strictures",
+              "D. Food retention"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Altered GI microbiome contributes to IBS.",
+            details: "A. Incorrect: Causes obstruction, not IBS. B. Correct: Dysbiosis is a factor. C. Incorrect: Esophageal issue. D. Incorrect: Achalasia-related."
+          },
+          {
+            text: "What is a characteristic of IBS pain?",
+            choices: [
+              "A. Radiates to the back",
+              "B. Improves with defecation",
+              "C. Unrelated to meals",
+              "D. Only in the upper abdomen"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. IBS pain often improves with defecation.",
+            details: "A. Incorrect: Back radiation is atypical. B. Correct: Rome criteria feature. C. Incorrect: Often meal-related. D. Incorrect: Can be lower abdomen."
+          },
+          {
+            text: "What is a treatment for IBS-C?",
+            choices: [
+              "A. Rifaximin",
+              "B. Lubiprostone",
+              "C. Nifedipine",
+              "D. Neostigmine"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Lubiprostone treats IBS-C.",
+            details: "A. Incorrect: For IBS-D. B. Correct: Increases fluid secretion. C. Incorrect: For spasms. D. Incorrect: For motility in other conditions."
+          },
+          {
+            text: "What is an alarming feature requiring IBS evaluation?",
+            choices: [
+              "A. Bloating",
+              "B. Unintentional weight loss",
+              "C. Postprandial urgency",
+              "D. Mucorrhea"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Unintentional weight loss requires evaluation.",
+            details: "A. Incorrect: Common in IBS. B. Correct: Suggests other diagnoses. C. Incorrect: IBS symptom. D. Incorrect: Can occur in IBS."
+          },
+          {
+            text: "What is a clinical feature of acute colonic pseudo-obstruction (ACPO)?",
+            choices: [
+              "A. Normal bowel sounds in all cases",
+              "B. Abdominal distention",
+              "C. Chronic diarrhea",
+              "D. Weight gain"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Abdominal distention is a key feature of ACPO.",
+            details: "A. Incorrect: Bowel sounds vary. B. Correct: Seen in 90-100% cases. C. Incorrect: Not typical. D. Incorrect: Weight loss may occur."
+          },
+          {
+            text: "What is a cause of ACPO?",
+            choices: [
+              "A. Lactose intolerance",
+              "B. Electrolyte imbalances",
+              "C. Barrett’s esophagus",
+              "D. Stress"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Electrolyte imbalances are a common cause of ACPO.",
+            details: "A. Incorrect: Causes diarrhea. B. Correct: E.g., hypokalemia. C. Incorrect: Esophageal condition. D. Incorrect: Not a direct cause."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف اضطرابات حركية الجهاز الهضمي</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
