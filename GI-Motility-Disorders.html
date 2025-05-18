@@ -230,7 +230,7 @@
     <div class="container">
       <div class="start-screen" id="startScreen">
         <h1>GI Motility Disorders Quiz</h1>
-        <p lang="ar">لاسئلة من النوتس السنة الفاتت</p>
+        <p lang="ar">الاسئلة من النوتس السنة الفاتت</p>
         <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
       </div>
 
@@ -250,461 +250,228 @@
 
     <script>
       const quizConfig = {
-        title: "Constipation and Diarrhea Quiz",
-        lesson: "الأسئلة من ملف الإمساك والإسهال",
+        title: "GI Motility Disorders Quiz",
+        lesson: "الأسئلة من ملف اضطرابات حركية الجهاز الهضمي",
         questions: [
-          // Constipation Questions (Q1–7)
           {
-            text: "The following are associated symptoms with constipation except:",
+            text: "What requires coordinated GI smooth muscle contractions?",
             choices: [
-              "A. Bad taste",
-              "B. Abdominal discomfort",
-              "C. Hypotension",
-              "D. Headache"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Hypotension is not a typical symptom of constipation.",
-            details: "A. Correct: Bad taste due to toxin buildup. B. Correct: Abdominal discomfort is common. C. Incorrect: Hypotension is unrelated, tied to cardiovascular issues. D. Correct: Headache from discomfort."
-          },
-          {
-            text: "The following are causes of constipation except:",
-            choices: [
-              "A. Hyperthyroidism",
-              "B. Diabetes mellitus",
-              "C. Hyperparathyroidism",
-              "D. Lack of fiber in diet"
-            ],
-            correct: 0,
-            explanation: "Correct Answer: A. Hyperthyroidism typically causes diarrhea, not constipation.",
-            details: "A. Incorrect: Increases motility, causing diarrhea. B. Correct: Diabetes causes constipation via neuropathy. C. Correct: Hypercalcemia reduces motility. D. Correct: Low fiber reduces stool bulk."
-          },
-          {
-            text: "The following is true for constipation due to defecatory disorders except:",
-            choices: [
-              "A. Relaxation of pelvic floor muscle during defecation",
-              "B. Rectocele is common",
-              "C. Accompanied with weakness of rectovaginal septum and stool trapping",
-              "D. Associated with rectal prolapse"
-            ],
-            correct: 0,
-            explanation: "Correct Answer: A. Defecatory disorders involve failure of pelvic floor relaxation.",
-            details: "A. Incorrect: Dyssynergia prevents relaxation. B. Correct: Rectocele is common. C. Correct: Weak septum causes trapping. D. Correct: Prolapse is associated."
-          },
-          {
-            text: "The best investigation for defecatory disorders (dyssynergia) causing constipation is:",
-            choices: [
-              "A. Stool analysis",
-              "B. Colonoscopy",
-              "C. Defecography",
-              "D. Marker study"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Defecography is the gold standard for dyssynergia.",
-            details: "A. Incorrect: Limited for functional issues. B. Incorrect: Assesses structure, not dynamics. C. Correct: Visualizes pelvic floor dynamics. D. Incorrect: Measures transit, not defecation."
-          },
-          {
-            text: "The best for diagnosing colonic hypomotility that cause constipation is:",
-            choices: [
-              "A. Stool analysis",
-              "B. PR exam",
-              "C. Colonoscopy",
-              "D. Marker study"
-            ],
-            correct: 3,
-            explanation: "Correct Answer: D. Marker study diagnoses colonic hypomotility.",
-            details: "A. Incorrect: Not specific for motility. B. Incorrect: Limited scope. C. Incorrect: Structural assessment. D. Correct: Measures transit time."
-          },
-          {
-            text: "The following is true for chronic constipation except:",
-            choices: [
-              "A. Occurs for 2 weeks/12 months",
-              "B. Accompanied with straining",
-              "C. Sense of anorectal block",
-              "D. Sense of incomplete evacuation"
-            ],
-            correct: 0,
-            explanation: "Correct Answer: A. Chronic constipation requires 3 months, not 2 weeks.",
-            details: "A. Incorrect: Rome criteria require 3 months. B. Correct: Straining is common. C. Correct: Anorectal block is a symptom. D. Correct: Incomplete evacuation is typical."
-          },
-          {
-            text: "The following are associated symptoms with constipation except:",
-            choices: [
-              "A. Bad taste",
-              "B. Abdominal discomfort",
-              "C. Bradycardia",
-              "D. Headache"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Bradycardia is not a typical symptom of constipation.",
-            details: "A. Correct: Bad taste from toxins. B. Correct: Discomfort is common. C. Incorrect: Bradycardia is unrelated, tied to vagal issues. D. Correct: Headache from discomfort."
-          },
-          // Diarrhea Questions (Q8–17)
-          {
-            text: "Diarrhea is defined as:",
-            choices: [
-              "A. Increased stool weight >200 gm/day",
-              "B. Increased liquidity only",
-              "C. Increased frequency only",
-              "D. Anal sphincter dysfunction"
-            ],
-            correct: 0,
-            explanation: "Correct Answer: A. Diarrhea is defined as stool weight >200 gm/day.",
-            details: "A. Correct: Objective definition. B. Incorrect: Liquidity is a feature, not definition. C. Incorrect: Frequency is a feature. D. Incorrect: Sphincter issues are unrelated."
-          },
-          {
-            text: "Diarrhea is defined as:",
-            choices: [
-              "A. Increased stool weight >200 gm/day",
-              "B. Usually with increased liquidity",
-              "C. Increased frequency",
-              "D. All of the above",
-              "E. None of the above"
-            ],
-            correct: 3,
-            explanation: "Correct Answer: D. Diarrhea includes increased weight, liquidity, and frequency.",
-            details: "A. Correct: Part of definition. B. Correct: Common feature. C. Correct: Common feature. D. Correct: All features combined. E. Incorrect."
-          },
-          {
-            text: "The following is true except:",
-            choices: [
-              "A. Voluminous diarrhea is due to colonic lesions",
-              "B. Small intestine is responsible for absorption and secretion",
-              "C. Intestinal absorption occurs mainly in the small intestine",
-              "D. Ileal fluid is isotonic to plasma"
-            ],
-            correct: 0,
-            explanation: "Correct Answer: A. Voluminous diarrhea is due to small intestinal lesions, not colonic.",
-            details: "A. Incorrect: Colonic lesions cause smaller stools. B. Correct: Small intestine handles absorption/secretion. C. Correct: Primary absorption site. D. Correct: Ileal fluid is isotonic."
-          },
-          {
-            text: "The following is true except:",
-            choices: [
-              "A. Voluminous diarrhea is due to small intestinal lesions as well as colonic lesions",
-              "B. Small intestine is responsible for absorption and secretion",
-              "C. Intestinal absorption occurs mainly in the small intestine",
-              "D. Ileal fluid is isotonic to plasma"
-            ],
-            correct: 0,
-            explanation: "Correct Answer: A. Voluminous diarrhea is primarily due to small intestinal lesions.",
-            details: "A. Incorrect: Mainly small intestine, not colon. B. Correct: Absorption/secretion role. C. Correct: Main absorption site. D. Correct: Ileal fluid isotonic."
-          },
-          {
-            text: "One of the following is not true for osmotic diarrhea:",
-            choices: [
-              "A. It is due to poorly absorbed solutes",
-              "B. It is due to maldigestion of lactose",
-              "C. Diarrhea stops with fasting",
-              "D. Normal osmotic gap"
-            ],
-            correct: 3,
-            explanation: "Correct Answer: D. Osmotic diarrhea has an increased osmotic gap.",
-            details: "A. Correct: Caused by unabsorbed solutes. B. Correct: Lactose maldigestion is a cause. C. Correct: Stops with fasting. D. Incorrect: Gap >50 mOsm/kg."
-          },
-          {
-            text: "One of the following is not a cause of secretory diarrhea:",
-            choices: [
-              "A. Enterotoxins e.g. cholera",
-              "B. Pancreatic cholera",
-              "C. Carcinoid",
-              "D. Lactose intolerance"
-            ],
-            correct: 3,
-            explanation: "Correct Answer: D. Lactose intolerance causes osmotic diarrhea.",
-            details: "A. Correct: Cholera is secretory. B. Correct: Pancreatic cholera (VIPoma) is secretory. C. Correct: Carcinoid causes secretion. D. Incorrect: Osmotic due to unabsorbed lactose."
-          },
-          {
-            text: "One of the following is not a feature of secretory diarrhea:",
-            choices: [
-              "A. Diarrhea persists with fasting",
-              "B. Normal osmotic gap",
-              "C. Stool large in volume and watery",
-              "D. Ulcerated intestinal mucosa"
-            ],
-            correct: 3,
-            explanation: "Correct Answer: D. Ulcerated mucosa is not a feature of secretory diarrhea.",
-            details: "A. Correct: Persists with fasting. B. Correct: Gap <50 mOsm/kg. C. Correct: Large, watery stools. D. Incorrect: Typical of inflammatory diarrhea."
-          },
-          {
-            text: "One of the following is not a cause of diarrhea due to dysmotility:",
-            choices: [
-              "A. Diabetes mellitus",
-              "B. Thyrotoxicosis",
-              "C. E. coli",
-              "D. Intestinal resection"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. E. coli causes infectious diarrhea, not dysmotility.",
-            details: "A. Correct: Neuropathy causes dysmotility. B. Correct: Increased motility. C. Incorrect: Causes secretory/inflammatory diarrhea. D. Correct: Short bowel syndrome."
-          },
-          {
-            text: "One of the following is a cause of secretory diarrhea:",
-            choices: [
-              "A. IBD",
-              "B. Shigella",
-              "C. Cholera",
-              "D. Ischemic colitis"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Cholera causes secretory diarrhea.",
-            details: "A. Incorrect: IBD causes inflammatory diarrhea. B. Incorrect: Shigella causes inflammatory diarrhea. C. Correct: Cholera is secretory. D. Incorrect: Ischemic colitis is inflammatory."
-          },
-          {
-            text: "One of the following cause of diarrhea:",
-            choices: [
-              "A. Zollinger-Ellison syndrome",
-              "B. VIPoma",
-              "C. Myxedema",
-              "D. Carcinoid"
+              "A. Enzyme secretion",
+              "B. GI motility",
+              "C. Nutrient absorption",
+              "D. Blood flow regulation"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. VIPoma causes secretory diarrhea.",
-            details: "A. Correct: Acid hypersecretion may cause diarrhea. B. Correct: VIPoma is secretory. C. Incorrect: Myxedema causes constipation. D. Correct: Carcinoid causes diarrhea."
+            explanation: "Correct Answer: B. GI motility depends on coordinated smooth muscle contractions.",
+            details: "A. Incorrect: Enzyme secretion is glandular. B. Correct: Motility requires peristalsis. C. Incorrect: Absorption is passive/active transport. D. Incorrect: Blood flow is vascular."
           },
-          // Additional Constipation Questions (Q19–28)
           {
-            text: "What defines constipation according to Rome IV?",
+            text: "What is a secondary cause of esophageal dysmotility?",
             choices: [
-              "A. Daily bowel movements with soft stools",
-              "B. <3 bowel movements/week with straining",
-              "C. Blood in stool without straining",
-              "D. Abdominal pain without stool changes"
+              "A. Achalasia",
+              "B. Parkinson’s disease",
+              "C. Nutcracker esophagus",
+              "D. GERD"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Rome IV defines constipation as <3 movements/week with straining.",
-            details: "A. Incorrect: Normal bowel habits. B. Correct: Includes straining and other symptoms. C. Incorrect: Suggests other pathology. D. Incorrect: Not specific to constipation."
+            explanation: "Correct Answer: B. Parkinson’s disease is a secondary cause of esophageal dysmotility.",
+            details: "A. Incorrect: Achalasia is primary. B. Correct: Neurological disorders like Parkinson’s cause secondary dysmotility. C. Incorrect: Nutcracker is primary. D. Incorrect: GERD is not a direct cause."
           },
           {
-            text: "What is the maximum gut transit time?",
+            text: "What characterizes diffuse esophageal spasm on barium swallow?",
             choices: [
-              "A. 24 hours",
-              "B. 48 hours",
-              "C. 72 hours",
-              "D. 96 hours"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Maximum gut transit time is 72 hours.",
-            details: "A. Incorrect: Too short. B. Incorrect: Underestimates maximum. C. Correct: Standard maximum. D. Incorrect: Too long."
-          },
-          {
-            text: "Which type of constipation involves paradoxical sphincter contraction?",
-            choices: [
-              "A. Normal-transit",
-              "B. Slow-transit",
-              "C. Pelvic floor dysfunction",
-              "D. Mixed"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Pelvic floor dysfunction involves paradoxical contraction.",
-            details: "A. Incorrect: Normal motility. B. Incorrect: Slow motility. C. Correct: Dyssynergia causes contraction. D. Incorrect: Combined issues."
-          },
-          {
-            text: "What is a secondary cause of constipation?",
-            choices: [
-              "A. Psychological distress",
-              "B. Hypothyroidism",
-              "C. Slow colonic motility",
-              "D. Normal transit"
+              "A. Parrot beak narrowing",
+              "B. Corkscrew esophagus",
+              "C. Patulous junction",
+              "D. Dilated esophagus"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Hypothyroidism is a secondary cause of constipation.",
-            details: "A. Incorrect: Primary or contributing factor. B. Correct: Endocrine cause. C. Incorrect: Primary cause. D. Incorrect: Not a cause."
+            explanation: "Correct Answer: B. Corkscrew esophagus is seen in diffuse esophageal spasm.",
+            details: "A. Incorrect: Parrot beak is achalasia. B. Correct: Corkscrew due to uncoordinated contractions. C. Incorrect: Patulous junction is not specific. D. Incorrect: Dilated in achalasia."
           },
           {
-            text: "Which test has high specificity for dyssynergia?",
+            text: "What is a feature of nutcracker esophagus?",
             choices: [
-              "A. Colonoscopy",
-              "B. Balloon expulsion test",
-              "C. Fecal fat analysis",
-              "D. Lactose-H2 breath test"
+              "A. Weak peristalsis",
+              "B. Vigorous prolonged contractions",
+              "C. Failure of LES relaxation",
+              "D. Low LESP"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Balloon expulsion test is specific for dyssynergia.",
-            details: "A. Incorrect: Structural assessment. B. Correct: 80-90% specificity. C. Incorrect: Tests malabsorption. D. Incorrect: Tests lactose intolerance."
+            explanation: "Correct Answer: B. Nutcracker esophagus involves vigorous prolonged contractions.",
+            details: "A. Incorrect: Peristalsis is strong. B. Correct: High-amplitude contractions. C. Incorrect: LES relaxation is normal. D. Incorrect: LESP is normal or high."
           },
           {
-            text: "What does the wireless motility capsule measure?",
+            text: "What is seen in scleroderma-related esophageal dysmotility?",
             choices: [
-              "A. Blood in stool",
-              "B. pH, temperature, pressure",
-              "C. Fecal fat content",
-              "D. Bacterial overgrowth"
+              "A. High LESP",
+              "B. Weak peristalsis and weak LESP",
+              "C. Aperistalsis and high LESP",
+              "D. Corkscrew esophagus"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. The capsule measures pH, temperature, and pressure.",
-            details: "A. Incorrect: Not measured. B. Correct: Assesses motility. C. Incorrect: Different test. D. Incorrect: Breath tests used."
+            explanation: "Correct Answer: B. Scleroderma causes weak peristalsis and weak LESP.",
+            details: "A. Incorrect: LESP is low. B. Correct: Fibrosis weakens muscles. C. Incorrect: LESP is low. D. Incorrect: Corkscrew is diffuse spasm."
           },
           {
-            text: "What is an alarming feature of constipation?",
+            text: "What predisposes achalasia to squamous cell carcinoma?",
             choices: [
-              "A. Hard stools",
-              "B. Weight loss",
-              "C. Straining",
-              "D. Bloating"
+              "A. Food retention",
+              "B. Weak LESP",
+              "C. Vigorous peristalsis",
+              "D. Alkaline saliva"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Food retention increases carcinoma risk in achalasia.",
+            details: "A. Correct: Stasis causes irritation. B. Incorrect: LESP is high. C. Incorrect: Peristalsis is absent. D. Incorrect: Saliva is not a factor."
+          },
+          {
+            text: "What is a risk factor for GERD?",
+            choices: [
+              "A. Hypothyroidism",
+              "B. Hiatal hernia",
+              "C. Celiac disease",
+              "D. Hyperthyroidism"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Weight loss is an alarming feature.",
-            details: "A. Incorrect: Common symptom. B. Correct: Suggests serious pathology. C. Incorrect: Common symptom. D. Incorrect: Common symptom."
+            explanation: "Correct Answer: B. Hiatal hernia is a risk factor for GERD.",
+            details: "A. Incorrect: Not directly linked. B. Correct: Disrupts LES function. C. Incorrect: Unrelated to reflux. D. Incorrect: Not a risk factor."
           },
           {
-            text: "What is the primary treatment for pelvic floor dysfunction?",
+            text: "What is an endoscopic finding in Barrett’s esophagus?",
             choices: [
-              "A. Stimulant laxatives",
-              "B. Biofeedback training",
+              "A. Narrow cardia",
+              "B. Salmon pink mucosa",
+              "C. Corkscrew esophagus",
+              "D. Food retention"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Barrett’s esophagus shows salmon pink mucosa.",
+            details: "A. Incorrect: Not typical. B. Correct: Due to columnar metaplasia. C. Incorrect: Spasm-related. D. Incorrect: Achalasia-related."
+          },
+          {
+            text: "When is endoscopy indicated for GERD?",
+            choices: [
+              "A. All patients with symptoms",
+              "B. No response to PPI for >4 weeks",
+              "C. Normal PPI response",
+              "D. Negative pH monitoring"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Endoscopy is indicated for PPI non-responders or alarm signs.",
+            details: "A. Incorrect: Not all need endoscopy. B. Correct: Evaluates complications. C. Incorrect: No need if responding. D. Incorrect: Negative pH doesn’t trigger endoscopy."
+          },
+          {
+            text: "What is a side effect of H2 blockers in GERD treatment?",
+            choices: [
+              "A. Heals esophagitis",
+              "B. Tachyphylaxis",
+              "C. Increases calcium absorption",
+              "D. Reduces pneumonia risk"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. H2 blockers cause tachyphylaxis.",
+            details: "A. Incorrect: Limited healing. B. Correct: Reduced efficacy over time. C. Incorrect: Not affected. D. Incorrect: May increase pneumonia risk."
+          },
+          {
+            text: "What is a surgical treatment for GERD?",
+            choices: [
+              "A. Heller myotomy",
+              "B. Esophageal fundoplication",
+              "C. Pneumatic dilatation",
+              "D. Tube cecostomy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Esophageal fundoplication is used for refractory GERD.",
+            details: "A. Incorrect: For achalasia. B. Correct: Strengthens LES. C. Incorrect: For achalasia. D. Incorrect: For colonic issues."
+          },
+          {
+            text: "What is a cornerstone treatment for gastroparesis?",
+            choices: [
+              "A. H2 blockers",
+              "B. Prokinetics",
               "C. Antibiotics",
-              "D. Surgery"
+              "D. Laxatives"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Biofeedback training corrects dyssynergia.",
-            details: "A. Incorrect: Less effective. B. Correct: First-line treatment. C. Incorrect: Irrelevant. D. Incorrect: Last resort."
+            explanation: "Correct Answer: B. Prokinetics enhance gastric emptying in gastroparesis.",
+            details: "A. Incorrect: For acid reflux. B. Correct: E.g., metoclopramide. C. Incorrect: For infections. D. Incorrect: For constipation."
           },
           {
-            text: "Which laxative stimulates motility and secretion?",
+            text: "What is a cause of IBS?",
             choices: [
-              "A. Bran",
-              "B. Lactulose",
-              "C. Phenolphthalein",
-              "D. Methylcellulose"
-            ],
-            correct: 2,
-            explanation: "Correct Answer: C. Phenolphthalein is a stimulant laxative.",
-            details: "A. Incorrect: Bulk-forming. B. Incorrect: Osmotic laxative. C. Correct: Stimulates motility/secretion. D. Incorrect: Bulk-forming."
-          },
-          {
-            text: "What is a complication of constipation?",
-            choices: [
-              "A. Hypertension",
-              "B. Rectal prolapse",
-              "C. Hypoglycemia",
-              "D. Joint pain"
+              "A. Mechanical obstruction",
+              "B. Altered GI microbiome",
+              "C. Esophageal strictures",
+              "D. Food retention"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Rectal prolapse is a complication of constipation.",
-            details: "A. Incorrect: Unrelated. B. Correct: Due to straining. C. Incorrect: Unrelated. D. Incorrect: Unrelated."
+            explanation: "Correct Answer: B. Altered GI microbiome contributes to IBS.",
+            details: "A. Incorrect: Causes obstruction, not IBS. B. Correct: Dysbiosis is a factor. C. Incorrect: Esophageal issue. D. Incorrect: Achalasia-related."
           },
-          // Additional Diarrhea Questions (Q29–38)
           {
-            text: "What is a feature of diarrhea?",
+            text: "What is a characteristic of IBS pain?",
             choices: [
-              "A. Hard, lumpy stools",
-              "B. Increased stool weight >200 g/day",
-              "C. Decreased stool frequency",
-              "D. No urgency"
+              "A. Radiates to the back",
+              "B. Improves with defecation",
+              "C. Unrelated to meals",
+              "D. Only in the upper abdomen"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Increased stool weight >200 g/day is a feature of diarrhea.",
-            details: "A. Incorrect: Typical of constipation. B. Correct: Defines diarrhea. C. Incorrect: Frequency increases. D. Incorrect: Urgency is common."
+            explanation: "Correct Answer: B. IBS pain often improves with defecation.",
+            details: "A. Incorrect: Back radiation is atypical. B. Correct: Rome criteria feature. C. Incorrect: Often meal-related. D. Incorrect: Can be lower abdomen."
           },
           {
-            text: "What characterizes osmotic diarrhea?",
-            choices: [
-              "A. Persists with fasting",
-              "B. Stops with fasting",
-              "C. Low osmotic gap",
-              "D. Blood in stool"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Osmotic diarrhea stops with fasting.",
-            details: "A. Incorrect: Secretory persists. B. Correct: No solute, no diarrhea. C. Incorrect: High gap (>50 mOsm/kg). D. Incorrect: Exudative feature."
-          },
-          {
-            text: "Which condition causes secretory diarrhea?",
-            choices: [
-              "A. Lactose intolerance",
-              "B. Carcinoid syndrome",
-              "C. Ulcerative colitis",
-              "D. Gastrocolic fistula"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Carcinoid syndrome causes secretory diarrhea.",
-            details: "A. Incorrect: Osmotic diarrhea. B. Correct: Secretory due to hormones. C. Incorrect: Exudative diarrhea. D. Incorrect: Osmotic or mixed."
-          },
-          {
-            text: "What is a cause of exudative diarrhea?",
-            choices: [
-              "A. Giardia",
-              "B. Shigella",
-              "C. Rotavirus",
-              "D. Laxative abuse"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Shigella causes exudative diarrhea.",
-            details: "A. Incorrect: Osmotic/secretory. B. Correct: Mucosal damage. C. Incorrect: Secretory. D. Incorrect: Osmotic/secretory."
-          },
-          {
-            text: "What does a low osmotic gap (<50 mOsm/kg) suggest?",
-            choices: [
-              "A. Osmotic diarrhea",
-              "B. Secretory diarrhea",
-              "C. Exudative diarrhea",
-              "D. Motility-related diarrhea"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Low osmotic gap suggests secretory diarrhea.",
-            details: "A. Incorrect: High gap. B. Correct: Normal gap <50 mOsm/kg. C. Incorrect: Variable gap. D. Incorrect: Variable gap."
-          },
-          {
-            text: "Which test diagnoses lactose intolerance?",
-            choices: [
-              "A. Balloon expulsion test",
-              "B. Lactose-H2 breath test",
-              "C. Schilling test",
-              "D. Wireless motility capsule"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Lactose-H2 breath test diagnoses lactose intolerance.",
-            details: "A. Incorrect: For dyssynergia. B. Correct: Detects lactose malabsorption. C. Incorrect: For B12. D. Incorrect: For motility."
-          },
-          {
-            text: "What does blood-only stool suggest?",
-            choices: [
-              "A. Irritable bowel syndrome",
-              "B. Neoplasm",
-              "C. Viral diarrhea",
-              "D. Giardia"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Blood-only stool suggests neoplasm.",
-            details: "A. Incorrect: Rarely bloody. B. Correct: Suggests neoplasm or ischemia. C. Incorrect: Non-bloody. D. Incorrect: Non-bloody."
-          },
-          {
-            text: "What is the primary treatment for diarrhea?",
-            choices: [
-              "A. Routine corticosteroids",
-              "B. Treatment of the cause",
-              "C. Stimulant laxatives",
-              "D. Surgery"
-            ],
-            correct: 1,
-            explanation: "Correct Answer: B. Treating the cause is primary for diarrhea.",
-            details: "A. Incorrect: Specific to IBD. B. Correct: E.g., infection, malabsorption. C. Incorrect: Worsens diarrhea. D. Incorrect: Rarely needed."
-          },
-          {
-            text: "Which drug is avoided in diarrhea with fever?",
+            text: "What is a treatment for IBS-C?",
             choices: [
               "A. Rifaximin",
-              "B. Loperamide",
-              "C. Bismuth",
-              "D. Nitazoxanide"
+              "B. Lubiprostone",
+              "C. Nifedipine",
+              "D. Neostigmine"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Loperamide is avoided in diarrhea with fever.",
-            details: "A. Correct: Safe for infections. B. Incorrect: Contraindicated in toxemia. C. Correct: Safe symptomatic relief. D. Correct: Treats infections."
+            explanation: "Correct Answer: B. Lubiprostone treats IBS-C.",
+            details: "A. Incorrect: For IBS-D. B. Correct: Increases fluid secretion. C. Incorrect: For spasms. D. Incorrect: For motility in other conditions."
           },
           {
-            text: "What is the role of oral rehydration therapy?",
+            text: "What is an alarming feature requiring IBS evaluation?",
             choices: [
-              "A. Reduces motility",
-              "B. Replaces fluids/electrolytes",
-              "C. Treats infection",
-              "D. Prevents mucosal damage"
+              "A. Bloating",
+              "B. Unintentional weight loss",
+              "C. Postprandial urgency",
+              "D. Mucorrhea"
             ],
             correct: 1,
-            explanation: "Correct Answer: B. Oral rehydration replaces fluids and electrolytes.",
-            details: "A. Incorrect: Not motility-related. B. Correct: Restores hydration. C. Incorrect: Not antimicrobial. D. Incorrect: Not protective."
+            explanation: "Correct Answer: B. Unintentional weight loss requires evaluation.",
+            details: "A. Incorrect: Common in IBS. B. Correct: Suggests other diagnoses. C. Incorrect: IBS symptom. D. Incorrect: Can occur in IBS."
+          },
+          {
+            text: "What is a clinical feature of acute colonic pseudo-obstruction (ACPO)?",
+            choices: [
+              "A. Normal bowel sounds in all cases",
+              "B. Abdominal distention",
+              "C. Chronic diarrhea",
+              "D. Weight gain"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Abdominal distention is a key feature of ACPO.",
+            details: "A. Incorrect: Bowel sounds vary. B. Correct: Seen in 90-100% cases. C. Incorrect: Not typical. D. Incorrect: Weight loss may occur."
+          },
+          {
+            text: "What is a cause of ACPO?",
+            choices: [
+              "A. Lactose intolerance",
+              "B. Electrolyte imbalances",
+              "C. Barrett’s esophagus",
+              "D. Stress"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Electrolyte imbalances are a common cause of ACPO.",
+            details: "A. Incorrect: Causes diarrhea. B. Correct: E.g., hypokalemia. C. Incorrect: Esophageal condition. D. Incorrect: Not a direct cause."
           }
         ]
       };
-
+      
       let currentQuestionIndex = 0;
       let score = 0;
       let answeredQuestions = new Set();
