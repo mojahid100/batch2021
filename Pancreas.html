@@ -758,15 +758,18 @@
       }
 
       function validateQuestion(q) {
-        return q &&
-               typeof q.text === 'string' &&
-               Array.isArray(q.choices) &&
-               q.choices.every(c => typeof c === 'string') &&
-               typeof q.correct === 'number' &&
-               q.correct >= 0 &&
-               q.correct < q.choices.length &&
-               typeof q.explanation === 'string' &&
-               typeof q.details === 'string';
+        return (
+          q &&
+          typeof q.text === "string" &&
+          Array.isArray(q.choices) &&
+          q.choices.every((c) => typeof c === "string") &&
+          (
+            (typeof q.correct === "number" && q.correct >= 0 && q.correct < q.choices.length) ||
+            (Array.isArray(q.correct) && q.correct.every((idx) => typeof idx === "number" && idx >= 0 && idx < q.choices.length))
+          ) &&
+          typeof q.explanation === "string" &&
+          typeof q.details === "string"
+        );
       }
 
       function showQuestion() {
@@ -810,24 +813,28 @@
         try {
           const q = quizConfig.questions[currentQuestionIndex];
           if (!validateQuestion(q)) {
-            throw new Error('Invalid question structure');
+            throw new Error("Invalid question structure");
           }
           const answerBox = document.getElementById("answerBox");
           const detailsBtn = document.getElementById("detailsBtn");
           const nextBtn = document.getElementById("nextBtn");
 
           const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          const correctAnswers = Array.isArray(q.correct) ? q.correct : [q.correct]; // Convert single correct answer to array for consistency
+
+          // Disable all buttons and highlight correct/incorrect answers
           for (let i = 0; i < optionButtons.length; i++) {
             optionButtons[i].disabled = true;
-            if (i === q.correct) {
-              optionButtons[i].style.backgroundColor = "#28a745";
-            } else if (i === selectedIndex && i !== q.correct) {
-              optionButtons[i].style.backgroundColor = "#dc3545";
+            if (correctAnswers.includes(i)) {
+              optionButtons[i].style.backgroundColor = "#28a745"; // Green for correct
+            } else if (i === selectedIndex && !correctAnswers.includes(i)) {
+              optionButtons[i].style.backgroundColor = "#dc3545"; // Red for incorrect
             }
           }
 
           if (!replay) {
-            if (selectedIndex === q.correct) {
+            const isCorrect = correctAnswers.includes(selectedIndex);
+            if (isCorrect) {
               answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
               if (!answeredQuestions.has(currentQuestionIndex)) {
                 score++;
@@ -843,9 +850,10 @@
             updateScore();
             updateQuestionNav();
           } else {
-            answerBox.innerHTML = (selectedIndex === q.correct ? 
-              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
-              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+            answerBox.innerHTML =
+              (correctAnswers.includes(selectedIndex)
+                ? "<p style='color:green; font-weight:bold;'>Correct!</p>"
+                : "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
           }
         } catch (error) {
           console.error("Error in checkAnswer:", error);
@@ -955,7 +963,10 @@
       }
 
       document.addEventListener('keydown', (e) => {
-        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+        if (
+          e.key >= "1" &&
+          !answeredQuestions.has(currentQuestionIndex)
+        ) {
           const index = parseInt(e.key) - 1;
           const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
           if (index < buttons.length) {
