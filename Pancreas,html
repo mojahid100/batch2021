@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pancreas Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Pancreas Quiz</h1>
+        <p lang="ar">kasr and Bailey & Love questions</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Pancreas Quiz",
+        lesson: "The Pancreas",
+        questions: [
+          {
+            text: "Which of the following statements about the anatomy of the pancreas are true?",
+            choices: [
+              "A. The pancreas weighs 200 g.",
+              "B. The uncinate process lies behind the superior mesenteric vessels.",
+              "C. The vast majority of pancreatic tissue is composed of exocrine acinar tissue.",
+              "D. Of the endocrine cells, 75 per cent are B cells, 20 per cent are A cells, and the remainder are D cells.",
+              "E. The accessory pancreatic duct drains the head and uncinate process."
+            ],
+            correct: [1, 2, 3, 4],
+            explanation: "Correct Answer: B, C, D, E. The uncinate process lies behind the superior mesenteric vessels. Most pancreatic tissue is exocrine acinar tissue. Endocrine cells are approximately 75% B cells, 20% A cells, and the rest D cells. The accessory pancreatic duct drains the head and uncinate process.",
+            details: "A. Incorrect: The pancreas weighs about 60-100 g.\nB. Correct: The uncinate process is posterior to the superior mesenteric vessels.\nC. Correct: Exocrine acinar tissue forms the majority.\nD. Correct: B cells (insulin), A cells (glucagon), and D cells (somatostatin) have this distribution.\nE. Correct: The accessory duct drains these regions."
+          },
+          {
+            text: "Which of the following statements about investigations for pancreatic conditions are false?",
+            choices: [
+              "A. Ultrasonography (US) is the initial investigation of choice in the jaundiced patient.",
+              "B. When doing a computed tomography (CT) scan, initially an unenhanced scan must be done followed by a scan after intravenous contrast injection (CECT).",
+              "C. While doing a magnetic resonance cholangiopancreatography (MRCP), intravenous secretin injection helps to determine any obstruction to the pancreatic duct.",
+              "D. An increase in serum amylase is diagnostic of acute pancreatitis.",
+              "E. Endoscopic retrograde cholangiopancreatography (ERCP) should always be preceded by a plain radiograph."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. An increase in serum amylase is highly suggestive but not diagnostic of acute pancreatitis, as it can be elevated in other conditions like perforated peptic ulcer or mesenteric ischemia.",
+            details: "A. Correct: US is the initial investigation for jaundice.\nB. Correct: Unenhanced CT precedes CECT to detect calcifications.\nC. Correct: Secretin enhances MRCP visualization.\nD. Incorrect: Amylase elevation is not specific.\nE. Correct: Plain X-ray checks for calcifications before ERCP."
+          },
+          {
+            text: "Which of the following statements about pancreatic injury are true?",
+            choices: [
+              "A. Pancreatic injury is common following blunt abdominal trauma.",
+              "B. Pancreatic injury is often accompanied by damage to the liver, spleen, and duodenum.",
+              "C. The serum amylase is raised in most cases of pancreatic injury.",
+              "D. A CECT scan will delineate the damage.",
+              "E. In doubtful cases, urgent ERCP is helpful."
+            ],
+            correct: [1, 2, 3, 4],
+            explanation: "Correct Answer: B, C, D, E. Pancreatic injury is rare but often involves liver, spleen, and duodenum due to severe trauma. Serum amylase is usually raised, CECT delineates damage, and ERCP is useful in doubtful cases.",
+            details: "A. Incorrect: Pancreatic injury is rare due to its retroperitoneal position.\nB. Correct: Associated injuries are common.\nC. Correct: Amylase is typically elevated.\nD. Correct: CECT is reliable.\nE. Correct: ERCP clarifies ductal injury."
+          },
+          {
+            text: "Which of the following statements about pancreatic injury is false?",
+            choices: [
+              "A. All patients with pancreatic trauma should undergo an exploratory laparotomy.",
+              "B. Pancreatic duct disruption requires surgical exploration.",
+              "C. Severe injury to the duodenum and the head of the pancreas requires a pancreatoduodenectomy.",
+              "D. After conservative management for pancreatic injury, duct stricture and pseudocyst may occur as complications.",
+              "E. During splenectomy, iatrogenic injury to the pancreatic tail can occur."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Not all pancreatic injuries require laparotomy; stable patients can be managed conservatively after thorough assessment.",
+            details: "A. Incorrect: Conservative management is possible.\nB. Correct: Duct disruption needs surgery.\nC. Correct: Severe injuries may require pancreatoduodenectomy.\nD. Correct: Stricture and pseudocyst are complications.\nE. Correct: Iatrogenic injury is a risk."
+          },
+          {
+            text: "Which of the following statements about acute pancreatitis is false?",
+            choices: [
+              "A. Acute pancreatitis accounts for 3 per cent of hospital admissions in the UK for abdominal pain.",
+              "B. Acute pancreatitis is classified into mild and severe.",
+              "C. 80 per cent of cases are mild acute pancreatitis, with a mortality rate of 1 per cent.",
+              "D. 20 per cent are severe acute pancreatitis, with a mortality of 20-50 per cent.",
+              "E. In all cases of acute pancreatitis, there is a marked rise in serum amylase."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Not all cases of acute pancreatitis show a marked rise in serum amylase, especially in severe cases where pancreatic tissue is destroyed or if tested late.",
+            details: "A. Correct: Accounts for 3% of admissions.\nB. Correct: Classified as mild or severe.\nC. Correct: 80% mild with 1% mortality.\nD. Correct: 20% severe with high mortality.\nE. Incorrect: Amylase may be normal in severe cases."
+          },
+          {
+            text: "Which one of the following causes of acute pancreatitis is due to a congenital anatomical variation?",
+            choices: [
+              "A. Gallstones",
+              "B. Hereditary pancreatitis",
+              "C. Pancreatic divisum",
+              "D. Autoimmune pancreatitis",
+              "E. Hyperparathyroidism"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Pancreatic divisum, a congenital anomaly where the pancreatic ducts fail to fuse, can cause acute pancreatitis.",
+            details: "A. Incorrect: Gallstones are acquired.\nB. Incorrect: Hereditary pancreatitis is genetic, not anatomical.\nC. Correct: Congenital duct anomaly.\nD. Incorrect: Autoimmune is immunological.\nE. Incorrect: Hyperparathyroidism is metabolic."
+          },
+          {
+            text: "Which of the following statements are true regarding the etiology of postoperative acute pancreatitis?",
+            choices: [
+              "A. Following ERCP, the incidence of acute pancreatitis is 10 per cent.",
+              "B. Therapeutic intervention during ERCP has a higher incidence.",
+              "C. Patients after cardiothoracic surgery may develop acute pancreatitis.",
+              "D. The post-gastrectomy patient may develop acute pancreatitis.",
+              "E. In a post-cholecystectomy patient, acute pancreatitis may be due to a retained stone."
+            ],
+            correct: [1, 2, 3, 4],
+            explanation: "Correct Answer: B, C, D, E. Therapeutic ERCP interventions increase pancreatitis risk. Cardiothoracic surgery, gastrectomy, and retained stones post-cholecystectomy can cause pancreatitis.",
+            details: "A. Incorrect: Incidence after ERCP is 1-3%.\nB. Correct: Therapeutic ERCP increases risk.\nC. Correct: Cardiothoracic surgery is a risk factor.\nD. Correct: Gastrectomy can cause pancreatitis.\nE. Correct: Retained stones are a cause."
+          },
+          {
+            text: "Which of the following are not parameters to assess the severity of acute pancreatitis in either Ranson or Glasgow score?",
+            choices: [
+              "A. Age",
+              "B. White cell count",
+              "C. Serum amylase",
+              "D. Serum calcium",
+              "E. Blood urea",
+              "F. Lactate dehydrogenase (LDH) and aspartate transaminase (AST)"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Serum amylase is not used in Ranson or Glasgow scores to assess severity; other parameters like age, white cell count, and calcium are included.",
+            details: "A. Correct: Age is a parameter.\nB. Correct: White cell count is included.\nC. Incorrect: Amylase is not used.\nD. Correct: Calcium is a parameter.\nE. Correct: Blood urea is included.\nF. Correct: LDH and AST are parameters."
+          },
+          {
+            text: "Which of the following signs have been known to occur in acute pancreatitis?",
+            choices: [
+              "A. Trousseau's sign",
+              "B. Courvoisier's sign",
+              "C. Boas' sign",
+              "D. Grey-Turner's sign",
+              "E. Cullen's sign"
+            ],
+            correct: [3, 4],
+            explanation: "Correct Answer: D, E. Grey-Turner's sign (flank discoloration) and Cullen's sign (umbilical hemorrhage) are suggestive of acute hemorrhagic pancreatitis.",
+            details: "A. Incorrect: Trousseau's sign is for hypocalcemia.\nB. Incorrect: Courvoisier's sign is for gallbladder malignancy.\nC. Incorrect: Boas' sign is for cholecystitis.\nD. Correct: Indicates hemorrhagic pancreatitis.\nE. Correct: Indicates hemorrhage."
+          },
+          {
+            text: "Which of the following statements are true with regard to pseudocysts?",
+            choices: [
+              "A. Pseudocysts occur within the first week of onset of acute pancreatitis.",
+              "B. They can be confused with cystic neoplasms.",
+              "C. The majority of them require intervention.",
+              "D. Gastrointestinal bleeding may be a complication of a pseudocyst.",
+              "E. They can arise after blunt trauma to the upper abdomen."
+            ],
+            correct: [1, 3, 4],
+            explanation: "Correct Answer: B, D, E. Pseudocysts can mimic cystic neoplasms, may cause GI bleeding, and can follow trauma. They typically form after 4 weeks, and most resolve spontaneously.",
+            details: "A. Incorrect: Form after 4 weeks.\nB. Correct: Can mimic neoplasms.\nC. Incorrect: Most resolve spontaneously.\nD. Correct: Bleeding is a complication.\nE. Correct: Trauma can cause pseudocysts."
+          },
+          {
+            text: "Which of the following statements are true with regard to complications in acute pancreatitis?",
+            choices: [
+              "A. Patients with severe acute pancreatitis require a CECT scan to detect pancreatic necrosis.",
+              "B. In severe acute pancreatitis, a laparotomy must be done in all cases of pancreatic necrosis.",
+              "C. Aneurysm of the superior mesenteric artery can occur.",
+              "D. The vast majority of patients with peripancreatic sepsis can be treated conservatively.",
+              "E. Pleural effusion is seen in 10-20 per cent of patients."
+            ],
+            correct: [0, 2, 3, 4],
+            explanation: "Correct Answer: A, C, D, E. CECT detects necrosis, aneurysms can occur, most sepsis cases are managed conservatively, and pleural effusion is common.",
+            details: "A. Correct: CECT is essential.\nB. Incorrect: Laparotomy is not always needed.\nC. Correct: Aneurysms are a complication.\nD. Correct: Conservative management is common.\nE. Correct: Pleural effusion occurs in 10-20%."
+          },
+          {
+            text: "The radical curative operation of pancreatoduodenectomy for carcinoma of the head of the pancreas, periampullary carcinoma, or the lower end of CBD goes by which name?",
+            choices: [
+              "A. Millin",
+              "B. Billroth",
+              "C. Whipple",
+              "D. Wertheim",
+              "E. Ombrédanne"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The Whipple procedure is the pancreatoduodenectomy for pancreatic head or periampullary carcinoma.",
+            details: "A. Incorrect: Millin is unrelated.\nB. Incorrect: Billroth is for gastric surgery.\nC. Correct: Whipple is the standard.\nD. Incorrect: Wertheim is for cervical cancer.\nE. Incorrect: Ombrédanne is unrelated."
+          },
+          {
+            text: "About anatomy of the pancreas, all the following statements are true, except:",
+            choices: [
+              "A. It receives blood supply from the coeliac trunk and from the superior mesenteric artery.",
+              "B. The pancreatic body and tail are supplied by the splenic artery.",
+              "C. The superior pancreaticoduodenal artery is a branch of Superior mesenteric artery.",
+              "D. The lower end of the common bile duct is embedded in the head of the pancreas.",
+              "E. The superior mesenteric vessels pass in front of the uncinate process."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The superior pancreaticoduodenal artery is a branch of the gastroduodenal artery (from the coeliac trunk), not the superior mesenteric artery.",
+            details: "A. Correct: Dual blood supply.\nB. Correct: Splenic artery supplies body and tail.\nC. Incorrect: Origin is gastroduodenal artery.\nD. Correct: CBD is embedded in the head.\nE. Correct: Vessels are anterior to uncinate process."
+          },
+          {
+            text: "About anatomical relations of the pancreas, all the following statements are true, except:",
+            choices: [
+              "A. The lesser sac separates the pancreas from the posterior surface of the stomach.",
+              "B. The inferior vena cava lies posterior to the head of the pancreas.",
+              "C. The portal vein is formed behind the neck of the pancreas.",
+              "D. The abdominal aorta lies posterior to the body of the pancreas.",
+              "E. The splenic artery runs horizontally posterior to the body and tail of the pancreas."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. The splenic vein, not the artery, runs horizontally behind the pancreas. The splenic artery is tortuous and lies above the pancreas.",
+            details: "A. Correct: Lesser sac separates pancreas and stomach.\nB. Correct: IVC is posterior to head.\nC. Correct: Portal vein forms behind neck.\nD. Correct: Aorta is posterior to body.\nE. Incorrect: Splenic vein is posterior."
+          },
+          {
+            text: "About pancreatic physiology, all the following statements are true, except:",
+            choices: [
+              "A. The islets of Langerhans are concentrated in the left half of the pancreas.",
+              "B. The protein-digesting enzymes of the pancreas are normally activated in the intestine.",
+              "C. Beta cells secrete insulin.",
+              "D. Alpha cells secrete gastrin.",
+              "E. The pancreas secretes amylase and lipase."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Alpha cells secrete glucagon, not gastrin, which is secreted by G cells in the gastric antrum.",
+            details: "A. Correct: Islets are more in the tail.\nB. Correct: Enzymes activate in intestine.\nC. Correct: Beta cells produce insulin.\nD. Incorrect: Alpha cells produce glucagon.\nE. Correct: Amylase and lipase are secreted."
+          },
+          {
+            text: "The commonest cause of acute pancreatitis is:",
+            choices: [
+              "A. Biliary stones",
+              "B. Excess alcohol consumption",
+              "C. Hyperlipidaemia",
+              "D. Steroid therapy",
+              "E. Hyperparathyroidism"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Biliary stones are the most common cause, leading to bile regurgitation into the pancreatic duct.",
+            details: "A. Correct: Commonest cause.\nB. Incorrect: Second most common.\nC. Incorrect: Rare cause.\nD. Incorrect: Rare cause.\nE. Incorrect: Rare cause."
+          },
+          {
+            text: "All the following are causes of acute pancreatitis, except:",
+            choices: [
+              "A. Hypercalcaemia",
+              "B. Hypokalaemia",
+              "C. Hyperlipidaemia",
+              "D. Common bile duct stone",
+              "E. Thiazide diuretics"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Hypokalaemia is not a known cause of acute pancreatitis.",
+            details: "A. Correct: Hypercalcaemia can cause pancreatitis.\nB. Incorrect: Not a cause.\nC. Correct: Hyperlipidaemia is a cause.\nD. Correct: CBD stones are a cause.\nE. Correct: Thiazides can cause pancreatitis."
+          },
+          {
+            text: "The following are all features of acute pancreatitis, except:",
+            choices: [
+              "A. Severe epigastric pain",
+              "B. Vomiting",
+              "C. Shock",
+              "D. Severe epigastric tenderness",
+              "E. Markedly elevated serum amylase"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Acute pancreatitis causes severe pain but mild tenderness due to its retroperitoneal location.",
+            details: "A. Correct: Severe pain is typical.\nB. Correct: Vomiting is common.\nC. Correct: Shock occurs in severe cases.\nD. Incorrect: Tenderness is mild.\nE. Correct: Amylase is often elevated."
+          },
+          {
+            text: "The commonest cause of death during the first week of acute pancreatitis is:",
+            choices: [
+              "A. Haemorrhagic shock",
+              "B. Multiple organ failure",
+              "C. Ruptured splenic artery aneurysm",
+              "D. Pancreatic abscess",
+              "E. Pulmonary embolism"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Multiple organ failure, especially ARDS, is the leading cause of death in the first week.",
+            details: "A. Incorrect: Less common.\nB. Correct: ARDS is primary cause.\nC. Incorrect: Rare complication.\nD. Incorrect: Occurs later.\nE. Incorrect: Less common early."
+          },
+          {
+            text: "About acute pancreatitis, all the following statements are true, except:",
+            choices: [
+              "A. The aim of assessing severity is to select patients who require admission to the intensive care unit.",
+              "B. Urgent laparotomy is indicated for severe acute pancreatitis.",
+              "C. Age above 55 years is considered a bad prognostic factor.",
+              "D. Hypocalcaemia is considered a bad prognostic factor.",
+              "E. Obesity is considered a bad prognostic factor."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Urgent laparotomy is not indicated for severe acute pancreatitis unless specific complications like necrosis or abscess require it.",
+            details: "A. Correct: Severity guides ICU admission.\nB. Incorrect: Surgery is limited.\nC. Correct: Age is a risk factor.\nD. Correct: Hypocalcaemia is a risk factor.\nE. Correct: Obesity worsens prognosis."
+          },
+          {
+            text: "About conservative treatment of acute pancreatitis, all the following statements are true, except:",
+            choices: [
+              "A. Severe acute pancreatitis cases require treatment in an intensive care unit.",
+              "B. Circulatory support may require blood transfusion.",
+              "C. Mechanical ventilation is indicated when arterial PO2 is less than 60 mmHg.",
+              "D. IV antibiotics may reduce infection of necrotic pancreatic tissue.",
+              "E. ERCP for sphincterotomy and for removal of bile duct stones is indicated for all cases."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. ERCP is indicated only if there is evidence of bile duct stone impaction, not for all cases.",
+            details: "A. Correct: ICU for severe cases.\nB. Correct: Transfusion for hemorrhage.\nC. Correct: Ventilation for respiratory failure.\nD. Correct: Antibiotics for necrosis.\nE. Incorrect: ERCP is selective."
+          },
+          {
+            text: "About pancreatic pseudocyst, all the following statements are true, except:",
+            choices: [
+              "A. It may be painless.",
+              "B. A large cyst is felt in the epigastrium.",
+              "C. It shows transmitted pulsations.",
+              "D. The best imaging study for its diagnosis is barium meal.",
+              "E. Surgery is done for cysts that persist for more than six weeks."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Ultrasound and CT are the best imaging studies for pancreatic pseudocyst, not barium meal.",
+            details: "A. Correct: Can be painless.\nB. Correct: Palpable in epigastrium.\nC. Correct: Shows pulsations.\nD. Incorrect: US/CT are preferred.\nE. Correct: Surgery for persistent cysts."
+          },
+          {
+            text: "Complications of acute pancreatitis include all the following, except:",
+            choices: [
+              "A. Respiratory failure",
+              "B. Renal failure",
+              "C. Hypercalcaemia",
+              "D. Pancreatic pseudocyst",
+              "E. Pancreatic abscess"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Acute pancreatitis can cause hypocalcaemia due to fat necrosis, not hypercalcaemia.",
+            details: "A. Correct: Respiratory failure is common.\nB. Correct: Renal failure can occur.\nC. Incorrect: Hypocalcaemia is typical.\nD. Correct: Pseudocyst is a complication.\nE. Correct: Abscess can develop."
+          },
+          {
+            text: "About the diagnosis of acute pancreatitis, all the following statements are true, except:",
+            choices: [
+              "A. Serum amylase is markedly elevated during the first week of the attack.",
+              "B. Low arterial PO2 is expected in severe cases.",
+              "C. Hypoproteinaemia is expected in severe cases.",
+              "D. A dilated common bile duct on ultrasound examination suggests a stone impaction in its lower end.",
+              "E. CT scan with IV contrast can help stage the severity of the disease."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Serum amylase is elevated for 2-3 days, not the entire first week.",
+            details: "A. Incorrect: Elevation lasts 2-3 days.\nB. Correct: Low PO2 in severe cases.\nC. Correct: Hypoproteinaemia occurs.\nD. Correct: Suggests stone impaction.\nE. Correct: CT stages severity."
+          },
+          {
+            text: "About chronic pancreatitis, all the following statements are true, except:",
+            choices: [
+              "A. The commonest cause is bile duct stones.",
+              "B. The disease is characterised by fibrosis of the pancreas.",
+              "C. The disease is characterised by progressive loss of exocrine function.",
+              "D. The disease is characterised by progressive loss of endocrine function.",
+              "E. Pancreatic pathology is irreversible."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. The commonest cause of chronic pancreatitis is alcohol abuse, not bile duct stones.",
+            details: "A. Incorrect: Alcohol is the main cause.\nB. Correct: Fibrosis is characteristic.\nC. Correct: Exocrine loss occurs.\nD. Correct: Endocrine loss occurs.\nE. Correct: Damage is irreversible."
+          },
+          {
+            text: "The pancreatic pseudocyst is so called because:",
+            choices: [
+              "A. It has no epithelial lining.",
+              "B. It may contain necrotic material.",
+              "C. It is not embedded in the pancreas.",
+              "D. It may be caused by diseases of organs other than the pancreas.",
+              "E. It is, in fact, a neoplasm."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. A pseudocyst lacks an epithelial lining, being lined by granulation tissue.",
+            details: "A. Correct: No epithelial lining.\nB. Incorrect: Necrotic material is not the reason.\nC. Incorrect: Can be within pancreas.\nD. Incorrect: Caused by pancreatic issues.\nE. Incorrect: Not neoplastic."
+          },
+          {
+            text: "About clinical features of chronic pancreatitis, all the following statements are true, except:",
+            choices: [
+              "A. Chronic abdominal pain is the main symptom.",
+              "B. The disease can cause chronic constipation.",
+              "C. The disease can cause loss of weight.",
+              "D. The disease can cause diabetes mellitus.",
+              "E. The disease may cause obstructive jaundice."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Chronic pancreatitis causes steatorrhea (fatty diarrhea), not constipation.",
+            details: "A. Correct: Pain is primary.\nB. Incorrect: Causes diarrhea.\nC. Correct: Weight loss occurs.\nD. Correct: Diabetes is a complication.\nE. Correct: Jaundice from duct narrowing."
+          },
+          {
+            text: "About management of chronic pancreatitis, all the following statements are true, except:",
+            choices: [
+              "A. Faecal fat estimation can assess exocrine function of the pancreas.",
+              "B. Secretin stimulation test can assess exocrine function of the pancreas.",
+              "C. Surgery is required for the majority of chronic pancreatitis patients.",
+              "D. ERCP is done if surgery is indicated.",
+              "E. Pancreatico-jejunostomy is feasible only if part of the pancreatic duct is dilated."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Most chronic pancreatitis patients are managed conservatively, not surgically.",
+            details: "A. Correct: Assesses exocrine function.\nB. Correct: Secretin test is used.\nC. Incorrect: Surgery is for select cases.\nD. Correct: ERCP guides surgery.\nE. Correct: Requires dilated duct."
+          },
+          {
+            text: "The most common site for carcinoma of the pancreas is the:",
+            choices: [
+              "A. Head",
+              "B. Neck",
+              "C. Body",
+              "D. Tail",
+              "E. Diffuse"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. 60% of pancreatic cancers occur in the head.",
+            details: "A. Correct: Head is most common.\nB. Incorrect: Less common.\nC. Incorrect: Less common.\nD. Incorrect: Less common.\nE. Incorrect: Diffuse is rare."
+          },
+          {
+            text: "About spread of pancreatic head cancer, all the following statements are true, except:",
+            choices: [
+              "A. Invasion of the common bile duct causes obstructive jaundice.",
+              "B. Direct infiltration of the superior mesenteric artery indicates inoperability.",
+              "C. Lymphatic spread can reach lymph nodes along the hepatic artery.",
+              "D. The first station for haematogenous spread is the lungs.",
+              "E. Transperitoneal spread can cause peritoneal nodules and ascites."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The first station for haematogenous spread is the liver, not the lungs, due to portal circulation.",
+            details: "A. Correct: Causes jaundice.\nB. Correct: Indicates inoperability.\nC. Correct: Lymphatic spread occurs.\nD. Incorrect: Liver is first.\nE. Correct: Peritoneal spread occurs."
+          },
+          {
+            text: "Cancer of the head of the pancreas has the following clinical features, except:",
+            choices: [
+              "A. Progressive jaundice",
+              "B. Severe abdominal pain",
+              "C. Tea-coloured urine",
+              "D. Itching",
+              "E. Usually a palpably distended gall bladder"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Pancreatic head cancer typically causes mild or no pain, unlike calcular jaundice.",
+            details: "A. Correct: Jaundice is progressive.\nB. Incorrect: Pain is mild.\nC. Correct: Urine is dark.\nD. Correct: Itching from bile salts.\nE. Correct: Distended gallbladder."
+          },
+          {
+            text: "About the diagnosis of suspected carcinoma of the head of pancreas, all the following statements are true, except:",
+            choices: [
+              "A. The tumour marker of pancreatic cancer is CA 19-9.",
+              "B. Triphasic CT scan shows the cancer as an enhancing lesion.",
+              "C. Ultrasound of the abdomen is less likely to see the tumour than CT scan.",
+              "D. Ultrasound of the abdomen shows dilatation of the intra- and extra-hepatic bile ducts.",
+              "E. Alkaline phosphatase is expected to be elevated."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Pancreatic cancer appears hypodense (non-enhancing) on triphasic CT, not enhancing.",
+            details: "A. Correct: CA 19-9 is a marker.\nB. Incorrect: Tumour is hypodense.\nC. Correct: CT is more sensitive.\nD. Correct: Shows duct dilatation.\nE. Correct: Alkaline phosphatase is elevated."
+          },
+          {
+            text: "With operations for obstructive jaundice, patients are particularly prone to develop any of the following complications, except:",
+            choices: [
+              "A. Pulmonary embolism",
+              "B. Excessive bleeding",
+              "C. Septicaemia",
+              "D. Postoperative renal failure",
+              "E. Postoperative liver failure"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Obstructive jaundice patients have a bleeding tendency due to hypoprothrombinemia, making pulmonary embolism less likely.",
+            details: "A. Incorrect: Less likely due to bleeding tendency.\nB. Correct: Bleeding is common.\nC. Correct: Sepsis is a risk.\nD. Correct: Renal failure is a risk.\nE. Correct: Liver failure is a risk."
+          },
+          {
+            text: "Regarding treatment of pancreatic head cancer, all the following statements are true, except:",
+            choices: [
+              "A. For an irresectable tumour, the best treatment is radiotherapy.",
+              "B. A pancreaticoduodenectomy operation is indicated for early cases.",
+              "C. In a Whipple's operation, the superior mesenteric vessels are spared.",
+              "D. By the end of a Whipple's operation, there are gastrojejunal, hepaticojejunal, and pancreaticojejunal anastomoses.",
+              "E. For patients who are not fit for anaesthesia, endoscopic stenting is indicated."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Pancreatic adenocarcinoma is radioresistant; internal drainage (e.g., cholecystojejunostomy) is preferred for irresectable tumours.",
+            details: "A. Incorrect: Radiotherapy is ineffective.\nB. Correct: Indicated for early cases.\nC. Correct: Vessels are spared.\nD. Correct: Multiple anastomoses.\nE. Correct: Stenting for unfit patients."
+          },
+          {
+            text: "Regarding prognosis of exocrine adenocarcinoma of the pancreas, all the following statements are true, except:",
+            choices: [
+              "A. Carcinoma of the head carries a better prognosis than carcinoma of the body of pancreas.",
+              "B. Periampullary carcinoma carries a better prognosis than carcinoma of the head proper.",
+              "C. At laparotomy for head cancer, early cases suitable for pancreaticoduodenectomy represent 10-15% only of the total.",
+              "D. Invasion of the portal vein worsens the prognosis.",
+              "E. Pancreatico-duodenectomy is a minor palliative operation that has less than 1% operative mortality."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Pancreatoduodenectomy is a major operation with about 10% operative mortality, not a minor procedure.",
+            details: "A. Correct: Head has better prognosis.\nB. Correct: Periampullary has better prognosis.\nC. Correct: Only 10-15% are resectable.\nD. Correct: Portal vein invasion worsens prognosis.\nE. Incorrect: Major operation with high mortality."
+          },
+          {
+            text: "About insulinomas, all the following statements are true, except:",
+            choices: [
+              "A. It arises from the beta cells of islets of Langerhans.",
+              "B. It usually arises from the head of pancreas.",
+              "C. It is usually benign.",
+              "D. It gives symptoms of hypoglycaemia.",
+              "E. The best treatment is surgical resection."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Insulinomas are more common in the tail, where islets are concentrated, not the head.",
+            details: "A. Correct: Arises from beta cells.\nB. Incorrect: More common in tail.\nC. Correct: Usually benign.\nD. Correct: Causes hypoglycaemia.\nE. Correct: Surgery is best."
+          },
+          {
+            text: "About Zollinger-Ellison syndrome, all the following statements are true, except:",
+            choices: [
+              "A. It may be part of type II of multiple endocrine neoplasia (MEN) syndrome.",
+              "B. Hypergastrinaemia causes intractable peptic ulcerations.",
+              "C. The majority of the gastrinomas are malignant.",
+              "D. Diarrhoea is present in 30% of cases.",
+              "E. If tumour resection is not possible, an alternative is to do total gastrectomy."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Zollinger-Ellison syndrome is part of MEN type I, not type II.",
+            details: "A. Incorrect: Part of MEN I.\nB. Correct: Causes ulcers.\nC. Correct: 60% are malignant.\nD. Correct: Diarrhea in 30%.\nE. Correct: Gastrectomy is an alternative."
+          }
+        ]
+      };
+      
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف الإمساك والإسهال</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
