@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Appendix Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Appendix Quiz</h1>
+        <p lang="ar">kasr and Bailey & Love questions</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Appendix Quiz",
+        lesson: "The Appendix",
+        questions: [
+          {
+            text: "Which of the following statements about the anatomy of the vermiform appendix is false?",
+            choices: [
+              "A. The appendicular artery arises from the right colic artery.",
+              "B. The commonest position of the appendix is retrocaecal.",
+              "C. The position of the base of the appendix is constant.",
+              "D. The submucosa is rich in lymphoid aggregates.",
+              "E. Argentaffin cells are found in the base of the crypts."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. The appendicular artery arises from the ileocolic artery, not the right colic artery.",
+            details: "A. Incorrect: The appendicular artery is a branch of the ileocolic artery.\nB. Correct: Retrocaecal is the commonest position.\nC. Correct: The base is constant at the taenia coli confluence.\nD. Correct: Lymphoid aggregates are abundant.\nE. Correct: Argentaffin (Kulchitsky) cells are present."
+          },
+          {
+            text: "Which of the following statements about clinical aspects of acute appendicitis are true?",
+            choices: [
+              "A. The peak incidence of acute appendicitis is in the teens and early 20s.",
+              "B. The incidence of acute appendicitis is lowest in those who have a high intake of dietary fibre.",
+              "C. Obstruction of the appendix lumen by a caecal carcinoma may give rise to acute appendicitis.",
+              "D. Aerobic and anaerobic organisms are responsible for acute appendicitis.",
+              "E. A mucocele of the appendix is a clinical variation of acute appendicitis."
+            ],
+            correct: [0, 1, 2, 3],
+            explanation: "Correct Answer: A, B, C, D. A mucocele is not a variation of acute appendicitis; it results from resolved inflammation causing mucus distension.",
+            details: "A. Correct: Peak incidence in teens/20s.\nB. Correct: High fibre reduces incidence.\nC. Correct: Caecal carcinoma can obstruct the lumen.\nD. Correct: Mixed bacterial infection.\nE. Incorrect: Mucocele is a separate entity."
+          },
+          {
+            text: "Which of the following types of patients do not have an increased risk of perforation in acute appendicitis?",
+            choices: [
+              "A. Extremes of age",
+              "B. Immunosuppressed",
+              "C. Diabetes mellitus",
+              "D. Pelvic position of appendix",
+              "E. Obese patient"
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Obese patients have ample omentum, which helps localize inflammation and reduces perforation risk.",
+            details: "A. Incorrect: Extremes of age increase risk.\nB. Incorrect: Immunosuppression increases risk.\nC. Incorrect: Diabetes increases risk.\nD. Incorrect: Pelvic position delays diagnosis.\nE. Correct: Obesity reduces risk."
+          },
+          {
+            text: "Which of the following is not a sign of acute appendicitis?",
+            choices: [
+              "A. Rovsing's sign",
+              "B. Pointing sign",
+              "C. Obturator sign",
+              "D. Psoas sign",
+              "E. Murphy's sign"
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Murphy's sign is associated with acute cholecystitis, not appendicitis.",
+            details: "A. Correct: Pain in RIF on left palpation.\nB. Correct: Patient points to pain shift.\nC. Correct: Pain on internal hip rotation.\nD. Correct: Pain on hip extension.\nE. Incorrect: Related to gallbladder."
+          },
+          {
+            text: "Which of the following statements are true in acute appendicitis?",
+            choices: [
+              "A. Perforation is more common in acute obstructive appendicitis than in acute catarrhal appendicitis.",
+              "B. Acute appendicitis in pregnancy will result in fetal loss in 3-5 per cent.",
+              "C. An Alvarado score of 7 or more is suggestive of the diagnosis.",
+              "D. Routine use of contrast-enhanced CT scan will reduce the incidence of removal of a normal appendix.",
+              "E. Cancer of the caecum may masquerade as acute appendicitis."
+            ],
+            correct: [0, 1, 2, 4],
+            explanation: "Correct Answer: A, B, C, E. Selective, not routine, use of CT reduces unnecessary appendicectomies, particularly for Alvarado scores of 5-6.",
+            details: "A. Correct: Obstructive type perforates more.\nB. Correct: Fetal loss in 3-5%.\nC. Correct: Alvarado ≥7 suggests appendicitis.\nD. Incorrect: Selective CT use is preferred.\nE. Correct: Caecal cancer can mimic appendicitis."
+          },
+          {
+            text: "In children, which of the following is not part of the differential diagnosis of acute appendicitis?",
+            choices: [
+              "A. Gastroenteritis",
+              "B. Mesenteric adenitis",
+              "C. Meckel's diverticulitis",
+              "D. Intussusception",
+              "E. Urinary tract infection",
+              "F. Lobar pneumonia"
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Urinary tract infection is not typically part of the differential diagnosis of acute appendicitis in children.",
+            details: "A. Correct: Common mimic.\nB. Correct: Common in children.\nC. Correct: Can mimic appendicitis.\nD. Correct: Common in infants.\nE. Incorrect: Not typically included.\nF. Correct: Can present with abdominal pain."
+          },
+          {
+            text: "In the adult male, which of the following is not part of the differential diagnosis of acute appendicitis?",
+            choices: [
+              "A. Regional ileitis",
+              "B. Ureteric colic",
+              "C. Perforated peptic ulcer",
+              "D. Acute pancreatitis",
+              "E. Torsion of testis",
+              "F. Mesenteric cyst"
+            ],
+            correct: [5],
+            explanation: "Correct Answer: F. Mesenteric cyst is not typically part of the differential diagnosis of acute appendicitis in adult males.",
+            details: "A. Correct: Crohn’s can mimic appendicitis.\nB. Correct: Ureteric colic mimics RIF pain.\nC. Correct: Perforation can present similarly.\nD. Correct: Pancreatitis can mimic.\nE. Correct: Testicular torsion can refer pain.\nF. Incorrect: Not typically included."
+          },
+          {
+            text: "In the adult female, which of the following is not part of the differential diagnosis of acute appendicitis?",
+            choices: [
+              "A. Mittelschmerz",
+              "B. Pelvic inflammatory disease",
+              "C. Pyelonephritis",
+              "D. Biliary colic/acute cholecystitis",
+              "E. Ruptured ectopic pregnancy",
+              "F. Torsion or ruptured ovarian cyst"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Biliary colic/acute cholecystitis typically presents in the right upper quadrant, not mimicking acute appendicitis.",
+            details: "A. Correct: Ovulation pain mimics.\nB. Correct: PID can mimic.\nC. Correct: Pyelonephritis can mimic.\nD. Incorrect: RUQ pain, not RIF.\nE. Correct: Ectopic pregnancy mimics.\nF. Correct: Ovarian pathology mimics."
+          },
+          {
+            text: "In the elderly, which of the following is not part of the differential diagnosis of acute appendicitis?",
+            choices: [
+              "A. Diverticulitis",
+              "B. Intestinal obstruction",
+              "C. Mesenteric infarction",
+              "D. Leaking abdominal aortic aneurysm",
+              "E. Carcinoma of the caecum",
+              "F. Bladder calculus"
+            ],
+            correct: [5],
+            explanation: "Correct Answer: F. Bladder calculus is not typically part of the differential diagnosis of acute appendicitis in the elderly.",
+            details: "A. Correct: Diverticulitis mimics.\nB. Correct: Obstruction mimics.\nC. Correct: Infarction mimics.\nD. Correct: Aneurysm can mimic.\nE. Correct: Caecal cancer mimics.\nF. Incorrect: Not typically included."
+          },
+          {
+            text: "The commonest position of the appendix is:",
+            choices: [
+              "A. Pelvic",
+              "B. Pre-ileal",
+              "C. Post-ileal",
+              "D. Retrocaecal",
+              "E. Paracaecal"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The retrocaecal position is the most common (74%), followed by pelvic (21%).",
+            details: "A. Incorrect: Pelvic is second (21%).\nB. Incorrect: Pre-ileal is rare (1%).\nC. Incorrect: Post-ileal is rarest (0.5%).\nD. Correct: Most common (74%).\nE. Incorrect: Paracaecal is rare (2%)."
+          },
+          {
+            text: "About anatomy of the appendix, all the following statements are true, except:",
+            choices: [
+              "A. The appendicular artery is derived from the ileocolic artery.",
+              "B. The appendicular artery reaches the appendix through the mesoappendix.",
+              "C. The appendix vein is portal.",
+              "D. The base of the appendix lies at the point of confluence of the taenia coli.",
+              "E. The appendix wall is devoid of lymphoid tissues."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. The appendix wall is rich in lymphoid follicles, which can cause luminal obstruction.",
+            details: "A. Correct: Arises from ileocolic artery.\nB. Correct: Via mesoappendix.\nC. Correct: Drains to portal system.\nD. Correct: Base at taenia coli confluence.\nE. Incorrect: Rich in lymphoid tissue."
+          },
+          {
+            text: "About acute appendicitis, all the following statements are true, except:",
+            choices: [
+              "A. Acute appendicitis is the most common acute abdominal surgical emergency.",
+              "B. Acute appendicitis is most prevalent at the extremes of age.",
+              "C. In the majority of cases inflammation is initiated by obstruction of the appendix.",
+              "D. Inflammation starts in the mucosa.",
+              "E. Obstructive appendicitis is more likely to perforate than the non-obstructive type."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Acute appendicitis is most prevalent in the second and third decades, not at extremes of age.",
+            details: "A. Correct: Most common emergency.\nB. Incorrect: Peaks in 20s/30s.\nC. Correct: Obstruction initiates inflammation.\nD. Correct: Starts in mucosa.\nE. Correct: Obstructive type perforates more."
+          },
+          {
+            text: "All the following are possible results of acute appendicitis, except:",
+            choices: [
+              "A. Spontaneous resolution of inflammation.",
+              "B. Gangrene and perforation.",
+              "C. Appendix mass.",
+              "D. Mucosal ulcerations that cause severe bleeding.",
+              "E. Chronic appendicitis."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Acute appendicitis does not cause significant bleeding from mucosal ulcerations.",
+            details: "A. Correct: Can resolve spontaneously.\nB. Correct: Gangrene/perforation occurs.\nC. Correct: Mass can form.\nD. Incorrect: Bleeding is not significant.\nE. Correct: Chronic appendicitis exists."
+          },
+          {
+            text: "The following signs and symptoms are consistent with acute unruptured appendicitis, except:",
+            choices: [
+              "A. The patient is writhing in pain.",
+              "B. Pain is initially central abdominal, then moves to the right iliac fossa.",
+              "C. Positive Rovsing's sign.",
+              "D. Pain on extending the right hip joint.",
+              "E. Mild temperature elevation."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Patients with acute appendicitis remain still, as movement aggravates pain.",
+            details: "A. Incorrect: Patients avoid movement.\nB. Correct: Visceral to somatic pain shift.\nC. Correct: Rovsing's sign is positive.\nD. Correct: Psoas sign is positive.\nE. Correct: Mild fever is common."
+          },
+          {
+            text: "One of the following is strongly against the diagnosis of acute appendicitis:",
+            choices: [
+              "A. Vomiting precedes pain.",
+              "B. Maximum point of tenderness is higher than McBurney's point.",
+              "C. No abdominal rigidity.",
+              "D. Normal white cell count.",
+              "E. Normal ultrasound examination."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Vomiting preceding pain suggests another diagnosis, as pain typically precedes vomiting in appendicitis.",
+            details: "A. Correct: Pain precedes vomiting.\nB. Incorrect: Can occur with high appendix.\nC. Incorrect: Rigidity absent in early cases.\nD. Incorrect: Normal WBC possible.\nE. Incorrect: Ultrasound may be normal."
+          },
+          {
+            text: "The common differential diagnoses of acute appendicitis include all the following, except:",
+            choices: [
+              "A. Right tubo-ovarian causes.",
+              "B. Right ureter stone.",
+              "C. Mesenteric adenitis.",
+              "D. Colon diverticulitis.",
+              "E. Meckel's diverticulitis."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Colon diverticulitis typically presents on the left side, not mimicking acute appendicitis.",
+            details: "A. Correct: Tubo-ovarian issues mimic.\nB. Correct: Ureter stone mimics.\nC. Correct: Mesenteric adenitis mimics.\nD. Incorrect: Left-sided disease.\nE. Correct: Meckel's mimics."
+          },
+          {
+            text: "Only one statement about acute appendicitis is correct:",
+            choices: [
+              "A. A normal leucocytic count excludes acute appendicitis.",
+              "B. The point of maximum tenderness is always fixed at McBurney's point.",
+              "C. The tip of the appendix is a common site of gangrene and rupture.",
+              "D. Laparoscopic appendicectomy should be considered experimental.",
+              "E. Portal pyaemia is a common complication."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The tip of the appendix is prone to gangrene due to the appendicular artery’s distal position.",
+            details: "A. Incorrect: Normal WBC possible.\nB. Incorrect: Tenderness varies.\nC. Correct: Tip is vulnerable.\nD. Incorrect: Laparoscopy is standard.\nE. Incorrect: Portal pyaemia is rare."
+          },
+          {
+            text: "All the following statements about acute appendicitis are true, except:",
+            choices: [
+              "A. Pain precedes vomiting.",
+              "B. The initial central pain is visceral while the later localized iliac pain is somatic.",
+              "C. A ruptured appendix in a young child is less likely to cause generalized peritonitis than in an adult.",
+              "D. Laparoscopy is a particularly useful diagnostic aid for females in the childbearing period.",
+              "E. A negative Rovsing's sign does not exclude appendicitis."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Children are more likely to develop generalized peritonitis due to underdeveloped omentum.",
+            details: "A. Correct: Pain precedes vomiting.\nB. Correct: Visceral to somatic shift.\nC. Incorrect: Children have higher risk.\nD. Correct: Laparoscopy aids diagnosis.\nE. Correct: Negative Rovsing’s doesn’t exclude."
+          },
+          {
+            text: "The treatment of uncomplicated appendicitis is:",
+            choices: [
+              "A. Observation. Operation is done if rupture occurs.",
+              "B. Oral metronidazole and a cephalosporin at home.",
+              "C. IV metronidazole and a cephalosporin in hospital.",
+              "D. Urgent surgical removal of the appendix.",
+              "E. Appendicectomy after three months."
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Urgent appendicectomy is the standard treatment for uncomplicated appendicitis.",
+            details: "A. Incorrect: Delays increase risk.\nB. Incorrect: Antibiotics alone insufficient.\nC. Incorrect: Surgery is primary.\nD. Correct: Urgent appendicectomy.\nE. Incorrect: Delayed surgery inappropriate."
+          },
+          {
+            text: "About treatment of acute appendicitis, all the following statements are true, except:",
+            choices: [
+              "A. The treatment of rupture and peritonitis is urgent appendicectomy and removal of pus.",
+              "B. The treatment of appendix abscess is initially conservative then appendicectomy after 3-6 months.",
+              "C. Perioperative antibiotics reduce the incidence of wound infection.",
+              "D. If the patient under anaesthesia is examined before the incision, and an appendix mass is felt, the operation has to be cancelled.",
+              "E. Most appendix masses resolve spontaneously under conservative treatment."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Appendix abscess requires initial drainage, not conservative treatment, followed by interval appendicectomy.",
+            details: "A. Correct: Urgent surgery for rupture.\nB. Incorrect: Abscess needs drainage.\nC. Correct: Antibiotics reduce infection.\nD. Correct: Mass may cancel surgery.\nE. Correct: Masses often resolve."
+          },
+          {
+            text: "With regard to appendicitis, all the following statements are true, except:",
+            choices: [
+              "A. McBurney's point is at the junction of the outer third and inner two thirds of a line that connects the umbilicus and the right anterior superior iliac spine.",
+              "B. The presence of an appendix mass necessitates urgent appendicectomy.",
+              "C. Loss of appetite is a common feature of acute appendicitis.",
+              "D. Rovsing's sign is an increase in pain in the right iliac fossa when the left iliac fossa is deeply palpated.",
+              "E. McBurney's incision has a low incidence of incisional hernia."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. An appendix mass is managed conservatively, as urgent appendicectomy risks complications.",
+            details: "A. Correct: McBurney’s point definition.\nB. Incorrect: Mass treated conservatively.\nC. Correct: Anorexia is common.\nD. Correct: Rovsing’s sign definition.\nE. Correct: Grid-iron incision is strong."
+          },
+          {
+            text: "If at operation for removal of the appendix, this organ looks healthy, the surgeon should examine the following, except:",
+            choices: [
+              "A. The terminal 2 metres of the small intestine.",
+              "B. The mesentery of the terminal ileum.",
+              "C. The right kidney.",
+              "D. The right ovary.",
+              "E. The right Fallopian tube."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The right kidney is retroperitoneal and inaccessible during appendicectomy.",
+            details: "A. Correct: Check for Meckel’s or Crohn’s.\nB. Correct: Check for adenitis.\nC. Incorrect: Not accessible.\nD. Correct: Check for ovarian pathology.\nE. Correct: Check for tubo-ovarian issues."
+          },
+          {
+            text: "About masses in the right iliac fossa, all the following statements are true, except:",
+            choices: [
+              "A. An appendix mass is the commonest mass in the right iliac fossa.",
+              "B. A pericolic mass of diverticulitis is the second common mass in the right iliac fossa.",
+              "C. Cancer of the caecum may present by a mass in the right iliac fossa.",
+              "D. Tuberculosis may present by a mass in the right iliac fossa.",
+              "E. Crohn’s disease may present by a mass in the right iliac fossa."
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. Diverticulitis masses are typically left-sided, not right-sided.",
+            details: "A. Correct: Appendix mass is commonest.\nB. Incorrect: Diverticulitis is left-sided.\nC. Correct: Caecal cancer causes masses.\nD. Correct: TB can cause RIF mass.\nE. Correct: Crohn’s can cause mass."
+          },
+          {
+            text: "About acute appendicitis, all the following statements are true, except:",
+            choices: [
+              "A. Pelvic appendicitis presents by deep pelvic pain, tenesmus, and dysuria.",
+              "B. Retro-ileal appendicitis presents by diarrhoea.",
+              "C. Acute appendicitis in the elderly carries worse prognosis than in young adults.",
+              "D. During pregnancy, the maximum point of tenderness of appendicitis is higher than McBurney’s.",
+              "E. The treatment of uncomplicated acute appendicitis during pregnancy is conservative."
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. Uncomplicated appendicitis in pregnancy is treated with urgent appendicectomy, not conservatively.",
+            details: "A. Correct: Pelvic symptoms.\nB. Correct: Diarrhoea in retro-ileal.\nC. Correct: Worse in elderly.\nD. Correct: Tenderness shifts upward.\nE. Incorrect: Requires surgery."
+          },
+          {
+            text: "About appendicular tumours, all the following statements are true, except:",
+            choices: [
+              "A. The commonest tumour is adenocarcinoma.",
+              "B. Carcinoid tumours arise from Kulchitsky cells.",
+              "C. The majority of carcinoid tumours are benign.",
+              "D. Adenocarcinoma may obstruct the lumen and cause appendicitis.",
+              "E. Early adenocarcinoma is treated by right hemicolectomy."
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. Carcinoid tumours are the most common, not adenocarcinoma.",
+            details: "A. Incorrect: Carcinoid is commonest.\nB. Correct: Arise from Kulchitsky cells.\nC. Correct: 95% benign.\nD. Correct: Can cause appendicitis.\nE. Correct: Hemicolectomy for adenocarcinoma."
+          },
+          {
+            text: "About carcinoid syndrome, all the following statements are true, except:",
+            choices: [
+              "A. The appendix is the commonest site for a carcinoid tumour.",
+              "B. Kulchitsky cells are part of the APUD system.",
+              "C. Carcinoid syndrome is produced by both benign and malignant carcinoid tumours.",
+              "D. Flushing with attacks of cyanosis and diarrhoea are manifestations of the syndrome.",
+              "E. Bronchospasm and pulmonary stenosis are manifestations of the syndrome."
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. Carcinoid syndrome is produced only by malignant carcinoid tumours with liver metastases.",
+            details: "A. Correct: Appendix is commonest site.\nB. Correct: Part of APUD system.\nC. Incorrect: Only malignant with metastases.\nD. Correct: Flushing, diarrhoea common.\nE. Correct: Bronchospasm, stenosis occur."
+          }
+        ]
+      };
+      
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف الإمساك والإسهال</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
