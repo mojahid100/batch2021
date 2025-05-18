@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>The peritoneum, omentum, mesentery, and retroperitoneal space Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>The peritoneum, omentum, mesentery, and retroperitoneal space Quiz</h1>
+        <p lang="ar">Bailey & Love questions</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Peritoneum, Omentum, Mesentery, and Retroperitoneal Space Quiz",
+        lesson: "The peritoneum, omentum, mesentery, and retroperitoneal space",
+        questions: [
+          {
+            text: "Which of the following statements about the peritoneum are true?",
+            choices: [
+              "A. The surface area of the peritoneal membrane is nearly equal to that of the skin.",
+              "B. The parietal peritoneum is poorly innervated.",
+              "C. The peritoneum has the capacity to absorb large volumes of fluid.",
+              "D. The peritoneum has the ability to produce fibrinolytic activity.",
+              "E. When injured, the peritoneum produces an inflammatory exudate."
+            ],
+            correct: [0, 2, 3, 4],
+            explanation: "Correct Answer: A, C, D, E. The peritoneal cavity is the largest cavity in the body, with a surface area of about 2 square meters, similar to the skin. It can absorb large volumes of fluid, used in peritoneal dialysis. It produces fibrinolytic activity and, when injured, generates an inflammatory exudate.",
+            details: "A. Correct: Surface area is nearly 2 square meters.\nB. Incorrect: The parietal peritoneum is richly innervated, causing severe localized pain.\nC. Correct: Enables peritoneal dialysis.\nD. Correct: Fibrinolytic activity aids healing.\nE. Correct: Inflammatory exudate is produced upon injury."
+          },
+          {
+            text: "Which of the following organisms is not a gastrointestinal source of peritonitis?",
+            choices: [
+              "A. Escherichia coli",
+              "B. Streptococcus",
+              "C. Bacteroides",
+              "D. Chlamydia",
+              "E. Clostridium",
+              "F. Klebsiella pneumoniae",
+              "G. Staphylococcus"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. Chlamydia is not typically a gastrointestinal source of peritonitis, unlike the other organisms listed, which are commonly associated with GI-related infections.",
+            details: "A. Incorrect: E. coli is a common GI pathogen.\nB. Incorrect: Streptococcus can cause GI-related peritonitis.\nC. Incorrect: Bacteroides is a GI anaerobe.\nD. Correct: Chlamydia is associated with pelvic infections, not GI.\nE. Incorrect: Clostridium is a GI pathogen.\nF. Incorrect: Klebsiella is a GI pathogen.\nG. Incorrect: Staphylococcus can contaminate from GI sources."
+          },
+          {
+            text: "Which of the following statements about peritonitis are true?",
+            choices: [
+              "A. Peritonitis in perforated duodenal ulcer is initially sterile.",
+              "B. Immunocompromised patients may present with opportunistic peritoneal infection.",
+              "C. Bacteroides are sensitive to penicillin.",
+              "D. In perforated duodenal ulcer, there may be signs of peritonitis in the right iliac fossa.",
+              "E. Children can localize infection effectively."
+            ],
+            correct: [0, 1, 3],
+            explanation: "Correct Answer: A, B, D. Initially, perforated duodenal ulcer causes sterile chemical peritonitis. Immunocompromised patients are prone to opportunistic infections. Duodenal contents may track to the right iliac fossa, mimicking appendicitis.",
+            details: "A. Correct: Sterile chemical peritonitis occurs initially.\nB. Correct: Opportunistic infections are common in immunocompromised patients.\nC. Incorrect: Bacteroides are resistant to penicillin, sensitive to metronidazole.\nD. Correct: Fluid tracks along the right paracolic gutter.\nE. Incorrect: Children’s poor omentum development hinders localization."
+          },
+          {
+            text: "Which of the following statements about peritonitis are false?",
+            choices: [
+              "A. Perforation proximal to an obstruction is associated with severe generalized peritonitis.",
+              "B. Stimulation of peristalsis helps in localization of peritonitis.",
+              "C. The greater the virulence of the organism, the lesser the chance of localization.",
+              "D. The patient with diffuse peritonitis writhes around in pain, unable to assume a comfortable position.",
+              "E. Systemic inflammatory response syndrome (SIRS) is a late manifestation of peritonitis."
+            ],
+            correct: [1, 3],
+            explanation: "Correct Answer: B, D. Stimulation of peristalsis hinders localization by spreading infection. Patients with diffuse peritonitis prefer to lie still, as movement exacerbates pain.",
+            details: "A. Correct: Proximal perforation causes severe peritonitis.\nB. Incorrect: Peristalsis spreads infection.\nC. Correct: Virulent organisms reduce localization.\nD. Incorrect: Patients lie still to avoid pain.\nE. Correct: SIRS is a late complication."
+          },
+          {
+            text: "Which of the following statements about diagnostic aids for peritonitis are true?",
+            choices: [
+              "A. Raised serum amylase is always diagnostic of acute pancreatitis.",
+              "B. There is always gas under the right dome of the diaphragm in perforated duodenal ulcer.",
+              "C. Ultrasound (US) and computed tomography (CT) scan are often diagnostic.",
+              "D. On diagnostic peritoneal lavage (DPL), bile aspiration indicates perforated duodenal ulcer or perforated gall bladder."
+            ],
+            correct: [2, 3],
+            explanation: "Correct Answer: C, D. Ultrasound and CT scans are reliable diagnostic tools. Bile aspiration in DPL indicates perforation of the duodenum or gall bladder.",
+            details: "A. Incorrect: Serum amylase can be raised in perforated peptic ulcer.\nB. Incorrect: Gas may be absent in early or plugged perforations.\nC. Correct: US and CT are highly reliable.\nD. Correct: Bile indicates perforation."
+          },
+          {
+            text: "A 72-year-old patient underwent an emergency right hemicolectomy and ileotransverse anastomosis for carcinoma of the caecum presenting as acute intestinal obstruction. He progressed satisfactorily until the fifth postoperative day when he developed pyrexia, generalized abdominal tenderness, and rigidity with rebound tenderness. What is the diagnosis?",
+            choices: [
+              "A. Pelvic abscess",
+              "B. Subphrenic abscess",
+              "C. Postoperative peritonitis",
+              "D. Bile peritonitis",
+              "E. Basal pneumonia"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The symptoms suggest postoperative peritonitis, likely from an anastomotic leak, requiring assessment with contrast CT or gastrografin enema.",
+            details: "A. Incorrect: Pelvic abscess causes localized symptoms.\nB. Incorrect: Subphrenic abscess causes right upper quadrant pain.\nC. Correct: Generalized symptoms indicate peritonitis.\nD. Incorrect: Bile peritonitis is unrelated to colectomy.\nE. Incorrect: No respiratory symptoms."
+          },
+          {
+            text: "A 50-year-old patient underwent a laparoscopic closure of a perforated duodenal ulcer. On the fourth postoperative day, he developed pyrexia, looked toxic, complained of pain in his right shoulder tip, and was tender and rigid over his right upper quadrant. What is the diagnosis?",
+            choices: [
+              "A. Pelvic abscess",
+              "B. Subphrenic abscess",
+              "C. Postoperative peritonitis",
+              "D. Bile peritonitis",
+              "E. Basal pneumonia"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The patient has a subphrenic abscess, indicated by right upper quadrant tenderness and shoulder tip pain, confirmed by US or CT and treated with drainage.",
+            details: "A. Incorrect: Pelvic abscess causes lower abdominal symptoms.\nB. Correct: Shoulder tip pain and right upper quadrant tenderness are classic.\nC. Incorrect: Peritonitis is more generalized.\nD. Incorrect: Bile peritonitis is unrelated.\nE. Incorrect: No respiratory signs."
+          },
+          {
+            text: "Following emergency appendicectomy for acute perforated appendicitis, a 30-year-old female patient progressed well for about 6 days. After that, she felt unwell, was pyrexial, and complained of tenesmus and foul-smelling vaginal discharge. What is the diagnosis?",
+            choices: [
+              "A. Pelvic abscess",
+              "B. Subphrenic abscess",
+              "C. Postoperative peritonitis",
+              "D. Bile peritonitis",
+              "E. Basal pneumonia"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. The symptoms suggest a pelvic abscess, potentially draining through the vagina, confirmed by pelvic or transvaginal US.",
+            details: "A. Correct: Tenesmus and vaginal discharge indicate pelvic abscess.\nB. Incorrect: Subphrenic abscess causes upper abdominal symptoms.\nC. Incorrect: Peritonitis is more generalized.\nD. Incorrect: Bile peritonitis is unrelated.\nE. Incorrect: No respiratory symptoms."
+          },
+          {
+            text: "A 14-year-old boy has been brought with right upper quadrant pain of 3 days' duration. He is pyrexial, tachypnoeic, and tender in the right upper quadrant. There is reduced air entry in the right lower chest, which is dull on percussion. What is the diagnosis?",
+            choices: [
+              "A. Pelvic abscess",
+              "B. Subphrenic abscess",
+              "C. Postoperative peritonitis",
+              "D. Bile peritonitis",
+              "E. Basal pneumonia"
+            ],
+            correct: [4],
+            explanation: "Correct Answer: E. The symptoms and chest findings indicate basal pneumonia, confirmed by chest X-ray and treated with antibiotics.",
+            details: "A. Incorrect: Pelvic abscess causes lower abdominal symptoms.\nB. Incorrect: Subphrenic abscess lacks chest findings.\nC. Incorrect: No surgical history.\nD. Incorrect: No bile-related symptoms.\nE. Correct: Chest findings confirm pneumonia."
+          },
+          {
+            text: "After an uneventful laparoscopic cholecystectomy, a 35-year-old female patient was sent home on the first postoperative day. While at home the same evening, she developed sudden onset of severe right upper abdominal pain and pain in the right shoulder tip. On examination, she had a tinge of jaundice and was extremely tender in the right upper quadrant with guarding and rebound tenderness. What is the diagnosis?",
+            choices: [
+              "A. Pelvic abscess",
+              "B. Subphrenic abscess",
+              "C. Postoperative peritonitis",
+              "D. Bile peritonitis",
+              "E. Basal pneumonia"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The symptoms suggest bile peritonitis from a slipped cystic duct clip, requiring emergency resuscitation and drainage.",
+            details: "A. Incorrect: Pelvic abscess causes lower symptoms.\nB. Incorrect: Subphrenic abscess develops later.\nC. Incorrect: Peritonitis is more generalized.\nD. Correct: Jaundice and shoulder tip pain indicate bile leak.\nE. Incorrect: No respiratory symptoms."
+          },
+          {
+            text: "A 70-year-old woman, who is known to have had a myocardial infarct in the past, complains of shortness of breath and abdominal distension. She has a raised jugular venous pressure. What is the diagnosis?",
+            choices: [
+              "A. Tuberculous peritonitis",
+              "B. Peritoneal malignancy",
+              "C. Portal hypertension",
+              "D. Congestive cardiac failure"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The symptoms and raised jugular venous pressure indicate ascites due to congestive cardiac failure, requiring referral to a physician.",
+            details: "A. Incorrect: No systemic symptoms like fever.\nB. Incorrect: No malignancy signs.\nC. Incorrect: No liver disease signs.\nD. Correct: Cardiac failure causes ascites."
+          },
+          {
+            text: "A 50-year-old patient who is an alcoholic complains of abdominal distension. He has distended veins around his umbilicus (caput medusa), palmar erythema, and spider naevi. He is slightly jaundiced. What is the diagnosis?",
+            choices: [
+              "A. Tuberculous peritonitis",
+              "B. Peritoneal malignancy",
+              "C. Portal hypertension",
+              "D. Congestive cardiac failure"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The signs of caput medusa, palmar erythema, spider naevi, and jaundice in an alcoholic suggest portal hypertension, requiring referral to a physician.",
+            details: "A. Incorrect: No infectious symptoms.\nB. Incorrect: No malignancy signs.\nC. Correct: Classic liver disease signs.\nD. Incorrect: No cardiac symptoms."
+          },
+          {
+            text: "A 60-year-old male patient complains of feeling generally unwell for 3-4 months. During this period, he has felt gradual distension of his abdomen, weight loss, and generalized malaise. He has recently returned from the subcontinent after living there for 2 years. What is the diagnosis?",
+            choices: [
+              "A. Tuberculous peritonitis",
+              "B. Peritoneal malignancy",
+              "C. Portal hypertension",
+              "D. Congestive cardiac failure"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. The history of travel to the subcontinent and symptoms suggest tuberculous peritonitis, investigated with US, ESR, CRP, and ascitic fluid analysis.",
+            details: "A. Correct: Travel history and symptoms fit TB.\nB. Incorrect: Less likely without mass.\nC. Incorrect: No liver disease signs.\nD. Incorrect: No cardiac symptoms."
+          },
+          {
+            text: "A 70-year-old female patient has had weight loss, abdominal distension, malaise, and anorexia for almost 4 months. Abdominal examination shows massive ascites. US shows solid bilateral ovarian masses. What is the diagnosis?",
+            choices: [
+              "A. Tuberculous peritonitis",
+              "B. Peritoneal malignancy",
+              "C. Portal hypertension",
+              "D. Congestive cardiac failure"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The presence of ovarian masses and ascites suggests peritoneal malignancy (carcinoma peritonei), requiring referral to a gynecologist.",
+            details: "A. Incorrect: No infectious history.\nB. Correct: Ovarian masses indicate malignancy.\nC. Incorrect: No liver disease signs.\nD. Incorrect: No cardiac symptoms."
+          },
+          {
+            text: "A 55-year-old female patient presents with vague abdominal and back pain for 3 months. She feels her abdomen is enlarging and is constipated. On examination, there is a large mass in the left loin, smooth in consistency, tender, and bimanually palpable. What is the diagnosis?",
+            choices: [
+              "A. Mesenteric cyst",
+              "B. Mesenteric tear",
+              "C. Torsion of omentum",
+              "D. Retroperitoneal sarcoma"
+            ],
+            correct: [3],
+            explanation: "Correct Answer: D. The symptoms and palpable mass suggest a retroperitoneal sarcoma, managed with MRI and biopsy in a tertiary cancer center.",
+            details: "A. Incorrect: Mesenteric cyst is fluctuant and mobile.\nB. Incorrect: Mesenteric tear follows trauma.\nC. Incorrect: Torsion causes acute pain.\nD. Correct: Mass suggests sarcoma."
+          },
+          {
+            text: "A 20-year-old male patient presents with recurrent attacks of periumbilical abdominal pain and intermittent vomiting. Abdominal examination reveals a 5-6 cm fluctuant mass in the umbilical region, which is mobile in an oblique plane. What is the diagnosis?",
+            choices: [
+              "A. Mesenteric cyst",
+              "B. Mesenteric tear",
+              "C. Torsion of omentum",
+              "D. Retroperitoneal sarcoma"
+            ],
+            correct: [0],
+            explanation: "Correct Answer: A. The fluctuant, mobile mass suggests a mesenteric cyst, confirmed by US, and may present with torsion or hemorrhage.",
+            details: "A. Correct: Mobile mass is characteristic.\nB. Incorrect: Tear follows trauma.\nC. Incorrect: Torsion causes acute pain.\nD. Incorrect: Sarcoma is fixed and tender."
+          },
+          {
+            text: "A 30-year-old male patient has been brought in after a road traffic accident complaining of abdominal pain. He was a front-seat passenger wearing a seatbelt. In the accident, there was a sudden deceleration and a head-on collision. On assessment, he had no injuries except for abdominal wall bruising from the seatbelt. He has marked abdominal tenderness, rigidity, and rebound tenderness. What is the diagnosis?",
+            choices: [
+              "A. Mesenteric cyst",
+              "B. Mesenteric tear",
+              "C. Torsion of omentum",
+              "D. Retroperitoneal sarcoma"
+            ],
+            correct: [1],
+            explanation: "Correct Answer: B. The trauma and symptoms suggest a mesenteric tear (seatbelt syndrome), diagnosed with CT or DPL, often associated with intestinal tear.",
+            details: "A. Incorrect: Cyst is not trauma-related.\nB. Correct: Trauma causes tear.\nC. Incorrect: Torsion is spontaneous.\nD. Incorrect: Sarcoma is chronic."
+          },
+          {
+            text: "A 50-year-old obese man has been brought in as an emergency complaining of sudden onset of severe periumbilical abdominal pain. On examination, he is writhing around in pain and very tender in the umbilical region with rigidity. What is the diagnosis?",
+            choices: [
+              "A. Mesenteric cyst",
+              "B. Mesenteric tear",
+              "C. Torsion of omentum",
+              "D. Retroperitoneal sarcoma"
+            ],
+            correct: [2],
+            explanation: "Correct Answer: C. The acute pain and tenderness in an obese patient suggest torsion of the omentum, often misdiagnosed as appendicitis until surgery.",
+            details: "A. Incorrect: Cyst causes chronic or intermittent pain.\nB. Incorrect: Tear follows trauma.\nC. Correct: Acute pain in obese patient is typical.\nD. Incorrect: Sarcoma causes chronic pain."
+          }
+        ]
+      };
+      
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف الإمساك والإسهال</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
