@@ -690,7 +690,7 @@
           document.getElementById("questionBox").style.display = "none";
           document.getElementById("startScreen").innerHTML = `
             <h1>${quizConfig.title}</h1>
-            <p lang="ar">الأسئلة من ملف الإمساك والإسهال</p>
+            <p lang="ar">الأسئلة من ملف التهاب الأمعاء الالتهابي</p>
             <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
           `;
         } catch (error) {
@@ -700,7 +700,7 @@
       }
 
       document.addEventListener('keydown', (e) => {
-        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
           const index = parseInt(e.key) - 1;
           const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
           if (index < buttons.length) {
