@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
   <head>
     <meta charset="UTF-8" />
-    <title>GI Motility Disorders Quiz</title>
+    <title>Inflammatory Bowel Disease Quiz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
@@ -230,7 +230,7 @@
     <div class="container">
       <div class="start-screen" id="startScreen">
         <h1>GI Motility Disorders Quiz</h1>
-        <p lang="ar">الاسئلة من النوتس السنة الفاتت</p>
+        <p lang="ar">GI Motility Disorders Quiz</p>
         <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
       </div>
 
@@ -679,7 +679,7 @@
           document.getElementById("questionBox").style.display = "none";
           document.getElementById("startScreen").innerHTML = `
             <h1>${quizConfig.title}</h1>
-            <p lang="ar">الأسئلة من ملف الإمساك والإسهال</p>
+            <p lang="ar">الأسئلة من ملف التهاب الأمعاء الالتهابي</p>
             <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
           `;
         } catch (error) {
@@ -689,7 +689,7 @@
       }
 
       document.addEventListener('keydown', (e) => {
-        if (e.key >= '1' && e.key <= '5' && !answeredQuestions.has(currentQuestionIndex)) {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
           const index = parseInt(e.key) - 1;
           const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
           if (index < buttons.length) {
