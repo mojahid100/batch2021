@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Metabolic liver disease Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Metabolic liver disease Quiz</h1>
+        <p lang="ar">الاسئلة من النوتس السنة الفاتت</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Metabolic Liver Diseases and Ascites Quiz",
+        lesson: "الأسئلة من ملف أمراض الكبد الأيضية والاستسقاء",
+        questions: [
+          {
+            text: "What is the most common cause of ascites?",
+            choices: [
+              "A. Heart failure",
+              "B. Portal hypertension",
+              "C. Nephrotic syndrome",
+              "D. Tuberculosis"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Portal hypertension is the most common cause of ascites.",
+            details: "A. Incorrect: Heart failure is a cause but less common. B. Correct: Often due to cirrhosis. C. Incorrect: Nephrotic syndrome is less frequent. D. Incorrect: Tuberculosis is a rare cause."
+          },
+          {
+            text: "What test differentiates ascites due to portal hypertension?",
+            choices: [
+              "A. Total protein",
+              "B. SAAG",
+              "C. Glucose level",
+              "D. Amylase level"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. SAAG >1.1 g/dL suggests portal hypertension.",
+            details: "A. Incorrect: Protein helps but is less specific. B. Correct: SAAG (serum-ascites albumin gradient) is diagnostic. C. Incorrect: Glucose is for infection. D. Incorrect: Amylase is for pancreatic ascites."
+          },
+          {
+            text: "What is the mainstay therapy for ascites?",
+            choices: [
+              "A. Antibiotics",
+              "B. Diuretics",
+              "C. TIPS",
+              "D. Albumin"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Diuretics are the mainstay therapy for ascites.",
+            details: "A. Incorrect: Antibiotics are for SBP. B. Correct: E.g., spironolactone, furosemide. C. Incorrect: TIPS is for refractory cases. D. Incorrect: Albumin is adjunctive."
+          },
+          {
+            text: "What is a side effect of furosemide in ascites treatment?",
+            choices: [
+              "A. Hyperkalemia",
+              "B. Hypokalemia",
+              "C. Hypernatremia",
+              "D. Hypoglycemia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Furosemide causes hypokalemia.",
+            details: "A. Incorrect: Furosemide depletes potassium. B. Correct: Common electrolyte imbalance. C. Incorrect: Hyponatremia is more likely. D. Incorrect: Not related to glucose."
+          },
+          {
+            text: "What defines NAFLD?",
+            choices: [
+              "A. Steatosis with alcohol consumption >30 g/day",
+              "B. Steatosis in >5% of hepatocytes without significant alcohol use",
+              "C. Fibrosis without steatosis",
+              "D. Hepatitis C infection"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. NAFLD requires steatosis and no significant alcohol use.",
+            details: "A. Incorrect: Alcohol use excludes NAFLD. B. Correct: <30 g/day men, <20 g/day women. C. Incorrect: Steatosis is required. D. Incorrect: Viral hepatitis is separate."
+          },
+          {
+            text: "What is the prevalence of NAFLD in type 2 diabetes patients?",
+            choices: [
+              "A. 10-20%",
+              "B. 40-70%",
+              "C. 80-90%",
+              "D. 5-10%"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. NAFLD prevalence in type 2 diabetes is 40-70%.",
+            details: "A. Incorrect: Underestimates prevalence. B. Correct: High due to metabolic syndrome. C. Incorrect: Overestimates. D. Incorrect: Too low."
+          },
+          {
+            text: "What causes progression to NASH in NAFLD?",
+            choices: [
+              "A. Reduced fatty acid synthesis",
+              "B. Oxidative stress from fatty acid oxidation",
+              "C. Decreased cytokine release",
+              "D. Low-calorie diet"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Oxidative stress drives NASH progression.",
+            details: "A. Incorrect: Synthesis is increased. B. Correct: With cytokines, causes inflammation. C. Incorrect: Cytokines increase. D. Incorrect: Diet may help, not harm."
+          },
+          {
+            text: "What is a clinical feature of NAFLD?",
+            choices: [
+              "A. Severe jaundice",
+              "B. Hepatomegaly",
+              "C. Neurological symptoms",
+              "D. Kayser-Fleischer rings"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Hepatomegaly may be present in NAFLD.",
+            details: "A. Incorrect: Jaundice is rare. B. Correct: Due to fat accumulation. C. Incorrect: Not typical. D. Incorrect: Specific to Wilson’s disease."
+          },
+          {
+            text: "What is a characteristic laboratory finding in alcoholic hepatitis?",
+            choices: [
+              "A. AST:ALT ratio <1",
+              "B. AST:ALT ratio ≥2",
+              "C. Normal serum bilirubin",
+              "D. Elevated serum albumin"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. AST:ALT ratio ≥2 is characteristic of alcoholic hepatitis.",
+            details: "A. Incorrect: Ratio is typically ≥2. B. Correct: AST is elevated more than ALT. C. Incorrect: Bilirubin is often elevated. D. Incorrect: Albumin is usually low."
+          },
+          {
+            text: "What is a criterion for MAFLD diagnosis?",
+            choices: [
+              "A. Alcohol consumption <10 g/day",
+              "B. Type 2 diabetes mellitus",
+              "C. Steatosis <5%",
+              "D. Normal BMI"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. MAFLD requires steatosis plus type 2 diabetes or metabolic dysregulation.",
+            details: "A. Incorrect: Alcohol limit is higher. B. Correct: Or obesity/metabolic issues. C. Incorrect: Steatosis >5%. D. Incorrect: BMI is often high."
+          },
+          {
+            text: "What is the risk threshold for ALD in men?",
+            choices: [
+              "A. 10 g/day ethanol",
+              "B. 30 g/day ethanol",
+              "C. 50 g/day ethanol",
+              "D. 70 g/day ethanol"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. ALD risk begins at 30 g/day ethanol in men.",
+            details: "A. Incorrect: Too low. B. Correct: Threshold for liver damage. C. Incorrect: Higher risk, not threshold. D. Incorrect: Excessive."
+          },
+          {
+            text: "What is a risk factor for ALD?",
+            choices: [
+              "A. Intermittent drinking",
+              "B. PNPLA3 gene",
+              "C. Low BMI",
+              "D. Male gender"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. PNPLA3 gene is a genetic risk factor for ALD.",
+            details: "A. Incorrect: Chronic drinking is riskier. B. Correct: Increases susceptibility. C. Incorrect: High BMI is riskier. D. Incorrect: Female gender is higher risk."
+          },
+          {
+            text: "What is a feature of alcoholic hepatitis?",
+            choices: [
+              "A. Normal AST",
+              "B. Mild jaundice",
+              "C. No hepatomegaly",
+              "D. Low bilirubin"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Mild jaundice is common in alcoholic hepatitis.",
+            details: "A. Incorrect: AST is elevated. B. Correct: Due to liver dysfunction. C. Incorrect: Hepatomegaly is common. D. Incorrect: Bilirubin is elevated."
+          },
+          {
+            text: "What suggests alcohol misuse in ALD investigations?",
+            choices: [
+              "A. Low MCV",
+              "B. Elevated MCV without anemia",
+              "C. Normal GGT",
+              "D. Low bilirubin"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Elevated MCV without anemia suggests alcohol misuse.",
+            details: "A. Incorrect: MCV is elevated. B. Correct: Common in chronic alcohol use. C. Incorrect: GGT is elevated. D. Incorrect: Bilirubin is often high."
+          },
+          {
+            text: "What is the most important treatment for ALD?",
+            choices: [
+              "A. Corticosteroids",
+              "B. Alcohol cessation",
+              "C. Statins",
+              "D. Vitamin E"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Alcohol cessation is the most important treatment for ALD.",
+            details: "A. Incorrect: Used in severe cases. B. Correct: Halts progression. C. Incorrect: Not primary. D. Incorrect: Limited role."
+          },
+          {
+            text: "What is a clinical feature of hereditary haemochromatosis?",
+            choices: [
+              "A. Kayser-Fleischer rings",
+              "B. Leaden-grey skin pigmentation",
+              "C. Neurological tremors",
+              "D. Hypoglycemia"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Leaden-grey skin pigmentation is characteristic of hereditary haemochromatosis.",
+            details: "A. Incorrect: Specific to Wilson’s. B. Correct: Due to iron deposition. C. Incorrect: Not typical. D. Incorrect: Diabetes is more common."
+          },
+          {
+            text: "What is a treatment for hereditary haemochromatosis?",
+            choices: [
+              "A. Penicillamine",
+              "B. Venesection",
+              "C. Trientine",
+              "D. Zinc acetate"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Venesection removes excess iron in hereditary haemochromatosis.",
+            details: "A. Incorrect: For Wilson’s. B. Correct: First-line treatment. C. Incorrect: For Wilson’s. D. Incorrect: For Wilson’s."
+          },
+          {
+            text: "What is the most important clinical clue for Wilson’s disease?",
+            choices: [
+              "A. Hepatomegaly",
+              "B. Kayser-Fleischer rings",
+              "C. Jaundice",
+              "D. Ascites"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Kayser-Fleischer rings are the most important clue for Wilson’s disease.",
+            details: "A. Incorrect: Nonspecific. B. Correct: Copper deposition in cornea. C. Incorrect: Nonspecific. D. Incorrect: Late finding."
+          },
+          {
+            text: "What is a treatment for Wilson’s disease without neurological symptoms?",
+            choices: [
+              "A. Penicillamine",
+              "B. Trientine",
+              "C. Corticosteroids",
+              "D. Statins"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Trientine is safer for Wilson’s disease without neurological symptoms.",
+            details: "A. Incorrect: Riskier side effects. B. Correct: Preferred chelator. C. Incorrect: Not used. D. Incorrect: Not relevant."
+          },
+          {
+            text: "What is a feature of acute fatty liver of pregnancy?",
+            choices: [
+              "A. Common in third pregnancies",
+              "B. Presents with vomiting and abdominal pain",
+              "C. No jaundice",
+              "D. High platelet count"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Vomiting and abdominal pain are typical in acute fatty liver of pregnancy.",
+            details: "A. Incorrect: More common in first/twin pregnancies. B. Correct: Key symptoms. C. Incorrect: Jaundice is common. D. Incorrect: Thrombocytopenia occurs."
+          }
+        ]
+      };
+
+    </script>
+  </body>
+</html>
