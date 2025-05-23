@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastroenterology Flashcards - By Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 50%, #81d4fa 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(129, 212, 250, 0.3);
+        }
+
+        .header h1 {
+            color: #1976d2;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #546e7a;
+            font-size: 1.1rem;
+        }
+
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            gap: 8px;
+        }
+
+        .category-tab {
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #546e7a;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            min-width: max-content;
+        }
+
+        .category-tab.active {
+            background: #42a5f5;
+            color: white;
+        }
+
+        .category-tab:hover {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .category-tab.active:hover {
+            background: #1976d2;
+        }
+
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        }
+
+        .category-header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .category-title {
+            color: #1976d2;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .category-description {
+            color: #546e7a;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e3f2fd;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #42a5f5 0%, #1976d2 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 6px;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #546e7a;
+            font-weight: 500;
+        }
+
+        .card-container {
+            perspective: 1000px;
+            margin-bottom: 30px;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+            border: 2px solid #e3f2fd;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .card-label {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #42a5f5;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .card-back .card-label {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .question {
+            font-size: 1.4rem;
+            color: #1976d2;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: 40px;
+        }
+
+        .answer {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin-top: 40px;
+            font-weight: 500;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: white;
+            border: 2px solid #42a5f5;
+            color: #1976d2;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #42a5f5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(66, 165, 245, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: #42a5f5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1976d2;
+        }
+
+        .btn-success {
+            background: #4caf50;
+            border-color: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #388e3c;
+            border-color: #388e3c;
+        }
+
+        .counter {
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .counter-text {
+            color: #546e7a;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .completion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+
+        .completion-badge.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reset-btn {
+            background: #ff7043;
+            border-color: #ff7043;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #f4511e;
+            border-color: #f4511e;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .question, .answer {
+                font-size: 1.1rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 200px;
+                justify-content: center;
+            }
+
+            .category-tabs {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .category-tab {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🩺 Gastroenterology internal medicine </h1>
+            <p>GIT organized interactive study cards from previous years questions</p>
+        </div>
+
+        <!-- Category Navigation -->
+        <div class="category-tabs" id="categoryTabs">
+            <button class="category-tab active" data-category="general">General Physiology</button>
+            <button class="category-tab" data-category="motility">Motility & Esophagus</button>
+            <button class="category-tab" data-category="peptic">Peptic Ulcer Disease</button>
+            <button class="category-tab" data-category="bleeding">GI Bleeding</button>
+            <button class="category-tab" data-category="ibd">IBD</button>
+            <button class="category-tab" data-category="diverticula">Diverticula</button>
+            <button class="category-tab" data-category="infection">Infection</button>
+            <button class="category-tab" data-category="pancreas">Pancreas</button>
+            <button class="category-tab" data-category="biliary">Biliary System</button>
+            <button class="category-tab" data-category="appendix">Appendix</button>
+            <button class="category-tab" data-category="anorectal">Ano-rectal</button>
+            <button class="category-tab" data-category="polyposis">Polyposis</button>
+            <button class="category-tab" data-category="obstruction">Obstruction</button>
+            <button class="category-tab" data-category="malabsorption">Malabsorption</button>
+            <button class="category-tab" data-category="nutrition">Nutrition</button>
+            <button class="category-tab" data-category="hepatology">Hepatology</button>
+        </div>
+
+        <!-- Category Content Containers -->
+        <div id="categoryContent">
+            <!-- General Physiology Content -->
+            <div class="category-content active" data-category="general">
+                <div class="category-header">
+                    <h2 class="category-title">General Physiology, Anatomy, and Symptoms</h2>
+                    <p class="category-description">Basic concepts of GIT function, anatomy, and common symptoms</p>
+                </div>
+            </div>
+
+            <!-- Motility Disorders Content -->
+            <div class="category-content" data-category="motility">
+                <div class="category-header">
+                    <h2 class="category-title">Motility Disorders & Esophagus</h2>
+                    <p class="category-description">Disorders affecting GI tract movement and esophageal conditions</p>
+                </div>
+            </div>
+
+            <!-- Continue for other categories... -->
+            <div class="category-content" data-category="peptic">
+                <div class="category-header">
+                    <h2 class="category-title">Peptic Ulcer Disease</h2>
+                    <p class="category-description">Conditions related to ulceration in the stomach and duodenum</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="bleeding">
+                <div class="category-header">
+                    <h2 class="category-title">Gastrointestinal Bleeding</h2>
+                    <p class="category-description">Causes and management of bleeding in the GI tract</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="ibd">
+                <div class="category-header">
+                    <h2 class="category-title">Inflammatory Bowel Disease (IBD)</h2>
+                    <p class="category-description">Chronic inflammatory conditions of the gastrointestinal tract</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="diverticula">
+                <div class="category-header">
+                    <h2 class="category-title">Diverticula</h2>
+                    <p class="category-description">Outpouchings of the intestinal wall and their complications</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="infection">
+                <div class="category-header">
+                    <h2 class="category-title">Gastrointestinal Infections</h2>
+                    <p class="category-description">Infectious diseases affecting the GI tract</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="pancreas">
+                <div class="category-header">
+                    <h2 class="category-title">Pancreatic Disorders</h2>
+                    <p class="category-description">Diseases and conditions affecting the pancreas</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="biliary">
+                <div class="category-header">
+                    <h2 class="category-title">Biliary System & Gallbladder</h2>
+                    <p class="category-description">Conditions affecting bile ducts and gallbladder</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="appendix">
+                <div class="category-header">
+                    <h2 class="category-title">Appendicitis</h2>
+                    <p class="category-description">Inflammation and surgical conditions of the appendix</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="anorectal">
+                <div class="category-header">
+                    <h2 class="category-title">Ano-rectal Conditions</h2>
+                    <p class="category-description">Disorders affecting the anus and rectum</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="polyposis">
+                <div class="category-header">
+                    <h2 class="category-title">Polyposis Syndromes</h2>
+                    <p class="category-description">Hereditary and acquired polyposis conditions</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="obstruction">
+                <div class="category-header">
+                    <h2 class="category-title">Intestinal Obstruction</h2>
+                    <p class="category-description">Mechanical and functional obstructions of the bowel</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="malabsorption">
+                <div class="category-header">
+                    <h2 class="category-title">Malabsorption & Celiac Disease</h2>
+                    <p class="category-description">Disorders affecting nutrient absorption</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="nutrition">
+                <div class="category-header">
+                    <h2 class="category-title">Clinical Nutrition</h2>
+                    <p class="category-description">Nutritional deficiencies and their manifestations</p>
+                </div>
+            </div>
+
+            <div class="category-content" data-category="hepatology">
+                <div class="category-header">
+                    <h2 class="category-title">Hepatology</h2>
+                    <p class="category-description">Liver diseases, cirrhosis, and hepatic complications</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">0 / 0 completed</div>
+        </div>
+
+        <!-- Card Counter -->
+        <div class="counter">
+            <span class="counter-text" id="cardCounter">Select a category to start</span>
+            <span class="completion-badge" id="completionBadge">
+                ✓ Completed
+            </span>
+        </div>
+
+        <!-- Flashcard Container -->
+        <div class="card-container">
+            <div class="flashcard" id="flashcard">
+                <div class="card-face card-front">
+                    <div class="card-label">QUESTION</div>
+                    <div class="question" id="question">Select a category to begin studying</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="card-label">ANSWER</div>
+                    <div class="answer" id="answer">Choose from the categories above</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" id="prevBtn" disabled>← Previous</button>
+            <button class="btn btn-primary" id="flipBtn">Flip Card</button>
+            <button class="btn" id="nextBtn" disabled>Next →</button>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-success" id="markBtn">✓ Mark as Learned</button>
+            <button class="btn reset-btn" id="resetBtn">🔄 Reset Progress</button>
+        </div>
+    </div>
+
+    <script>
+        // All flashcard data organized by categories
+        const flashcardData = {
+            general: [
+                {
+                    question: "What is the main function of the GIT?",
+                    answer: "To provide the body with a supply of water, nutrients, electrolytes, and vitamins."
+                },
+                {
+                    question: "What is intrinsic factor and where is it produced?",
+                    answer: "A glycoprotein produced by parietal cells, essential for absorption of vitamin B12 from distal ileum."
+                },
+                {
+                    question: "What is the normal daily stool weight?",
+                    answer: "200 grams"
+                },
+                {
+                    question: "How frequently do normal bowel motions occur?",
+                    answer: "1-3 times per day or 1 time per 2 days"
+                },
+                {
+                    question: "What is the landmark between upper GIT and lower GIT?",
+                    answer: "The ligament of Treitz"
+                },
+                {
+                    question: "What is the parasympathetic effect on the anal canal?",
+                    answer: "Decrease contraction of the internal sphincter"
+                },
+                {
+                    question: "What are the paraphenomena of vomiting?",
+                    answer: "Nausea, retching, and evacuation (but not dry mouth or increased gastric motility)"
+                },
+                {
+                    question: "What is dysphagia?",
+                    answer: "Difficulty during swallowing. It can be for either fluids or solids. A sensation of the throat lump relieved by swallowing is not considered dysphagia."
+                },
+                {
+                    question: "What is the cause of oropharyngeal dysphagia?",
+                    answer: "Brain stem stroke"
+                },
+                {
+                    question: "What is an exception for endoscopy indications in dyspepsia?",
+                    answer: "Patients younger than 40 years old"
+                }
+            ],
+            motility: [
+                {
+                    question: "What condition increases the risk of GIT motility disorders?",
+                    answer: "Diabetes Mellitus (DM)"
+                },
+                {
+                    question: "What is achalasia?",
+                    answer: "Failure of relaxation of the lower esophageal sphincter. It is a primary esophageal dysmotility disorder."
+                },
+                {
+                    question: "What is the gold standard test for achalasia cardia?",
+                    answer: "Esophageal Manometry"
+                },
+                {
+                    question: "What is the characteristic appearance of achalasia on barium swallow?",
+                    answer: "Hen's peak or parrot's peak narrowing"
+                },
+                {
+                    question: "What is the surgical operation for achalasia?",
+                    answer: "Heller's myotomy"
+                },
+                {
+                    question: "What is the most common complication of achalasia?",
+                    answer: "Recurrent pulmonary infections"
+                },
+                {
+                    question: "What is the treatment for esophageal diverticula?",
+                    answer: "Myotomy"
+                },
+                {
+                    question: "What condition causes episodic chest pain on swallowing with powerful uncoordinated contractions?",
+                    answer: "Diffuse esophageal spasm"
+                },
+                {
+                    question: "What is the first investigation for GERD?",
+                    answer: "Endoscopy (though 24-hour pH monitoring is the gold standard for diagnosis)"
+                },
+                {
+                    question: "What are the risk factors for GERD?",
+                    answer: "Drugs that affect LES, LES abnormalities, and hiatal hernia (esophageal adenocarcinoma is not a risk factor)"
+                }
+            ],
+            peptic: [
+                {
+                    question: "What is the commonest site for peptic ulcers?",
+                    answer: "First part of duodenum (fundus of stomach is not a common site)"
+                },
+                {
+                    question: "What pain pattern is characteristic of duodenal ulcer?",
+                    answer: "Hunger pain relieved by eating"
+                },
+                {
+                    question: "What pain pattern is characteristic of gastric ulcer?",
+                    answer: "Pain associated with eating"
+                },
+                {
+                    question: "What is late dumping syndrome caused by?",
+                    answer: "A sudden increased osmotic load in the small bowel"
+                },
+                {
+                    question: "What is the best treatment for H. pylori positive peptic ulcer?",
+                    answer: "Amoxicillin, proton pump inhibitor, clarithromycin, metronidazole"
+                },
+                {
+                    question: "How should successful H. pylori eradication be confirmed?",
+                    answer: "Urea breath test, fecal antigen test, or endoscopy with biopsy"
+                },
+                {
+                    question: "What indicates duodenal ulcer perforation?",
+                    answer: "Board-like rigidity, gas below diaphragm, and peritoneal lavage yielding alkaline bile-stained fluid"
+                },
+                {
+                    question: "What is the surgery for perforated duodenal ulcer?",
+                    answer: "Omental patch"
+                },
+                {
+                    question: "What indicates peptic ulcer bleeding?",
+                    answer: "Black stool"
+                }
+            ],
+            bleeding: [
+                {
+                    question: "What is the most important step for bleeding with vital instability?",
+                    answer: "Resuscitation with intravenous access using two 18-gauge catheters"
+                },
+                {
+                    question: "When does a patient with ulcerative lesion require blood transfusion?",
+                    answer: "When hemoglobin level is < 7"
+                },
+                {
+                    question: "What is the most common cause of upper GIT bleeding in Egypt?",
+                    answer: "Esophageal varices"
+                },
+                {
+                    question: "What is the diagnostic method for dark bleeding per rectum?",
+                    answer: "Colonoscopy"
+                },
+                {
+                    question: "What is the first step in lower GIT bleeding?",
+                    answer: "Resuscitation or rectal examination"
+                },
+                {
+                    question: "What bleeding rate can radionuclide investigation detect?",
+                    answer: "0.05-0.1 ml/min"
+                },
+                {
+                    question: "What can cause massive bleeding per rectum?",
+                    answer: "Diverticulum (also peptic ulcer - sources conflict)"
+                }
+            ],
+            ibd: [
+                {
+                    question: "What is the most common extra-intestinal manifestation of Crohn's disease?",
+                    answer: "Arthralgia (large-joint arthritis and sacroiliitis/ankylosing spondylitis are also common)"
+                },
+                {
+                    question: "What is NOT typically a complication of ulcerative colitis?",
+                    answer: "Stricture (though in long-standing UC, scarring can narrow the colon)"
+                },
+                {
+                    question: "What is the relationship between smoking and ulcerative colitis?",
+                    answer: "Smokers are at reduced risk of developing ulcerative colitis"
+                },
+                {
+                    question: "What findings suggest Crohn's disease?",
+                    answer: "Fistula, ileitis, deep ulcers, skip lesions"
+                },
+                {
+                    question: "What are the macroscopic features of Crohn's disease?",
+                    answer: "Transmural involvement, skip phenomena, deep fissured ulcers, lymph node enlargement, and fistula formation"
+                },
+                {
+                    question: "What symptom is more common in UC than CD?",
+                    answer: "Rectal bleeding"
+                },
+                {
+                    question: "What treatments are used for UC?",
+                    answer: "Aminosalicylates, corticosteroids, methotrexate, and antibiotics (metronidazole used more in Crohn's)"
+                }
+            ],
+            diverticula: [
+                {
+                    question: "What is the most common complication of intestinal diverticulum?",
+                    answer: "Diverticulitis"
+                },
+                {
+                    question: "What is the most common site for diverticulosis?",
+                    answer: "Sigmoid colon"
+                },
+                {
+                    question: "What is the treatment for recurrent diverticulosis?",
+                    answer: "Colectomy"
+                },
+                {
+                    question: "How can diverticulosis be prevented?",
+                    answer: "More dietary fibers"
+                },
+                {
+                    question: "What is the Rule of 2 for Meckel's diverticulum?",
+                    answer: "2% of population, 2 feet from ileocecal valve, 2 inches long, 2 types of tissue, 2 years old (peak age), 2:1 male predominance"
+                },
+                {
+                    question: "What is the most frequent manifestation of Meckel's diverticulum?",
+                    answer: "Bleeding"
+                },
+                {
+                    question: "What is the most frequent complication of Meckel's diverticulum?",
+                    answer: "Intestinal obstruction"
+                },
+                {
+                    question: "What is the most common cause of bleeding per rectum in children?",
+                    answer: "Meckel's diverticulum"
+                }
+            ],
+            infection: [
+                {
+                    question: "What is the best management for gastroenteritis with diarrhea?",
+                    answer: "Symptomatic treatment and oral rehydration"
+                },
+                {
+                    question: "What investigation is most appropriate for 2-week diarrhea after food poisoning?",
+                    answer: "Stool sample for microscopy, culture, and sensitivities"
+                },
+                {
+                    question: "How is Clostridium difficile diagnosed in hospitalized patients on antibiotics?",
+                    answer: "Stool culture, biopsy, or cytotoxic culture (diagnosis made by stool examination)"
+                },
+                {
+                    question: "What sign is associated with ulcerative TB of small intestine?",
+                    answer: "Positive sterling sign"
+                },
+                {
+                    question: "How is Hepatitis A transmitted?",
+                    answer: "Feco-oral route (it IS transmitted feco-orally, contrary to one source)"
+                }
+            ],
+            pancreas: [
+                {
+                    question: "What are the signs of acute pancreatitis?",
+                    answer: "Cullen's sign and Grey Turner's sign"
+                },
+                {
+                    question: "What is used for evaluating pancreatitis severity?",
+                    answer: "Ranson Criteria"
+                },
+                {
+                    question: "What is the most common presentation of pancreatitis?",
+                    answer: "Epigastric or upper abdominal pain"
+                },
+                {
+                    question: "How is acute pancreatitis complicated by pseudocyst managed?",
+                    answer: "Conservative treatment"
+                },
+                {
+                    question: "What is the treatment for acute pancreatitis?",
+                    answer: "Mainly conservative treatment"
+                },
+                {
+                    question: "What is the most common site of pancreatic cancer?",
+                    answer: "Head of the pancreas"
+                },
+                {
+                    question: "What is true about pancreatic cancer?",
+                    answer: "Most cases of cancer in the head of pancreas are inoperable"
+                },
+                {
+                    question: "What is included in Glasgow score for alcoholic hepatitis?",
+                    answer: "Bilirubin (among other parameters)"
+                }
+            ],
+            biliary: [
+                {
+                    question: "What is the diagnosis for a 30-year-old female with RUQ pain, vomiting, fever, and positive Murphy's sign?",
+                    answer: "Acute cholecystitis"
+                },
+                {
+                    question: "What forms Charcot's triad?",
+                    answer: "Pain, jaundice, and chills (characteristic of cholangitis)"
+                },
+                {
+                    question: "What is the treatment for retained stone after cholecystectomy?",
+                    answer: "ERCP with sphincterotomy and stone removal"
+                },
+                {
+                    question: "What is the treatment for gallstone ileus?",
+                    answer: "Laparotomy - enterotomy and removal of stone"
+                },
+                {
+                    question: "What is a biliary enteric fistula?",
+                    answer: "Connection between duodenum and gallbladder"
+                }
+            ],
+            appendix: [
+                {
+                    question: "How is appendicitis diagnosed?",
+                    answer: "Based on history and physical examination"
+                },
+                {
+                    question: "What is Rovsing sign?",
+                    answer: "Pain in the right lower quadrant on palpation of the left lower quadrant"
+                },
+                {
+                    question: "Who is at higher risk of perforation in acute appendicitis?",
+                    answer: "Diabetics, elderly, and children"
+                },
+                {
+                    question: "What are the treatment options for appendicular abscess?",
+                    answer: "Drainage and appendectomy 3-6 months later, or percutaneous drainage + IV fluids + antibiotics"
+                },
+                {
+                    question: "What complications can occur after appendectomy?",
+                    answer: "Femoral hernia, direct inguinal hernia, and indirect inguinal hernia"
+                }
+            ],
+            anorectal: [
+                {
+                    question: "What is true about posterior fistulas?",
+                    answer: "They have a horseshoe appearance"
+                },
+                {
+                    question: "What is the management for supra-sphincteric fistula?",
+                    answer: "Seton procedure"
+                },
+                {
+                    question: "What should be done if perianal abscess is associated with fistula?",
+                    answer: "Fistulectomy"
+                },
+                {
+                    question: "What causes chronic anal fissure?",
+                    answer: "Sentinel pile (anal fissure is caused by hypertonic anal sphincter with resultant mucosal ischemia)"
+                },
+                {
+                    question: "Where does cancer below the dentate line spread?",
+                    answer: "To inguinal lymph nodes"
+                },
+                {
+                    question: "What does photocoagulation of piles cause?",
+                    answer: "Coagulative necrosis"
+                },
+                {
+                    question: "What are rectal varices due to?",
+                    answer: "Anastomosis between superior rectal vein with middle and inferior rectal veins (found in 30% of portal hypertension patients)"
+                }
+            ],
+            polyposis: [
+                {
+                    question: "What is the most probable diagnosis for a 15-year-old with abdominal pain, rectal bleeding, and oral pigmentation?",
+                    answer: "Peutz-Jeghers syndrome"
+                },
+                {
+                    question: "What is the surgery for familial polyposis?",
+                    answer: "Total proctocolectomy"
+                }
+            ],
+            obstruction: [
+                {
+                    question: "What complication does peritoneal lipoma cause?",
+                    answer: "Intestinal obstruction"
+                },
+                {
+                    question: "What causes severe central colicky abdominal pain without peritoneal signs?",
+                    answer: "Intestinal obstruction (if colicky pain mentioned; if not, acute MI)"
+                },
+                {
+                    question: "What are causes of adynamic intestinal obstruction?",
+                    answer: "Hernia, volvulus"
+                },
+                {
+                    question: "What doesn't cause dehydration in intestinal obstruction?",
+                    answer: "Constipation"
+                },
+                {
+                    question: "What features characterize intussusception?",
+                    answer: "Red currant jelly stool, sausage-shaped mass per abdomen, and palpable mass on PR examination"
+                },
+                {
+                    question: "What is the treatment for intussusception?",
+                    answer: "Conservative"
+                },
+                {
+                    question: "What complications does Hirschsprung disease cause?",
+                    answer: "Various complications except colon cancer"
+                }
+            ],
+            malabsorption: [
+                {
+                    question: "What does xylose absorption test look for?",
+                    answer: "Carbohydrate malabsorption due to mucosal disease"
+                },
+                {
+                    question: "When is Schilling's test abnormal?",
+                    answer: "In pernicious anemia (helps diagnose vitamin B12 malabsorption)"
+                },
+                {
+                    question: "What is included in differential diagnosis for villous atrophy?",
+                    answer: "Whipple disease and tropical sprue"
+                },
+                {
+                    question: "How is Whipple disease diagnosed?",
+                    answer: "PAS positive macrophages"
+                },
+                {
+                    question: "What is associated with villous atrophy?",
+                    answer: "Celiac disease"
+                },
+                {
+                    question: "How is celiac disease diagnosed in a patient with malabsorption and iron deficiency?",
+                    answer: "Antiendomysial antibodies (with duodenal biopsy showing complete villous atrophy)"
+                },
+                {
+                    question: "What should be done to confirm celiac disease in someone improved on gluten-free diet?",
+                    answer: "Ask them to reintroduce gluten for 6 weeks before further testing"
+                },
+                {
+                    question: "What skin condition is associated with celiac disease?",
+                    answer: "Dermatitis herpetiformis"
+                }
+            ],
+            nutrition: [
+                {
+                    question: "What causes corkscrew hair?",
+                    answer: "Vitamin C deficiency"
+                },
+                {
+                    question: "What is pellagra?",
+                    answer: "Niacin deficiency (Vitamin B3)"
+                },
+                {
+                    question: "What does Wernicke's encephalopathy lead to?",
+                    answer: "Thiamine deficiency"
+                },
+                {
+                    question: "What can riboflavin deficiency cause?",
+                    answer: "Hair dryness and lack of luster"
+                },
+                {
+                    question: "What does weight loss with preserved appetite suggest?",
+                    answer: "Uncontrolled diabetes mellitus"
+                }
+            ],
+            hepatology: [
+                {
+                    question: "What is one of the most useful tests in assessing liver cirrhosis?",
+                    answer: "Prothrombin time (PT) - best indicator of liver function"
+                },
+                {
+                    question: "Which enzyme is found in liver, bone, and placenta?",
+                    answer: "Alkaline Phosphatase (ALP)"
+                },
+                {
+                    question: "What does increased total bilirubin with normal direct bilirubin imply?",
+                    answer: "Deficiency in UDP glucuronyl transferase"
+                },
+                {
+                    question: "How is unconjugated bilirubin carried?",
+                    answer: "By albumin"
+                },
+                {
+                    question: "What should be done for a Caucasian patient with transient jaundice after physical activity?",
+                    answer: "Reassurance (characteristic of Gilbert syndrome)"
+                },
+                {
+                    question: "What is the normal portal vein pressure?",
+                    answer: "5-10 mmHg (portal hypertension is increased pressure in portal vein or tributaries)"
+                },
+                {
+                    question: "What are posthepatic causes of portal hypertension?",
+                    answer: "Budd-Chiari syndrome, veno-occlusive disease, and chronic right-sided cardiac congestion"
+                },
+                {
+                    question: "What vessels cause lower esophageal varices?",
+                    answer: "Anastomosis between left gastric and azygos veins"
+                },
+                {
+                    question: "When is balloon tamponade performed?",
+                    answer: "As a temporizing measure for patients with uncontrollable hemorrhage"
+                },
+                {
+                    question: "What does neutrophils >250 in ascitic fluid suggest?",
+                    answer: "Spontaneous Bacterial Peritonitis (SBP)"
+                },
+                {
+                    question: "What is the best single test to differentiate ascites causes?",
+                    answer: "Serum Ascitic Albumin Gradient (SAAG): >1.1g/dl for portal hypertension, <1.1g/dl for non-portal hypertension"
+                },
+                {
+                    question: "What substance is involved in hepatic encephalopathy pathophysiology?",
+                    answer: "Ammonia (produced by protein breakdown by intestinal bacteria)"
+                },
+                {
+                    question: "What is the purpose of rifaximin?",
+                    answer: "To reduce ammonia (used in hepatic encephalopathy)"
+                },
+                {
+                    question: "What is a precipitating factor for hepatic encephalopathy?",
+                    answer: "Constipation"
+                },
+                {
+                    question: "What is a characteristic sign of hepatic encephalopathy?",
+                    answer: "Flapping tremors (asterixis)"
+                },
+                {
+                    question: "What type of hepatorenal syndrome is rapidly progressive?",
+                    answer: "Type I hepatorenal syndrome"
+                },
+                {
+                    question: "What is the mainstay therapy for hepatorenal syndrome?",
+                    answer: "Splanchnic vasoconstrictors (like terlipressin) and intravenous albumin"
+                },
+                {
+                    question: "What is the most common benign tumor of the liver?",
+                    answer: "Hemangioma (biopsy is contraindicated; diagnosed by MRI)"
+                },
+                {
+                    question: "What is a feature of focal nodular hyperplasia (FNH)?",
+                    answer: "Central scar"
+                },
+                {
+                    question: "What is the treatment for hepatic adenoma >6cm?",
+                    answer: "Resection"
+                },
+                {
+                    question: "What is used for HCC screening?",
+                    answer: "Ultrasound and alpha-fetoprotein every 6 months"
+                },
+                {
+                    question: "What is the hallmark of Primary Biliary Cholangitis?",
+                    answer: "Anti-mitochondrial antibodies (AMA) - associated with xanthoma"
+                },
+                {
+                    question: "What is the most common initial symptom of PBC?",
+                    answer: "Pruritus (also fatigue)"
+                },
+                {
+                    question: "What is the treatment for Primary Biliary Cholangitis?",
+                    answer: "UDCA (Ursodeoxycholic Acid)"
+                },
+                {
+                    question: "What is PSC strongly associated with?",
+                    answer: "Inflammatory bowel disease, mainly ulcerative colitis"
+                },
+                {
+                    question: "What is the threshold of risk for alcoholic liver disease?",
+                    answer: "30g/day (alcohol intake should not exceed 14 units per week)"
+                },
+                {
+                    question: "What is increased in Wilson's disease?",
+                    answer: "Copper in urine (copper deposition in heart, intestine, brain)"
+                },
+                {
+                    question: "What is increased in hemochromatosis?",
+                    answer: "Transferrin and ferritin (associated with hypogonadism)"
+                },
+                {
+                    question: "What criteria determine liver transplantation candidacy?",
+                    answer: "MELD score (using serum bilirubin, creatinine, INR) - ranges from 6-40"
+                },
+                {
+                    question: "What is an absolute contraindication to liver transplant?",
+                    answer: "Active infection (including chest aspergillus), active alcohol intake, extrahepatic malignancy, uncontrolled cardiopulmonary disease"
+                }
+            ]
+        };
+
+        // Application state
+        let currentCategory = 'general';
+        let currentCard = 0;
+        let isFlipped = false;
+        let completedCards = {};
+
+        // Initialize completed cards for all categories
+        Object.keys(flashcardData).forEach(category => {
+            completedCards[category] = [];
+        });
+
+        // DOM elements
+        const flashcard = document.getElementById('flashcard');
+        const question = document.getElementById('question');
+        const answer = document.getElementById('answer');
+        const cardCounter = document.getElementById('cardCounter');
+        const completionBadge = document.getElementById('completionBadge');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const flipBtn = document.getElementById('flipBtn');
+        const markBtn = document.getElementById('markBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Category switching
+        function switchCategory(categoryId) {
+            // Update category tabs
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${categoryId}"]`).classList.add('active');
+
+            // Update category content
+            document.querySelectorAll('.category-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelector(`.category-content[data-category="${categoryId}"]`).classList.add('active');
+
+            // Update application state
+            currentCategory = categoryId;
+            currentCard = 0;
+            isFlipped = false;
+            flashcard.classList.remove('flipped');
+
+            updateCard();
+        }
+
+        function updateCard() {
+            const cards = flashcardData[currentCategory];
+            if (!cards || cards.length === 0) {
+                question.textContent = "No cards available for this category";
+                answer.textContent = "Please select another category";
+                cardCounter.textContent = "No cards";
+                return;
+            }
+
+            const card = cards[currentCard];
+            question.textContent = card.question;
+            answer.textContent = card.answer;
+            cardCounter.textContent = `Card ${currentCard + 1} of ${cards.length}`;
+            
+            // Update completion badge
+            if (completedCards[currentCategory].includes(currentCard)) {
+                completionBadge.classList.add('show');
+            } else {
+                completionBadge.classList.remove('show');
+            }
+            
+            // Update navigation buttons
+            prevBtn.disabled = currentCard === 0;
+            nextBtn.disabled = currentCard === cards.length - 1;
+            
+            // Reset flip state
+            isFlipped = false;
+            flashcard.classList.remove('flipped');
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const cards = flashcardData[currentCategory];
+            if (!cards) return;
+
+            const completed = completedCards[currentCategory].length;
+            const total = cards.length;
+            const progress = total > 0 ? (completed / total) * 100 : 0;
+            
+            progressFill.style.width = `${progress}%`;
+            progressText.textContent = `${completed} / ${total} completed`;
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            flashcard.classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            const cards = flashcardData[currentCategory];
+            if (currentCard < cards.length - 1) {
+                currentCard++;
+                updateCard();
+            }
+        }
+
+        function prevCard() {
+            if (currentCard > 0) {
+                currentCard--;
+                updateCard();
+            }
+        }
+
+        function markAsLearned() {
+            if (!completedCards[currentCategory].includes(currentCard)) {
+                completedCards[currentCategory].push(currentCard);
+                updateProgress();
+                completionBadge.classList.add('show');
+            }
+        }
+
+        function resetProgress() {
+            completedCards[currentCategory] = [];
+            currentCard = 0;
+            updateCard();
+        }
+
+        // Event listeners
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                const categoryId = e.target.getAttribute('data-category');
+                switchCategory(categoryId);
+            });
+        });
+
+        flashcard.addEventListener('click', flipCard);
+        flipBtn.addEventListener('click', flipCard);
+        nextBtn.addEventListener('click', nextCard);
+        prevBtn.addEventListener('click', prevCard);
+        markBtn.addEventListener('click', markAsLearned);
+        resetBtn.addEventListener('click', resetProgress);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    prevCard();
+                    break;
+                case 'ArrowRight':
+                    nextCard();
+                    break;
+                case ' ':
+                case 'Enter':
+                    e.preventDefault();
+                    flipCard();
+                    break;
+                case 'm':
+                case 'M':
+                    markAsLearned();
+                    break;
+            }
+        });
+
+        // Initialize
+        switchCategory('general');
+    </script>
+</body>
+</html>
