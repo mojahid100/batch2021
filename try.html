@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medications by Lesson - Internal Medicine Book (Module 404)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .lesson {
+            background-color: #fff;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .lesson-title {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 15px 20px;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2980b9;
+        }
+        .lesson-title:hover {
+            background-color: #2980b9;
+        }
+        .lesson-title::after {
+            content: '+'; /* Unicode plus sign */
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        .lesson-title.active::after {
+            /* content: '\2212'; Unicode minus sign, but can be problematic */
+            content: '−';
+            transform: rotate(180deg);
+        }
+        .medication-list {
+            display: none;
+            padding: 0; /* Remove padding here, apply to ul instead */
+            background-color: #ecf0f1;
+            border-top: 1px solid #ddd;
+        }
+        .medication-list.active {
+            display: block;
+        }
+        .medication-list ul {
+            list-style-type: none; /* Remove default list style */
+            padding: 15px 20px 15px 25px; /* Indent list items */
+            margin: 0;
+        }
+        .medication-list li {
+            padding: 8px 0; /* Increased padding for better readability */
+            border-bottom: 1px dashed #bdc3c7;
+            line-height: 1.5; /* Improved line spacing for longer descriptions */
+        }
+        .medication-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Medications from Internal Medicine Book - Module 404</h1>
+    <div id="medication-container">
+        </div>
+
+    <script>
+        // !!! IMPORTANT !!!
+        // You MUST replace this example medicationData object with the actual lessons
+        // and detailed treatment information extracted from YOUR PDF BOOK.
+        // Each item in the array for a lesson should be a string describing
+        // the treatment as mentioned in the book.
+        const medicationData = {
+    "ACUTE_UPPER_GASTROINTESTINAL_BLEEDING": [
+        "Initial Stabilization: Assess hemodynamic status, start IV lines, send blood for tests (CBC, PT with INR, serum creatinine, liver enzymes, blood typing/screening).",
+        "Fluid Repletion: Aggressive fluid repletion with 0.9% saline or lactated Ringer infusion for patients with hemodynamic compromise.",
+        "Blood Replacement: Packed red blood cells to maintain hemoglobin of 7–9 g/dL.",
+        "Platelet Transfusion: Transfuse platelets if count <50,000/mcL or if impaired platelet function due to aspirin or clopidogrel.",
+        "Coagulation Correction: Four factor prothrombin complex concentrates preferred over fresh frozen plasma for correcting INR in massive bleeding.",
+        "Nasogastric Tube: Placement may be helpful for assessment and triage.",
+        "Pre-Endoscopy Medication: Erythromycin (250 mg IV) 30 minutes prior to upper endoscopy to promote gastric emptying and improve evaluation quality.",
+        "Gastric Lavage: Not beneficial with large volumes of fluid.",
+        "Upper Endoscopy: Perform within 24 hours (within 12 hours for high-risk patients after resuscitation) to identify source, determine rebleeding risk, and apply endoscopic therapy.",
+        "Endoscopic Therapy: Achieves hemostasis in actively bleeding lesions and treats certain nonbleeding lesions using cautery, injection, endoclips, or rubber bands (for varices).",
+        "Acid Inhibitory Therapy: Intravenous proton pump inhibitors (esomeprazole or pantoprazole, 80 mg bolus, then 8 mg/h continuous infusion for 72 hours) to reduce rebleeding risk in peptic ulcers with high-risk features post-endoscopy.",
+        "Oral PPIs: Omeprazole, esomeprazole, pantoprazole, lansoprazole, dexlansoprazole (once or twice daily) for low-risk lesions.",
+        "Pre-Endoscopy PPI: Continuous IV or high-dose oral proton pump inhibitor as standard practice before endoscopy.",
+        "Portal Hypertension Management: Octreotide (100 mcg bolus, then 50–100 mcg/h continuous IV infusion) to reduce splanchnic blood flow, administered promptly in active bleeding with liver disease/portal hypertension until source determined.",
+        "Alternative Vasoconstrictor: Terlipressin may be preferred to octreotide where available.",
+        "Intra-Arterial Embolization: For persistent bleeding from ulcers, angiomas, or Mallory-Weiss tears in patients who failed endoscopic therapy and are poor operative risks.",
+        "Transvenous Intrahepatic Portosystemic Shunt (TIPS): Indicated when endoscopic modalities fail to control acute variceal bleeding."
+    ],
+    "ACUTE_LOWER_GASTROINTESTINAL_BLEEDING": [
+        "Initial Stabilization: Same as acute upper GI bleeding (assess hemodynamic status, IV fluids, blood replacement, triage).",
+        "Discontinuation of Medications: Consider stopping antiplatelet agents and anticoagulants in patients with ongoing bleeding.",
+        "Colonoscopy: Preferred initial study, performed electively within 24–36 hours for stable patients or within 12–24 hours for stable patients with active bleeding after bowel cleansing (4–8 L colonic lavage solution over 2–5 hours).",
+        "Therapeutic Colonoscopy: Treats high-risk lesions (e.g., angioectasia, diverticulum, rectal ulcer with active bleeding, visible vessel) using epinephrine injection, cautery (bipolar or heater probe), metallic endoclips or bands, or hemostatic powder (TC-325).",
+        "Radiation Proctitis Treatment: Cautery therapy to rectal telangiectasias, preferably with argon plasma coagulator or radiofrequency wave ablation.",
+        "Intra-Arterial Embolization: Achieves hemostasis in >95% of patients when a bleeding lesion is identified.",
+        "Surgical Treatment: Rarely required due to efficacy of colonoscopic and angiographic therapies; considered for recurrent diverticular hemorrhage."
+    ],
+    "ZENCKERS_DIVERTICULUM": [
+        "Surgical Treatment: Diverticulectomy with cricopharyngeal myotomy."
+    ],
+    "INFECTIOUS_ESOPHAGITIS": [
+        "Empiric Treatment: May be initiated pending diagnostic confirmation.",
+        "Endoscopy: Preferred for diagnostic certainty with biopsy and brushings for microbiologic and histopathologic analysis."
+    ],
+    "EOSINOPHILIC_ESOPHAGITIS": [
+        "Treatment Goals: Improve symptoms, reduce inflammation, prevent and treat esophageal strictures.",
+        "Therapies: Proton pump inhibitors, topical corticosteroids, food elimination diets, esophageal dilation."
+    ],
+    "ESOPHAGEAL_WEBS_AND_RINGS": [
+        "Treatment: Passage of bougie or endoscopic balloon dilators to disrupt the lesion or endoscopic electrosurgical incision of the ring for symptomatic patients with a single ring or web."
+    ],
+    "ACHALASIA": [
+        "Pharmacologic Treatment: Nitrates, Calcium Channel Blockers (e.g., Nifedipine as a muscle relaxant).",
+        "Endoscopic Treatment: Pneumatic dilatation (balloon), botulinum toxin injection.",
+        "Surgical Treatment: Heller myotomy, Peroral Endoscopic Myotomy (POEM)."
+    ],
+    "GASTROESOPHAGEAL_REFLUX_DISEASE": [
+        "Lifestyle Modifications: Smoking cessation, weight loss, avoid triggering foods, elevate head of bed, avoid meals at bedtime.",
+        "Medical Treatment: H2 blockers (e.g., ranitidine, famotidine), Proton pump inhibitors (e.g., pantoprazole, esomeprazole, usually once daily, may escalate to twice daily, for 8–12 weeks).",
+        "Prokinetic Treatment: Cornerstone of pharmacotherapy, used in high doses.",
+        "Enteral Feeding: Considered in resistant cases."
+    ],
+    "IRRITABLE_BOWEL_SYNDROME": [
+        "Lifestyle Modifications: Excess water intake for constipation-predominant IBS, caffeine avoidance to limit anxiety and symptom exacerbation.",
+        "Probiotics: Bifidobacterium infantis to alleviate some symptoms.",
+        "Pharmacological Therapy: Linaclotide and lubiprostone for IBS with constipation (enhance intestinal fluid secretions), Rifaximin for IBS with diarrhea (global symptoms and bloating), Tricyclic antidepressants and SSRIs for overall symptoms and abdominal pain, Anticholinergics."
+    ],
+    "CONSTIPATION": [
+        "Treat Underlying Cause.",
+        "Dietary Modifications: High fiber diet, increased fluid intake.",
+        "Laxatives: Bulk-forming (e.g., bran, fibers, methylcellulose), Osmotic (e.g., lactulose, magnesium sulphate), Stimulant (e.g., phenolphthalein), Suppository (e.g., glycerine for defecatory disorders), Enema (e.g., hypertonic phosphate for elderly or neurologic disorders).",
+        "Prokinetics: Stimulate colonic peristalsis (e.g., Serotonin type 4 receptor (5-HT4) agonists)."
+    ],
+    "DIARRHEA": [
+        "Treat Underlying Cause.",
+        "Fluid Therapy: Oral rehydration (Na, K, Cl, HCO3), IV infusion for associated vomiting.",
+        "Drugs: Absorbants (e.g., kaopectate), Antisecretory (e.g., bismuth subsalicylate, antiprostaglandin), Opiate derivatives (e.g., loperamide, diphenoxylate + atropine, not used in fever or toxemia).",
+        "Antimicrobials: Based on stool culture/sensitivity or empiric (e.g., ciprofloxacin, trimethoprim/sulfamethoxazole), Nitazoxanide, Rifaximin, Antiparasitic."
+    ],
+    "INFLAMMATORY_BOWEL_DISEASE": [
+        "Goals: Induce remission, maintain remission, improve quality of life, detect dysplasia, prevent carcinoma, select patients for surgery."
+    ],
+    "ULCERATIVE_COLITIS": [
+        "Inducing Remission: Aminosalicylates (e.g., mesalamine (5-ASA), sulfasalazine), Corticosteroids (e.g., prednisone), Methotrexate, Antibiotics, Immunomodulators (e.g., azathioprine, mercaptopurine), Biological treatments (e.g., TNF inhibitors like infliximab, adalimumab; anti-α4β7 integrin like vedolizumab; anti-IL12/23 like ustekinumab, screen for TB and HBV).",
+        "Maintaining Remission: Aminosalicylates (e.g., mesalamine, sulfasalazine), Biological treatment for moderate/severe UC intolerant or non-responsive to immunosuppression.",
+        "Active Proctitis: Mesalazine suppository (1 gm) ± oral 5-ASA (1 gm every 6 hours).",
+        "Mild/Moderate Left-Sided or Pancolitis: Oral and topical 5-ASA ± prednisolone (40 mg daily, tapered 5 mg/week, stopped after 8 weeks).",
+        "Severe UC: IV fluids for dehydration, IV glucocorticoids bolus, topical and oral 5-ASA, biological treatment.",
+        "Supplements: Calcium and vitamin D with glucocorticoids.",
+        "Avoid: Glucocorticoids for maintenance therapy.",
+        "Immunosuppressive Treatment: Azathioprine as needed.",
+        "Surgical Therapy: Considered as needed."
+    ],
+    "CROHNS_DISEASE": [
+        "Induction Therapy: Glucocorticoids (e.g., prednisolone 40 mg daily, tapered 5 mg/week over 8 weeks), Budesonide (first choice for ileal disease), Calcium and vitamin D supplements, Biological treatments (e.g., TNF inhibitors like infliximab, adalimumab; anti-α4β7 integrin like vedolizumab; anti-IL12/23 like ustekinumab, screen for TB and HBV), Combination therapy (anti-TNF + azathioprine), Elemental diet, Total Parenteral Nutrition (TPN).",
+        "Maintenance Therapy: Immunosuppressive treatment (e.g., azathioprine, mercaptopurine), Methotrexate (weekly, oral or SC), Anti-α4β7 integrin (vedolizumab).",
+        "Lifestyle: Stop smoking.",
+        "Surgical Therapy: Indicated for medical therapy failure, complications (strictures, fistulas, abscesses, perforation), dysplasia, cancer, or growth retardation in children."
+    ],
+    "ISCHEMIC_COLITIS": [
+        "Treatment: Budesonide or 5-aminosalicylates."
+    ],
+    "CELIAC_DISEASE": [
+        "Dietary Modifications: Avoid wheat, rye, barley; allow rice, corn, oats; lactose-free diet until symptoms improve due to secondary lactase deficiency.",
+        "Steroids: Considered in resistant cases."
+    ],
+    "TROPICAL_SPRUE": [
+        "Treatment: Broad-spectrum antibiotics, oral folate, vitamin B12 injections."
+    ],
+    "PROTEIN_ENERGY_MALNUTRITION": [
+        "Severe Cases: Correct fluid and electrolyte abnormalities and infections first, then reple protein (1 g/kg), energy (30 kcal/kg based on actual body weight), and micronutrients; withhold enteral fat and lactose initially; use enteral or parenteral routes (enteral preferred); administer vitamins and minerals concomitantly.",
+        "Less Severe Cases: Provide calories and protein simultaneously with correction of fluid and electrolyte abnormalities."
+    ],
+    "OBESITY": [
+        "Goals: Prevent further weight gain, achieve weight loss, maintain lower body weight.",
+        "Methods: Lifestyle changes (diet, exercise), behavioral interventions, pharmacotherapy, surgery."
+    ],
+    "THIAMINE_B1_DEFICIENCY": [
+        "Treatment: Large parenteral doses of thiamine (50–100 mg/day IV initially, then 5–10 mg/day orally), with concurrent therapeutic doses of other water-soluble vitamins."
+    ],
+    "VITAMIN_A_DEFICIENCY": [
+        "Early Deficiency (night blindness, poor wound healing): Vitamin A 30,000 IU orally daily for 1 week.",
+        "Advanced Deficiency (corneal damage): Vitamin A 20,000 IU/kg orally for at least 5 days.",
+        "Antioxidant Effects: Beta-carotene supplements (25,000–50,000 IU)."
+    ],
+    "NUTRITIONAL_SUPPORT": [
+        "Methods: Enteral (oral supplements, nasogastric, nasoduodenal, nasojejunal tubes, tube enterostomies) or parenteral (peripheral or central veins) delivery of nutrients for patients unable to meet nutritional requirements with standard diets.",
+        "Pre-Specialized Support: Supplement food intake by addressing preferences, timing, and foods brought to the patient.",
+        "Complications Management: Empiric antibiotics for suspected catheter-related sepsis, manage catheter thrombosis and metabolic complications."
+    ],
+    "LIVER_CIRRHOSIS_AND_LIVER_CELL_FAILURE": [
+        "Treat Underlying Cause.",
+        "Manage Complications.",
+        "Liver Supports and Antioxidants.",
+        "Dietary Modifications: Salt restriction.",
+        "Avoid: Alcohol, NSAIDs.",
+        "Vaccinations: Encourage hepatitis A and B vaccination.",
+        "Liver Transplantation: Only treatment option for end-stage liver disease and acute (fulminant) liver failure."
+    ],
+    "HEPATIC_ENCEPHALOPATHY": [
+        "Control Precipitating Factors.",
+        "Dietary Protein Restrictions: Maintain 1 g/kg/day, reduce to 0.6 mg/kg/day in severe cases, increase to tolerance as encephalopathy improves.",
+        "Enemas: Every 8 hours or as needed to empty bowel of nitrogenous substances.",
+        "Purgation: Lactulose (10–30 mL three times daily, osmotic purgative).",
+        "GIT Antiseptics: Rifaximin (400 mg every 8 hours, poorly absorbed), Metronidazole (200 mg four times daily), avoid Neomycin."
+    ],
+    "ASCITES": [
+        "General Care: Monitor input/output, abdominal girth, weight.",
+        "Dietary Modifications: Sodium restriction up to 1 g/day, water restriction if serum sodium <120 mmol/L (hyponatremia).",
+        "Bed Rest: Improves renal perfusion.",
+        "Diuretics: Spironolactone (K-sparing, single-agent therapy), Furosemide (loop diuretic), combination therapy as needed.",
+        "Therapeutic Paracentesis: For massive ascites (grade 3 or 4), refractory ascites, or cardiorespiratory distress; remove 3–5 L with salt-free albumin replacement.",
+        "Transjugular Intrahepatic Portosystemic Shunt (TIPS): For portal decompression."
+    ],
+    "SPONTANEOUS_BACTERIAL_PERITONITIS": [
+        "Treatment: Broad-spectrum antibiotics until culture and sensitivity results available.",
+        "Prophylaxis: Norfloxacin (400 mg daily) to prolong survival."
+    ],
+    "HEPATORENAL_SYNDROME": [
+        "Medical Therapy: Splanchnic vasoconstrictors (e.g., terlipressin) with intravenous albumin.",
+        "Transjugular Intrahepatic Portosystemic Shunt (TIPS): Reduces portal pressure.",
+        "Renal Replacement Therapy: For non-responders as a bridge to liver transplantation.",
+        "Liver Transplantation."
+    ],
+    "BUDD_CHIARI_SYNDROME": [
+        "Acute: Thrombolytic therapy and treatment of underlying cause.",
+        "Chronic/Fulminant: Liver transplantation with lifelong anticoagulation.",
+        "Transjugular Intrahepatic Portosystemic Shunt (TIPS): With lifelong anticoagulation."
+    ],
+    "JAUNDICE": [
+        "Treat Underlying Cause.",
+        "Expectant Management: Watchful waiting at home with rest.",
+        "Medical Treatment: IV fluids, medications, antibiotics, or blood transfusions as needed.",
+        "Discontinue Drugs/Toxins: If identified as the cause.",
+        "Newborn Jaundice: Phototherapy or exchange blood transfusions to decrease elevated bilirubin levels.",
+        "Surgical Treatment: For obstructive jaundice."
+    ],
+    "NON_ALCOHOLIC_STEATOHEPATITIS": [
+        "No Licensed Pharmacological Agents: Specific for NASH.",
+        "Thiazolidinediones: Improve histological features (except fibrosis).",
+        "Statins: Treat dyslipidemia, do not ameliorate NAFLD.",
+        "High-Dose Vitamin E (800 U/day): Associated with risks, limiting use."
+    ],
+    "ALCOHOLIC_LIVER_DISEASE": [
+        "Cessation of Alcohol: Most important treatment and prognostic factor, lifelong abstinence advised.",
+        "Nutrition: Good nutrition, enteral feeding via fine-bore nasogastric tube for severely ill patients.",
+        "Corticosteroids: For severe alcoholic hepatitis.",
+        "Pentoxifylline: May be beneficial in severe alcoholic hepatitis.",
+        "Liver Transplantation: Role remains controversial."
+    ],
+    "HEREDITARY_HAEMOCHROMATOSIS": [
+        "Venesection: Remove 500 mL twice weekly for up to 2 years to reduce excess iron.",
+        "Iron Chelating Agent: Desferal.",
+        "Liver Transplantation."
+    ],
+    "WILSONS_DISEASE": [
+        "Penicillamine: 1–1.5 g daily for copper chelation.",
+        "Trientine (Syprine): Alternative chelating agent.",
+        "Zinc Acetate (Galzin): Prevents dietary copper absorption, used for maintenance therapy."
+    ],
+    "ACUTE_FATTY_LIVER_OF_PREGNANCY": [
+        "Treatment: Early diagnosis, specialist care, and delivery of the fetus."
+    ],
+    "DRUG_INDUCED_LIVER_DISEASES": [
+        "Discontinue Offending Drug: Most important, most reactions resolve spontaneously after discontinuation.",
+        "Hospitalization: For severe reactions requiring further evaluation.",
+        "Dose-Dependent Hepatotoxicity: Test drug levels, monitor clinical condition, aspirate stomach contents.",
+        "Antidote: N-acetylcysteine (NAC) for acetaminophen hepatotoxicity, administered IV as early as possible.",
+        "Ursodeoxycholic Acid: 15 mg/kg body weight for drug-induced cholestatic liver injury.",
+        "Corticosteroids: For cases with vasculitis (e.g., allopurinol, sulfonamides) or severe cholestasis/chronic hepatitis.",
+        "Liver Transplantation: Considered for liver failure, especially with older age or deepening jaundice."
+    ],
+    "ACUTE_LIVER_FAILURE": [
+        "Management in Specialized Unit: For liver transplantation or referral if indicated.",
+        "Supportive Therapy: For encephalopathy.",
+        "Raised Intracranial Pressure: 20% mannitol (1 g/kg body weight) IV.",
+        "Coagulopathy Management: IV vitamin K, fresh frozen plasma.",
+        "Correction: Electrolyte disturbances, hypoglycemia.",
+        "Proton Pump Inhibitors: To prevent GI bleeding.",
+        "Prophylactic Antibiotics.",
+        "Liver Transplantation: Only treatment option."
+    ],
+    "HEPATOCELLULAR_CARCINOMA": [
+        "Preventive Treatment: Hepatitis B vaccination, screening for chronic hepatitis B, hepatitis C cirrhosis, stage 4 primary biliary cholangitis, genetic hemochromatosis, alpha-1-antitrypsin deficiency, and cirrhosis.",
+        "Curative Therapy: Surgery (resection for non-cirrhotic/Child-Pugh Class A, no portal hypertension, no hyperbilirubinemia; transplantation), Ablative therapies (radiofrequency ablation for tumors <3 cm, percutaneous ethanol injection, microwave ablation, cryoablation), Transcatheter arterial chemoembolization (TACE).",
+        "Systemic Chemotherapy.",
+        "Palliative Treatment."
+    ],
+    "AUTOIMMUNE_HEPATITIS": [
+        "Goal: Complete biochemical and histological resolution.",
+        "First-Line Treatment: Prednisolone (0.5–1 mg/kg/day initially) followed by azathioprine (50 mg/day, increased to 1–2 mg/kg maintenance) after two weeks; response-guided and individualized.",
+        "Acute Severe AIH: High-dose IV corticosteroids (≥1 mg/kg) as early as possible.",
+        "Second-Line Therapy: Mycophenolate mofetil (MMF), calcineurin inhibitors (cyclosporin, tacrolimus).",
+        "Duration: Continue immunosuppressive treatment for at least 3 years and 2 years post-normalization of transaminases and IgG.",
+        "Monitoring: Patients in spontaneous remission require close follow-up (every 3–6 months)."
+    ],
+    "PRIMARY_BILIARY_CHOLANGITIS": [
+        "Goals: Slow disease progression, alleviate symptoms (e.g., pruritus, osteoporosis, sicca syndrome).",
+        "Ursodeoxycholic Acid (UDCA): 13–15 mg/kg/day orally, first-line, often continued for life, delays need for transplantation.",
+        "Obeticholic Acid: Approved for use with UDCA in inadequate responders or as monotherapy in UDCA-intolerant patients.",
+        "Corticosteroids: May improve symptoms, biochemical, and histologic findings; osteoporosis is a concern.",
+        "Colchicine and Methotrexate: Reported benefits in improving symptoms, alkaline phosphatase, and bilirubin levels.",
+        "Pruritus Treatment: Antihistamines for mild-to-moderate pruritus, cholestyramine or colestipol to sequester Anno, rifampin for non-responsive pruritus, plasmapheresis for severe cases.",
+        "Physical Activity: Increased activity recommended, especially for postmenopausal women to prevent osteoporosis.",
+        "Endoscopic/Transhepatic Dilation: With or without stenting for dominant strictures to alleviate cholestasis."
+    ],
+    "PRIMARY_SCLEROSING_CHOLANGITIS": [
+        "No Approved Therapy: Pharmacotherapy focuses on symptom and complication management.",
+        "Ursodeoxycholic Acid (UDCA): 13–15 mg/kg/day orally, recommended as first-line, often continued for life.",
+        "Immunosuppressants, Bile Salts, Chelators (e.g., cholestyramine for pruritus), Steroids: Used to control symptoms but no significant disease-modifying benefit.",
+        "Endoscopic/Transhepatic Dilation: With or without stenting for dominant strictures to alleviate cholestasis.",
+        "Liver Transplantation: Only therapy to alter disease outcome."
+    ]
+        };
+
+        const container = document.getElementById('medication-container');
+
+        if (Object.keys(medicationData).length === 0) {
+            const noDataMessage = document.createElement('p');
+            noDataMessage.textContent = 'No medication data has been loaded. Please ensure the medicationData object in the script is populated with detailed treatment information from your book.';
+            noDataMessage.style.textAlign = 'center';
+            noDataMessage.style.fontSize = '1.1em';
+            noDataMessage.style.color = 'red';
+            container.appendChild(noDataMessage);
+        } else {
+            for (const lesson in medicationData) {
+                if (medicationData.hasOwnProperty(lesson)) {
+                    const lessonDiv = document.createElement('div');
+                    lessonDiv.classList.add('lesson');
+
+                    const titleDiv = document.createElement('div');
+                    titleDiv.classList.add('lesson-title');
+                    titleDiv.textContent = lesson.replace(/_/g, ' '); // Replace underscores with spaces for display
+
+                    const medListDiv = document.createElement('div');
+                    medListDiv.classList.add('medication-list');
+
+                    const medListUl = document.createElement('ul');
+
+                    if (medicationData[lesson] && medicationData[lesson].length > 0) {
+                        medicationData[lesson].forEach(treatmentDescription => {
+                            const medLi = document.createElement('li');
+                            // To render HTML within the description (like <b> for bold), you'd use innerHTML.
+                            // However, be cautious if the source of this text isn't fully trusted.
+                            // For simple text, textContent is safer.
+                            medLi.textContent = treatmentDescription;
+                            medListUl.appendChild(medLi);
+                        });
+                    } else {
+                        const noMedLi = document.createElement('li');
+                        noMedLi.textContent = 'No specific treatment details listed for this lesson, or lesson not yet populated.';
+                        noMedLi.style.fontStyle = 'italic';
+                        medListUl.appendChild(noMedLi);
+                    }
+
+                    medListDiv.appendChild(medListUl);
+
+                    titleDiv.onclick = function() {
+                        this.classList.toggle('active');
+                        // The next sibling is the medListDiv
+                        this.nextElementSibling.classList.toggle('active');
+                    };
+
+                    lessonDiv.appendChild(titleDiv);
+                    lessonDiv.appendChild(medListDiv);
+                    container.appendChild(lessonDiv);
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
