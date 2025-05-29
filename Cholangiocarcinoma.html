@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cholangiocarcinoma Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Cholangiocarcinoma Quiz</h1>
+        <p lang="ar">Cholangiocarcinoma Quiz</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Cholangiocarcinoma and Gallbladder Cancer Quiz",
+        lesson: "الأسئلة من ملف أورام القنوات الصفراوية وسرطان المرارة",
+        questions: [
+          {
+            text: "What defines cholangiocarcinoma?",
+            choices: [
+              "A. Cancer of the gallbladder",
+              "B. Malignancy originating in the bile ducts",
+              "C. Benign bile duct obstruction",
+              "D. Liver parenchyma tumor"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Cholangiocarcinoma is a malignancy of the bile ducts causing obstructive jaundice.",
+            details: "A. Incorrect: Gallbladder cancer is distinct. B. Correct: Arises from bile duct epithelium. C. Incorrect: Cholangiocarcinoma is malignant, not benign. D. Incorrect: Liver parenchyma tumors are hepatocellular carcinomas."
+          },
+          {
+            text: "What is the incidence of cholangiocarcinoma?",
+            choices: [
+              "A. ~2 per 100,000",
+              "B. ~20 per 100,000",
+              "C. ~50 per 100,000",
+              "D. ~100 per 100,000"
+            ],
+            correct: [0],
+            type: "single",
+            explanation: "Correct Answer: A. It is relatively uncommon, with ~2 cases per 100,000.",
+            details: "A. Correct: Low incidence globally. B, C, D. Incorrect: These rates are too high for cholangiocarcinoma."
+          },
+          {
+            text: "Which age group is most affected by cholangiocarcinoma?",
+            choices: [
+              "A. Children",
+              "B. Young adults",
+              "C. Older adults",
+              "D. Adolescents"
+            ],
+            correct: [2],
+            type: "single",
+            explanation: "Correct Answer: C. It affects older age groups more frequently.",
+            details: "A, B, D. Incorrect: Cholangiocarcinoma is rare in younger groups. C. Correct: Typically diagnosed in patients over 60."
+          },
+          {
+            text: "What is a significant risk factor for cholangiocarcinoma?",
+            choices: [
+              "A. Primary sclerosing cholangitis",
+              "B. Acute cholecystitis",
+              "C. Hepatitis B",
+              "D. Alcohol consumption"
+            ],
+            correct: [0],
+            type: "single",
+            explanation: "Correct Answer: A. Primary sclerosing cholangitis is a significant risk factor.",
+            details: "A. Correct: PSC strongly predisposes to cholangiocarcinoma. B. Incorrect: Related to gallbladder inflammation. C. Incorrect: More linked to hepatocellular carcinoma. D. Incorrect: Not a direct risk factor."
+          },
+          {
+            text: "Which parasitic infection is associated with cholangiocarcinoma?",
+            choices: [
+              "A. Schistosoma mansoni",
+              "B. Clonorchis sinensis",
+              "C. Ascaris lumbricoides",
+              "D. Taenia saginata"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Clonorchis sinensis (liver fluke) is a risk factor.",
+            details: "A, C, D. Incorrect: Not linked to cholangiocarcinoma. B. Correct: Common in endemic areas like East Asia."
+          },
+          {
+            text: "What is the most common histological type of cholangiocarcinoma?",
+            choices: [
+              "A. Squamous cell carcinoma",
+              "B. Adenocarcinoma",
+              "C. Small cell carcinoma",
+              "D. Sarcoma"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Adenocarcinoma accounts for 90% of cases.",
+            details: "A, C, D. Incorrect: Rare in bile ducts. B. Correct: Arises from glandular epithelium."
+          },
+          {
+            text: "Which type of cholangiocarcinoma is most common?",
+            choices: [
+              "A. Intrahepatic",
+              "B. Perihilar",
+              "C. Distal",
+              "D. Ampullary"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Perihilar (hilar) type is the most common, 40-60% of cases.",
+            details: "A, C, D. Incorrect: Less common than perihilar. B. Correct: Often at bile duct confluence."
+          },
+          {
+            text: "What is the most common symptom of cholangiocarcinoma?",
+            choices: [
+              "A. Fever",
+              "B. Jaundice",
+              "C. Weight loss",
+              "D. Abdominal pain"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Jaundice is present in 90% of cases.",
+            details: "A, C, D. Incorrect: Less frequent than jaundice. B. Correct: Due to bile duct obstruction."
+          },
+          {
+            text: "Which symptom may precede jaundice in cholangiocarcinoma?",
+            choices: [
+              "A. Cachexia",
+              "B. Pruritus",
+              "C. Cholangitis",
+              "D. Hypotension"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Pruritus (60-70%) can occur before overt jaundice.",
+            details: "A, C, D. Incorrect: Not typical early symptoms. B. Correct: Due to bile salt accumulation."
+          },
+          {
+            text: "What is included in Charcot’s Triad for cholangitis?",
+            choices: [
+              "A. Jaundice, fever, hypotension",
+              "B. Fever, jaundice, abdominal pain",
+              "C. Pruritus, jaundice, altered mental status",
+              "D. Abdominal pain, fever, cachexia"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Charcot’s Triad indicates cholangitis.",
+            details: "A, C, D. Incorrect: Do not match the triad. B. Correct: Classic signs of cholangitis."
+          },
+          {
+            text: "Which lab finding is typical in cholangiocarcinoma?",
+            choices: [
+              "A. Elevated indirect bilirubin",
+              "B. Elevated direct bilirubin",
+              "C. Low ALP",
+              "D. Low GGT"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Direct (conjugated) bilirubin is elevated in obstructive jaundice.",
+            details: "A. Incorrect: Indirect bilirubin is less affected. C, D. Incorrect: ALP and GGT are elevated. B. Correct: Due to obstruction."
+          },
+          {
+            text: "Which imaging is highly valuable for visualizing the biliary tree?",
+            choices: [
+              "A. Ultrasound",
+              "B. CT scan",
+              "C. MRCP",
+              "D. PET scan"
+            ],
+            correct: [2],
+            type: "single",
+            explanation: "Correct Answer: C. MRCP provides detailed biliary tree visualization.",
+            details: "A, B, D. Incorrect: Less specific for biliary tree. C. Correct: Non-invasive and detailed."
+          },
+          {
+            text: "What is the role of EUS in cholangiocarcinoma?",
+            choices: [
+              "A. Staging metastasis",
+              "B. Assessing resectability and guided FNA",
+              "C. Therapeutic stenting",
+              "D. Visualizing distant metastasis"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. EUS is best for resectability and FNA.",
+            details: "A, C, D. Incorrect: Not primary roles of EUS. B. Correct: Provides local staging and biopsy."
+          },
+          {
+            text: "What is the only potential curative treatment for cholangiocarcinoma?",
+            choices: [
+              "A. Chemotherapy",
+              "B. Surgical resection",
+              "C. Radiotherapy",
+              "D. Photodynamic therapy"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Surgery is the only potential cure, depending on resectability.",
+            details: "A, C, D. Incorrect: Palliative, not curative. B. Correct: Removes tumor if resectable."
+          },
+          {
+            text: "Which procedure is used for distal cholangiocarcinoma?",
+            choices: [
+              "A. Hepatectomy",
+              "B. Whipple procedure",
+              "C. Liver transplantation",
+              "D. PTC drainage"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Whipple procedure is used for distal lesions.",
+            details: "A, C, D. Incorrect: Not specific for distal tumors. B. Correct: Resects distal bile duct."
+          },
+          {
+            text: "What makes a cholangiocarcinoma unresectable?",
+            choices: [
+              "A. Small tumor size",
+              "B. Involvement of both biliary systems (Bismuth-Corlette Type IV)",
+              "C. No jaundice",
+              "D. Low CA 19-9"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Type IV tumors are unresectable.",
+            details: "A, C, D. Incorrect: Do not preclude resection. B. Correct: Bilateral involvement prevents surgery."
+          },
+          {
+            text: "What is the gender distribution of gallbladder cancer?",
+            choices: [
+              "A. Equal in males and females",
+              "B. More common in males",
+              "C. More common in females (3:1)",
+              "D. Only occurs in females"
+            ],
+            correct: [2],
+            type: "single",
+            explanation: "Correct Answer: C. Gallbladder cancer is more common in females (3:1 ratio).",
+            details: "A, B, D. Incorrect: Females predominate. C. Correct: Due to gallstone prevalence."
+          },
+          {
+            text: "What is the most common risk factor for gallbladder cancer?",
+            choices: [
+              "A. Hepatitis C",
+              "B. Gallstones",
+              "C. Alcohol consumption",
+              "D. Smoking"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Gallstones are the most common risk factor.",
+            details: "A, C, D. Incorrect: Less strongly associated. B. Correct: Present in most cases."
+          },
+          {
+            text: "What is the malignancy risk of a gallbladder polyp >1.5 cm?",
+            choices: [
+              "A. 5%",
+              "B. 10-12%",
+              "C. Up to 40%",
+              "D. 0%"
+            ],
+            correct: [2],
+            type: "single",
+            explanation: "Correct Answer: C. Polyps >1.5 cm have up to 40% malignancy risk, recommending cholecystectomy.",
+            details: "A, B, D. Incorrect: Underestimate or incorrect risk. C. Correct: High risk warrants surgery."
+          },
+          {
+            text: "What is the standard treatment for early-stage gallbladder cancer?",
+            choices: [
+              "A. Chemotherapy",
+              "B. Cholecystectomy",
+              "C. Radiotherapy",
+              "D. Liver transplantation"
+            ],
+            correct: [1],
+            type: "single",
+            explanation: "Correct Answer: B. Cholecystectomy is standard for early-stage or incidental cancers.",
+            details: "A, C, D. Incorrect: Not standard for early stages. B. Correct: Removes localized cancer."
+          }
+        ]
+      };
+      
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف التهاب الأمعاء الالتهابي</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
