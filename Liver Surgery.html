@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Liver Surgery Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Liver Surgery Quiz</h1>
+        <p lang="ar">Liver Surgery Quiz</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+        const quizConfig = {
+        title: "Liver Surgery Quiz",
+        lesson: "الأسئلة من ملف جراحة الكبد",
+        questions: [
+          {
+            text: "What is the approximate weight of the adult liver?",
+            choices: [
+              "A. 500–800 grams",
+              "B. 1200–1800 grams",
+              "C. 2000–2500 grams",
+              "D. 3000–3500 grams"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. The liver, the largest solid organ, weighs approximately 1200–1800 grams in adults.",
+            details: "A. Incorrect: Too low for the liver. B. Correct: Typical adult liver weight. C, D. Incorrect: Exceed normal range."
+          },
+          {
+            text: "What defines the true functional division of the liver for surgery?",
+            choices: [
+              "A. Falciform ligament",
+              "B. Cantlie’s Line",
+              "C. Round ligament",
+              "D. Coronary ligament"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Cantlie’s Line, running from the IVC to the gallbladder, divides the liver into right and left functional lobes based on blood supply.",
+            details: "A, C, D. Incorrect: External or non-functional divisions. B. Correct: Guides surgical resection."
+          },
+          {
+            text: "How many Couinaud segments are used as a surgical map of the liver?",
+            choices: [
+              "A. Four",
+              "B. Six",
+              "C. Eight",
+              "D. Ten"
+            ],
+            correct: 2,
+            type: "single",
+            explanation: "Correct Answer: C. The liver is divided into eight Couinaud segments, essential for surgical planning.",
+            details: "A, B, D. Incorrect: Incorrect segment counts. C. Correct: Standard surgical map."
+          },
+          {
+            text: "What is a unique feature of the caudate lobe (Segment I)?",
+            choices: [
+              "A. Largest liver segment",
+              "B. Direct drainage into the IVC",
+              "C. Dependent on hepatic artery only",
+              "D. No surgical significance"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. The caudate lobe drains directly into the IVC, allowing independent function.",
+            details: "A, C, D. Incorrect: Misdescribe caudate lobe. B. Correct: Enables preservation during surgery."
+          },
+          {
+            text: "What percentage of liver blood supply comes from the portal vein?",
+            choices: [
+              "A. 25%",
+              "B. 50%",
+              "C. 75%",
+              "D. 100%"
+            ],
+            correct: 2,
+            type: "single",
+            explanation: "Correct Answer: C. The portal vein supplies 75% of liver blood, rich in nutrients from the gut.",
+            details: "A, B, D. Incorrect: Incorrect percentages. C. Correct: Main volume supplier."
+          },
+          {
+            text: "Why is the hepatic artery critical despite its lower volume?",
+            choices: [
+              "A. Supplies all liver blood",
+              "B. Main oxygen source for cholangiocytes",
+              "C. Drains blood to IVC",
+              "D. No surgical relevance"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. The hepatic artery provides oxygen to bile duct cells, and damage can cause strictures.",
+            details: "A, C, D. Incorrect: Misrepresent hepatic artery role. B. Correct: Critical for bile ducts."
+          },
+          {
+            text: "What is the purpose of the Pringle Maneuver in liver surgery?",
+            choices: [
+              "A. Permanent vessel ligation",
+              "B. Temporary blood inflow stoppage",
+              "C. Bile duct drainage",
+              "D. Segment resection"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. The Pringle Maneuver clamps vessels at the porta hepatis to reduce bleeding during surgery.",
+            details: "A, C, D. Incorrect: Not the maneuver’s purpose. B. Correct: Creates a drier surgical field."
+          },
+          {
+            text: "How are most benign liver lesions typically discovered?",
+            choices: [
+              "A. Routine surgery",
+              "B. Incidental imaging",
+              "C. Symptomatic presentation",
+              "D. Biopsy"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Most benign liver lesions are found incidentally during imaging for other reasons.",
+            details: "A, C, D. Incorrect: Less common discovery methods. B. Correct: Common in asymptomatic cases."
+          },
+          {
+            text: "What is the management approach for simple liver cysts?",
+            choices: [
+              "A. Immediate surgery",
+              "B. Monitoring unless symptomatic",
+              "C. Chemotherapy",
+              "D. Radiation"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Simple cysts are monitored unless they become large or symptomatic.",
+            details: "A, C, D. Incorrect: Not standard for simple cysts. B. Correct: Conservative approach."
+          },
+          {
+            text: "What is the most common benign liver lesion?",
+            choices: [
+              "A. Hepatic adenoma",
+              "B. Hemangioma",
+              "C. Focal nodular hyperplasia",
+              "D. Simple cyst"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Hemangiomas are the most common benign liver lesions, often asymptomatic.",
+            details: "A, C, D. Incorrect: Less prevalent than hemangiomas. B. Correct: Most common, especially in females."
+          },
+          {
+            text: "What is the signature imaging pattern for hemangioma on dynamic CT/MRI?",
+            choices: [
+              "A. Central scar",
+              "B. Peripheral nodular enhancement with centripetal fill-in",
+              "C. Wash-out in delayed phase",
+              "D. Irregular shaggy wall"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Hemangiomas show peripheral nodular enhancement filling in centrally, pathognomonic on imaging.",
+            details: "A, C, D. Incorrect: Patterns of other lesions. B. Correct: Diagnostic for hemangioma."
+          },
+          {
+            text: "Why is biopsy contraindicated for liver hemangiomas?",
+            choices: [
+              "A. No diagnostic value",
+              "B. Risk of life-threatening hemorrhage",
+              "C. Causes malignant transformation",
+              "D. Leads to infection"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Biopsy of hemangiomas risks massive bleeding due to their vascular nature.",
+            details: "A, C, D. Incorrect: Not primary risks. B. Correct: Imaging is sufficient for diagnosis."
+          },
+          {
+            text: "What is the hallmark imaging feature of focal nodular hyperplasia (FNH)?",
+            choices: [
+              "A. Peripheral enhancement",
+              "B. Central scar with spoked wheel appearance",
+              "C. Wash-out pattern",
+              "D. Anchovy paste fluid"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. FNH is characterized by a central scar with radiating fibrous bands on imaging.",
+            details: "A, C, D. Incorrect: Features of other lesions. B. Correct: Distinctive FNH pattern."
+          },
+          {
+            text: "What is the main danger associated with hepatic adenoma?",
+            choices: [
+              "A. Infection",
+              "B. Rupture and bleeding",
+              "C. No significant risk",
+              "D. Immediate malignancy"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Hepatic adenomas risk rupture, especially if >4 cm or hormone-related.",
+            details: "A, C, D. Incorrect: Not primary concerns. B. Correct: Major risk requiring intervention."
+          },
+          {
+            text: "What is the most common primary liver cancer?",
+            choices: [
+              "A. Cholangiocarcinoma",
+              "B. Hepatocellular carcinoma (HCC)",
+              "C. Metastatic cancer",
+              "D. Hepatic adenoma"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. HCC is the most common primary liver cancer, often linked to cirrhosis.",
+            details: "A, C, D. Incorrect: Not primary liver cancers. B. Correct: Predominant primary malignancy."
+          },
+          {
+            text: "What is a major risk factor for hepatocellular carcinoma (HCC)?",
+            choices: [
+              "A. Gallstones",
+              "B. Chronic hepatitis B",
+              "C. Acute appendicitis",
+              "D. Oral contraceptives"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Chronic hepatitis B is a major risk factor for HCC due to chronic inflammation.",
+            details: "A, C, D. Incorrect: Not strongly linked to HCC. B. Correct: Key risk factor."
+          },
+          {
+            text: "What is the recommended HCC screening frequency for cirrhosis patients?",
+            choices: [
+              "A. Annually",
+              "B. Every 6 months",
+              "C. Every 2 years",
+              "D. Only if symptomatic"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. Cirrhosis patients require ultrasound and AFP testing every 6 months for HCC screening.",
+            details: "A, C, D. Incorrect: Incorrect intervals or approach. B. Correct: Standard screening protocol."
+          },
+          {
+            text: "What is the typical imaging pattern for HCC on dynamic CT/MRI?",
+            choices: [
+              "A. Centripetal fill-in",
+              "B. Arterial hyperenhancement with wash-out",
+              "C. Shaggy wall enhancement",
+              "D. Daughter cysts"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. HCC shows arterial hyperenhancement followed by wash-out in portal/delayed phases.",
+            details: "A, C, D. Incorrect: Patterns of other lesions. B. Correct: Diagnostic for HCC."
+          },
+          {
+            text: "What is the most common source of pyogenic liver abscess?",
+            choices: [
+              "A. Systemic arterial spread",
+              "B. Biliary tract (gallstones, cholangitis)",
+              "C. Portal vein from gut infections",
+              "D. Direct trauma"
+            ],
+            correct: 1,
+            type: "single",
+            explanation: "Correct Answer: B. The biliary tract is the most common source of pyogenic liver abscesses.",
+            details: "A, C, D. Incorrect: Less common sources. B. Correct: Predominant infection route."
+          },
+          {
+            text: "How are amebic liver abscesses primarily treated?",
+            choices: [
+              "A. Surgical resection",
+              "B. Percutaneous drainage",
+              "C. Metronidazole",
+              "D. Open surgery"
+            ],
+            correct: 2,
+            type: "single",
+            explanation: "Correct Answer: C. Amebic abscesses are effectively treated with metronidazole, rarely requiring drainage.",
+            details: "A, B, D. Incorrect: Not primary treatments. C. Correct: Medical management is standard."
+          }
+        ]
+      };
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف التهاب الأمعاء الالتهابي</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
