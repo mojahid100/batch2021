@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Malnutrition Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-093NGZNZQG');
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+        direction: ltr;
+      }
+
+      h1, h2 {
+        text-align: center;
+        color: #1e90ff;
+      }
+
+      [lang="ar"] {
+        direction: rtl;
+        text-align: right;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .question-box {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .options button {
+        display: block;
+        width: 100%;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: left;
+        box-sizing: border-box;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .options button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .options button:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .options button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .answer, .more-details-btn, .details-box {
+        display: none;
+        margin-top: 15px;
+      }
+
+      .answer {
+        background: #d8f3dc;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #5cb85c;
+      }
+
+      .details-box {
+        background: #eef7ff;
+        padding: 12px;
+        border-left: 5px solid #1e90ff;
+      }
+
+      .next-btn, .start-btn, .more-details-btn {
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover:not(:disabled), .start-btn:hover:not(:disabled), .more-details-btn:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .next-btn:disabled, .start-btn:disabled, .more-details-btn:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .start-screen {
+        text-align: center;
+      }
+
+      .progress-bar {
+        margin: 20px 0;
+        background: #e0e0e0;
+        border-radius: 5px;
+        height: 10px;
+        overflow: hidden;
+      }
+
+      .progress-bar div {
+        background: #1e90ff;
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .score-display {
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .question-nav {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .question-nav button {
+        background-color: #1e90ff;
+        color: white;
+        border: 2px solid #1e90ff;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .question-nav button:hover:not(:disabled) {
+        background-color: #104e8b;
+        border-color: #104e8b;
+      }
+
+      .question-nav button:disabled {
+        background-color: #cccccc;
+        border-color: #cccccc;
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      .error-message {
+        color: #dc3545;
+        text-align: center;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        .question-text {
+          font-size: 16px;
+        }
+        .options button {
+          font-size: 14px;
+          padding: 10px;
+        }
+        .next-btn, .start-btn, .more-details-btn {
+          font-size: 14px;
+          padding: 10px 20px;
+        }
+        .question-nav button {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" style="
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #1e90ff, #104e8b);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+">
+    ⬅️ الرجوع إلى الصفحة الرئيسية
+</a>
+
+    <div class="container">
+      <div class="start-screen" id="startScreen">
+        <h1>Malnutrition Quiz</h1>
+        <p lang="ar">Malnutrition Quiz</p>
+        <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+      </div>
+
+      <div class="question-box" id="questionBox">
+        <div class="score-display" id="scoreDisplay">Score: 0 / 0</div>
+        <div class="progress-bar"><div id="progressFill" style="width: 0%;"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsBox"></div>
+        <div class="answer" id="answerBox"></div>
+        <button class="more-details-btn" id="detailsBtn" onclick="showDetails()" aria-label="Show more details">More details</button>
+        <div class="details-box" id="detailsBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" aria-label="Go to next question">Next</button>
+        <div class="question-nav" id="questionNav"></div>
+        <div class="error-message" id="errorMessage">An error occurred. Please try again.</div>
+      </div>
+    </div>
+
+    <script>
+      const quizConfig = {
+        title: "Malnutrition Quiz",
+        lesson: "الأسئلة من ملف سوء التغذية",
+        questions: [
+            {
+                text: "What distinguishes malnutrition from being malnourished?",
+                choices: [
+                    "A. Malnutrition includes nutrient imbalance, not just insufficiency",
+                    "B. Malnourished is a chronic condition, malnutrition is acute",
+                    "C. Malnutrition only occurs in underweight individuals",
+                    "D. Malnourished involves inflammation, malnutrition does not"
+                ],
+                correct: 0,
+                type: "single",
+                explanation: "Correct Answer: A. Malnutrition involves an imbalance in nutrition (even in obesity), while malnourished refers to insufficient nutrient intake.",
+                details: "A. Correct: Definition. B, C, D. Incorrect: Misrepresent distinctions."
+            },
+            {
+                text: "What is the primary mechanism of disease-associated malnutrition?",
+                choices: [
+                    "A. Lack of nutrient intake",
+                    "B. Systemic inflammation and cytokine release",
+                    "C. Excessive nutrient absorption",
+                    "D. Psychological food avoidance"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Disease-associated malnutrition is driven by systemic inflammation, releasing cytokines like TNF-alpha, causing wasting.",
+                details: "A, C, D. Incorrect: Not inflammatory mechanisms. B. Correct: Causes sarcopenia and catabolism."
+            },
+            {
+                text: "Which cytokine is known as cachexin hormone in malnutrition?",
+                choices: [
+                    "A. IL-6",
+                    "B. TNF-alpha",
+                    "C. IFN-gamma",
+                    "D. IL-1"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. TNF-alpha, called cachexin hormone, promotes wasting syndrome in inflammatory malnutrition.",
+                details: "A, C, D. Incorrect: Not termed cachexin. B. Correct: Key cytokine."
+            },
+            {
+                text: "Which condition is an example of acute disease-associated malnutrition?",
+                choices: [
+                    "A. Cancer cachexia",
+                    "B. Cardiac cachexia",
+                    "C. Burn injuries",
+                    "D. Obesity"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. Burn injuries cause acute, intense inflammatory malnutrition.",
+                details: "A, B, D. Incorrect: Chronic or mild conditions. C. Correct: Acute trauma example."
+            },
+            {
+                text: "What chronic condition is associated with inflammatory malnutrition?",
+                choices: [
+                    "A. Anorexia nervosa",
+                    "B. Cancer cachexia",
+                    "C. Prolonged fasting",
+                    "D. Refeeding syndrome"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Cancer cachexia is a chronic condition causing inflammatory malnutrition.",
+                details: "A, C, D. Incorrect: Non-inflammatory or unrelated. B. Correct: Chronic wasting."
+            },
+            {
+                text: "What characterizes non-inflammatory malnutrition?",
+                choices: [
+                    "A. Cytokine-driven wasting",
+                    "B. Lack of nutrient intake",
+                    "C. Hypermetabolic state",
+                    "D. Excessive nutrient loss"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Non-inflammatory malnutrition results from insufficient nutrient intake, not inflammation.",
+                details: "A, C, D. Incorrect: Related to inflammation or loss. B. Correct: Primary cause."
+            },
+            {
+                text: "Which condition is an example of non-inflammatory malnutrition?",
+                choices: [
+                    "A. Anorexia nervosa",
+                    "B. Pneumonia",
+                    "C. Heart failure",
+                    "D. Severe burns"
+                ],
+                correct: 0,
+                type: "single",
+                explanation: "Correct Answer: A. Anorexia nervosa is a non-inflammatory malnutrition condition due to reduced intake.",
+                details: "A. Correct: Psychological cause. B, C, D. Incorrect: Inflammatory conditions."
+            },
+            {
+                text: "What is a major complication of refeeding syndrome?",
+                choices: [
+                    "A. Hyperkalemia",
+                    "B. Hypophosphatemia",
+                    "C. Hypertension",
+                    "D. Hyperglycemia"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Refeeding syndrome causes hypophosphatemia due to rapid insulin surge during refeeding.",
+                details: "A, C, D. Incorrect: Not typical complications. B. Correct: Leads to cardiac risks."
+            },
+            {
+                text: "How does malnutrition impact hospital stays?",
+                choices: [
+                    "A. Shortens ventilator use",
+                    "B. Reduces infection risk",
+                    "C. Prolongs hospitalization",
+                    "D. Decreases costs"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. Malnutrition leads to prolonged hospital stays due to increased morbidity.",
+                details: "A, B, D. Incorrect: Opposite effects. C. Correct: Extends care needs."
+            },
+            {
+                text: "What nutrient deficiency impairs wound healing in malnutrition?",
+                choices: [
+                    "A. Vitamin C",
+                    "B. Iron",
+                    "C. Zinc",
+                    "D. Calcium"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. Zinc deficiency hinders wound repair in malnourished patients.",
+                details: "A, B, D. Incorrect: Less critical for wounds. C. Correct: Essential for healing."
+            },
+            {
+                text: "What is a psychological cause of primary malnutrition?",
+                choices: [
+                    "A. Depression",
+                    "B. Gastroparesis",
+                    "C. Cholestasis",
+                    "D. Celiac disease"
+                ],
+                correct: 0,
+                type: "single",
+                explanation: "Correct Answer: A. Depression is a psychological cause of inadequate nutrient intake leading to primary malnutrition.",
+                details: "B, C, D. Incorrect: Not psychological. A. Correct: Reduces appetite."
+            },
+            {
+                text: "Which oral condition contributes to malnutrition?",
+                choices: [
+                    "A. Inflammatory bowel disease",
+                    "B. Achalasia",
+                    "C. Hyperthyroidism",
+                    "D. Diarrhea"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Achalasia, an esophageal motility disorder, causes dysphagia, contributing to malnutrition.",
+                details: "A, C, D. Incorrect: Not oral/esophageal. B. Correct: Impairs swallowing."
+            },
+            {
+                text: "What gastric issue can lead to malnutrition?",
+                choices: [
+                    "A. Gastroparesis",
+                    "B. Stroke",
+                    "C. Pregnancy",
+                    "D. Cystic fibrosis"
+                ],
+                correct: 0,
+                type: "single",
+                explanation: "Correct Answer: A. Gastroparesis delays gastric emptying, reducing nutrient intake.",
+                details: "B, C, D. Incorrect: Not gastric-specific. A. Correct: Primary gastric cause."
+            },
+            {
+                text: "Which condition increases aspiration risk in malnutrition?",
+                choices: [
+                    "A. Depression",
+                    "B. Comatose state",
+                    "C. Gastric mass",
+                    "D. Hypermetabolic state"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Comatose patients have high aspiration risk, contributing to malnutrition.",
+                details: "A, C, D. Incorrect: Less related to aspiration. B. Correct: Neurological impairment."
+            },
+            {
+                text: "What causes digestion problems in secondary malnutrition?",
+                choices: [
+                    "A. Celiac disease",
+                    "B. Pancreatic insufficiency",
+                    "C. Diarrhea",
+                    "D. Pregnancy"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Pancreatic insufficiency (e.g., cystic fibrosis) impairs fat and nutrient digestion.",
+                details: "A, C, D. Incorrect: Absorption or loss issues. B. Correct: Digestion-specific."
+            },
+            {
+                text: "Which condition causes absorption problems in malnutrition?",
+                choices: [
+                    "A. Hyperthyroidism",
+                    "B. Inflammatory bowel disease",
+                    "C. Vomiting",
+                    "D. Burns"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: B. Inflammatory bowel disease damages intestinal absorption capacity.",
+                details: "A, C, D. Incorrect: Not absorption-specific. B. Correct: Affects nutrient uptake."
+            },
+            {
+                text: "What is a cause of excessive nutrient loss in malnutrition?",
+                choices: [
+                    "A. Prolonged diarrhea",
+                    "B. Depression",
+                    "C. Dysphagia",
+                    "D. Gastroparesis"
+                ],
+                correct: 0,
+                type: "single",
+                explanation: "Correct Answer: A. Prolonged diarrhea leads to excessive nutrient loss, causing malnutrition.",
+                details: "A. Correct: Loss mechanism. B, C, D. Incorrect: Intake or digestion issues."
+            },
+            {
+                text: "What should be included in malnutrition history taking?",
+                choices: [
+                    "A. Blood pressure",
+                    "B. Dietary history",
+                    "C. Heart rate",
+                    "D. Respiratory rate"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Dietary history is critical in assessing malnutrition causes.",
+                details: "A, C, D. Incorrect: Not nutrition-specific. B. Correct: Key history component."
+            },
+            {
+                text: "Which physical exam finding indicates malnutrition?",
+                choices: [
+                    "A. Hypertension",
+                    "B. Bitot’s spots",
+                    "C. Tachycardia",
+                    "D. Fever"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: B. Bitot’s spots (Vitamin A deficiency) are a physical sign of malnutrition.",
+                details: "A, C, D. Incorrect: Not nutrition-related. B. Correct: Eye finding."
+            },
+            {
+                text: "What lab marker is used to assess malnutrition?",
+                choices: [
+                    "A. Hemoglobin",
+                    "B. Albumin",
+                    "C. Sodium",
+                    "D. Potassium"
+                ],
+                correct: 3,
+                type: "single",
+                explanation: "Correct Answer: B. Albumin levels reflect nutritional status in malnutrition assessment.",
+                details: "A, C, D. Incorrect: Less specific for nutrition. B. Correct: Key marker."
+            },
+            {
+                text: "What BMI range indicates Obesity Class II?",
+                choices: [
+                    "A. 25–29.9",
+                    "B. 30–34.9",
+                    "C. 35–39.9",
+                    "D. >40"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. Obesity Class II is defined by a BMI of 35–39.9.",
+                details: "A, B, D. Incorrect: Different BMI classes. C. Correct: Very high risk."
+            },
+            {
+                text: "How is ideal body weight calculated for males using the Hamwi method?",
+                choices: [
+                    "A. 45 kg + 2.2 kg per 2.5 cm over 152 cm",
+                    "B. 48 kg + 2.7 kg per 2.5 cm over 152 cm",
+                    "C. 48 kg + 2.2 kg per 2.5 cm over 152 cm",
+                    "D. 45 kg + 2.7 kg per 2.5 cm over 152 cm"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. For males, Hamwi method is 48 kg for 152 cm + 2.7 kg per 2.5 cm above.",
+                details: "A, C, D. Incorrect: Incorrect values or gender. B. Correct: Male formula."
+            },
+            {
+                text: "What percentage of ideal body weight indicates severe malnutrition?",
+                choices: [
+                    "A. 80–90%",
+                    "B. 70–80%",
+                    "C. <70%",
+                    "D. >90%"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. Severe malnutrition is defined as <70% of ideal body weight.",
+                details: "A, B, D. Incorrect: Milder or normal ranges. C. Correct: Severe threshold."
+            },
+            {
+                text: "What is the preferred initial method of nutritional support?",
+                choices: [
+                    "A. Parenteral nutrition",
+                    "B. Enteral nutrition",
+                    "C. Oral intake",
+                    "D. Intravenous fluids"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. Oral intake (food/supplements) is the primary, most natural nutritional support method.",
+                details: "A, B, D. Incorrect: Secondary options. C. Correct: First-line approach."
+            },
+            {
+                text: "How long should a nasogastric tube be used for enteral feeding?",
+                choices: [
+                    "A. Up to 4 days",
+                    "B. Up to 2 weeks",
+                    "C. Up to 1 month",
+                    "D. Indefinitely"
+                ],
+                correct: 0,
+                type: "single",
+                explanation: "Correct Answer: A. Nasogastric tubes should not be used for enteral feeding beyond 4 days.",
+                details: "B, C, D. Incorrect: Too long or inappropriate. A. Correct: Short-term use."
+            },
+            {
+                text: "What is an indication for total parenteral nutrition (TPN)?",
+                choices: [
+                    "A. Mild dysphagia",
+                    "B. Short bowel syndrome",
+                    "C. Anorexia nervosa",
+                    "D. Gastroparesis"
+                ],
+                correct: 3,
+                type: "single",
+                explanation: "Correct Answer: B. TPN is indicated for conditions like short bowel syndrome where enteral feeding is not feasible.",
+                details: "A, C, D. Incorrect: Manageable with enteral/oral. B. Correct: Last resort."
+            },
+            {
+                text: "Which GI segment primarily absorbs iron?",
+                choices: [
+                    "A. Jejunum",
+                    "B. Ileum",
+                    "C. Duodenum",
+                    "D. Colon"
+                ],
+                correct: 2,
+                type: "single",
+                explanation: "Correct Answer: C. The duodenum primarily absorbs iron and fat-soluble vitamins.",
+                details: "A, B, D. Incorrect: Different absorption sites. C. Correct: Duodenal role."
+            },
+            {
+                text: "What nutrient is primarily absorbed in the ileum?",
+                choices: [
+                    "A. Folate",
+                    "B. Vitamin B12",
+                    "C. Iron",
+                    "D. Water"
+                ],
+                correct: 3,
+                type: "single",
+                explanation: "Correct Answer: B. The ileum absorbs vitamin B12 (with intrinsic factor) and bile salts.",
+                details: "A, C, D. Incorrect: Absorbed elsewhere. B. Correct: Ileal-specific."
+            },
+            {
+                text: "What is an indication for bariatric surgery?",
+                choices: [
+                    "A. BMI 30–34.9",
+                    "B. BMI >40",
+                    "C. BMI 25–29.9",
+                    "D. No comorbidities"
+                ],
+                correct: 1,
+                type: "single",
+                explanation: "Correct Answer: B. Bariatric surgery is indicated for BMI >40 or >35 with comorbidities.",
+                details: "A, C, D. Incorrect: Not surgical thresholds. B. Correct: High BMI indication."
+            },
+            {
+                text: "Which modern treatment is used for weight loss in lower BMI patients?",
+                choices: [
+                    "A. Intestinal transplant",
+                    "B. Gastric balloon",
+                    "C. Gastric bypass",
+                    "D. Pancreatic resection"
+                ],
+                correct: 3,
+                type: "single",
+                explanation: "Correct Answer: B. Gastric balloon is used for weight loss in patients with lower BMI.",
+                details: "A, C, D. Incorrect: Not for weight loss or BMI-specific. B. Correct: Non-surgical option."
+            }
+        ]
+    };
+      
+      let currentQuestionIndex = 0;
+      let score = 0;
+      let answeredQuestions = new Set();
+
+      function decodeHtml(html) {
+        const txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+      }
+
+      function startQuiz() {
+        document.getElementById("startScreen").style.display = "none";
+        document.getElementById("questionBox").style.display = "block";
+        showQuestion();
+        renderQuestionNav();
+        updateProgress();
+        updateScore();
+      }
+
+      function validateQuestion(q) {
+        return q &&
+               typeof q.text === 'string' &&
+               Array.isArray(q.choices) &&
+               q.choices.every(c => typeof c === 'string') &&
+               typeof q.correct === 'number' &&
+               q.correct >= 0 &&
+               q.correct < q.choices.length &&
+               typeof q.explanation === 'string' &&
+               typeof q.details === 'string';
+      }
+
+      function showQuestion() {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          document.getElementById("questionText").innerHTML = `Question ${currentQuestionIndex + 1}: ${decodeHtml(q.text)}`;
+          const optionsBox = document.getElementById("optionsBox");
+          optionsBox.innerHTML = "";
+          q.choices.forEach((choice, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = decodeHtml(choice);
+            btn.setAttribute("aria-label", `Option ${choice}`);
+            btn.disabled = answeredQuestions.has(currentQuestionIndex);
+            btn.onclick = () => checkAnswer(idx, btn);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                checkAnswer(idx, btn);
+              }
+            };
+            optionsBox.appendChild(btn);
+          });
+          document.getElementById("answerBox").style.display = answeredQuestions.has(currentQuestionIndex) ? "block" : "none";
+          document.getElementById("detailsBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("detailsBox").style.display = "none";
+          document.getElementById("nextBtn").style.display = answeredQuestions.has(currentQuestionIndex) ? "inline-block" : "none";
+          document.getElementById("errorMessage").style.display = "none";
+          if (answeredQuestions.has(currentQuestionIndex)) {
+            checkAnswer(null, null, true);
+          }
+        } catch (error) {
+          console.error("Error in showQuestion:", error);
+          document.getElementById("errorMessage").style.display = "block";
+          document.getElementById("optionsBox").innerHTML = "";
+        }
+      }
+
+      function checkAnswer(selectedIndex, btn, replay = false) {
+        try {
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          const answerBox = document.getElementById("answerBox");
+          const detailsBtn = document.getElementById("detailsBtn");
+          const nextBtn = document.getElementById("nextBtn");
+
+          const optionButtons = document.getElementById("optionsBox").getElementsByTagName("button");
+          for (let i = 0; i < optionButtons.length; i++) {
+            optionButtons[i].disabled = true;
+            if (i === q.correct) {
+              optionButtons[i].style.backgroundColor = "#28a745";
+            } else if (i === selectedIndex && i !== q.correct) {
+              optionButtons[i].style.backgroundColor = "#dc3545";
+            }
+          }
+
+          if (!replay) {
+            if (selectedIndex === q.correct) {
+              answerBox.innerHTML = "<p style='color:green; font-weight:bold;'>Correct!</p>" + decodeHtml(q.explanation);
+              if (!answeredQuestions.has(currentQuestionIndex)) {
+                score++;
+              }
+            } else {
+              answerBox.innerHTML = "<p style='color:red; font-weight:bold;'>Incorrect.</p>" + decodeHtml(q.explanation);
+            }
+            answeredQuestions.add(currentQuestionIndex);
+            answerBox.style.display = "block";
+            detailsBtn.style.display = "inline-block";
+            nextBtn.style.display = "inline-block";
+            updateProgress();
+            updateScore();
+            updateQuestionNav();
+          } else {
+            answerBox.innerHTML = (selectedIndex === q.correct ? 
+              "<p style='color:green; font-weight:bold;'>Correct!</p>" : 
+              "<p style='color:red; font-weight:bold;'>Incorrect.</p>") + decodeHtml(q.explanation);
+          }
+        } catch (error) {
+          console.error("Error in checkAnswer:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function showDetails() {
+        try {
+          const detailsBox = document.getElementById("detailsBox");
+          const q = quizConfig.questions[currentQuestionIndex];
+          if (!validateQuestion(q)) {
+            throw new Error('Invalid question structure');
+          }
+          detailsBox.innerHTML = decodeHtml(q.details.replace(/\n/g, "<br>"));
+          detailsBox.style.display = "block";
+        } catch (error) {
+          console.error("Error in showDetails:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestionIndex = (currentQuestionIndex + 1) % quizConfig.questions.length;
+        showQuestion();
+        updateQuestionNav();
+      }
+
+      function goToQuestion(index) {
+        if (index >= 0 && index < quizConfig.questions.length) {
+          currentQuestionIndex = index;
+          showQuestion();
+          updateQuestionNav();
+        }
+      }
+
+      function renderQuestionNav() {
+        try {
+          const navBox = document.getElementById("questionNav");
+          navBox.innerHTML = "";
+          quizConfig.questions.forEach((_, index) => {
+            const btn = document.createElement("button");
+            btn.innerText = `${index + 1}`;
+            btn.setAttribute("aria-label", `Go to question ${index + 1}`);
+            btn.onclick = () => goToQuestion(index);
+            btn.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                goToQuestion(index);
+              }
+            };
+            navBox.appendChild(btn);
+          });
+          updateQuestionNav();
+        } catch (error) {
+          console.error("Error in renderQuestionNav:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      function updateQuestionNav() {
+        try {
+          const navButtons = document.getElementById("questionNav").getElementsByTagName("button");
+          for (let i = 0; i < navButtons.length; i++) {
+            navButtons[i].disabled = i === currentQuestionIndex;
+            navButtons[i].style.opacity = (i === currentQuestionIndex) ? 0.6 : (answeredQuestions.has(i) ? 1 : 0.8);
+          }
+        } catch (error) {
+          console.error("Error in updateQuestionNav:", error);
+        }
+      }
+
+      function updateProgress() {
+        const progress = (answeredQuestions.size / quizConfig.questions.length) * 100;
+        document.getElementById("progressFill").style.width = `${progress}%`;
+      }
+
+      function updateScore() {
+        document.getElementById("scoreDisplay").innerText = `Score: ${score} / ${quizConfig.questions.length}`;
+      }
+
+      function showEndScreen() {
+        document.getElementById("questionBox").style.display = "none";
+        document.getElementById("startScreen").style.display = "block";
+        document.getElementById("startScreen").innerHTML = `
+          <h1>Quiz Completed!</h1>
+          <p>You scored ${score} out of ${quizConfig.questions.length}.</p>
+          <button class="start-btn" onclick="restartQuiz()" aria-label="Restart the quiz">Restart Quiz</button>
+        `;
+      }
+
+      function restartQuiz() {
+        try {
+          currentQuestionIndex = 0;
+          score = 0;
+          answeredQuestions.clear();
+          document.getElementById("startScreen").style.display = "block";
+          document.getElementById("questionBox").style.display = "none";
+          document.getElementById("startScreen").innerHTML = `
+            <h1>${quizConfig.title}</h1>
+            <p lang="ar">الأسئلة من ملف التهاب الأمعاء الالتهابي</p>
+            <button class="start-btn" onclick="startQuiz()" aria-label="Start the quiz">Start Quiz</button>
+          `;
+        } catch (error) {
+          console.error("Error in restartQuiz:", error);
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key >= '1' && e.key <= '4' && !answeredQuestions.has(currentQuestionIndex)) {
+          const index = parseInt(e.key) - 1;
+          const buttons = document.getElementById("optionsBox").getElementsByTagName("button");
+          if (index < buttons.length) {
+            checkAnswer(index, buttons[index]);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
