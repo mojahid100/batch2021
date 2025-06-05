@@ -1,663 +1,627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GEP all surgery treatments Flashcards</title>
-  <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-093NGZNZQG"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-093NGZNZQG');
-    </script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    section {
-      margin: 40px 0;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    section h2 {
-      color: #007BFF; /* اللون الأزرق المميز للمدونة */
-      border-bottom: 2px solid #007BFF;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-    .flashcard-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px; /* زيادة المسافة بين الفلاش كاردز لتجنب التصاقها */
-      justify-content: center;
-    }
-    .flashcard {
-      width: 300px;
-      height: 200px;
-      perspective: 1000px;
-      position: relative;
-      cursor: pointer;
-    }
-    .flashcard-inner {
-      width: 100%;
-      height: 100%;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      position: relative;
-    }
-    .flashcard.flipped .flashcard-inner {
-      transform: rotateY(180deg);
-    }
-    .flashcard-front, .flashcard-back {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      backface-visibility: hidden;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      font-size: 16px;
-      text-align: center;
-    }
-    .flashcard-front {
-      background-color: #007BFF;
-      color: white;
-    }
-    .flashcard-back {
-      background-color: #fff;
-      color: #333;
-      transform: rotateY(180deg);
-      overflow-y: auto; /* للتعامل مع النصوص الطويلة */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treatments and Surgical Procedures for Gastrointestinal Conditions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .condition {
+            background-color: #fff;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .condition-title {
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 15px 20px;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2980b9;
+        }
+        .condition-title:hover {
+            background-color: #2980b9;
+        }
+        .condition-title::after {
+            content: '+';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+        .condition-title.active::after {
+            content: '−';
+            transform: rotate(180deg);
+        }
+        .treatment-list {
+            display: none;
+            padding: 0;
+            background-color: #ecf0f1;
+            border-top: 1px solid #ddd;
+        }
+        .treatment-list.active {
+            display: block;
+        }
+        .treatment-list ul {
+            list-style-type: none;
+            padding: 15px 20px 15px 25px;
+            margin: 0;
+        }
+        .treatment-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #bdc3c7;
+            line-height: 1.5;
+        }
+        .treatment-list li:last-child {
+            border-bottom: none;
+        }
+        .treatment-list ul ul {
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+        .treatment-list ul ul ul {
+            padding-left: 20px;
+            list-style-type: circle;
+        }
+    </style>
 </head>
 <body>
-  <a href="index.html" style="
-    display: inline-block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #1e90ff, #104e8b);
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-">
-    ⬅️ الرجوع إلى الصفحة الرئيسية
-</a>
+    <h1>Treatments and Surgical Procedures for Gastrointestinal Conditions</h1>
+    <div id="treatment-container"></div>
 
-  <h1>GEP all surgery treatments Flashcards</h1>
+    <script>
+        const treatmentData = {
+            "1. INTESTINAL OBSTRUCTION": [
+                "1.1 General Treatment Principles",
+                "- 1.1.1 Conservative Treatment",
+                "  - Indications: Preoperative, adhesive obstruction.",
+                "  - Contraindications: Late complicated intestinal obstruction, doubtful cases.",
+                "  - Components:",
+                "    - Correction of fluid & electrolytes imbalance.",
+                "    - Urinary catheter to monitor urine output.",
+                "    - Nasogastric suction through Ryle's tube.",
+                "    - Antibiotics to guard against respiratory infection, peritonitis & septicemia.",
+                "- 1.1.2 Surgical Exploration",
+                "  - Deliver the caecum and examine: If collapsed, it indicates small intestinal obstruction; if distended, it indicates large intestinal obstruction.",
+                "  - Decompress the bowels if greatly distended by thread tube or a small stab.",
+                "  - Deal with the cause:",
+                "    - Simple obstruction: Remove the cause or bypass or colostomy.",
+                "    - Strangulated obstruction: Remove the cause and examine viability. If viability is questionable, try to improve by increased oxygenation and hot fomentation. If not improved or proved gangrenous, resection of gangrenous segment.",
+                "  - Small intestine or right colon: Primary resection anastomosis.",
+                "  - Left colon: Exteriorization resection.",
+                "1.2 Specific Causes of Intestinal Obstruction and Related Conditions",
+                "- 1.2.1 Adhesive Intestinal Obstruction",
+                "  - Conservative Treatment: I.V. fluids, N/G suction.",
+                "  - Surgical Treatment:",
+                "    - Exploration and division of adhesions.",
+                "    - If adhesions are extensive: Bypass by lateral anastomosis.",
+                "    - Prevention of recurrence: Instillation of substances (hyaluronidase, heparin, steroids, fibrinolysin, dextran) is usually useless.",
+                "- 1.2.2 Volvulus Sigmoid Colon",
+                "  - Preliminary Resuscitation.",
+                "  - Endoscopic Decompression in early cases.",
+                "  - Surgery:",
+                "    - Indications: Failure of proctoscopic decompression, complications (gangrene, perforation), elective resection after successful decompression.",
+                "    - Procedure: Exploration & try to untwist.",
+                "      - If pelvic colon is viable: It is repositioned in the abdomen.",
+                "      - If pelvic colon is non-viable: Resection is done.",
+                "      - Many surgeons advise resection of the colon even if viable due to high recurrence rate.",
+                "- 1.2.3 Mesenteric Vascular Occlusion (MVO)",
+                "  - Resuscitation & pre-operative preparation.",
+                "  - Urgent Exploration if peritonitis.",
+                "    - If viable: Revascularization.",
+                "    - If gangrenous: Resection.",
+                "  - Treatment of the underlying cause (e.g., AF, Atherosclerosis).",
+                "  - Early dissolution of thrombus or embolus: Thrombolysis by selective cannulation of the superior mesenteric artery via transfemoral aortography.",
+                "  - If clinical picture is suggestive and no sophisticated investigations: Laparotomy performed without delay.",
+                "- 1.2.4 Paralytic Ileus",
+                "  - Prophylaxis (avoid predisposing factors):",
+                "    - Preoperative correction of electrolyte imbalance.",
+                "    - Intraoperative gentle manipulations.",
+                "    - Postoperative NPO until intestinal peristalsis is regained.",
+                "  - Active Treatment:",
+                "    - Treatment of the cause (e.g., Drainage of peritonitis, Treatment of internal hemorrhage, hypokalemia).",
+                "    - Parasympathomimetics (prostigmine) in resistant cases (controversial).",
+                "    - Resuscitation and monitoring (vital data, signs of recovery).",
+                "    - Ryle's tube GIT suction to relieve distension.",
+                "    - IV line: Restoration of fluid & electrolyte balance.",
+                "    - Antibiotics.",
+                "    - Sedation (Pethidine 100 mg IM).",
+                "    - Observation for signs of recovery."
+            ],
+            "2. MALIGNANT DISEASES OF THE INTESTINE": [
+                "2.1 Peutz-Jegher's Syndrome",
+                "- Only complicated polyps (causing bleeding or intussusception) require removal or excision of the affected intestinal segment.",
+                "2.2 Familial Polyposis Coli (FPC)",
+                "- Operative eradication of polyps.",
+                "- Surgical Options: Similar to those for ulcerative colitis.",
+                "  - Excision of the whole colon and rectum (panproctocolectomy) with permanent ileostomy (standard treatment).",
+                "  - The rectum may be spared and an ileoproctostomy is performed, with endoscopic fulguration of remaining rectal polyps (lifelong surveillance needed).",
+                "  - Proctocolectomy with distal rectal mucosectomy (ileal pouch fashioned and anastomosed to anal canal).",
+                "- Family members should be periodically examined by colonoscopy and similarly treated if they develop polyps.",
+                "- Genetic screening of relatives is performed.",
+                "2.3 Carcinoma of the Colon and Rectum",
+                "- General Principles:",
+                "  - Surgery is the main line of treatment.",
+                "  - Radical resection is the only curative measure.",
+                "  - For inoperable tumors, resection also offers the best palliation.",
+                "  - Treatment depends on presentation (acute obstruction or not) and operability.",
+                "- Treatment of Non-Obstructive Operable Cases:",
+                "  - Elective radical resection.",
+                "  - Aim: Removal of the tumor-bearing segment together with its lymphatic drainage area, in one mass; then restore bowel continuity. Requires high ligation of the main blood vessels.",
+                "  - Approach: Laparoscopically, open, or robotically. Adequate proximal and distal margin, high ligation for lymph node clearance, tension-free anastomosis/stoma. At least 12 lymph nodes retrieved for staging. Laparoscopic approach oncologically equal to open surgery. Preoperative colon preparation for safer anastomosis.",
+                "- Specific Surgical Procedures:",
+                "  - Tumors of Caecum, Ascending Colon, or Hepatic Flexure: Right hemicolectomy (resection of terminal ileum, caecum, ascending colon, hepatic flexure, right half of transverse colon) with ileotransverse anastomosis.",
+                "  - Tumors of Transverse Colon: Extended right hemicolectomy (includes middle colic vessels, resection extends to junction of right two-thirds and left third of transverse colon). Or Transverse colectomy (middle colic vessels divided flush at origin, transverse colon resected with both flexures, mesocolon, omentum).",
+                "  - Tumors of Left Colon: Left hemicolectomy (inferior mesenteric vessels divided at origin, resection extends down to the rectum).",
+                "  - Tumors of Sigmoid Colon: Sigmoid colectomy (sigmoid vessels divided at origin from inferior mesenteric).",
+                "  - Tumors of Upper Third of Rectum: Treated by an anterior restorative resection (inferior mesenteric artery divided, sigmoid colon and upper half of rectum excised, bowel continuity restored).",
+                "  - Tumors of Middle and Lower Third of Rectum:",
+                "    - Neoadjuvant chemoradiation for T3 or T4 lesions or node positive disease.",
+                "    - Surgical therapy goal: Remove cancer with adequate margins, total mesorectal excision (TME), lymph node clearance with high ligation.",
+                "    - Abdominoperineal Resection (APR) if clinical/imaging evidence of sphincter involvement, incontinence, or concern for distal margin.",
+                "    - Anterior restorative resection (inclusion of 2 cm safety margin, facilitated by circular staplers).",
+                "    - Abdominoperineal Excision with Terminal Left Iliac Colostomy still done for sphincter involvement, improper distal safety margin, or aggressive pathology.",
+                "- Inoperable (Incurable) Cases:",
+                "  - Whenever possible, palliative resection is preferred (no need for wide resection).",
+                "  - Right colon tumors: Require a side-to-side ileotransverse anastomosis.",
+                "  - Tumors elsewhere in the colon: Require a proximal colostomy.",
+                "  - Rectum tumors: May show partial response to local radiotherapy.",
+                "  - Supplementary chemotherapy with 5-fluorouracil (5-FU) may be useful.",
+                "  - In emergent setting, tumor resection with or without anastomosis or proximal diversion if unresectable.",
+                "  - For obstruction, distal obstructed limb should be vented via loop ostomy or mucus fistula.",
+                "  - Urgent surgery after adequate preparation.",
+                "  - The best is colon resection (radical or palliative) and colostomy for later anastomosis.",
+                "  - For critically ill: Proximal colostomy."
+            ],
+            "3. HEPATOBILIARY AND PANCREATIC CONDITIONS (MALIGNANT)": [
+                "3.1 Cholangiocarcinoma (Bile Duct Cancer)",
+                "- Intent to Cure:",
+                "  - Surgery: Radical resection with a microscopically negative margin (R0).",
+                "  - Liver Transplantation.",
+                "- Adjuvant and Neoadjuvant: Chemotherapy, Radiotherapy (and Stereotactic Radiotherapy).",
+                "- Intent to Palliate:",
+                "  - Biliary Stenting.",
+                "  - Photodynamic Therapy (PDT).",
+                "  - Operative biliary-enteric bypass or endoscopic/percutaneous stenting for obstructive jaundice.",
+                "- Specific Surgical Procedures:",
+                "  - Lower end CBD CC: Treated by Whipple operation if resectable. If not resectable: cholecysto-jejunostomy or percutaneous trans-hepatic drainage (PTD).",
+                "  - Intrahepatic lesion: Treated by hepatectomy or transplantation.",
+                "  - Hilar CC (HC): Resection of the caudate lobe and part of segment 4, combined with a right or left hepatectomy, bile duct resection, lymphadenectomy of the hepatic hilum and sometimes vascular resection.",
+                "3.2 Gallbladder Cancer",
+                "- Mucosal disease (Tis and T1a tumors): Cholecystectomy alone with negative resection margins.",
+                "- Preoperative suspicion of gallbladder cancer: Open cholecystectomy.",
+                "- Early disease (T1b and T2 tumors): Radical cholecystectomy (includes gallbladder, gallbladder bed of liver, hepatoduodenal ligament, periduodenal, peripancreatic, hepatic artery, and celiac lymph nodes).",
+                "- Stage II or III disease (invasion of adjacent organs or lymph node metastases): More radical resection (wedge resection of liver adjacent to gallbladder bed to resection of 75% of the liver).",
+                "- Adjuvant chemoradiation is often recommended, but no proof of efficacy is available.",
+                "- Palliation: Percutaneous or endoscopically placed biliary stents for jaundice. Duodenal obstruction can be surgically bypassed. Radiotherapy can decrease tumor bulk and temporarily relieve obstruction.",
+                "3.3 Exocrine Pancreatic Cancer",
+                "- Curative Resection:",
+                "  - Pancreaticoduodenectomy (Whipple procedure): En bloc resection of head of pancreas, distal CBD, duodenum, jejunum, and gastric antrum.",
+                "  - Pylorus-sparing Whipple may be done.",
+                "  - Extended lymphadenectomy does not affect survival but increases morbidity.",
+                "- Preoperative Preparation: IV vitamin K, bile salt tablets, hydration, prophylactic antibiotic, sugar rich diet, mannitol (if bilirubin above 15 mg/dl).",
+                "- Palliative Treatment (for unresectable cases):",
+                "  - Relief of obstructive jaundice: Endoscopic biliary stenting OR choledochojejunostomy.",
+                "  - Gastric outlet obstruction: Gastrojejunostomy.",
+                "  - Pain: Chemical splanchnicectomy by 50% ethyl alcohol in the celiac nerve plexus.",
+                "3.4 Endocrine Pancreatic Neoplasms",
+                "- Goals of Surgery: Complete resection or controlling symptoms through debulking procedures.",
+                "- Unresectable liver disease: Often addressed with chemoembolization.",
+                "- Insulinoma:",
+                "  - Enucleation of the tumor.",
+                "  - Distal pancreatectomy.",
+                "  - Pancreaticoduodenectomy (for tumors near main pancreatic duct and large >2 cm).",
+                "  - Intraoperative US is useful to guide decision making.",
+                "- Gastrinoma (Zollinger Ellison Syndrome):",
+                "  - If detectable in the head: Whipple's Operation (pancreatico-duodenectomy).",
+                "  - If detectable in the body or tail: Distal pancreatectomy.",
+                "  - If not detectable (small in size & avascular): Blind body & tail pancreatectomy, Total gastrectomy (to remove target organ), Omeprazole in large doses for 6-12 months.",
+                "  - Full-thickness excision of duodenal wall if duodenal gastrinoma found.",
+                "  - Excision of all lymph nodes in Passaro's triangle.",
+                "  - If gastrinoma in pancreas and not involving main pancreatic duct: It is enucleated.",
+                "  - Highly selective vagotomy if unresectable disease or tumor cannot be localized.",
+                "  - Resection of hepatic metastases if primary gastrinoma is controlled and metastases can be safely and completely removed.",
+                "- VIPoma (Vasoactive Intestinal Peptide-Secreting Tumor):",
+                "  - Palliative debulking operations can improve symptoms.",
+                "  - Somatostatin analogues and artery embolization are beneficial treatments.",
+                "- Glucagonoma:",
+                "  - Preoperative treatment: Control of diabetes, parenteral nutrition, and octreotide.",
+                "  - Debulking operations recommended in good operative candidates to relieve symptoms.",
+                "- Somatostatinoma:",
+                "  - Attempt at complete excision of the tumor and cholecystectomy is warranted in fit patients with metastatic disease.",
+                "3.5 Cystic Pancreatic Neoplasms (CPNs)",
+                "- Serous cystadenoma (benign):",
+                "  - Radiologic follow up for asymptomatic lesions.",
+                "  - Surgery for symptomatic lesions or distal disease with diagnostic uncertainty.",
+                "- Mucinous cystic neoplasms (MCNs) (premalignant):",
+                "  - Surgical resection (except lesions less than 2 cm which rarely have malignant foci and can be followed).",
+                "- Intraductal papillary mucinous tumors (IPMTs):",
+                "  - Resection.",
+                "  - Branched duct disease (head): Localized resection, most commonly pylorus-sparing Whipple procedure.",
+                "  - Main duct disease: Distal pancreatectomy with immediate frozen-section analysis of proximal ductal margin. Long-term follow-up is required."
+            ],
+            "4. GENERAL ACUTE ABDOMEN CONDITIONS AND INJURIES": [
+                "4.1 Acute Appendicitis",
+                "- Investigations (leukocytic count, urine, X-ray, IVU, ultrasound, pelvic ultrasound, laparoscopy) are done in difficult cases. (Implied surgical treatment upon definitive diagnosis).",
+                "4.2 Acute Cholecystitis",
+                "- Ultrasound is diagnostic. (Full treatment details are in 'disease of biliary system.pdf').",
+                "4.3 Acute Pancreatitis",
+                "- Plain X-ray of abdomen, Ultrasound. (Treatment primarily conservative, with limited surgical indications mentioned in 'New-Pancreas (1).pdf').",
+                "4.4 Perforated Peptic Ulcer",
+                "- Resuscitation: IV fluids, analgesics, IV PPIs, broad spectrum antibiotics, NGT, Urinary catheter.",
+                "- Urgent surgical intervention (open or laparoscopic exploration): Peritoneal toilet, surgical repair of the ulcer + omental patch, drains.",
+                "- Subacute sealed perforation: Can be managed conservatively.",
+                "4.5 Torsion of an Ovarian Cyst",
+                "- Laparoscopy is diagnostic and therapeutic.",
+                "4.6 Intestinal Trauma",
+                "- All intestinal injuries require laparotomy.",
+                "- Preoperative preparation: Anti-shock measures, antibiotics, tetanus toxoid.",
+                "- Operative Treatment: Midline abdominal incision, abdominal exploration, arrest bleeding.",
+                "  - Small intestine and right colon injuries: Tidy sharp injuries are sutured in 2 layers. Ragged injuries require trimming.",
+                "  - Intestinal resection is indicated for ischemic or gangrenous segments."
+            ],
+            "5. LIVER CONDITIONS": [
+                "5.1 Hepatic Cysts (Nonparasitic)",
+                "- Asymptomatic cysts: No treatment regardless of size.",
+                "- Symptomatic cysts: Operative deroofing (either open or laparoscopy).",
+                "- Infected cysts: Treated as hepatic abscesses.",
+                "- Symptomatic polycystic liver disease: Drainage of superficial cysts into abdominal cavity and fenestration of deeper cysts into superficial one. Liver resection preserving least-cystic areas may be more effective.",
+                "- Neoplastic cystic lesions: (Implied surgical intervention).",
+                "5.2 Hemangioma",
+                "- Most hemangiomas: Only need observation.",
+                "- Indications for intervention: Symptoms, complications, inability to exclude malignancy.",
+                "- Treatment: Surgical resection, usually enucleated under vascular control (intermittent Pringle maneuver). Formal anatomic resection (e.g., right hepatectomy) when tumor largely replaced a distinct anatomic unit.",
+                "- Spontaneous hemorrhage (rare): Control with vascular embolization for temporary help until definitive surgery.",
+                "5.3 Focal Nodular Hyperplasia (FNH)",
+                "- Elective resection not indicated in asymptomatic patients when FNH is differentiated from adenoma or malignant lesions.",
+                "- Oral contraceptives stopped.",
+                "- Close observation for tumor growth during pregnancy and postpartum period.",
+                "5.4 Hepatic Adenoma (HA)",
+                "- Small (<4 cm) asymptomatic lesions: Occasionally regress with cessation of oral contraceptives.",
+                "- Multiple adenomas: Radiofrequency ablation is an option.",
+                "- Standard therapy: Resection.",
+                "- Indications for operative intervention: Lesions 5 cm or greater in diameter, tumors that do not shrink after stopping OCPs, patients who medically cannot stop OCP use.",
+                "5.5 Hepatocellular Carcinoma (HCC)",
+                "- Curative Treatment:",
+                "  - Resection. Surgical resection (best prognosis for long-term survival, but possible in only 10-15% of cases).",
+                "  - Liver transplantation.",
+                "  - Percutaneous ablation: PEI, PAI, RFA, Microwave ablation, Cryoablation, Laser ablation.",
+                "- Palliative Treatment:",
+                "  - Embolisation.",
+                "  - Chemoembolisation.",
+                "  - Arterial or systemic chemotherapy.",
+                "  - Internal radiation.",
+                "  - Proton beam radiation.",
+                "  - Hormonal compounds.",
+                "  - Immunotherapy.",
+                "- Treatment Strategy (Barcelona-Clinic Liver Cancer (BCLC) staging):",
+                "  - Stage 0 (very early): Optimal candidates for resection.",
+                "  - Stage A (early): Candidates for radical therapies (resection and ablation, liver transplantation; or percutaneous treatments).",
+                "  - Stage B (intermediate): May benefit from chemoembolization.",
+                "  - Stage C (advanced): May receive systemic agents.",
+                "  - Stage D (end-stage): Will receive symptomatic treatment.",
+                "- Specific considerations:",
+                "  - Hepatic resection should be considered in HCC and a non-cirrhotic liver (including fibrolamellar variant).",
+                "  - Resection can be carried out in highly selected patients with cirrhosis and well preserved hepatic function (Child-Pugh A) who are unsuitable for liver transplantation.",
+                "  - Percutaneous ethanol injection for small (<3 cm) solitary tumors.",
+                "  - Transcatheter arterial chemoembolization (TACE) for tumors >3 cm and <4 cm.",
+                "  - Sealed source radiotherapy (brachytherapy).",
+                "  - Orthotopic liver transplantation (OLT) is theoretically the best treatment option. While waiting for OLT: Adjuvant therapies to prevent tumor progression.",
+                "  - Repeated hepatic resection for recurrence is safe and effective in selected lesions.",
+                "5.6 Fibrolamellar Hepatocellular Carcinoma (FLC)",
+                "- Best treated with complete surgical resection.",
+                "5.7 Pyogenic Liver Abscess",
+                "- Drainage and systemic antibiotic therapy.",
+                "- Percutaneous drainage can be performed in most cases.",
+                "- Operative procedure recommended for multiple, large, loculated abscesses and in patients who require laparotomy for the underlying cause.",
+                "- Empirical antibiotic treatment should include coverage for bowel flora, then modified based on sensitivities.",
+                "5.8 Amebic Abscess",
+                "- Requires systemic metronidazole (750-800 mg orally three times a day for 7 to 10 days).",
+                "- Needle aspiration considered if no response to initial therapy or in doubt about diagnosis.",
+                "5.9 Echinococcal Cysts (Hydatid Disease)",
+                "- Treatment mainly operative.",
+                "- Percutaneous drainage after antihelminthic treatment increasingly utilized.",
+                "- Operative procedure: Abdomen explored, cyst aspirated with closed system, scolecidal agent instilled (if no bile), postoperative therapy with mebendazole or albendazole to prevent recurrence."
+            ],
+            "6. SPLEEN CONDITIONS": [
+                "6.1 Rupture of the Spleen",
+                "- If patient is in severe shock: Immediate laparotomy to stop bleeding.",
+                "- Splenic conservation should be considered.",
+                "6.2 Splenomegaly",
+                "- Medical treatment: Treatment of the cause if possible.",
+                "- Surgical treatment: Splenectomy (open or laparoscopic).",
+                "6.3 Hypersplenism",
+                "- Treatment is splenectomy.",
+                "6.4 Splenectomy (General Procedure and Tips)",
+                "- Procedure: General anaesthesia, supine position, upper midline, left paramedian or left subcostal incision. Mobilization of the spleen by dividing the posterior leaflet of the lienorenal ligament. Ligation and division of short gastric vessels. Gentle dissection to separate the tail of the pancreas from the splenic vessels. Splenic artery and vein are separated, doubly ligated and divided. Spleen is removed and adequate haemostasis is obtained. Incision closed in layers.",
+                "- Tips: Remember preoperative immunisation, prophylactic antibiotics in the long term.",
+                "6.5 Acute Abscess of Spleen",
+                "- Percutaneous drainage under ultrasound or CT guidance.",
+                "- Splenectomy may be very difficult due to dense adhesions.",
+                "6.6 Hydatid Disease of the Spleen",
+                "- Treatment is splenectomy.",
+                "6.7 Tumours of the Spleen (confined to spleen)",
+                "- Benign tumors (lymphangioma, cavernous haemangioma) and Localized forms of lymphoma may be treated with splenectomy."
+            ],
+            "7. STOMACH AND DUODENUM CONDITIONS": [
+                "7.1 Acute Gastric Dilatation",
+                "- NGT with suction.",
+                "- Fluid and electrolytes replacement.",
+                "7.2 Peptic Ulcer Disease (General)",
+                "- Caused by acid-pepsin digestion of gastric mucosa.",
+                "7.3 Acute Gastric Ulcer",
+                "- Prevention in high risk patients: PPIs, H2 blockers, antacids, sucralfate.",
+                "- Direct treatment: IV PPIs (e.g., Omeprazole), Antacids, Mucosal protector (sucralfate).",
+                "- Correction of shock: Blood transfusion, stop bleeding by EGD.",
+                "- If failed: Urgent gastrectomy.",
+                "7.4 Chronic Duodenal Ulcer (DU)",
+                "- Medical Treatment (uncomplicated ulcers):",
+                "  - Avoid NSAIDs.",
+                "  - PPIs (e.g., omeprazole) to reduce gastric acidity.",
+                "  - H2 receptor blockers (e.g., Ranitidine).",
+                "  - Treatment for 6 weeks, then repeat endoscopy.",
+                "  - Eradication of H pylori infection: Triple therapy for 2 weeks (Metronidazole, Tetracycline or Amoxicillin, Bismuth compounds). Repeat H pylori testing after 4 weeks.",
+                "- Surgical Treatment:",
+                "  - Indications: Emergency in complications, elective if failed medical treatment.",
+                "  - Aim: Promote healing of ulcer and prevent recurrence by decreasing acid secretion.",
+                "  - Elective Procedures:",
+                "    - Truncal vagotomy + Drainage (gastro-Jujenostomy or pyloroplasty).",
+                "    - Selective vagotomy + Drainage.",
+                "    - Highly selective vagotomy (does not need drainage).",
+                "7.5 Chronic Gastric Ulcer",
+                "- Medical treatment: Malignancy should be excluded first, same treatment as duodenal ulcer. Repeat endoscopy after 6 weeks (if no improvement, surgical resection).",
+                "- Surgical treatment:",
+                "  - Billroth I: Partial gastrectomy + gastroduodenal anastomosis.",
+                "  - Billroth II (Polya): Partial gastrectomy + gastro-jujenostomy.",
+                "7.6 Complications of Peptic Ulcer Disease",
+                "- Perforation: (Details similar to Perforated Peptic Ulcer under 'General Acute Abdomen Conditions').",
+                "- Bleeding:",
+                "  - Conservative: Correction of hypovolemic shock (IV crystalloids, blood transfusion), high flow oxygen mask, monitoring (CVP, UOP), NGT, IV PPIs.",
+                "  - Urgent endoscopy (if active bleeding at ulcer base): Diathermy coagulation, laser coagulation, injection of adrenaline or alcohol.",
+                "  - Surgical (decision within 48-72 hours):",
+                "    - Absolute indications: Failed conservative treatment, severe initial bleeding (>2000 ml), severe bleeding requiring >1000 ml transfusion to stabilize, recurrent bleeding after endoscopic hemostasis.",
+                "    - Relative indications: Old atherosclerotic patients, long history of ulcer disease, patients with serious illness with high risk of shock.",
+                "    - Operations:",
+                "      - For DU: Open pylorus longitudinally + running sutures at ulcer base then close pylorus transversely + truncal vagotomy.",
+                "      - For GU: Partial gastrectomy.",
+                "- Pyloric Stenosis:",
+                "  - Preoperative preparation: Stomach suction by NGT, fluid and electrolytes correction, correction of anemia, high protein diet, treatment of any associated aspiration pneumonia.",
+                "  - Surgical: Truncal vagotomy + gastro-Jujenostomy.",
+                "  - If unfit: Gastro-Jujenostomy is enough, or endoscopic balloon dilatation.",
+                "7.7 Complications of Gastric Operations",
+                "- Bleeding: Conservative, if failed reoperation.",
+                "- Stomal obstruction: Conservative for edema, reoperation for technical errors.",
+                "- Duodenal stump blow out: Correction of general condition, conservative if no intra-abdominal collection, surgical drainage for peritonitis + closure of duodenal stump with duodenostomy.",
+                "- Recurrent ulceration: Trial of medical treatment (PPIs), if failed antrectomy +vagotomy for missed branches.",
+                "- Dumping syndrome: Small frequent meals with less carbohydrates and rich in protein and fats (early dumping), or with carbohydrates low diet (late dumping).",
+                "- Biliary gastritis (alkaline reflux gastritis): Roux-en-Y anastomosis.",
+                "7.8 Tumors of the Stomach (GIST - Gastro-intestinal Stromal Tumor)",
+                "- Surgical wedge resection (without lymphadenectomy).",
+                "- These tumors are sensitive to the tyrosine kinase antagonist (imatinib).",
+                "7.9 Carcinoma of The Stomach",
+                "- Early cases: Aim for radical resection (R0) with safety margin + the draining lymph nodes.",
+                "- Tumors of upper 1/3: Total gastrectomy + Roux-En-Y Oesophago-jujenostomy.",
+                "- Middle third tumors: Subtotal gastrectomy (Billroth II) + lymphadenectomy + Roux-En-Y gastro-Jujenostomy.",
+                "- Lower third tumors: Distal gastrectomy + Lymphadenectomy + gastro-jujenostomy.",
+                "- Palliative treatment (for advanced irresectable tumors): Radiotherapy and chemotherapy, palliative gastrectomy (without lymphadenectomy), Oesophago-jujenostomy or gastro-jujenostomy, Feeding jujenostomy.",
+                "7.10 Bariatric Surgery (All performed laparoscopically)",
+                "- Indications: Failed dietary control, obesity BMI >35, or obesity BMI >30 + co-morbid conditions (DM, HTN).",
+                "- Types:",
+                "  - Restrictive (for Bulky eaters): Gastric banding, Sleeve gastrectomy (most common), Gastric plication.",
+                "  - Malabsorptive (for sweet eaters): Roux-En-Y Gastric bypass.",
+                "  - Mixed: Mini-gastric Bypass (MGB) or One anastomosis gastric bypass (OAGB).",
+                "- Complications: Bleeding, Leakage (peritonitis, septic shock), GERD, Bile reflux, Malnutrition, Failure and weight regain."
+            ],
+            "8. ESOPHAGUS CONDITIONS": [
+                "8.1 Esophageal Perforations",
+                "- Cervical: NPO, TPN, Drainage, Broad spectrum antibiotics, surgical repair if early.",
+                "- Thoracic: NPO, TPN. Early: surgical repair of perforation + chest drainage. Late: oesophagectomy and stomach pull up + chest drainage.",
+                "- Abdominal: NPO, TPN, surgical drainage and repair.",
+                "8.2 Corrosive Esophageal Injury",
+                "- Ensure patent airway. Chest and Abdomen x-ray to detect any perforation. Avoid emetics. Pain control. Antibiotics + corticosteroids. NPO.",
+                "- Endoscopy after 24-48 hrs: If mild lesion, start oral feeding and follow up with gastrographin swallow after 3 weeks.",
+                "- In severe cases: NGT for feeding, GG swallow after 3 weeks, trials of dilatation (gradual 3-4 sessions). If failed: oesophegeal replacement (colon bypass or stomach pull-up).",
+                "8.3 Zenker's Diverticulum (Pharyngeal Pouch)",
+                "- Endoscopic treatment: With a linear cutting stapler to divide the septum between the diverticulum and the upper oesophagus, producing a diverticulo-oesophagostomy.",
+                "- Open surgery: Involving pouch excision, pouch suspension (diverticulopexy) and/or myotomy of the cricopharyngeus.",
+                "8.4 Achalasia of Oesophagus",
+                "- Medical: Nitrates or calcium channel blocker.",
+                "- Treatment: Medical: NPO, TPN, Endoscopic balloon dilatation.",
+                "- Surgical: Heller's Cardiomyotomy, open or laparoscopic myotomy until mucosa bulge + added antireflux operation.",
+                "- Botulinum toxin injection.",
+                "- Per Oral Esophageal Myotomy (POEM).",
+                "- Diffuse oesophegeal spasm: Myotomy from aortic arch to cardia.",
+                "8.5 Hiatus Hernia (Sliding HH)",
+                "- Medical treatment first: Lose weight if obese, change lifestyle. If failed, surgery.",
+                "- Principles of surgery: Reduction of herniated stomach from chest into abdomen, maintain 3 cm of oesophagus intra-abdominal, repair of crus (by non-absorbable sutures +/- mesh), anti-reflux mechanisms.",
+                "8.6 Paraesophageal Hiatus Hernia",
+                "- Always Surgical repair (reduction of hernia sac + closure of defect).",
+                "8.7 Cancer Oesophagus",
+                "- Radical resection: Indicated in resectable tumors, fit patients, safety margin 10 cm above and below tumor.",
+                "  - Lower third: Left thoraco-abdominal resection (include part of oesophagus + part of stomach then anastomosis in chest).",
+                "  - Middle third: Ivor Lewis (2 incisions, anastomosis in chest). McKeown (Ivor Lewis + cervical incision with anastomosis in neck). Blunt trans hiatal total oesophagectomy + anastomosis in the neck. Thoracoscopic Laparoscopic approach + cervical anastomosis.",
+                "- Oesophageal replacement:",
+                "  - Gastric pull up: Preserve right gastric and right gastro-epiploic arteries.",
+                "  - Colon replacement: Mobilization of right or left colon with its feeding arteries and veins then anastomosis below with stomach and above with cervical oesophagus.",
+                "  - Pectoralis major myocutaneous flap: Making a tube with skin inside.",
+                "  - Free jejunal replacement with microvascular anastomosis.",
+                "- Palliative treatment (indicated in locally advanced tumors, distant metastasis, unfit patients): Radiotherapy and chemotherapy. Oesophageal stenting, Feeding jejunostomy. Bypass."
+            ],
+            "9. ANAL CANAL CONDITIONS": [
+                "9.1 Pilonidal Sinus",
+                "- Abscess: Drainage, leave open.",
+                "- Sinus: Opening of the cavity with the sidetracks and are left open. Or Excision of the cavity with the sidetracks and suture closure.",
+                "9.2 Anal Fissure",
+                "- Acute: High fiber diet, laxatives, warm water baths, local anesthetic, GTN ointment.",
+                "- Operation (for failed acute or for chronic): Lateral sphincterotomy, Botox injection.",
+                "9.3 Hemorrhoids (Piles)",
+                "- Primary (1st, 2nd degree):",
+                "  - Conservative: High fiber diet, laxatives, avoid straining.",
+                "  - Injection sclerotherapy.",
+                "  - Rubber band ligation.",
+                "  - Photocoagulation.",
+                "- Primary (3rd, 4th degree): Haemorroidectomy.",
+                "- Secondary: Treatment of the cause, Conservative.",
+                "9.4 Anorectal Abscess",
+                "- Surgery: Incision & drainage. Look for an internal fistula.",
+                "9.5 Anal Fistula",
+                "- Fistulotomy: The fistulous tract is opened and curetted.",
+                "  - Intersphincteric fistula: Part of the internal sphincter is divided.",
+                "  - Transsphincteric fistula: Part of the internal sphincter and superficial part of the external sphincter are divided.",
+                "  - Suprasphincteric fistula: Staged fistulotomy (seton procedure).",
+                "  - Extrasphincteric fistula: Colostomy and staged fistulotomy.",
+                "- Fistulectomy: Complete excision of the track.",
+                "9.6 Faecal Incontinence",
+                "- Conservative: Stool thickening, Biofeedback.",
+                "- Surgery: Sphincter repair (for sphincter damage), Rectopexy (for complete rectal prolapse), Postanal repair (for idiopathic incontinence), Gracilis muscle transposition (for severe sphincter damage).",
+                "9.7 Malignant Tumors (Anal Canal)",
+                "- Anal verge (squamous cell carcinoma): Wide local excision ± inguinal L.N. block dissection.",
+                "- Anal canal: Combination radio & chemotherapy, Abdominoperineal resection + terminal colostomy.",
+                "9.8 Rectal Prolapse",
+                "- Children: Can resolve spontaneously, avoid constipation & straining, manual reduction followed by buttocks strapping, submucous injection of a sclerosing material.",
+                "- Adult (Partial): Submucous injection of a sclerosing material, Mucosal excision.",
+                "- Adult (Complete):",
+                "  - Rectopexy: Using a mesh to fix the back & sides of the rectum to the presacral fascia.",
+                "  - Ventral rectopexy.",
+                "  - Sigmoidectomy & Rectopexy.",
+                "  - Perineal proctectomy: For severe incontinence, the prolapsed rectum is removed via an incision in the protruding rectum.",
+                "  - Delorme's operation: Excision of the excess rectal mucosa & sutures pass through the rectal muscles.",
+                "  - Narrowing of the anus: For unfit patients, reduction of the prolapse and a suture is placed at the level of the anal verge."
+            ],
+            "10. BENIGN INTESTINAL DISEASES": [
+                "10.1 Meckel's Diverticulum",
+                "- Symptomatic cases: Wedge resection of the ileum and closure of the defect transversely or segmental resection.",
+                "- Silent cases and accidentally discovered at laparotomy (if complications are likely): Resection is indicated if narrow mouthed, wall is thickened (contains ectopic gastric tissue), attached band of adhesions, or in young adults and children.",
+                "10.2 TB of the Intestine",
+                "- Anti TB drugs + sanatorial treatment.",
+                "- Surgical treatment: Indicated for perforation, stricture & bleeding.",
+                "  - Ulcerative type: Resection and anastomosis.",
+                "  - Hypertrophic type: Right hemicolectomy.",
+                "10.3 Small Intestinal Fistula",
+                "- Conservative management: Nutritional support by I.V fluids, control of sepsis (sump suction, nasogastric tube, somatostatin), systemic antibiotics, skin stoma care. Spontaneous closure occurs in 70-80% of cases.",
+                "- Surgical treatment (External fistula): Indicated if still significant output after 4-6 weeks of conservative management, distal obstruction, or affected segment has active granulomatous disease.",
+                "- Surgical treatment (Internal fistula): Spontaneous closure is rare. Surgery for fistula with urinary tract or if the fistula passes a long segment.",
+                "10.4 Ulcerative Colitis",
+                "- Medical treatment: Rest, diet (high protein, vit., iron, low residue), Anti-Inflammatory drugs (Sulphasalazine, Steroids in acute attack).",
+                "- Surgical treatment (in about 20% of cases):",
+                "  - Indications: Failure of medical treatment, rarely with complications like hemorrhage and intestinal obstruction.",
+                "  - Procedures:",
+                "    - Excision of the whole colon and rectum (pan-proctocolectomy) with permanent ileostomy (or ileo-anal anastomosis or ileal reservoir).",
+                "    - The colon is excised but the rectum may be spared with ileorectal anastomosis.",
+                "    - Excision of the colon and upper part of the rectum and the mucosa of the lower part of the rectum (cored out leaving muscle wall).",
+                "10.5 Crohn's Disease (Regional Ileitis)",
+                "- Medical treatment: Low residue, high protein and caloric diet with supplementary vitamins and minerals. Antispasmodics for pain. Corticosteroids, sulfasalazine, and metronidazole are also given in acute cases.",
+                "- Surgical treatment:",
+                "  - Indications: Failure of medical treatment, presence of complications (e.g., intestinal obstruction - most frequent indication, chronic debilitation), malignant transformation.",
+                "  - Aim: Limited resection of the affected segment to avoid malabsorption syndrome."
+            ],
+            "11. BILIARY SYSTEM DISEASES": [
+                "11.1 Gall Bladder Stones",
+                "- Asymptomatic Gallstones: No treatment.",
+                "  - Exceptions (prophylactic cholecystectomy indicated): Children, Hemolytic anemia, Large stone >2.5 cm, Porcelain GB, With bariatric surgeries, Diabetes, Incidental gallstones during laparotomy.",
+                "- Symptomatic: Cholecystectomy is the standard treatment.",
+                "- Treatment of Complications:",
+                "  - Acute cholecystitis: If patient >48 hours, conservative treatment then cholecystectomy. If patient <48 hours, urgent cholecystectomy.",
+                "  - Acute pancreatitis: Conservative treatment.",
+                "  - Obstructive jaundice: ERCP and cholecystectomy.",
+                "  - Gallstone ileus: Exploration.",
+                "11.2 Acute Calculous Cholecystitis Bridget Amed",
+                "-  treatment: NPO, Ryle, Fluids, Antibiotic, Pain killer, Cholecystectomy.",
+                "11.3 Obstructive Jaundice (General)",
+                "- Obstruction: Surgical emergency.",
+                "- Preoperative preparation: Correct clotting dysfunction (IV vitamin K), guard against Liver cell failure, guard against renal failure.",
+                "- Definitive Treatment: Aim to relieve biliary obstruction by removal of CBD stones (first priority) and to remove the GB (second priority).",
+                "  - ERCP followed by cholecystectomy. ERCP involves: Sphincterotomy by diathermy, removal of stone(s) by Dormia basket. A large stone treatment fragmented by mechanical, electrohydrolic or laser lithotripsy. If failed ERCP, PTC and balloon dilatation then extraction.",
+                "  - If failed ERCP: Cholecystectomy and choledochlithotomy (operative exploration of CBD and removal of the stones). T-tube insertion. Choledochoduodenostomy. (Open or laparoscopic).",
+                "11.4 Choledochal to",
+                "- Excision and reconstruction.",
+                "- Treatment: Liver resection if in one segment.",
+                "  - Liver transplant in Caroli's disease with cirrhosis.",
+                "11.5 Gallstone Ileus",
+                "- Treatment: Cholecystectomy, closure of fistula, enterolithotomy.",
+                "11.6 Mirizzi Syndrome",
+                "- Partial cholecystectomy with stone extraction and use the remnant of GB to close the fistula or closure over T tube.",
+                "- Procedure: Roux-Y Hepaticojejunostomy.",
+                "11.7 Carcinoma of Gall Bladder",
+                "- If suspected during surgery: Cholecystectomy and Wedge resection of an adjacent 3-5 cm of normal liver.",
+                "- Inoperable cases: Relieve jaundice by internal stenting.",
+                "11.8 Strictures of Bile Duct",
+                "- Congenital Biliary Atresia:",
+                "  - Intrahepatic: Liver transplantation.",
+                "  - Extrahepatic (if patent segment): Roux-en-Y operation (hepatico-jejunostomy).",
+                "  - Extrahepatic (if no patent segment): Kasai operations (porto-enterostomy).",
+                "- Inflammatory ( treatment for Sclerosing Cholangitis): Liver transplantation. Also, anastomosis of a dilated segment of the bile duct to a loop of jejunum.",
+                "- Neoplastic treatment (Cholangiocarcinoma):",
+                "  - Operable lesion at lower end of CBD: Treated by Whipple's operation.",
+                "  - Inoperable cases: treatment: ERCP with metallic stent, cholecystojejunostomy."
+            ]
+        };
 
-  <!-- قسم: Esophagus -->
-  <section id="esophagus">
-    <h2>Esophagus</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for achalasia?</div>
-          <div class="flashcard-back">Pharmacologic: Nitrates, Ca++ blocker (nifedipine, muscle relaxant); Endoscopic: Pneumatic dilatation (balloon), botulinum toxin injection; Surgical: Heller myotomy +(antireflux operation) Nissen, Toupet, or Dor fundoplication, Peroral endoscopic myotomy (POEM)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for GERD?</div>
-          <div class="flashcard-back">Lifestyle modification; H2 blockers (ranitidine, famotidine); Proton pump inhibitors (pantoprazole, esomeprazole); Potassium-competitive acid blockers (vonoprazan); Surgical: Esophageal fundoplication</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for cervical esophageal perforation?</div>
-          <div class="flashcard-back">NPO, total parenteral nutrition (TPN), drainage, broad-spectrum antibiotics (e.g., imipenem); Surgical: Repair if early</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for thoracic esophageal perforation?</div>
-          <div class="flashcard-back">NPO, TPN; Surgical: Repair if early, drainage or late case surgical repair is very difficult and failure is high so oesophagectomy and stomach pull up + chest drainge</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for corrosive esophageal injury?</div>
-          <div class="flashcard-back">Ensure patent airway; Chest and abdomen X-ray to detect perforation; Avoid emetics; Pain control; Antibiotics + corticosteroids; NPO; Endoscopy after 24-48 hrs: if mild lesion, start oral feeding, follow-up gastrographin swallow after 3 weeks; Severe cases: Jejunal-gastric tube (JGT) for feeding under endoscopic guidance,
-gastrographin swallow after 3 weeks, trials of dilatation (gradual 3-4 sessions); if dilatation fails: Surgical: Esophageal replacement (colon bypass or stomach pull-up)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for Zenker’s diverticulum?</div>
-          <div class="flashcard-back">Endoscopic: Diverticulo-oesophagostomy with linear cutting stapler; Surgical: Diverticulopexy and/or myotomy of the cricopharyngeus</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for corkscrew esophagus?</div>
-          <div class="flashcard-back">Surgical: Myotomy from aortic arch to cardia</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for sliding hiatus hernia?</div>
-          <div class="flashcard-back">Lifestyle changes; Surgical (if lifestyle fails): Cruroplasty + anti-reflux mechanism (Nissen 360°, Toupet 270°, or Dor 180°)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for paraesophageal hiatus hernia?</div>
-          <div class="flashcard-back">Surgical: Repair</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for esophageal cancer?</div>
-          <div class="flashcard-back">       Radical resection Lower third Left thoracoabdominal resection (esophagus + part of stomach, esophagogastric anastomosis in chest); Middle third: Ivor Lewis (2 incisions: midline for stomach mobilization, right 5th intercostal space for esophageal excision to cardia, anastomosis in chest); McKeown (3 incisions: as Ivor Lewis + cervical incision, anastomosis in neck); Blunt transhiatal total esophagectomy + anastomosis in neck; Thoracoscopic-laparoscopic approach + cervical anastomosis; Esophageal replacement; Palliative treatment</div>
-        </div>
-      </div>
-    </div>
-  </section>
+        const container = document.getElementById('treatment-container');
 
-  <!-- قسم: Stomach & Duodenum -->
-  <section id="stomach-duodenum">
-    <h2>Stomach & Duodenum</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for acute gastric dilatation?</div>
-          <div class="flashcard-back">NGT with suction, fluid and electrolytes replacement.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for acute gastric ulcer?</div>
-          <div class="flashcard-back">Prevention in high-risk patients by PPIs, H2 blockers, antacids, and sucralfate; Direct treatment by IV PPIs (e.g., Omeprazole), antacids, mucosal protector (sucralfate); Correction of shock if present (blood transfusion, stop bleeding by EGD); If failed, urgent gastrectomy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for chronic duodenal ulcer?</div>
-          <div class="flashcard-back">Medical: Avoid NSAIDs, PPIs (e.g., omeprazole), H2 receptor blockers (e.g., Ranitidine) for 6 weeks, eradication of H. pylori with triple therapy (Metronidazole, Tetracycline or Amoxicillin, Bismuth compounds) for 2 weeks, repeat H. pylori testing after 4 weeks; Surgical: Truncal vagotomy + drainage (gastrojejunostomy or pyloroplasty), selective vagotomy + drainage, highly selective vagotomy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for chronic gastric ulcer?</div>
-          <div class="flashcard-back">Medical: Exclude malignancy, same as duodenal ulcer (PPIs, H2 blockers, H. pylori eradication), repeat endoscopy after 6 weeks; Surgical: If no improvement, Billroth I (partial gastrectomy + gastroduodenal anastomosis) or Billroth II (partial gastrectomy + gastrojejunostomy).</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for peptic ulcer perforation?</div>
-          <div class="flashcard-back">Resuscitation: IV fluids, analgesics, IV PPIs, broad-spectrum antibiotics, NGT, urinary catheter; Urgent surgical intervention (open or laparoscopic exploration), peritoneal toilet, surgical repair of the ulcer + omental patch, drains; In subacute sealed perforation, conservative management.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for peptic ulcer bleeding?</div>
-          <div class="flashcard-back">Conservative: Correction of hypovolemic shock (IV crystalloids, blood transfusion), high flow oxygen mask, monitoring (CVP, UOP), NGT, IV PPIs, urgent endoscopy (diathermy coagulation, laser coagulation, injection of adrenaline or alcohol); Surgical (within 48-72 hours): For DU, open pylorus longitudinally + running sutures at ulcer base, close pylorus transversely + truncal vagotomy; For GU, partial gastrectomy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for pyloric stenosis?</div>
-          <div class="flashcard-back">Preoperative preparation: Stomach suction by NGT, fluid and electrolytes correction, correction of anemia, high protein diet, treatment of aspiration pneumonia; Surgical: Truncal vagotomy + gastrojejunostomy; If unfit, gastrojejunostomy alone or endoscopic balloon dilatation.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for gastrointestinal stromal tumor (GIST)?</div>
-          <div class="flashcard-back">Surgical wedge resection without lymphadenectomy, followed by Imatinib.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for gastric cancer?</div>
-          <div class="flashcard-back">Early cases: Radical resection (R0) with safety margin + draining lymph nodes; Upper 1/3 tumors: Total gastrectomy + Roux-En-Y esophagojejunostomy; Middle 1/3 tumors: Subtotal gastrectomy (Billroth II) + lymphadenectomy + Roux-En-Y gastrojejunostomy; Lower 1/3 tumors: Distal gastrectomy + lymphadenectomy + gastrojejunostomy; Palliative: Radiotherapy, chemotherapy, palliative gastrectomy without lymphadenectomy, esophagojejunostomy, gastrojejunostomy, feeding jejunostomy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the types of bariatric surgery?</div>
-          <div class="flashcard-back">Restrictive: Gastric banding, sleeve gastrectomy (most common), gastric plication (rare); Malabsorptive: Roux-En-Y gastric bypass (80 cm from DJ, alimentary limb 100 cm); Mixed: Mini-gastric bypass (MGB) or one anastomosis gastric bypass (OAGB, 200 cm from DJ junction).</div>
-        </div>
-      </div>
-    </div>
-  </section>
+        if (Object.keys(treatmentData).length === 0) {
+            const noDataMessage = document.createElement('div');
+            noDataMessage.textContent = 'No treatment data has been loaded.';
+            noDataMessage.style.textAlign = 'center';
+            noDataMessage.style.fontSize = '1.1em';
+            noDataMessage.style.color = 'red';
+            container.appendChild(noDataMessage);
+        } else {
+            for (const condition in treatmentData) {
+                if (treatmentData.hasOwnProperty(condition)) {
+                    const conditionDiv = document.createElement('div');
+                    conditionDiv.classList.add('condition');
 
-  <!-- قسم: Benign Disease of Intestine -->
-  <section id="benign-disease-intestine">
-    <h2>Benign Disease of Intestine</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for Meckel’s diverticulum?</div>
-          <div class="flashcard-back">Symptomatic cases: Wedge resection of the ileum and closure of the defect transversely or segmental resection; Silent cases or accidentally discovered: Resection if narrow-mouthed, thickened wall, attached band of adhesions, or in young adults/children.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for ulcerative type intestinal tuberculosis?</div>
-          <div class="flashcard-back">Anti-TB drugs + sanatorial treatment; Surgical: Indicated for perforation, stricture, or bleeding, with resection and anastomosis.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for hypertrophic type intestinal tuberculosis?</div>
-          <div class="flashcard-back">Surgical: Indicated for perforation, fecal fistula, or obstruction, with right hemicolectomy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for small intestinal fistula?</div>
-          <div class="flashcard-back">Conservative: Nutritional support by IV fluids, control of sepsis, sump suction for drainage, nasogastric tube for ileus, somatostatin to inhibit secretion and motility, systemic antibiotics, skin stoma care; Surgical: External fistula if significant output after 4-6 weeks, distal obstruction, or active granulomatous disease; Internal fistula with urinary tract or long-segment fistula.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for intestinal trauma?</div>
-          <div class="flashcard-back">Preoperative: Anti-shock measures, antibiotics, tetanus toxoid, NGT, urinary catheter; Operative: Midline abdominal incision, exploration and arrest bleeding, suture tidy sharp injuries in two layers, trim ragged injuries, resect ischemic or gangrenous segments.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for ulcerative colitis?</div>
-          <div class="flashcard-back">Medical: Rest, high-protein, vitamin-rich, low-residue diet, sulphasalazine (2-6 gm/day), steroids (enema or systemic), azathioprine for severe cases; Surgical: Pan-proctocolectomy with permanent ileostomy or ileo-anal anastomosis, or colectomy with ileorectal anastomosis, or colectomy and upper rectum excision with lower rectal mucosa cored out.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for Crohn’s disease?</div>
-          <div class="flashcard-back">Medical: Low-residue, high-protein, high-calorie diet with vitamins/minerals, antispasmodics, corticosteroids, sulphasalazine, metronidazole, infliximab (anti-TNF); Surgical: Limited resection of affected segment to avoid malabsorption, strictureplasty for localized stricture.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
- <!-- قسم: Peritoneum & Mesentery -->
-  <section id="peritoneum-mesentery">
-    <h2>Peritoneum & Mesentery</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for peritonitis?</div>
-          <div class="flashcard-back">General: Antibiotics, nasogastric intubation, respiratory care, fluid/electrolyte replacement; Secondary: Eliminate infection source, reduce bacterial contamination, prevent recurrent infection via laparotomy (midline incision, treat cause, peritoneal toilet, close with drains).</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for subphrenic abscess?</div>
-          <div class="flashcard-back">General: Analgesics, antibiotics, antipyretics; Local: Percutaneous drainage under ultrasound; if failed, open drainage (extrapleural, extraperitoneal).</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for pelvic abscess?</div>
-          <div class="flashcard-back">Extraperitoneal drainage or ultrasound/CT-guided aspiration.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for iliac abscess?</div>
-          <div class="flashcard-back">Extraperitoneal drainage (muscle-cutting incision) or ultrasound/CT-guided aspiration.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for biliary peritonitis?</div>
-          <div class="flashcard-back">Laparotomy and address cause (e.g., repair leak post-cholecystectomy).</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for meconium peritonitis?</div>
-          <div class="flashcard-back">Laparotomy and suture perforation.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for mesenteric cyst?</div>
-          <div class="flashcard-back">Enterogenous: Excision with resection-anastomosis of intestine; Chylolymphatic: Cystectomy only; False: Evacuation (traumatic) or medical treatment (TB).</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for mesenteric lymphadenitis?</div>
-          <div class="flashcard-back">Appendectomy (usually diagnosed during surgery for suspected appendicitis).</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for peritoneal carcinomatosis?</div>
-          <div class="flashcard-back">Excision of primary tumor, peritonectomy, hyperthermic intraperitoneal chemotherapy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for pseudomyxoma peritonei?</div>
-          <div class="flashcard-back">Excision of primary tumor, peritonectomy, hyperthermic intraperitoneal chemotherapy.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for peritoneal mesothelioma?</div>
-          <div class="flashcard-back">Resection if possible; radiotherapy for palliation.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for retroperitoneal tumors?</div>
-          <div class="flashcard-back">Exploration for resection; if unresectable, biopsy and radiotherapy for palliation.</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for torsion of the omentum?</div>
-          <div class="flashcard-back">Excision of strangulated omentum.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+                    const titleDiv = document.createElement('div');
+                    titleDiv.classList.add('condition-title');
+                    titleDiv.textContent = condition;
 
-  <!-- قسم: Liver -->
-  <section id="liver">
-    <h2>Liver</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for non-alcoholic steatohepatitis (NASH)?</div>
-          <div class="flashcard-back">Lifestyle interventions: Dietary changes, physical exercise to promote weight loss and improve insulin sensitivity (7-10% weight loss target)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for alcoholic fatty liver disease (AFLD)?</div>
-          <div class="flashcard-back">Cessation of alcohol, nutrition, corticosteroids, pentoxifylline, liver transplantation</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for hereditary hemochromatosis?</div>
-          <div class="flashcard-back">Venesection of 500 mL twice weekly for up to 2 years, deferoxamine (iron chelating agent), liver transplantation</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for Wilson’s disease?</div>
-          <div class="flashcard-back">Penicillamine, trientine (syprine), zinc acetate (galzin), liver transplantation</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for hepatocellular carcinoma (HCC)?</div>
-          <div class="flashcard-back">Surgical: Resection, liver transplantation; Ablative therapies: Radiofrequency, percutaneous ethanol injection (PEI), microwave ablation (MWA), cryoablation; Transcatheter arterial chemoembolization (TACE); Systemic chemotherapy; Palliative treatment</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for Budd-Chiari syndrome?</div>
-          <div class="flashcard-back">Treat cause, TIPS, anticoagulation; Chronic/fulminant: Liver transplantation + lifelong anticoagulation</div>
-        </div>
-      </div>
-    </div>
-  </section>
+                    const treatmentListDiv = document.createElement('div');
+                    treatmentListDiv.classList.add('treatment-list');
 
-  <!-- قسم: Intestinal Obstruction -->
-  <section id="intestinal-obstruction">
-    <h2>Intestinal Obstruction</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for Ogilvie’s syndrome?</div>
-          <div class="flashcard-back">Conservative management, colonic decompression tube, cecostomy, right colectomy</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for intussusception?</div>
-          <div class="flashcard-back">Bypass + lateral anastomosis; Prevention of recurrence: Hyaluronidase, steroids, fibrinolysin, heparin, dextran</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for sigmoid volvulus?</div>
-          <div class="flashcard-back">Preliminary resuscitation; Endoscopic decompression (early cases); Surgical (if decompression fails, complications like gangrene/perforation, or elective after successful decompression): Exploration and untwist; if viable, colopexy; if non-viable, resection; elective resection even if viable (recurrence >50%)</div>
-</div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for mesenteric vascular occlusion?</div>
-          <div class="flashcard-back">Resuscitation, pre-op preparation; Surgical (if peritonitis): Urgent exploration (revascularization if viable, resection if gangrenous); Treat cause (AF, atherosclerosis)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for constipation?</div>
-          <div class="flashcard-back">High fiber diet, increase fluid intake, laxatives, prokinetics (anti-H4: tegaserod, prucalopride), new drugs (lubiprostone, linaclotide, plecanatide); Surgical: Colectomy, ileorectostomy (hypomotility); Biofeedback (pelvic floor dysfunction)</div>
-        </div>
-      </div>
-    </div>
-  </section>
+                    const treatmentListUl = document.createElement('ul');
 
-  <!-- قسم: Biliary System -->
-  <section id="biliary-system">
-    <h2>Biliary System</h2>
-    <div class="flashcard-container">
-      <!-- لا توجد علاجات مباشرة للبيلياري في الملف، لكن Cholangiocarcinoma مغطى منفصلًا -->
-    </div>
-  </section>
+                    if (treatmentData[condition] && treatmentData[condition].length > 0) {
+                        treatmentData[condition].forEach(treatment => {
+                            const treatLi = document.createElement('li');
+                            treatLi.textContent = treatment;
+                            treatmentListUl.appendChild(treatLi);
+                        });
+                    } else {
+                        const noTreatLi = document.createElement('li');
+                        noTreatLi.textContent = 'No specific treatment details listed for this condition.';
+                        noTreatLi.style.fontStyle = 'italic';
+                        treatmentListUl.appendChild(noTreatLi);
+                    }
 
-  <!-- قسم: Spleen -->
-  <section id="spleen">
-    <h2>Spleen</h2>
-    <div class="flashcard-container">
-      <!-- لا توجد علاجات للطحال في الملف -->
-    </div>
-  </section>
+                    treatmentListDiv.appendChild(treatmentListUl);
 
-  <!-- قسم: Malignant Disease of Intestine -->
-  <section id="malignant-disease-intestine">
-    <h2>Malignant Disease of Intestine</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for caecal tumours?</div>
-          <div class="flashcard-back">Surgical: Right hemicolectomy (remove peritoneum, terminal 10 inches of ileum, caecum, ascending colon, hepatic flexure, right half of transverse colon) + ileotransverse anastomosis</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for tumours of the ascending colon or hepatic flexure?</div>
-          <div class="flashcard-back">Surgical: Extended right hemicolectomy (middle colic vessel divided, resection to junction of right two-thirds and left third of transverse colon) + ileocolic anastomosis</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for transverse colon tumours?</div>
-          <div class="flashcard-back">Surgical: Transverse colectomy (hepatic and splenic flexures, middle colic vessels, transverse mesocolon, omentum)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for left colon tumours?</div>
-          <div class="flashcard-back">Surgical: Left hemicolectomy (extends to rectum, inferior mesenteric vessels divided)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for sigmoid colon tumours?</div>
-          <div class="flashcard-back">Surgical: Sigmoid colectomy (sigmoid vessels divided)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for upper 1/3 rectal cancer?</div>
-          <div class="flashcard-back">Surgical: Anterior restorative resection</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for middle rectal cancer?</div>
-          <div class="flashcard-back">Neoadjuvant chemotherapy + surgical: Anterior restorative resection</div>
-</div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for lower rectal cancer?</div>
-          <div class="flashcard-back">Neoadjuvant chemotherapy + surgical: Abdominoperineal resection + terminal colostomy</div>
-        </div>
-      </div>
-    </div>
-  </section>
+                    titleDiv.onclick = function() {
+                        this.classList.toggle('active');
+                        this.nextElementSibling.classList.toggle('active');
+                    };
 
-  <!-- قسم: Acute Abdomen -->
-  <section id="acute-abdomen">
-    <h2>Acute Abdomen</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for acute pancreatitis?</div>
-          <div class="flashcard-back">Mainly conservative: Resuscitation, monitoring, no drugs of value, limited indications for surgery (e.g., necrosectomy); Severe cases: ICU admission, pain relief, fluid replacement, pancreatic and bowel rest, respiratory support, resistance of infection; Surgical: As needed for complications</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- قسم: Appendix -->
-  <section id="appendix">
-    <h2>Appendix</h2>
-    <div class="flashcard-container">
-      <!-- لا توجد علاجات للزائدة في الملف -->
-    </div>
-  </section>
-
-  <!-- قسم: Pancreas -->
-  <section id="pancreas">
-    <h2>Pancreas</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for chronic pancreatitis?</div>
-          <div class="flashcard-back">Conservative: Pancreatic extract, H2 receptor antagonist, manage diabetes (diet, insulin), pain management (analgesics, stop alcohol); Surgical: Distal pancreatectomy (if inflammation limited to tail), Whipple operation (if head involved)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for pseudopancreatic cyst?</div>
-          <div class="flashcard-back">Percutaneous drainage (US/CT-guided, less successful if fistula to duct); Endoscopic drainage with pigtail catheter (transmural); Surgical: Cystogastrostomy or cystojejunostomy (biopsy cyst wall to exclude cystadenocarcinoma); Occasionally associated with pancreatic abscess or fistula</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for insulinoma?</div>
-          <div class="flashcard-back">Surgical: Enucleation, distal pancreatectomy, pancreaticoduodenectomy</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for gastrinoma?</div>
-          <div class="flashcard-back">If detectable: In head: Whipple’s operation (pancreaticoduodenectomy); In body/tail: Distal pancreatectomy; If undetectable (small, avascular): Blind body and tail pancreatectomy, total gastrectomy; Omeprazole in large doses for 6-12 months</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for pancreatic cancer?</div>
-          <div class="flashcard-back">Mannitol (if bilirubin >15 mg/dl); Palliative treatment for unresectable cases</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- قسم: Cholangiocarcinoma -->
-  <section id="cholangiocarcinoma">
-    <h2>Cholangiocarcinoma</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for cholangiocarcinoma?</div>
-          <div class="flashcard-back">Intent to cure: Surgical: Resection, liver transplantation; Adjuvant/Neoadjuvant: Chemotherapy, radiotherapy, stereotactic radiotherapy; Intent to palliate: Biliary stenting, photodynamic therapy (PDT)</div>
-        </div>
-      </div>
-    </div>
-  </section>
-<!-- قسم: Surgical Causes of GIT Bleeding -->
-  <section id="git-bleeding">
-    <h2>Surgical Causes of GIT Bleeding</h2>
-    <div class="flashcard-container">
-      <!-- لا توجد علاجات منفصلة لنزيف الجهاز الهضمي، مغطاة ضمن دروس أخرى -->
-    </div>
-  </section>
-
-  <!-- قسم: Anal Canal -->
-  <section id="anal-canal">
-    <h2>Anal Canal</h2>
-    <div class="flashcard-container">
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for pilonidal disease?</div>
-          <div class="flashcard-back">Abscess: Surgical: Drainage, leave open; Sinus: Surgical: Opening of cavity with side tracks and phenol cauterization (left open), or excision of cavity with side tracks and suture closure</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for anal fissure?</div>
-          <div class="flashcard-back">Acute: High fiber diet, laxatives, warm water baths, local anesthetic, GTN ointment (glyceryl trinitrate for internal sphincter relaxation); Surgical: Lateral sphincterotomy at 4 and 9 o’clock; Chronic: Surgical: Lateral sphincterotomy; Botox injection</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for haemorrhoids?</div>
-          <div class="flashcard-back">1st/2nd degree: Conservative (high fiber diet, laxatives, avoid straining, suppository), injection sclerotherapy (phenol almond oil for fibrosis), rubber band ligation, photocoagulation (up to 100°C, coagulative); 3rd/4th degree: Surgical: Haemorrhoidectomy; Secondary: Treat cause, conservative</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for anorectal abscess?</div>
-          <div class="flashcard-back">Surgical: Incision and drainage, look for internal fistula</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for anal fistula?</div>
-          <div class="flashcard-back">Surgical: Fistulotomy (open and curette tract); Intersphincteric fistula: Divide part of internal sphincter (continence preserved); Transsphincteric fistula: Divide part of internal and superficial external sphincter (temporary continence disturbance)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for faecal incontinence?</div>
-          <div class="flashcard-back">Conservative: Stool thickening (bran), biofeedback (pelvic floor exercises); Surgical: Sphincter repair (sphincter damage), rectopexy (complete rectal prolapse), postanal repair (idiopathic incontinence), gracilis muscle transposition (severe sphincter damage)</div>
-        </div>
-      </div>
-      <div class="flashcard">
-        <div class="flashcard-inner">
-          <div class="flashcard-front">What are the treatments for rectal prolapse?</div>
-          <div class="flashcard-back">Children: Spontaneous resolution, avoid constipation/straining, manual reduction + buttocks strapping, submucous injection of sclerosing material (ethanolamine oleate at 6, 12, 3, 9 for fibrosis); Adults: Partial: Submucous injection of sclerosing material, mucosal excision; Complete: Surgical: Rectopexy, rectopexy + sigmoidectomy, perineal proctectomy, Delorme’s, narrowing of anus</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // JavaScript لتفعيل خاصية القلب (flip) عند النقر على الفلاش كارد
-    document.querySelectorAll('.flashcard').forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-      });
-    });
-  </script>
+                    conditionDiv.appendChild(titleDiv);
+                    conditionDiv.appendChild(treatmentListDiv);
+                    container.appendChild(conditionDiv);
+                }
+            }
+        }
+    </script>
 </body>
 </html>
