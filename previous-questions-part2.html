@@ -10,6 +10,7 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+
       gtag('config', 'G-093NGZNZQG');
     </script>
     <style>
@@ -19,15 +20,16 @@
         margin: 0;
         padding: 20px;
       }
+
       h1, h2 {
         text-align: center;
-        color: #1e90ff;
+        color: #1e90ff; /* Blue color for headings */
       }
       .question-box {
         display: none;
       }
       .question-text {
-        font-size: 18px;
+        font-size: 18px; /* Increased for better readability */
         font-weight: bold;
         margin-bottom: 20px;
       }
@@ -40,13 +42,13 @@
         padding: 12px;
         margin: 8px 0;
         border-radius: 8px;
-        font-size: 16px;
+        font-size: 16px; /* Increased for better readability */
         cursor: pointer;
         text-align: left;
         box-sizing: border-box;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
-        pointer-events: auto;
+        pointer-events: auto; /* Ensure buttons are clickable */
       }
       .options button:hover {
         background-color: #104e8b;
@@ -63,13 +65,13 @@
         margin-top: 15px;
       }
       .answer {
-        background: #d8f3dc;
+        background: #d8f3dc; /* Light green for answer feedback */
         padding: 12px;
         border-radius: 6px;
         border: 1px solid #5cb85c;
       }
       .details-box {
-        background: #eef7ff;
+        background: #eef7ff; /* Light blue for details */
         padding: 12px;
         border-left: 5px solid #1e90ff;
       }
@@ -97,7 +99,7 @@
         text-align: center;
       }
       #answerBox, #detailsBox, #detailsBtn, #nextBtn {
-        display: none;
+        display: none; /* Initially hidden */
       }
       .question-nav {
         margin-top: 20px;
@@ -176,19 +178,19 @@
             ],
             correct: 0,
             explanation: "Correct Answer: A. GERD is precancerous for esophageal adenocarcinoma via Barrett’s esophagus.",
-            details: "A. Correct: GERD leads to Barrett’s esophagus, a precursor to adenocarcinoma.<br>B. Incorrect: Achalasia has a weak association with squamous cell carcinoma, not strongly precancerous.<br>C. Incorrect: Corrosive strictures have chronic inflammation but are less associated with cancer."
+            details: "A. Correct: GERD leads to Barrett’s esophagus, a precursor to adenocarcinoma.\nB. Incorrect: Achalasia has a weak association with squamous cell carcinoma, not strongly precancerous.\nC. Incorrect: Corrosive stricture has minimal cancer risk.\nD. Incorrect: Only GERD is clearly precancerous."
           },
           {
             text: "Which of the following statements regarding investigations in dysphagia is false?",
             choices: [
-              "A. Barium swallow is the investigation of choice in GERD.",
+              "A. Barium swallow is the investigation of choice in GORD.",
               "B. Flexible oesophagogastroduodenoscopy (OGD) is the initial investigation of choice in suspected carcinoma.",
               "C. Oesophageal manometry should be done when motility disorder is suspected.",
-              "D. 24 h pH recording is an accurate method of evaluating GERD."
+              "D. 24 h pH recording is an accurate method of evaluating GORD."
             ],
             correct: 0,
-            explanation: "Correct Answer: A. Barium swallow is not the investigation of choice in GERD; OGD is preferred.",
-            details: "A. Correct: False; OGD assesses GERD complications.<br>B. Incorrect: OGD is standard for carcinoma.<br>C. Incorrect: Manometry diagnoses motility disorders.<br>D. Incorrect: pH recording is accurate for GERD."
+            explanation: "Correct Answer: A. Barium swallow is not the investigation of choice in GORD; OGD is preferred.",
+            details: "A. Correct: False; OGD assesses GORD complications.\nB. Incorrect: OGD is standard for carcinoma.\nC. Incorrect: Manometry diagnoses motility disorders.\nD. Incorrect: pH recording confirms GORD."
           },
           {
             text: "Which of the following is true with regard to the clinical features of peptic ulcers?",
@@ -199,8 +201,8 @@
               "D. Bleeding is rare."
             ],
             correct: 2,
-            explanation: "Correct Answer: C. Peptic ulcers can cause gastric outlet obstruction due to scarring or edema.",
-            details: "A. Incorrect: Pain can radiate to the back.<br>B. Incorrect: Vomiting is not prominent unless obstructed.<br>C. Correct: Obstruction is a known complication.<br>D. Incorrect: Bleeding is common."
+            explanation: "Correct Answer: C. Peptic ulcers can cause gastric outlet obstruction due to scarring or edema. Note: The provided answer (D) is incorrect; bleeding is common.",
+            details: "A. Incorrect: Pain can radiate to the back.\nB. Incorrect: Vomiting is not prominent unless obstructed.\nC. Correct: Obstruction is a known complication.\nD. Incorrect: Bleeding is a frequent complication."
           },
           {
             text: "Which of the following statements regarding treatment of peptic ulceration is true?",
@@ -212,10 +214,10 @@
             ],
             correct: 2,
             explanation: "Correct Answer: C. Late dumping syndrome is due to rapid glucose absorption causing hypoglycemia.",
-            details: "A. Incorrect: Surgery is reserved for complications.<br>B. Incorrect: Eradication therapy is for H. pylori-positive cases.<br>C. Correct: Hypoglycemia from rapid glucose spike.<br>D. Incorrect: Biopsy is not mandatory for duodenal ulcer."
+            details: "A. Incorrect: Surgery is reserved for complications.\nB. Incorrect: Eradication therapy is for H. pylori-positive cases.\nC. Correct: Hypoglycemia from rapid glucose spike.\nD. Incorrect: Biopsy not mandatory for duodenal ulcers."
           },
           {
-            text: "A 30-year-old female presents with a 2-day history of constant pain over the right upper quadrant (RUQ) associated with vomiting. She is febrile with a positive Murphy's sign. Diagnosis?",
+            text: "A 30-year-old female presents with a 2-day history of constant pain over the right upper quadrant (RUQ) associated with vomiting. She is febrile with a positive Murphy's sign. Diagnosis is:",
             choices: [
               "A. Cholangitis",
               "B. Pancreatitis",
@@ -224,7 +226,7 @@
             ],
             correct: 3,
             explanation: "Correct Answer: D. Acute cholecystitis presents with RUQ pain, fever, vomiting, and positive Murphy’s sign.",
-            details: "A. Incorrect: Cholangitis includes jaundice and chills.<br>B. Incorrect: Pancreatitis causes epigastric pain.<br>C. Incorrect: Empyema is a complication, less likely.<br>D. Correct: Classic presentation."
+            details: "A. Incorrect: Cholangitis includes jaundice and chills.\nB. Incorrect: Pancreatitis causes epigastric pain.\nC. Incorrect: Empyema is a complication, less likely.\nD. Correct: Classic presentation."
           },
           {
             text: "A 60-year-old male presents with a history of episodic abdominal pain, jaundice, and fever with chills. Diagnosis is:",
@@ -236,10 +238,10 @@
             ],
             correct: 0,
             explanation: "Correct Answer: A. Cholangitis presents with Charcot’s triad: pain, jaundice, and fever with chills.",
-            details: "A. Correct: Matches Charcot’s triad.<br>B. Incorrect: No jaundice typically.<br>C. Incorrect: No jaundice or chills.<br>D. Incorrect: Lacks jaundice."
+            details: "A. Correct: Matches Charcot’s triad.\nB. Incorrect: No jaundice typically.\nC. Incorrect: No jaundice or chills.\nD. Incorrect: Lacks jaundice."
           },
           {
-            text: "A 40-year-old man underwent laparoscopic cholecystectomy 2 years earlier. He remains asymptomatic until 1 week before admission, when he complains of RUQ pain and jaundice. He develops fever. What is the next best step?",
+            text: "A 40-year-old man underwent laparoscopic cholecystectomy 2 years earlier. He remains asymptomatic until 1 week before admission, when he complains of RUQ pain and jaundice. He develops a fever and has several rigor attacks on the day of admission. An ultrasound confirms the presence of gallstones in the distal CBD. The patient is given antibiotics. Which of the following should be undertaken as the next step in therapy?",
             choices: [
               "A. Should be discharged home under observation",
               "B. Should be observed in the hospital",
@@ -248,7 +250,7 @@
             ],
             correct: 2,
             explanation: "Correct Answer: C. ERCP with sphincterotomy removes CBD stones causing cholangitis.",
-            details: "A. Incorrect: Risks worsening infection.<br>B. Incorrect: Active intervention needed.<br>C. Correct: Addresses stone obstruction.<br>D. Incorrect: Secondary option."
+            details: "A. Incorrect: Risks worsening infection.\nB. Incorrect: Active intervention needed.\nC. Correct: Addresses stone obstruction.\nD. Incorrect: Secondary option."
           },
           {
             text: "The rule of 2 as applicable to Meckel's diverticulum is all EXCEPT:",
@@ -260,10 +262,10 @@
             ],
             correct: 3,
             explanation: "Correct Answer: D. Meckel’s diverticulum has all intestinal wall layers, not just two coats.",
-            details: "A. Incorrect: True, ~2 inches.<br>B. Incorrect: True, ~2% prevalence.<br>C. Incorrect: True, ~2 feet from valve.<br>D. Correct: False, has all layers."
+            details: "A. Incorrect: True, ~2 inches.\nB. Incorrect: True, ~2% prevalence.\nC. Incorrect: True, ~2 feet from valve.\nD. Correct: False, has all layers."
           },
           {
-            text: "A 60-year-old woman with hepatitis C, presents acutely with her first decompensation of chronic liver disease. An abdominal ultrasound confirms portal hypertension, multiple hepatic lesions and Child-Pugh C. What is the best management?",
+            text: "A 60-year-old woman with a background of hepatitis C, presents acutely with her first decompensation of chronic liver disease. An abdominal ultrasound confirms portal hypertension, and reports four foci of neoplastic disease affecting segments 7 and 8. She scores Child-Pugh grade C. Best management is:",
             choices: [
               "A. Palliation - best supportive care",
               "B. External beam radiation",
@@ -272,7 +274,7 @@
             ],
             correct: 0,
             explanation: "Correct Answer: A. Child-Pugh C and multiple HCC foci indicate palliation due to poor liver function.",
-            details: "A. Correct: Poor prognosis, supportive care.<br>B. Incorrect: Limited efficacy.<br>C. Incorrect: Surgery contraindicated.<br>D. Incorrect: Not feasible with Child-Pugh C."
+            details: "A. Correct: Poor prognosis, supportive care.\nB. Incorrect: Limited efficacy.\nC. Incorrect: Surgery contraindicated.\nD. Incorrect: Not feasible with Child-Pugh C."
           },
           {
             text: "Which of the following ligaments is connected to the liver and keeps it in its place?",
@@ -284,7 +286,7 @@
             ],
             correct: 2,
             explanation: "Correct Answer: C. The falciform ligament anchors the liver to the anterior abdominal wall.",
-            details: "A. Incorrect: Connects stomach to liver.<br>B. Incorrect: Spleen-related.<br>C. Correct: Stabilizes liver.<br>D. Incorrect: Stomach-related."
+            details: "A. Incorrect: Connects stomach to liver.\nB. Incorrect: Spleen-related.\nC. Correct: Stabilizes liver.\nD. Incorrect: Stomach-related."
           },
           {
             text: "Which of the following statements most accurately describes the current therapy for pyogenic hepatic abscess?",
@@ -296,7 +298,164 @@
             ],
             correct: 2,
             explanation: "Correct Answer: C. Treating the abscess and underlying source (e.g., biliary obstruction) is optimal.",
-            details: "A. Incorrect: Small abscesses only.<br>B. Incorrect: Percutaneous preferred.<br>C. Correct: Comprehensive approach.<br>D. Incorrect: Solitary lesions easier."
+            details: "A. Incorrect: Small abscesses only.\nB. Incorrect: Percutaneous preferred.\nC. Correct: Comprehensive approach.\nD. Incorrect: Solitary lesions easier."
+          },
+          {
+            text: "Which of the following statement(s) is true about benign lesions of the liver?",
+            choices: [
+              "A. Adenomas are true neoplasms with a predisposition for complications and should usually be resected.",
+              "B. Focal nodular hyperplasia (FNH) is a neoplasm related to birth control pills (BCPs) and usually requires resection.",
+              "C. Hemangiomas are the most common benign lesions of the liver that come to the surgeon's attention (need excision).",
+              "D. Nodular regenerative hyperplasia does not usually accompany cirrhosis."
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Hepatic adenomas are neoplasms with risks of rupture or malignancy, often requiring resection.",
+            details: "A. Correct: High complication risk.\nB. Incorrect: FNH not neoplastic, BCP link weak, rarely resected.\nC. Incorrect: Hemangiomas common but rarely need excision.\nD. Incorrect: Often associated with cirrhosis."
+          },
+          {
+            text: "The following statement is true concerning the diagnosis and treatment of hydatid cysts.",
+            choices: [
+              "A. Percutaneous aspiration is an important aspect of diagnosis and treatment of a hydatid cyst.",
+              "B. US will often show the classic findings of a hydatid cystic liver lesion.",
+              "C. At operation, care must be taken to protect the operative field from spillage of the cyst fluid.",
+              "D. The use of a scoleocide has become obsolete with current surgical techniques."
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Preventing spillage during surgery avoids anaphylaxis and recurrence.",
+            details: "A. Incorrect: Aspiration risks spillage.\nB. Incorrect: US is diagnostic but not treatment.\nC. Correct: Spillage prevention critical.\nD. Incorrect: Scoleocides still used."
+          },
+          {
+            text: "Features of intussusception include:",
+            choices: [
+              "A. Red currant jelly stool.",
+              "B. Sausage-shaped mass per abdomen.",
+              "C. Palpable mass in PR examination.",
+              "D. All of the above."
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Intussusception presents with red currant jelly stool, abdominal mass, and occasionally rectal mass.",
+            details: "A. Incorrect: True but not exclusive.\nB. Incorrect: True but not exclusive.\nC. Incorrect: True but not exclusive.\nD. Correct: All are features."
+          },
+          {
+            text: "One of the curative operations for carcinoma of the esophagus is called:",
+            choices: [
+              "A. Whipple's operation",
+              "B. Heller's operation",
+              "C. Ivor-Lewis operation",
+              "D. Hartmann's operation"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. The Ivor-Lewis operation is a curative esophagectomy for esophageal carcinoma.",
+            details: "A. Incorrect: Pancreatic cancer.\nB. Incorrect: Achalasia.\nC. Correct: Esophageal cancer.\nD. Incorrect: Colorectal surgery."
+          },
+          {
+            text: "Commonest site for peptic ulcers is:",
+            choices: [
+              "A. First part of duodenum.",
+              "B. Fundus of stomach.",
+              "C. Second part duodenum.",
+              "D. Meckel's diverticulum."
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. The first part of the duodenum is the most common site for peptic ulcers.",
+            details: "A. Correct: Most common site.\nB. Incorrect: Rare.\nC. Incorrect: Less common.\nD. Incorrect: Not typical."
+          },
+          {
+            text: "Common sites for peptic ulcers include the following except?",
+            choices: [
+              "A. First part of duodenum",
+              "B. Fundus of stomach",
+              "C. Lower end of esophagus",
+              "D. Jejunum, such as a stromal ulcer after gastrojejunostomy surgery",
+              "E. Meckel's diverticulum"
+            ],
+            correct: 4,
+            explanation: "Correct Answer: E. Meckel’s diverticulum is not a common site for peptic ulcers.",
+            details: "A. Incorrect: Common site.\nB. Incorrect: Less common but possible.\nC. Incorrect: Esophageal ulcers occur.\nD. Incorrect: Jejunal ulcers post-surgery.\nE. Correct: Not a peptic ulcer site."
+          },
+          {
+            text: "Which of the following is true in respect of gastric outlet obstruction?",
+            choices: [
+              "A. It is most commonly associated with long-standing peptic ulcer disease and gastric cancer.",
+              "B. The usual metabolic abnormality is metabolic acidosis.",
+              "C. Endoscopy has no role in management.",
+              "D. Surgery has no role in management."
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Peptic ulcer disease and gastric cancer are common causes. Note: Option B is incorrect; it causes metabolic alkalosis.",
+            details: "A. Correct: Common etiologies.\nB. Incorrect: Causes hypochloremic alkalosis.\nC. Incorrect: Endoscopy diagnoses cause.\nD. Incorrect: Surgery often required."
+          },
+          {
+            text: "A 79-year-old female with a long history of gallstones presents with central colicky abdominal pain and vomiting. She has also been constipated for the past few days. Clinical examination reveals a distended abdomen with increased bowel sounds. Abdominal X-ray confirms features of small-bowel obstruction with pneumobilia. Treatment is:",
+            choices: [
+              "A. Cholecystectomy and choledocholithotomy",
+              "B. Laparotomy - enterotomy and removal of stone",
+              "C. ERCP - stenting.",
+              "D. Percutaneous transhepatic cholangiography (PTC) and antegrade stenting."
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Laparotomy with enterotomy removes gallstone causing gallstone ileus.",
+            details: "A. Incorrect: Not addressing obstruction.\nB. Correct: Treats gallstone ileus.\nC. Incorrect: For ductal stones.\nD. Incorrect: Not for ileus."
+          },
+          {
+            text: "Appendix is likely to rupture in the following except:",
+            choices: [
+              "A. Aged and infants",
+              "B. Pelvic position",
+              "C. Diabetes mellitus",
+              "D. Female patients"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Female gender is not a risk factor for appendiceal rupture.",
+            details: "A. Incorrect: Age extremes increase risk.\nB. Incorrect: Pelvic position delays diagnosis.\nC. Incorrect: Diabetes impairs healing.\nD. Correct: Gender not a factor."
+          },
+          {
+            text: "A 55-year-old man has evidence of complicated appendicitis with a contained abscess in the RLQ. He is mildly tachycardic, afebrile, and normotensive with focal RLQ tenderness but no peritonitis. What is the optimal approach to this patient?",
+            choices: [
+              "A. Immediate laparotomy",
+              "B. Laparoscopic exploration and abscess drainage",
+              "C. Percutaneous drainage, intravenous (IV) fluids, bowel rest, and broad-spectrum antibiotics",
+              "D. IV fluids, bowel rest, and broad-spectrum antibiotics."
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Percutaneous drainage with antibiotics and supportive care manages contained appendiceal abscess.",
+            details: "A. Incorrect: Risks complications.\nB. Incorrect: Laparoscopy less preferred.\nC. Correct: Minimally invasive.\nD. Incorrect: Drainage needed."
+          },
+          {
+            text: "Which of the following physical signs is associated with the correct definition suggestive of acute appendicitis?",
+            choices: [
+              "A. Dunphy sign: pain in the RLQ with palpation on the left",
+              "B. Rovsing sign: pain in the RLQ on palpation of the left lower quadrant",
+              "C. Obturator sign: pain with extension of the leg",
+              "D. Iliopsoas sign: pain on internal rotation of the right"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Rovsing sign is RLQ pain on left lower quadrant palpation, indicating appendicitis.",
+            details: "A. Incorrect: Dunphy sign is pain with coughing.\nB. Correct: Peritoneal irritation.\nC. Incorrect: Obturator sign involves hip flexion/rotation.\nD. Incorrect: Iliopsoas sign involves leg extension."
+          },
+          {
+            text: "Which of the following statements most accurately describes the current therapy for pyogenic hepatic abscess?",
+            choices: [
+              "A. Antibiotics alone are adequate for the treatment of most cases.",
+              "B. All patients require open surgical drainage for optimal management.",
+              "C. Optimal treatment involves treatment of not only the abscess but the underlying source as well.",
+              "D. Percutaneous drainage is more successful for multiple lesions than for solitary ones."
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Treating the abscess and underlying source is optimal for pyogenic hepatic abscess.",
+            details: "A. Incorrect: Small abscesses only.\nB. Incorrect: Percutaneous preferred.\nC. Correct: Comprehensive approach.\nD. Incorrect: Solitary lesions easier."
+          },
+          {
+            text: "The most frequent manifestation of Meckel’s diverticulum is:",
+            choices: [
+              "A. Diverticulitis",
+              "B. Bleeding",
+              "C. Intussusception",
+              "D. Intestinal obstruction"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Bleeding is the most frequent manifestation due to ectopic gastric mucosa.",
+            details: "A. Incorrect: Less common.\nB. Correct: Common in children.\nC. Incorrect: Occasional.\nD. Incorrect: Less frequent."
           },
           {
             text: "The most frequent complication of Meckel’s diverticulum is:",
@@ -308,7 +467,163 @@
             ],
             correct: 3,
             explanation: "Correct Answer: D. Intestinal obstruction is the most frequent complication.",
-            details: "A. Incorrect: Less common.<br>B. Incorrect: Most frequent manifestation.<br>C. Incorrect: Less common.<br>D. Correct: Most frequent complication."
+            details: "A. Incorrect: Less common.\nB. inCorrect: Most frequent manifestation.\nC. Incorrect: Less common.\nD. correct: Most frequent."
+          },
+          {
+            text: "Diagnosis of duodenal ulcer perforation is based on:",
+            choices: [
+              "A. Board-like rigidity",
+              "B. Gas below diaphragm",
+              "C. Peritoneal lavage yielding alkaline bile-stained fluid",
+              "D. All of the above"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. All findings (rigidity, free air, and bile-stained fluid) diagnose duodenal ulcer perforation.",
+            details: "A. Incorrect: True but not exclusive.\nB. Incorrect: True but not exclusive.\nC. Incorrect: True but not exclusive.\nD. Correct: All diagnostic."
+          },
+          {
+            text: "Which of the following conditions is not precancerous for esophagus?",
+            choices: [
+              "A. Pharyngeal (Zenker's) diverticulum",
+              "B. GORD",
+              "C. Achalasia",
+              "D. Oesophageal candidiasis",
+              "E. Corrosive stricture"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Pharyngeal (Zenker’s) diverticulum is not precancerous for esophageal cancer.",
+            details: "A. Correct: No cancer risk.\nB. Incorrect: Precancerous via Barrett’s.\nC. Incorrect: Weak association with squamous carcinoma.\nD. Incorrect: Chronic inflammation may increase risk.\nE. Incorrect: Possible risk, though weak."
+          },
+          {
+            text: "A 48-year-old male who has had previous gastric resection for his peptic ulcer presents with tremor, faintness, and prostration 1.5 h after eating. This lasts for 30 min and is relieved by food and aggravated by exercise. Choose the correct diagnosis?",
+            choices: [
+              "A. Recurrent ulceration",
+              "B. Vitamin B12 deficiency",
+              "C. Early dumping syndrome",
+              "D. Late dumping syndrome",
+              "E. Postvagotomy diarrhea"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Late dumping syndrome causes hypoglycemia 1–3 hours post-meal, relieved by food.",
+            details: "A. Incorrect: Causes pain, bleeding.\nB. Incorrect: Neurological symptoms.\nC. Incorrect: Early symptoms within 30 min.\nD. Correct: Hypoglycemia matches.\nE. Incorrect: Diarrhea predominant."
+          },
+          {
+            text: "Which of the following is not a complication of GERD?",
+            choices: [
+              "A. Stricture",
+              "B. Barrett's oesophagus",
+              "C. Diffuse esophageal spasm",
+              "D. Oesophageal shortening",
+              "E. Oesophageal carcinoma"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Diffuse esophageal spasm is a motility disorder, not a GERD complication.",
+            details: "A. Incorrect: Chronic inflammation causes stricture.\nB. Incorrect: Precancerous change.\nC. Correct: Unrelated to GERD.\nD. Incorrect: Chronic scarring shortens esophagus.\nE. Incorrect: Via Barrett’s."
+          },
+          {
+            text: "A 50-year-old patient complains of chest pain on swallowing. This is usually episodic. He has had these symptoms for many years but recently they have become more frequent and severe. Choose the correct diagnosis?",
+            choices: [
+              "A. Diffuse esophageal spasm",
+              "B. Peptic stricture",
+              "C. Oesophageal carcinoma",
+              "D. Achalasia"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Diffuse esophageal spasm causes episodic chest pain on swallowing.",
+            details: "A. Correct: Motility disorder matches symptoms.\nB. Incorrect: Causes progressive dysphagia.\nC. Incorrect: Weight loss, progressive symptoms.\nD. Incorrect: Dysphagia predominant."
+          },
+          {
+            text: "Patients with right-sided colon cancer are more likely than patients with left-sided cancer to:",
+            choices: [
+              "A. Have obstructive signs.",
+              "B. Show bright red blood in stools.",
+              "C. Present with anemia.",
+              "D. Have constipation."
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Right-sided colon cancer often presents with anemia due to occult bleeding.",
+            details: "A. Incorrect: Left-sided more obstructive.\nB. Incorrect: Left-sided causes bright blood.\nC. Correct: Anemia from chronic blood loss.\nD. Incorrect: Left-sided more constipating."
+          },
+          {
+            text: "Which of the following statements is false?",
+            choices: [
+              "A. Left colonic cancers present with rectal bleeding and obstructive symptoms.",
+              "B. Intravenous urography (IVU) should be routinely done.",
+              "C. Even for an experienced colonoscopist, the failure rate to visualise the caecum is 10 per cent.",
+              "D. Synchronous cancers occur in 5 per cent."
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. IVU is not routinely done for colon cancer evaluation.",
+            details: "A. Incorrect: True, left-sided presentation.\nB. Correct: False, not routine.\nC. Incorrect: True, ~10% failure rate.\nD. Incorrect: True, ~5% incidence."
+          },
+          {
+            text: "An 85-year-old man is admitted with passage of dark clots per rectum. His blood pressure is 110/70 mmHg, and his pulse rate is 90/min. He has recently been complaining of left-sided abdominal pain and change in bowel habits. The most appropriate investigation?",
+            choices: [
+              "A. Colonoscopy",
+              "B. Double-contrast barium enema",
+              "C. Laparoscopy",
+              "D. Pelviabdominal ultrasound"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Colonoscopy evaluates bleeding and left-sided symptoms, likely colon cancer.",
+            details: "A. Correct: Diagnostic and therapeutic.\nB. Incorrect: Less sensitive.\nC. Incorrect: Invasive, not first-line.\nD. Incorrect: Limited for bowel."
+          },
+          {
+            text: "A 25-year-old female complains of vomiting and abdominal pain after eating BBQ, with normal vital signs. What is the most probable diagnosis?",
+            choices: [
+              "A. Celiac disease",
+              "B. IBS",
+              "C. Gastroenteritis"
+            ],
+            correct: 2,
+            explanation: "Correct Answer: C. Acute vomiting and pain post-BBQ suggest gastroenteritis, likely foodborne.",
+            details: "A. Incorrect: Chronic symptoms.\nB. Incorrect: Chronic, not acute post-meal.\nC. Correct: Matches acute presentation."
+          },
+          {
+            text: "All are true about IBS except?",
+            choices: [
+              "A. Related to defecation",
+              "B. Change in stool frequency",
+              "C. Change in stool form or appearance",
+              "D. Unintended weight loss"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Unintended weight loss is not a feature of IBS; it suggests organic disease.",
+            details: "A. Incorrect: Rome IV criterion.\nB. Incorrect: Rome IV criterion.\nC. Incorrect: Rome IV criterion.\nD. Correct: Not IBS-related."
+          },
+          {
+            text: "Wilson’s disease is treated by:",
+            choices: [
+              "A. Penicillamine",
+              "B. Trientine",
+              "C. Zinc",
+              "D. All of the above"
+            ],
+            correct: 3,
+            explanation: "Correct Answer: D. Penicillamine, trientine, and zinc are all used to treat Wilson’s disease.",
+            details: "A. Incorrect: True but not exclusive.\nB. Incorrect: True but not exclusive.\nC. Incorrect: True but not exclusive.\nD. Correct: All are treatments."
+          },
+          {
+            text: "A patient with positive anti-mitochondrial antibodies (AMA) has intrahepatic biliary destruction due to:",
+            choices: [
+              "A. Intrahepatic biliary destruction",
+              "B. Extrahepatic biliary destruction"
+            ],
+            correct: 0,
+            explanation: "Correct Answer: A. Positive AMA indicates primary biliary cholangitis, causing intrahepatic biliary destruction.",
+            details: "A. Correct: PBC affects intrahepatic ducts.\nB. Incorrect: Extrahepatic not involved."
+          },
+          {
+            text: "An ex-drug abuser with hepatitis C is waiting for treatment. What is the next best management plan?",
+            choices: [
+              "A. Antiviral therapy",
+              "B. Assessment for liver transplantation",
+              "C. Supportive care",
+              "D. Interferon therapy"
+            ],
+            correct: 1,
+            explanation: "Correct Answer: B. Assessment for transplantation is appropriate if awaiting treatment, suggesting advanced disease.",
+            details: "A. Incorrect: Already planned.\nB. Correct: Evaluates advanced disease.\nC. Incorrect: Not proactive.\nD. Incorrect: Outdated therapy."
           }
         ]
       };
@@ -349,6 +664,7 @@
             btn.innerText = decodeHtml(choice);
             btn.disabled = false;
             btn.onclick = () => {
+              console.log(`Button ${idx} clicked`);
               checkAnswer(idx, btn);
             };
             optionsBox.appendChild(btn);
